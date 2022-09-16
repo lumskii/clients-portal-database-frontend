@@ -1,6 +1,4 @@
 import React from 'react'
-import Navbar from '../../components/Navbar'
-import Header from '../../components/Header'
 import './styles.css';
 import {
   DashBoard,
@@ -13,11 +11,11 @@ import {
   DistributeHori,
   More,
 } from "./DashboardElements";
+import Navbar from '../../components/Navbar';
 
 const Dashboard = () => {
   return (
     <DashBoard>
-      <Header />
       <Navbar />
       <PageTemplate>
         <div className="header">

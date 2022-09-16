@@ -38,15 +38,14 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Login />} />
           <Route exact path='/forgot-password' element={< ForgotPassword />} />
+          <Route exact path='*' element={< NotFound />} />
         </Routes>
-        // <ForgotPassword />
       ) : (
         <Routes>
           <Route exact path='/' element={< Dashboard />} />
           <Route exact path='*' element={< NotFound />} />
-      </Routes>
+        </Routes>
       )}
-      
     </Router>
   );
 }

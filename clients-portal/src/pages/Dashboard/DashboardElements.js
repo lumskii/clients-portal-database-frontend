@@ -9,7 +9,6 @@ export const DashBoard = styled.div`
     background: #f5f5f5;
     height: 100vh;
     width: 100%;
-    position: absolute;
     overflow: hidden;
 `
 export const PageTemplate = styled.div`

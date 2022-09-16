@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import {
-  Nav,
   NavLink,
   Bars,
   NavMenu,
@@ -25,9 +24,20 @@ import {
   NavLinkTooltip,
   TooltipBox,
   LinkIcons,
+  Head,
+  HeadLink,
+  HeadLabel,
+  HeadBtnLink,
+  HeadInput,
+  Search,
+  Bell,
+  HeadBtns,
+  Chat,
+  LayOut
 } from "./NavbarElements";
 import Logo from "../../images/Logo.svg";
 import { auth } from "../../firebase";
+// import { IconContext } from "react-icons/lib";
 
 const Navbar = (position) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -107,13 +117,17 @@ const Navbar = (position) => {
   ];
 
   return (
-    <SideBar>
+    <>
+    <LayOut>
+    <SideBar isOpen={sidebarOpen}>
       <>
         <Bars isOpen={sidebarOpen} onClick={() => setSidebarOpen((p) => !p)} />
       </>
-      <Nav>
-        <NavLinkLogo to="/">
+      
+        <NavLinkLogo to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
+        {sidebarOpen && (
           <LogoBrand src={Logo} />
+        )}
         </NavLinkLogo>
 
         <NavMenu>
@@ -194,8 +208,30 @@ const Navbar = (position) => {
             </NavBtnLink>
           </NavBtn>
         </NavMenu>
-      </Nav>
     </SideBar>
+    
+    {/* ...Header Starts Here... */}
+    <Head isOpen={sidebarOpen}>
+      <HeadLink to="/">
+        <h1>Dashboard</h1>
+      </HeadLink>
+
+      <HeadLabel>
+        <HeadInput type="text" placeholder='Search anything here...' />
+        <Search />
+      </HeadLabel>
+
+        <HeadBtns>
+            <HeadBtnLink>
+            <Bell />
+            </HeadBtnLink>
+            <HeadBtnLink>
+            <Chat />
+            </HeadBtnLink>
+        </HeadBtns>
+    </Head>
+    </LayOut>
+  </>
   );
 };
 
