@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styles.css';
 import {
   DashBoard,
@@ -14,8 +14,11 @@ import {
 import Navbar from '../../components/Navbar';
 
 const Dashboard = () => {
+
+  const [sidebarOpened] = useState(false);
+
   return (
-    <DashBoard>
+    <DashBoard isOpened={sidebarOpened}>
       <Navbar />
       <PageTemplate>
         <div className="header">

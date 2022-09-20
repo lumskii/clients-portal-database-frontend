@@ -22,6 +22,7 @@ export const SideBar = styled.nav`
     background: #ff9900;
     padding: 6px 14px;
     transition: all 0.5s ease;
+    z-index: 100;
 `
 
 export const Bars = styled(FaBars)`
@@ -116,65 +117,73 @@ export const LinkIcons = styled.div`
 export const DashBoard = styled(MdOutlineDashboard)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const UserPlus = styled(FaUserPlus)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const UserEdit = styled(FaUserEdit)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const UsersCog = styled(FaUsersCog)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const PayMoney = styled(GiPayMoney)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const PointOfSale = styled(MdOutlinePointOfSale)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const DistributeHori = styled(BsDistributeHorizontal)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const HandsHelp = styled(FaHandsHelping)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const Gear = styled(VscGear)`
   height: 30px;
   min-width: 30px;
-  margin: 10px;
+  margin: auto 10px;
   line-height: 50px;
   text-align: center;
+`
+
+export const ListItems = styled.div`
+  display: grid;
+
+  @media screen and (max-height: 960px) {
+    max-height: 10px;
+  }
 `
 
 export const NavMenu = styled.div`

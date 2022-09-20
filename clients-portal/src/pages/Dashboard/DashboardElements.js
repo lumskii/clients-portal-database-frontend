@@ -12,7 +12,7 @@ export const DashBoard = styled.div`
     overflow: hidden;
 `
 export const PageTemplate = styled.div`
-    margin: 50px 350px;
+    margin: 50px ${({ isOpened }) => (!isOpened ? `150px` : `350px`)};
     background: #fefefe;
     border-radius: 5px;
     overflow-x: hidden;
