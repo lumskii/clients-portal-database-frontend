@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import ClientSetup from './pages/ClientSetup';
+// import Testing from './components/Navbar/Testing';
 import Login from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword';
 import NotFound from './pages/NotFound';
@@ -43,7 +45,9 @@ function App() {
       ) : (
         <Routes>
           <Route exact path='/' element={< Dashboard />} />
-          <Route exact path='*' element={< NotFound />} />
+          {/* <Route exact path='/' element={< Testing />} /> */}
+          <Route path='/client-setup' element={< ClientSetup />} />
+          <Route path='*' element={< NotFound />} />
         </Routes>
       )}
     </Router>

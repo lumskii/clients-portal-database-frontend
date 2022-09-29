@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   NavLink,
   Bars,
@@ -12,8 +12,6 @@ import {
   MenuBar,
   ProfileArea,
   ArrowDown,
-  NavLinkTooltip,
-  TooltipBox,
   LinkIcons,
   Head,
   HeadLink,
@@ -33,18 +31,6 @@ import {linksArray, secondaryLinksArray} from "./NavbarData";
 // import { IconContext } from "react-icons/lib";
 
 const Navbar = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const targetRef = useRef(null);
-  const showTooltip = isHovered || isFocused;
-  const showTooltipSecondary = isHovered || isFocused;
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    if (targetRef.current) {
-      targetRef.current.blur();
-    }
-  };
 
   const [showContents, setShowContents] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -66,29 +52,16 @@ const Navbar = () => {
         <ListItems>
         <NavMenu>
           <MenuBar>Main Menu</MenuBar>
-          {linksArray.map(({ label, icon, to, notification }) => (
+          {linksArray.map(({ label, icon, to, index }) => (
             <NavLink
+              key={index}
               to={to}
-              activeStyle
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              onClick={handleClick}
-              ref={targetRef}
-              showOnFocus={isFocused}
               style={!sidebarOpen ? { width: `fit-content` } : {}}
             >
               <LinkIcons>{icon}</LinkIcons>
               {sidebarOpen && (
               <>
               {label}
-              {/* hide or show notifications on hover */}
-              {showTooltip && (
-                <NavLinkTooltip>
-                  <TooltipBox>{notification}</TooltipBox>
-                </NavLinkTooltip>
-              )}
               </>
               )}
             </NavLink>
@@ -97,28 +70,16 @@ const Navbar = () => {
 
         <NavMenu>
           <MenuBar>Help & Support</MenuBar>
-          {secondaryLinksArray.map(({ label, icon, to, notification }) => (
+          {secondaryLinksArray.map(({ label, icon, to, index }) => (
             <NavLink
+              key={index}
               to={to}
-              activeStyle
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              onClick={handleClick}
-              ref={targetRef}
-              showOnFocus={isFocused}
               style={!sidebarOpen ? { width: `fit-content` } : {}}
             >
               <LinkIcons>{icon}</LinkIcons>
               {sidebarOpen && (
               <>
               {label}
-              {showTooltipSecondary && (
-                <NavLinkTooltip>
-                  {notification}
-                </NavLinkTooltip>
-              )}
               </>
               )}
             </NavLink>

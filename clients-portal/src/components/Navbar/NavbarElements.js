@@ -6,12 +6,11 @@ import {
   FaUserEdit,
   FaUsersCog,
   FaHandsHelping,
-  FaBars,
   FaSearch,
   FaRegBell,
 } from "react-icons/fa";
 import {GiPayMoney} from 'react-icons/gi';
-import {BsDistributeHorizontal, BsChatDots} from 'react-icons/bs';
+import {BsDistributeHorizontal, BsChatDots, BsBoxArrowInLeft} from 'react-icons/bs';
 import {VscGear} from 'react-icons/vsc';
 import {CgProfile} from 'react-icons/cg';
 
@@ -25,10 +24,10 @@ export const SideBar = styled.nav`
     z-index: 100;
 `
 
-export const Bars = styled(FaBars)`
-  color: #000;
+export const Bars = styled(BsBoxArrowInLeft)`
+  color: ${({ isOpen }) => (isOpen ? `#000` : `#fff`)};
   position: absolute;
-  right: ${({ isOpen }) => (isOpen ? `20px` : `0px`)};
+  right: ${({ isOpen }) => (isOpen ? `20px` : `50px`)};
   top: 20px;
   font-size: 20px;
   height: 35px;
@@ -39,12 +38,11 @@ export const Bars = styled(FaBars)`
   transition: 350ms;
   z-index: 100;
 
-  transform: ${({ isOpen }) => (!isOpen ? `rotate(90deg)` : `initial`)};
+  transform: ${({ isOpen }) => (!isOpen ? `rotate(180deg)` : `initial`)};
 `
 
 export const LogoBrand = styled.img`
     width: 160px;
-    fill: #fff;
 `
 
 export const LogoBrandTwo = styled.img`
@@ -65,7 +63,7 @@ export const MenuBar = styled.div`
   font-size: .75rem;
   text-transform: uppercase;
   color: #fff;
-  left: 20px;
+  left: ${({ isOpen }) => (isOpen ? `20px` : `0px`)};
   position: relative;
   top: -8px;
 
@@ -75,8 +73,12 @@ export const MenuBar = styled.div`
     height: 1px;
     background: #BCB9B9;
     position: absolute;
-    left: -20px;
+    left: ${({ isOpen }) => (isOpen ? `-20px` : `0px`)};
     top: -15px;
+
+    @media screen and (max-height: 768px) {
+      top: 0px;
+    }
   }
 `
 
@@ -101,6 +103,9 @@ export const NavLink = styled(Tacos)`
   &.active {
     color: #fff;
     background: #BCB9B9;
+  }
+  @media screen and (max-height: 768px) {
+    margin: 0px;
   }
 
   ${({showOnFocus}) =>
@@ -182,23 +187,31 @@ export const ListItems = styled.div`
   display: grid;
 
   @media screen and (max-height: 960px) {
-    max-height: 10px;
+    margin: 0px;
   }
 `
 
 export const NavMenu = styled.div`
   margin-top: 80px;
+
+  @media screen and (max-height: 768px) {
+    margin-top: 60px;
+  }
 `
 
 export const NavBtn = styled.div`
   position: absolute;
   display: flex;
   color: #fff;
-  left: 0;
-  margin: 50px auto;
+  left: 10;
+  margin: 100px auto;
   text-align: center;
   font-size: 1.1rem;
   font-weight: bold;
+
+  @media screen and (max-height: 768px) {
+    margin: 0px;
+  }
 `
 
 export const NavBtnLink = styled.div`
@@ -208,7 +221,7 @@ export const NavBtnLink = styled.div`
   line-height: 35px;
 `
 export const ArrowDown = styled.span`
-  margin-left: 25px;
+  margin-left: ${({ isOpen }) => (isOpen ? `10px` : `5px`)};
   cursor: pointer;
   font-size: 1.5rem;
   position: relative;
@@ -231,7 +244,7 @@ export const ProfileArea = styled.div`
   background: #000;
   color: #fff;
   top: 50px;
-  right: 15px;
+  right: ${({ isOpen }) => (isOpen ? `25px` : `10px`)};
   cursor: pointer;
 `
 export const NavLinkTooltip = styled.span`

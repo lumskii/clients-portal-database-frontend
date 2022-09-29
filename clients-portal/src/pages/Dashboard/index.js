@@ -1,76 +1,55 @@
-import React, { useState } from 'react'
-import './styles.css';
+import React, { useState } from "react";
+import "./styles.css";
 import {
   DashBoard,
   PageTemplate,
-  UserPlus,
-  UserEdit,
-  UsersCog,
-  PayMoney,
-  PointOfSale,
-  DistributeHori,
   More,
+  StatArea,
+  StatTemplate,
 } from "./DashboardElements";
-import Navbar from '../../components/Navbar';
+import Navbar from "../../components/Navbar";
+import { dashLinks } from "./DashboardData";
+import { NavLink as Links } from "react-router-dom";
 
 const Dashboard = () => {
-
   const [sidebarOpened] = useState(false);
+  const [showContents, setShowContents] = useState(false);
 
   return (
     <DashBoard isOpened={sidebarOpened}>
       <Navbar />
       <PageTemplate>
         <div className="header">
-            <p className='header-title'>Dashboard Overview</p>
-            <div className='symbols'><More /></div>
+          <p className="header-title">Dashboard Overview</p>
+          <div
+            className="symbols"
+            onClick={() => setShowContents(!showContents)}
+          >
+            {showContents === true ? "X" : <More />}
+          </div>
+          {showContents && <StatArea>Statistic Stuffs</StatArea>}
         </div>
-        <div class="cards">
-          <div class="card">
-            <div class="card__inner">
-                <UserPlus />
-                <span className='text'>Set Up New Client</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__inner">
-                <UserEdit />
-                <span className='text'>Edit a Client</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__inner">
-                <UsersCog />
-                <span className='text'>Bulk Updates</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__inner">
-                <PayMoney />
-                <span className='text'>Add Expenses</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__inner">
-                <PointOfSale />
-                <span className='text'>Add/Edit Sales Revenue</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__inner">
-                <DistributeHori />
-                <span className='text'>Add/Edit Distribution Revenue</span>
-            </div>
-          </div>
+        <div className="cards">
+          {dashLinks.map((item, index) => {
+            return (
+              <div className="card">
+                <Links key={index} to={item.to} className="links">
+                  <div className="card__inner">
+                    {item.icon}
+                    <span className="text">{item.label}</span>
+                  </div>
+                </Links>
+              </div>
+            );
+          })}
         </div>
       </PageTemplate>
+
+      {/* .........Statistic Template starts here......... */}
+
+      <StatTemplate></StatTemplate>
     </DashBoard>
   );
-}
+};
 
-export default Dashboard
+export default Dashboard;

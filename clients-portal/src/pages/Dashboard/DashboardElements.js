@@ -12,10 +12,14 @@ export const DashBoard = styled.div`
     overflow: hidden;
 `
 export const PageTemplate = styled.div`
-    margin: 50px ${({ isOpened }) => (!isOpened ? `150px` : `350px`)};
+    // margin: 50px ${({ isOpened }) => (!isOpened ? `150px` : `350px`)};
+    margin: 50px 350px;
     background: #fefefe;
     border-radius: 5px;
     overflow-x: hidden;
+    justify-content: center;
+    // align-items: center;
+    padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     max-width: calc(100vw - 280px);
     min-width: 350px;
@@ -93,4 +97,21 @@ export const DistributeHori = styled(BsDistributeHorizontal)`
 export const More = styled(CgMore)`
      height: 30px;
      width: 30px;
+`
+
+export const StatArea = styled.div`
+  position: absolute;
+  width: content-fit;
+  height: 80px;
+  font-size: 1.2rem;
+  background: #000;
+  color: #fff;
+  top: 50px;
+  right: 40px;
+  padding: 20px;
+  margin: auto 20px;
+`
+
+export const StatTemplate = styled.div`
+
 `
