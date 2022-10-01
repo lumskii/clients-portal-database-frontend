@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import Navbar from '../../components/Navbar'
-import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
-import {Header, HeaderTitle} from './ClientSetupElements'
-import './ClientStyles.css'
+import React, { useState, useEffect } from "react";
+import Navbar from "../../components/Navbar";
+import { DashBoard, PageTemplate } from "../Dashboard/DashboardElements";
+import { Header, HeaderTitle } from "./ClientSetupElements";
+import "./ClientStyles.css";
 
 const ClientSetup = () => {
   const [details, setDetails] = useState({
@@ -32,23 +32,24 @@ const ClientSetup = () => {
   });
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setDetails((prev) => {
-      return {...prev, [name]: value};
-    })
+      return { ...prev, [name]: value };
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(details);
-  }
+  };
 
-  // useEffect(() => {
-  //   const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
+  useEffect(() => {
+    const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
 
-  // }, [])
+    setDetails({ ...details, filmsCode: filmCode });
+  }, []);
 
-  const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
+  // const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
 
   return (
     <DashBoard>
@@ -60,15 +61,40 @@ const ClientSetup = () => {
         <div className="cap">
           <form className="form_space" onSubmit={handleSubmit}>
             <p>Film name</p>
-            <input className="text_area" type="text" name="filmName" onChange={handleChange} />
+            <input
+              className="text_area"
+              type="text"
+              name="filmName"
+              onChange={handleChange}
+            />
             <p>Producer's Email</p>
-            <input className="text_area" type="email" name="producersEmail" onChange={handleChange} />
+            <input
+              className="text_area"
+              type="email"
+              name="producersEmail"
+              onChange={handleChange}
+            />
             <p>Film's Password</p>
-            <input className="text_area" type="password" name="filmsPassword" onChange={handleChange} />
+            <input
+              className="text_area"
+              type="password"
+              name="filmsPassword"
+              onChange={handleChange}
+            />
             <p>Film's Code</p>
-            <input className="text_area" type="text" value={`${filmCode}`} name="filmsCode" />
+            <input
+              className="text_area"
+              type="text"
+              value={`${details.filmsCode}`}
+              name="filmsCode"
+            />
             <p>Distribution type</p>
-            <select id="dropdown" className="text_area" name="distributionType" onChange={handleChange}>
+            <select
+              id="dropdown"
+              className="text_area"
+              name="distributionType"
+              onChange={handleChange}
+            >
               <option disabled selected value="">
                 Please select category
               </option>
@@ -77,30 +103,58 @@ const ClientSetup = () => {
               <option value="sales_distribution">Sales & Distribution</option>
             </select>
 
-
             <p>Agreement Information</p>
-            <span className='sub_heading'>Right of Sale</span>
+            <span className="sub_heading">Right of Sale</span>
             <label className="option">
-            <input className="radio-check" type="radio" value="yes" name="rightSale" onChange={handleChange} />
-            <span>Yes</span>
-            </label> 
+              <input
+                className="radio-check"
+                type="radio"
+                value="yes"
+                name="rightSale"
+                onChange={handleChange}
+              />
+              <span>Yes</span>
+            </label>
             <label className="option">
-            <input className="radio-check" type="radio" value="no" name="rightSale" onChange={handleChange} />
-            <span>No</span>
-            </label> 
+              <input
+                className="radio-check"
+                type="radio"
+                value="no"
+                name="rightSale"
+                onChange={handleChange}
+              />
+              <span>No</span>
+            </label>
 
-            <span className='sub_heading'>CAMA Involved</span>
+            <span className="sub_heading">CAMA Involved</span>
             <label className="option">
-            <input className="radio-check" type="radio" value="yes" name="cama" onChange={handleChange} />
-            <span>Yes</span>
-            </label> 
+              <input
+                className="radio-check"
+                type="radio"
+                value="yes"
+                name="cama"
+                onChange={handleChange}
+              />
+              <span>Yes</span>
+            </label>
             <label className="option">
-            <input className="radio-check" type="radio" value="no" name="cama" onChange={handleChange} />
-            <span>No</span>
-            </label> 
+              <input
+                className="radio-check"
+                type="radio"
+                value="no"
+                name="cama"
+                onChange={handleChange}
+              />
+              <span>No</span>
+            </label>
 
-            <span className='sub_heading'>Country of Law</span>
-            <select id="dropdown2" className="text_area2" name="countryLaw" onChange={handleChange}>
+            <span className="sub_heading">Country of Law</span>
+            <select
+              id="dropdown2"
+              className="text_area2"
+              name="countryLaw"
+              onChange={handleChange}
+            >
               <option disabled selected value="">
                 Please select category
               </option>
@@ -113,8 +167,13 @@ const ClientSetup = () => {
               <option value="other">other...</option>
             </select>
 
-            <span className='sub_heading'>State of Law</span>
-            <select id="dropdown3" className="text_area2" name="stateLaw" onChange={handleChange}>
+            <span className="sub_heading">State of Law</span>
+            <select
+              id="dropdown3"
+              className="text_area2"
+              name="stateLaw"
+              onChange={handleChange}
+            >
               <option disabled selected value="">
                 Please select category
               </option>
@@ -123,23 +182,55 @@ const ClientSetup = () => {
               <option value="other">other...</option>
             </select>
 
-            <span className='sub_heading'>Effective Date</span>
-            <input className="text_area2" type="date" name="effectiveDate" onChange={handleChange} />
+            <span className="sub_heading">Effective Date</span>
+            <input
+              className="text_area2"
+              type="date"
+              name="effectiveDate"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Date of Signature</span>
-            <input className="text_area2" type="date" name="dateSignature" onChange={handleChange} />
+            <span className="sub_heading">Date of Signature</span>
+            <input
+              className="text_area2"
+              type="date"
+              name="dateSignature"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Renewal Date</span>
-            <input className="text_area2" type="date" name="renewalDate" onChange={handleChange} />
+            <span className="sub_heading">Renewal Date</span>
+            <input
+              className="text_area2"
+              type="date"
+              name="renewalDate"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Renewal Expiration</span>
-            <input className="text_area2" type="date" name="renewalExpiration" onChange={handleChange}/>
+            <span className="sub_heading">Renewal Expiration</span>
+            <input
+              className="text_area2"
+              type="date"
+              name="renewalExpiration"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Gross Corridor %</span>
-            <input className="text_area2" type="number" min="1" max="100" name="grossCor" onChange={handleChange} />
+            <span className="sub_heading">Gross Corridor %</span>
+            <input
+              className="text_area2"
+              type="number"
+              min="1"
+              max="100"
+              name="grossCor"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Gross Corridor Rights</span>
-            <select id="dropdown4" className="text_area2" name="grossCorRights" onChange={handleChange}>
+            <span className="sub_heading">Gross Corridor Rights</span>
+            <select
+              id="dropdown4"
+              className="text_area2"
+              name="grossCorRights"
+              onChange={handleChange}
+            >
               <option disabled selected value="">
                 Please select category
               </option>
@@ -150,26 +241,69 @@ const ClientSetup = () => {
               <option value="sell_thru">Sell through...</option>
             </select>
 
-            <span className='sub_heading'>Sales Fee %</span>
-            <input className="text_area2" type="number" min="1" max="100" name="salesFee" onChange={handleChange} />
+            <span className="sub_heading">Sales Fee %</span>
+            <input
+              className="text_area2"
+              type="number"
+              min="1"
+              max="100"
+              name="salesFee"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Producer Payment Terms</span>
-            <input className="text_area2" type="text" name="producerPay" onChange={handleChange} />
+            <span className="sub_heading">Producer Payment Terms</span>
+            <input
+              className="text_area2"
+              type="text"
+              name="producerPay"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Expense Cap</span>
-            <input className="text_area2" type="text" placeholder='$' name="expenseCap" onChange={handleChange} />
+            <span className="sub_heading">Expense Cap</span>
+            <input
+              className="text_area2"
+              type="text"
+              placeholder="$"
+              name="expenseCap"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Delivery Fees</span>
-            <input className="text_area2" type="text" placeholder='$' name="deliveryFees" onChange={handleChange} />
-              
-            <span className='sub_heading'>Distribution Fee %</span>
-            <input className="text_area2" type="number" min="1" max="100" name="distributionFee" onChange={handleChange} />
+            <span className="sub_heading">Delivery Fees</span>
+            <input
+              className="text_area2"
+              type="text"
+              placeholder="$"
+              name="deliveryFees"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Income Reserves %</span>
-            <input className="text_area2" type="number" min="1" max="100" name="incomeReserves" onChange={handleChange} />
+            <span className="sub_heading">Distribution Fee %</span>
+            <input
+              className="text_area2"
+              type="number"
+              min="1"
+              max="100"
+              name="distributionFee"
+              onChange={handleChange}
+            />
 
-            <span className='sub_heading'>Other Expenses Caps Description</span>
-            <select id="dropdown5" className="text_area2" name="otherExps" onChange={handleChange}>
+            <span className="sub_heading">Income Reserves %</span>
+            <input
+              className="text_area2"
+              type="number"
+              min="1"
+              max="100"
+              name="incomeReserves"
+              onChange={handleChange}
+            />
+
+            <span className="sub_heading">Other Expenses Caps Description</span>
+            <select
+              id="dropdown5"
+              className="text_area2"
+              name="otherExps"
+              onChange={handleChange}
+            >
               <option disabled selected value="">
                 Please select category
               </option>
@@ -177,8 +311,13 @@ const ClientSetup = () => {
               <option value="anotherExps">Another Expense...</option>
             </select>
 
-            <span className='sub_heading'>Accounting Terms</span>
-            <select id="dropdown6" className="text_area2" name="accountingTerms" onChange={handleChange}>
+            <span className="sub_heading">Accounting Terms</span>
+            <select
+              id="dropdown6"
+              className="text_area2"
+              name="accountingTerms"
+              onChange={handleChange}
+            >
               <option disabled selected value="">
                 Please select category
               </option>
@@ -197,6 +336,6 @@ const ClientSetup = () => {
       </PageTemplate>
     </DashBoard>
   );
-}
+};
 
-export default ClientSetup
+export default ClientSetup;
