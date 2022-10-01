@@ -8,15 +8,17 @@ import {
   StatTemplate,
 } from "./DashboardElements";
 import Navbar from "../../components/Navbar";
+// import { sidebarOpen } from "../../components/Navbar";
 import { dashLinks } from "./DashboardData";
 import { NavLink as Links } from "react-router-dom";
 
 const Dashboard = () => {
-  const [sidebarOpened] = useState(false);
+  // const {sidebarOpen} = useContext(sidebarOpen);
   const [showContents, setShowContents] = useState(false);
 
   return (
-    <DashBoard isOpened={sidebarOpened}>
+    // <DashBoard isOpened={sidebarOpen}>
+    <DashBoard>
       <Navbar />
       <PageTemplate>
         <div className="header">

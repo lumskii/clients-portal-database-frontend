@@ -51,7 +51,7 @@ export const linksArray = [
     {
       label: "Add/Edit Sales Revenue",
       icon: <PointOfSale />,
-      to: "/add-edit-sales-revenue",
+      to: "/add-edit-sales",
       notification: "Add/Edit Sales Revenue",
       cName: 'nav-text' 
     },

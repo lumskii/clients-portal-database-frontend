@@ -10,15 +10,15 @@ export const DashBoard = styled.div`
     height: 100vh;
     width: 100%;
     overflow: hidden;
+    padding-bottom: 10em;
 `
 export const PageTemplate = styled.div`
-    // margin: 50px ${({ isOpened }) => (!isOpened ? `150px` : `350px`)};
+    // margin: 50px ${({ isOpen }) => (!isOpen ? `150px` : `350px`)};
     margin: 50px 350px;
     background: #fefefe;
     border-radius: 5px;
     overflow-x: hidden;
     justify-content: center;
-    // align-items: center;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     max-width: calc(100vw - 280px);

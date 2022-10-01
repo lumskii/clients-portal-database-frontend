@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
+import AddEditSales from './pages/AddEditSales';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route exact path='/' element={< Dashboard />} />
           {/* <Route exact path='/' element={< Testing />} /> */}
           <Route path='/client-setup' element={< ClientSetup />} />
+          <Route path='/add-edit-sales' element={< AddEditSales />} />
           <Route path='*' element={< NotFound />} />
         </Routes>
       )}

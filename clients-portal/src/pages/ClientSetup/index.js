@@ -43,6 +43,13 @@ const ClientSetup = () => {
     console.log(details);
   }
 
+  // useEffect(() => {
+  //   const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
+
+  // }, [])
+
+  const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
+
   return (
     <DashBoard>
       <Navbar />
@@ -59,7 +66,7 @@ const ClientSetup = () => {
             <p>Film's Password</p>
             <input className="text_area" type="password" name="filmsPassword" onChange={handleChange} />
             <p>Film's Code</p>
-            <input className="text_area" type="text" name="filmsCode" onChange={handleChange} />
+            <input className="text_area" type="text" value={`${filmCode}`} name="filmsCode" />
             <p>Distribution type</p>
             <select id="dropdown" className="text_area" name="distributionType" onChange={handleChange}>
               <option disabled selected value="">
@@ -73,27 +80,27 @@ const ClientSetup = () => {
 
             <p>Agreement Information</p>
             <span className='sub_heading'>Right of Sale</span>
-            <label class="option">
+            <label className="option">
             <input className="radio-check" type="radio" value="yes" name="rightSale" onChange={handleChange} />
             <span>Yes</span>
             </label> 
-            <label class="option">
+            <label className="option">
             <input className="radio-check" type="radio" value="no" name="rightSale" onChange={handleChange} />
             <span>No</span>
             </label> 
 
             <span className='sub_heading'>CAMA Involved</span>
-            <label class="option">
+            <label className="option">
             <input className="radio-check" type="radio" value="yes" name="cama" onChange={handleChange} />
             <span>Yes</span>
             </label> 
-            <label class="option">
+            <label className="option">
             <input className="radio-check" type="radio" value="no" name="cama" onChange={handleChange} />
             <span>No</span>
             </label> 
 
             <span className='sub_heading'>Country of Law</span>
-            <select id="dropdown" className="text_area2" name="countryLaw" onChange={handleChange}>
+            <select id="dropdown2" className="text_area2" name="countryLaw" onChange={handleChange}>
               <option disabled selected value="">
                 Please select category
               </option>
@@ -107,7 +114,7 @@ const ClientSetup = () => {
             </select>
 
             <span className='sub_heading'>State of Law</span>
-            <select id="dropdown" className="text_area2" name="stateLaw" onChange={handleChange}>
+            <select id="dropdown3" className="text_area2" name="stateLaw" onChange={handleChange}>
               <option disabled selected value="">
                 Please select category
               </option>
@@ -132,7 +139,7 @@ const ClientSetup = () => {
             <input className="text_area2" type="number" min="1" max="100" name="grossCor" onChange={handleChange} />
 
             <span className='sub_heading'>Gross Corridor Rights</span>
-            <select id="dropdown" className="text_area2" name="grossCorRights" onChange={handleChange}>
+            <select id="dropdown4" className="text_area2" name="grossCorRights" onChange={handleChange}>
               <option disabled selected value="">
                 Please select category
               </option>
@@ -162,7 +169,7 @@ const ClientSetup = () => {
             <input className="text_area2" type="number" min="1" max="100" name="incomeReserves" onChange={handleChange} />
 
             <span className='sub_heading'>Other Expenses Caps Description</span>
-            <select id="dropdown" className="text_area2" name="otherExps" onChange={handleChange}>
+            <select id="dropdown5" className="text_area2" name="otherExps" onChange={handleChange}>
               <option disabled selected value="">
                 Please select category
               </option>
@@ -171,7 +178,7 @@ const ClientSetup = () => {
             </select>
 
             <span className='sub_heading'>Accounting Terms</span>
-            <select id="dropdown" className="text_area2" name="accountingTerms" onChange={handleChange}>
+            <select id="dropdown6" className="text_area2" name="accountingTerms" onChange={handleChange}>
               <option disabled selected value="">
                 Please select category
               </option>
