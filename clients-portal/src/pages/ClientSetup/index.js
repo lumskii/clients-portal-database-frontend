@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import { DashBoard, PageTemplate } from "../Dashboard/DashboardElements";
 import { Header, HeaderTitle } from "./ClientSetupElements";
+import Select, { components } from "react-select";
 import "./ClientStyles.css";
 
 const ClientSetup = () => {
@@ -30,6 +31,7 @@ const ClientSetup = () => {
     otherExps: "",
     accountingTerms: "",
   });
+  const [titles, setTitles] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,9 +47,40 @@ const ClientSetup = () => {
 
   useEffect(() => {
     const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
-
+    console.log("filmcode", filmCode);
     setDetails({ ...details, filmsCode: filmCode });
   }, []);
+
+  useEffect(() => {
+    const callBackendAPI = () => {
+      console.log("fetching...");
+      fetch("/titles")
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("res", res.data.titles);
+            let allTitles = res.data.titles.map((title) => ({
+              label: title.title,
+              value: title.title,
+              key: title._id,
+            }));
+
+            setTitles(allTitles);
+          } else {
+            console.log("unable to fetch");
+          }
+        });
+    };
+
+    callBackendAPI();
+  }, []);
+
+  const CustomInput = (props) => {
+    const { maxLength } = props.selectProps;
+    const inputProps = { ...props, maxLength };
+
+    return <components.Input {...inputProps} />;
+  };
 
   // const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
 
@@ -61,11 +94,16 @@ const ClientSetup = () => {
         <div className="cap">
           <form className="form_space" onSubmit={handleSubmit}>
             <p>Film name</p>
-            <input
+            {/* <input
               className="text_area"
               type="text"
               name="filmName"
               onChange={handleChange}
+            /> */}
+            <Select
+              options={titles}
+              components={{ Input: CustomInput }}
+              maxLength="4"
             />
             <p>Producer's Email</p>
             <input
