@@ -47,6 +47,7 @@
     top: 10px;
     margin: auto 10px;
     width: fit-content;
+    max-width: 800px;
     padding: auto 460px;
     justify-content: center;
   }

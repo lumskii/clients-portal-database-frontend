@@ -6,28 +6,15 @@ import {
   NavBtnLink,
   NavBtn,
   SideBar,
-  LogoBrand,
   ProfilePic,
-  NavLinkLogo,
   MenuBar,
   ProfileArea,
   ArrowDown,
   LinkIcons,
-  Head,
-  HeadLink,
-  HeadLabel,
-  HeadBtnLink,
-  HeadInput,
-  Search,
-  Bell,
-  HeadBtns,
-  Chat,
-  LayOut,
   ListItems
 } from "./NavbarElements";
-import Logo from "../../images/Logo.svg";
 import { auth } from "../../firebase";
-import {linksArray, secondaryLinksArray} from "./NavbarData";
+import {linksArray, secondaryLinksArray, thirdLinksArray} from "./NavbarData";
 // import { IconContext } from "react-icons/lib";
 
 const Navbar = () => {
@@ -37,17 +24,16 @@ const Navbar = () => {
 
   return (
     <>
-    <LayOut>
     <SideBar isOpen={sidebarOpen}>
       <>
         <Bars isOpen={sidebarOpen} onClick={() => setSidebarOpen((p) => !p)} />
       </>
       
-        <NavLinkLogo to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
+        {/* <NavLinkLogo to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
         {sidebarOpen && (
           <LogoBrand src={Logo} />
         )}
-        </NavLinkLogo>
+        </NavLinkLogo> */}
 
         <ListItems>
         <NavMenu>
@@ -69,7 +55,7 @@ const Navbar = () => {
         </NavMenu>
 
         <NavMenu>
-          <MenuBar>Help & Support</MenuBar>
+          <MenuBar>Edit</MenuBar>
           {secondaryLinksArray.map(({ label, icon, to, index }) => (
             <NavLink
               key={index}
@@ -84,7 +70,27 @@ const Navbar = () => {
               )}
             </NavLink>
           ))}
+          </NavMenu>
 
+        <NavMenu>
+          <MenuBar>Help</MenuBar>
+          {thirdLinksArray.map(({ label, icon, to, index }) => (
+            <NavLink
+              key={index}
+              to={to}
+              style={!sidebarOpen ? { width: `fit-content` } : {}}
+            >
+              <LinkIcons>{icon}</LinkIcons>
+              {sidebarOpen && (
+              <>
+              {label}
+              </>
+              )}
+            </NavLink>
+          ))}
+          </NavMenu>
+          
+          <NavMenu>
           <NavBtn style={!sidebarOpen ? { width: `fit-content` } : {}}>
             <ProfilePic />
             
@@ -102,12 +108,12 @@ const Navbar = () => {
               )}
             </NavBtnLink>
           </NavBtn>
-        </NavMenu>
+          </NavMenu>
       </ListItems>
     </SideBar>
     
     {/* ...Header Starts Here... */}
-    <Head isOpen={sidebarOpen}>
+    {/* <Head isOpen={sidebarOpen}>
       <HeadLink to="/">
         <h1>Dashboard</h1>
       </HeadLink>
@@ -125,8 +131,7 @@ const Navbar = () => {
             <Chat />
             </HeadBtnLink>
         </HeadBtns>
-    </Head>
-    </LayOut>
+    </Head> */}
   </>
   );
 };

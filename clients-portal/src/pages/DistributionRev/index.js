@@ -2,43 +2,48 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
-import './SalesStyle.css'
 
-const AddEditSales = () => {
-    const [details, setDetails] = useState({
-        cName: "",
-        territory: "",
-        salesAmount: "",
-        receivedAmount: "",
-        dealCD: "",
-        dealED: "",
-    });
+const Distribution = () => {
+        const [showContents, setShowContents] = useState(false);
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setDetails((prev) => {
-            return {...prev, [name]: value};
-        })
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(details);
-    }
+        const [details, setDetails] = useState({
+            cName: "",
+            cType: "",
+            rType: "",
+            territory: "",
+            revenueAmount: "",
+            receivedAmount: "",
+        });
+    
+        const handleChange = (e) => {
+            const {name, value} = e.target;
+            setDetails((prev) => {
+                return {...prev, [name]: value};
+            })
+        };
+    
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            console.log(details);
+        }
 
   return (
     <DashBoard>
       <Navbar />
       <PageTemplate>
         <Header>
-          <HeaderTitle>Add/Edit Sales Revenue</HeaderTitle>
+          <HeaderTitle>Add/Edit Distribution Revenue</HeaderTitle>
         </Header>
 
         <div className="cap">
           <div className="form_wrapper">
             <div className="form_heading">
-              <div className="heading_space current">Add Sales Revenue</div>
-              <div className="heading_space">Edit Sales Revenue</div>
+              <div className="heading_space current">
+                Add Distribution Revenue
+              </div>
+              <div className="heading_space" onClick={() => setShowContents(!showContents)}>
+                {showContents === true }Edit Distribution Revenue
+                </div>
             </div>
             <form className="form" onSubmit={handleSubmit}>
               <div className="form-input">
@@ -49,6 +54,41 @@ const AddEditSales = () => {
                   name="cName"
                   onChange={handleChange}
                 />
+              </div>
+              <div className="form-input">
+                <p>Company Type</p>
+                <select
+                  type="dropdown"
+                  className="text_area"
+                  name="cType"
+                  onChange={handleChange}
+                >
+                  <option disabled selected value="">
+                    Please select category
+                  </option>
+                  <option value="platform">Platform</option>
+                  <option value="retail">Retail</option>
+                  <option value="miscellaneous">Miscellaneous...</option>
+                </select>
+              </div>
+              <div className="form-input">
+                <p>Rights Type</p>
+                <select
+                  type="dropdown"
+                  className="text_area"
+                  name="rType"
+                  onChange={handleChange}
+                >
+                  <option disabled selected value="">
+                    Please select category
+                  </option>
+                  <option value="tvod">TVOD</option>
+                  <option value="svod">SVOD</option>
+                  <option value="tv">TV</option>
+                  <option value="avod">AVOD</option>
+                  <option value="sellThru">sell Through</option>
+                  <option value="miscellaneous">Miscellaneous...</option>
+                </select>
               </div>
               <div className="form-input">
                 <p>Territory</p>
@@ -92,11 +132,11 @@ const AddEditSales = () => {
                 </select>
               </div>
               <div className="form-input">
-                <p>Sales Amount</p>
+                <p>Revenue Amount</p>
                 <input
                   type="number"
                   className="text_area"
-                  name="salesAmount"
+                  name="revenueAmount"
                   onChange={handleChange}
                 />
               </div>
@@ -106,24 +146,6 @@ const AddEditSales = () => {
                   type="number"
                   className="text_area"
                   name="receivedAmount"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-input">
-                <p>Deal closed Date</p>
-                <input
-                  type="date"
-                  className="text_area"
-                  name="dealCD"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-input">
-                <p>Deal Entered Date</p>
-                <input
-                  type="date"
-                  className="text_area"
-                  name="dealED"
                   onChange={handleChange}
                 />
               </div>
@@ -144,4 +166,4 @@ const AddEditSales = () => {
   );
 }
 
-export default AddEditSales
+export default Distribution

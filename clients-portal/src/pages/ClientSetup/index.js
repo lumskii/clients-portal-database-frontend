@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import { DashBoard, PageTemplate } from "../Dashboard/DashboardElements";
 import { Header, HeaderTitle } from "./ClientSetupElements";
-import Select, { components } from "react-select";
+// import Select, { components } from "react-select";
 import "./ClientStyles.css";
 
 const ClientSetup = () => {
@@ -79,10 +79,8 @@ const ClientSetup = () => {
     const { maxLength } = props.selectProps;
     const inputProps = { ...props, maxLength };
 
-    return <components.Input {...inputProps} />;
+    // return <components.Input {...inputProps} />;
   };
-
-  // const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
 
   return (
     <DashBoard>
@@ -94,17 +92,17 @@ const ClientSetup = () => {
         <div className="cap">
           <form className="form_space" onSubmit={handleSubmit}>
             <p>Film name</p>
-            {/* <input
+            <input
               className="text_area"
               type="text"
               name="filmName"
               onChange={handleChange}
-            /> */}
-            <Select
+            />
+            {/* <Select
               options={titles}
               components={{ Input: CustomInput }}
               maxLength="4"
-            />
+            /> */}
             <p>Producer's Email</p>
             <input
               className="text_area"

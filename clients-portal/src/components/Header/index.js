@@ -1,4 +1,5 @@
 import React from 'react'
+import { LogoBrand } from '../Navbar/NavbarElements'
 import {
      Bell, 
      Head,
@@ -9,7 +10,8 @@ import {
      Search,
      HeadBtns,
      Chat 
-    } from './HeaderElements'
+    } from './HeaderElements';
+import Logo from "../../images/Logo.svg";
 
 const Header = () => {
   return (
@@ -18,7 +20,7 @@ const Header = () => {
         <Head>
         
         <HeadLink to="/">
-            <h1>Dashboard</h1>
+          <LogoBrand src={Logo} />
         </HeadLink>
 
         <HeadLabel>

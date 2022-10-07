@@ -11,6 +11,10 @@ import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './features/userSlice';
 import AddEditSales from './pages/AddEditSales';
+import Distribution from './pages/DistributionRev';
+import AddExpenses from './pages/AddExpenses';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
 
 
 function App() {
@@ -44,13 +48,21 @@ function App() {
           <Route exact path='*' element={< NotFound />} />
         </Routes>
       ) : (
+        <>
+        <Header />
+        <div className="container">
+          <Navbar />
         <Routes>
           <Route exact path='/' element={< Dashboard />} />
           {/* <Route exact path='/' element={< Testing />} /> */}
           <Route path='/client-setup' element={< ClientSetup />} />
           <Route path='/add-edit-sales' element={< AddEditSales />} />
+          <Route path='/distribution-revenue' element={< Distribution />} />
+          <Route path='/add-expenses' element={< AddExpenses />} />
           <Route path='*' element={< NotFound />} />
         </Routes>
+        </div>
+        </>
       )}
     </Router>
   );

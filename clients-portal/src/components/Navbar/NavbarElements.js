@@ -12,23 +12,23 @@ import {
 import {GiPayMoney} from 'react-icons/gi';
 import {BsDistributeHorizontal, BsChatDots, BsBoxArrowInLeft} from 'react-icons/bs';
 import {VscGear} from 'react-icons/vsc';
-import {CgProfile} from 'react-icons/cg';
 
 export const SideBar = styled.nav`
-    height: 100vh;
     width: ${({ isOpen }) => (!isOpen ? `80px` : `280px`)};
-    position: fixed;
     background: #ff9900;
     padding: 6px 14px;
     transition: all 0.5s ease;
     z-index: 100;
+    height: calc(100vh - 50px);
+    position: sticky;
+    top: 50px;
 `
 
 export const Bars = styled(BsBoxArrowInLeft)`
   color: ${({ isOpen }) => (isOpen ? `#000` : `#fff`)};
   position: absolute;
   right: ${({ isOpen }) => (isOpen ? `20px` : `50px`)};
-  top: 20px;
+  top: 2px;
   font-size: 20px;
   height: 35px;
   width: 35px;
@@ -62,7 +62,7 @@ export const NavLinkLogo = styled(Tacos)`
 export const MenuBar = styled.div`
   font-size: .75rem;
   text-transform: uppercase;
-  color: #fff;
+  color: rgb(228, 228, 228);
   left: ${({ isOpen }) => (isOpen ? `20px` : `0px`)};
   position: relative;
   top: -8px;
@@ -74,7 +74,7 @@ export const MenuBar = styled.div`
     background: #BCB9B9;
     position: absolute;
     left: ${({ isOpen }) => (isOpen ? `-20px` : `0px`)};
-    top: -15px;
+    top: -8px;
 
     @media screen and (max-height: 768px) {
       top: 0px;
@@ -192,19 +192,20 @@ export const ListItems = styled.div`
 `
 
 export const NavMenu = styled.div`
-  margin-top: 80px;
+  margin-top: 55px;
 
   @media screen and (max-height: 768px) {
-    margin-top: 60px;
+    margin-top: 40px;
   }
 `
 
 export const NavBtn = styled.div`
   position: absolute;
   display: flex;
+  width: 100%;
   color: #fff;
   left: 10;
-  margin: 100px auto;
+  margin: -40px auto;
   text-align: center;
   font-size: 1.1rem;
   font-weight: bold;
@@ -228,12 +229,13 @@ export const ArrowDown = styled.span`
   z-index: 99;
 `
 
-export const ProfilePic = styled(CgProfile)`
+export const ProfilePic = styled.img`
   height: 45px;
   width: 45px;
   margin: 5px;
+  background-image: url("https://images.unsplash.com/profile-1518156163490-947fb5399aa6?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff");
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 50%;
 `
 
 export const ProfileArea = styled.div`
@@ -353,7 +355,4 @@ export const Chat = styled(BsChatDots)`
     position: relative;
     width: 25px;
     height: 25px;
-`
-export const LayOut = styled.div`
-  width: 100%;
 `

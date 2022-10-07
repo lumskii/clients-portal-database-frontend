@@ -6,11 +6,12 @@ import {
   More,
   StatArea,
   StatTemplate,
+  PageContainer,
 } from "./DashboardElements";
-import Navbar from "../../components/Navbar";
 // import { sidebarOpen } from "../../components/Navbar";
 import { dashLinks } from "./DashboardData";
 import { NavLink as Links } from "react-router-dom";
+import WidgetSm from "../../components/widgetSm/WidgetSm"
 
 const Dashboard = () => {
   // const {sidebarOpen} = useContext(sidebarOpen);
@@ -19,7 +20,7 @@ const Dashboard = () => {
   return (
     // <DashBoard isOpened={sidebarOpen}>
     <DashBoard>
-      <Navbar />
+      <PageContainer>
       <PageTemplate>
         <div className="header">
           <p className="header-title">Dashboard Overview</p>
@@ -46,6 +47,8 @@ const Dashboard = () => {
           })}
         </div>
       </PageTemplate>
+          <WidgetSm />
+      </PageContainer>
 
       {/* .........Statistic Template starts here......... */}
 

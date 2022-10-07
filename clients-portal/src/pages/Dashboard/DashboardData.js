@@ -36,7 +36,7 @@ export const dashLinks = [
         label:"Add/Edit Sales Revenue"
     },
     {
-        to:"",
+        to:"/distribution-revenue",
         icon:<DistributeHori />,
         label:"Add/Edit Distribution Revenue"
     }

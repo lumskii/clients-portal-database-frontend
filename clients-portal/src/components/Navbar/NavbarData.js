@@ -21,12 +21,36 @@ export const linksArray = [
       cName: 'nav-text' 
     },
     {
-      label: "Set Up New Client",
+      label: "Clients",
       icon: <UserPlus />,
       to: "/client-setup",
-      notification: "Set up new client",
+      notification: "clients",
       cName: 'nav-text' 
     },
+    {
+      label: "Add Expenses",
+      icon: <PayMoney />,
+      to: "/add-expenses",
+      notification: "Add Expenses",
+      cName: 'nav-text' 
+    },
+    {
+      label: "Sales Revenue",
+      icon: <PointOfSale />,
+      to: "/add-edit-sales",
+      notification: "Sales Revenue",
+      cName: 'nav-text' 
+    },
+    {
+      label: "Distribution Revenue",
+      icon: <DistributeHori />,
+      to: "/distribution-revenue",
+      notification: "Distribution Revenue",
+      cName: 'nav-text' 
+    },
+  ];
+
+  export const secondaryLinksArray = [
     {
       label: "Edit a Client",
       icon: <UserEdit />,
@@ -40,31 +64,10 @@ export const linksArray = [
       to: "/bulk-updates",
       notification: "Bulk Updates",
       cName: 'nav-text' 
-    },
-    {
-      label: "Add Expenses",
-      icon: <PayMoney />,
-      to: "/add-expenses",
-      notification: "Add Expenses",
-      cName: 'nav-text' 
-    },
-    {
-      label: "Add/Edit Sales Revenue",
-      icon: <PointOfSale />,
-      to: "/add-edit-sales",
-      notification: "Add/Edit Sales Revenue",
-      cName: 'nav-text' 
-    },
-    {
-      label: "Add/Edit Distribution Revenue",
-      icon: <DistributeHori />,
-      to: "/add-edit-distribution-revenue",
-      notification: "Add/Edit Distribution Revenue",
-      cName: 'nav-text' 
-    },
-  ];
+    }
+  ]
 
-  export const secondaryLinksArray = [
+  export const thirdLinksArray = [
     {
       label: "Help & Center",
       icon: <HandsHelp />,
