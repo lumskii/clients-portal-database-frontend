@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
 import { DashBoard, PageTemplate } from "../Dashboard/DashboardElements";
 import { Header, HeaderTitle } from "./ClientSetupElements";
 // import Select, { components } from "react-select";
@@ -84,7 +83,6 @@ const ClientSetup = () => {
 
   return (
     <DashBoard>
-      <Navbar />
       <PageTemplate>
         <Header>
           <HeaderTitle>Client Form</HeaderTitle>

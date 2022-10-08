@@ -81,6 +81,20 @@ export const Bell = styled(FaRegBell)`
     width: 25px;
     height: 25px;
 `
+export const Badge = styled.span`
+    position: relative;
+    width: 18px;
+    height: 18px;
+    font-size: 15px;
+    top: -35px;
+    right: -30px;
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+`
 
 export const Chat = styled(BsChatDots)`
     position: relative;

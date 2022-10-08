@@ -209,6 +209,7 @@ export const NavBtn = styled.div`
   text-align: center;
   font-size: 1.1rem;
   font-weight: bold;
+  align-item: center;
 
   @media screen and (max-height: 768px) {
     margin: 0px;
@@ -227,15 +228,6 @@ export const ArrowDown = styled.span`
   font-size: 1.5rem;
   position: relative;
   z-index: 99;
-`
-
-export const ProfilePic = styled.img`
-  height: 45px;
-  width: 45px;
-  margin: 5px;
-  background-image: url("https://images.unsplash.com/profile-1518156163490-947fb5399aa6?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff");
-  object-fit: cover;
-  border-radius: 50%;
 `
 
 export const ProfileArea = styled.div`

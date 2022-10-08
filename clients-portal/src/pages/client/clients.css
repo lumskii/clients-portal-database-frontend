@@ -1,0 +1,42 @@
+.clientsList {
+    flex: 4;
+}
+
+.clientAvatar{
+    display: flex;
+    align-items: center;
+
+}
+
+.avatarImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.avatarImg2{
+    height: 45px;
+    width: 45px;
+    margin: 5px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.clientListEdit{
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: rgb(85, 138, 5);
+    color: #fff;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.clientListDelete{
+    font-weight: bold;
+    color: red;
+    font-size: 1.5rem;
+    cursor: pointer;
+}

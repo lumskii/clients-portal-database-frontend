@@ -9,7 +9,8 @@ import {
      HeadInput,
      Search,
      HeadBtns,
-     Chat 
+     Chat, 
+     Badge
     } from './HeaderElements';
 import Logo from "../../images/Logo.svg";
 
@@ -31,9 +32,11 @@ const Header = () => {
             <HeadBtns>
                 <HeadBtnLink>
                 <Bell />
+                <Badge>2</Badge>
                 </HeadBtnLink>
                 <HeadBtnLink>
                 <Chat />
+                <Badge>2</Badge>
                 </HeadBtnLink>
             </HeadBtns>
         </Head>

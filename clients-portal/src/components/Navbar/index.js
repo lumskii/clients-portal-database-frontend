@@ -20,7 +20,7 @@ import {linksArray, secondaryLinksArray, thirdLinksArray} from "./NavbarData";
 const Navbar = () => {
 
   const [showContents, setShowContents] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <>
@@ -92,7 +92,9 @@ const Navbar = () => {
           
           <NavMenu>
           <NavBtn style={!sidebarOpen ? { width: `fit-content` } : {}}>
-            <ProfilePic />
+            <>
+            <img className="avatarImg2" src='https://images.unsplash.com/profile-1518156163490-947fb5399aa6?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff' alt="" />
+            </>
             
             <NavBtnLink to="/signin">
             {sidebarOpen && (

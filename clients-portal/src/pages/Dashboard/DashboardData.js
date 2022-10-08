@@ -11,9 +11,9 @@ import {
 
 export const dashLinks = [
     {
-        to:"/client-setup",
+        to:"/clients",
         icon:<UserPlus />,
-        label:"Set Up New Client"
+        label:"Clients"
     },
     {
         to:"/",
@@ -26,7 +26,7 @@ export const dashLinks = [
         label:"Bulk Updates"
     },
     {
-        to:"",
+        to:"/add-expenses",
         icon:<PayMoney />,
         label:"Add Expenses"
     },
