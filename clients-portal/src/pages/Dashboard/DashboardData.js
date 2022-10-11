@@ -33,11 +33,11 @@ export const dashLinks = [
     {
         to:"/add-edit-sales",
         icon:<PointOfSale />,
-        label:"Add/Edit Sales Revenue"
+        label:"Sales Revenue"
     },
     {
         to:"/distribution-revenue",
         icon:<DistributeHori />,
-        label:"Add/Edit Distribution Revenue"
+        label:"Distribution Revenue"
     }
 ]

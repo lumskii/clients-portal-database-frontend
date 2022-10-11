@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Navbar from '../../components/Navbar'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { PageTemplate, DashBoard } from '../Dashboard/DashboardElements'
 
@@ -30,7 +29,6 @@ const AddExpenses = () => {
 
   return (
     <DashBoard>
-        <Navbar />
         <PageTemplate>
             <Header>
                 <HeaderTitle>Add Expenses</HeaderTitle>

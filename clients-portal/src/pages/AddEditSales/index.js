@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Navbar from '../../components/Navbar'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
 import './SalesStyle.css'
@@ -28,7 +27,6 @@ const AddEditSales = () => {
 
   return (
     <DashBoard>
-      <Navbar />
       <PageTemplate>
         <Header>
           <HeaderTitle>Add/Edit Sales Revenue</HeaderTitle>

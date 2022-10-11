@@ -16,6 +16,8 @@ import AddExpenses from './pages/AddExpenses';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Clients from './pages/client/Clients';
+import ClientEdit from './pages/clientEdit/ClientEdit';
+import EditClient from './pages/editClient/EditClient';
 
 
 function App() {
@@ -57,11 +59,13 @@ function App() {
           <Route exact path='/' element={< Dashboard />} />
           <Route path='/clients' element={< Clients />} />
           {/* <Route exact path='/' element={< Testing />} /> */}
+          <Route path='/clients/:clientsId' element={< ClientEdit />} />
           <Route path='/client-setup' element={< ClientSetup />} />
+          <Route path='/edit-a-client' element={< EditClient />} />
           <Route path='/add-edit-sales' element={< AddEditSales />} />
           <Route path='/distribution-revenue' element={< Distribution />} />
           <Route path='/add-expenses' element={< AddExpenses />} />
-          {/* <Route path='*' element={< NotFound />} /> */}
+          <Route path='*' element={< NotFound />} />
         </Routes>
         </div>
         </>

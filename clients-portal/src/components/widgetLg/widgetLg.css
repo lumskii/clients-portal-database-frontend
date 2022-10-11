@@ -14,5 +14,32 @@
     font-weight: bold;
     font-size: 1.2rem;
     display: flex;
-    padding-left: 20px;
+}
+
+.subHeading{
+    text-transform: uppercase;
+    font-size: .8rem;
+    margin-top: 10px;
+    color:rgb(153, 149, 149);
+    font-weight: bold;
+}
+
+.counterContainer{
+    width: 100%;
+    text-align: center;
+}
+
+.counter{
+    font-size: 4.7rem;
+    color: #ff9900;
+    width: 100%;
+    font-weight: bold;
+    margin-top: -10px;
+}
+
+.divider{
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #bcbcbc;
 }

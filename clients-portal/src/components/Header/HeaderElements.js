@@ -80,6 +80,7 @@ export const Bell = styled(FaRegBell)`
     position: relative;
     width: 25px;
     height: 25px;
+    top: 5px;
 `
 export const Badge = styled.span`
     position: relative;
@@ -100,4 +101,5 @@ export const Chat = styled(BsChatDots)`
     position: relative;
     width: 25px;
     height: 25px;
+    top: 5px;
 `

@@ -50,15 +50,21 @@ export default function Clients() {
       ];
 
   return (
-            <div className='clientsList'>
-                <DataGrid
-                    disableSelectionOnClick
-                    rows={data}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection
-                />
-            </div>
-  )
+    <div className="clientsList">
+        <div className="clientTitleContainerOne">
+        <h1 className="headerTitle">Client List</h1>
+        <Link to="/client-setup">
+          <button className="clientAddButton">Create</button>
+        </Link>
+      </div>
+      <DataGrid
+        disableSelectionOnClick
+        rows={data}
+        columns={columns}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection
+      />
+    </div>
+  );
 }

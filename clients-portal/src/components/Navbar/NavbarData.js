@@ -23,7 +23,7 @@ export const linksArray = [
     {
       label: "Clients",
       icon: <UserPlus />,
-      to: "/client-setup",
+      to: "/clients",
       notification: "clients",
       cName: 'nav-text' 
     },

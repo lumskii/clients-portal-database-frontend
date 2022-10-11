@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Navbar from '../../components/Navbar'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
 
@@ -29,7 +28,6 @@ const Distribution = () => {
 
   return (
     <DashBoard>
-      <Navbar />
       <PageTemplate>
         <Header>
           <HeaderTitle>Add/Edit Distribution Revenue</HeaderTitle>
