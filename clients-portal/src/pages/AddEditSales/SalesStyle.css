@@ -32,7 +32,7 @@
   color: #bec2db
 }
 
-.heading_space .current {
+.current {
   color: #000;
   border-bottom: 3px solid #ff9900;
   cursor: default;
@@ -41,7 +41,6 @@
 }
 
 .form {
-    display: inline-flex;
     flex-flow: wrap;
     position: relative;
     top: 10px;
@@ -60,8 +59,20 @@
   font-size: 1.15rem;
 }
 
+.form-input2{
+  display: grid;
+  position: relative;
+  margin: 30px;
+  font-weight: bold;
+  font-size: 1.15rem;
+}
+
 .form-input p {
   margin-left: 20px;
+}
+
+.form-input2 p {
+  margin: 20px 0;
 }
 
 .buttons {
@@ -98,4 +109,36 @@
 .right{
   right: 0;
   position: relative;
+}
+
+.content{
+  display: none;
+}
+
+.active-content {
+  display: inline-flex;
+}
+
+.text_area3{
+  width: 280px;
+}
+
+.edit_container{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+}
+
+#submit-button2{
+  width: 100%;
+  margin: 60px 0 40px 0;
+  height: 40px;
+  background-color: #ff9900;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fff;
+  transition: all ease-out .3s;
 }

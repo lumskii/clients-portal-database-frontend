@@ -6,7 +6,6 @@ import {
   NavBtnLink,
   NavBtn,
   SideBar,
-  ProfilePic,
   MenuBar,
   ProfileArea,
   ArrowDown,

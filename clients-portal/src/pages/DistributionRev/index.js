@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
+import Select, { components } from "react-select";
 
 const Distribution = () => {
-        const [showContents, setShowContents] = useState(false);
+        const [toggleState, setToggleState] = useState(1);
+        const [titles, setTitles] = useState([]);
 
         const [details, setDetails] = useState({
             cName: "",
@@ -24,7 +26,42 @@ const Distribution = () => {
         const handleSubmit = (e) => {
             e.preventDefault();
             console.log(details);
-        }
+        };
+
+        const toggleTab = (index) => {
+          setToggleState(index);
+        };
+
+        const CustomInput = (props) => {
+          const { maxLength } = props.selectProps;
+          const inputProps = { ...props, maxLength };
+      
+          // return <components.Input {...inputProps} />;
+        };
+
+        useEffect(() => {
+          const callBackendAPI = () => {
+            console.log("fetching...");
+            fetch("/titles")
+              .then((res) => res.json())
+              .then((res) => {
+                if (res.status === 200) {
+                  console.log("res", res.data.titles);
+                  let allTitles = res.data.titles.map((title) => ({
+                    label: title.title,
+                    value: title.title,
+                    key: title._id,
+                  }));
+      
+                  setTitles(allTitles);
+                } else {
+                  console.log("unable to fetch");
+                }
+              });
+          };
+      
+          callBackendAPI();
+        }, []);
 
   return (
     <DashBoard>
@@ -36,14 +73,30 @@ const Distribution = () => {
         <div className="cap">
           <div className="form_wrapper">
             <div className="form_heading">
-              <div className="heading_space current">
+            <div
+                className={
+                  toggleState === 1 ? "heading_space current" : "heading_space"
+                }
+                onClick={() => toggleTab(1)}
+              >
                 Add Distribution Revenue
               </div>
-              <div className="heading_space" onClick={() => setShowContents(!showContents)}>
-                {showContents === true }Edit Distribution Revenue
-                </div>
+              <div
+                className={
+                  toggleState === 2 ? "heading_space current" : "heading_space"
+                }
+                onClick={() => toggleTab(2)}
+              >
+                Edit Distribution Revenue
+              </div>
             </div>
-            <form className="form" onSubmit={handleSubmit}>
+
+            <div
+              className={
+                toggleState === 1 ? "content active-content" : "content"
+              }
+            >
+            <form className="form active-content" onSubmit={handleSubmit}>
               <div className="form-input">
                 <p>Company name</p>
                 <input
@@ -157,6 +210,55 @@ const Distribution = () => {
                 </button>
               </div>
             </form>
+            </div>
+
+            <div
+              className={
+                toggleState === 2 ? "content active-content" : "content"
+              }
+            >
+              <div className="form active-content">
+                <form className="form active-content" onSubmit={handleSubmit}>
+                  <div className='edit_container'>
+                  <div className="form-input2">
+                <span className="clientUpdateTitle">Edit</span>
+                    <div className="clientUpdateLeft">
+                        <div className="clientUpdateItem">
+                            <label>Film Name</label>
+                            <input type="text" placeholder="The Test" className="clientUpdateInput" />
+                        </div>
+                        <div className="clientUpdateItem">
+                            <label>Producer's Email</label>
+                            <input type="email" placeholder="producer@gmail.com" className="clientUpdateInput" />
+                        </div>
+                        <div className="clientUpdateItem">
+                            <label>Distribution Type</label>
+                            <input type="text" placeholder="Sales only" className="clientUpdateInput" />
+                        </div>
+                        <div className="clientUpdateItem">
+                            <label>Phone Number</label>
+                            <input type="text" placeholder="+1 123 456 7890" className="clientUpdateInput" />
+                        </div>
+                        <div className="clientUpdateItem">
+                            <label>Location</label>
+                            <input type="text" placeholder="New York | USA" className="clientUpdateInput" />
+                        </div>
+                    </div>
+                <button type="submit" id="submit-button2">
+                    Submit
+                  </button>
+                    {/* <p>Film Name</p>
+                    <Select
+                        options={titles}
+                        components={{ Input: CustomInput }}
+                        maxLength="4"
+                        className='text_area3'
+                    /> */}
+                  </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </PageTemplate>

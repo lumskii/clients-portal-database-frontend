@@ -11,8 +11,18 @@ const {
 const app = express();
 dotenv.config();
 
+// Set body bodyParser
+
 app.use(logger("dev"));
 app.use(express.json());
+
+//Load routers
+const userRouter = require("./src/routers/user.router")
+const clientRouter = require("./src/routers/client.router")
+
+//Use Routers
+app.use("/v1/user", userRouter)
+app.use("/v1/client", clientRouter)
 
 // Connect to MongoDB...
 let mongoDB = process.env.MONGODB_URL;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
 import Select, { components } from "react-select";
+import './editClient.css'
 
 export default function EditClient() {
     const [titles, setTitles] = useState([]);
@@ -43,13 +44,14 @@ export default function EditClient() {
             <Header>
                 <HeaderTitle>Edit a Client</HeaderTitle>
             </Header>
-            <div className="cap">
-                <form className="form_space">
+            <div className="cap2">
+                <form className="form_spaceEdit">
                     <p>Film Name</p>
                     <Select
                         options={titles}
                         components={{ Input: CustomInput }}
                         maxLength="4"
+                        className='selectField'
                     />
                     <button type="submit" id="submit">
                         Submit
