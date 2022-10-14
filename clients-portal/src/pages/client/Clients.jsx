@@ -12,7 +12,7 @@ export default function Clients() {
         setData(data.filter((item) => item.id !== id));
     }
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
+        // { field: 'id', headerName: 'ID', width: 70 },
         { field: 'filmName', headerName: 'Film Name', width: 200, renderCell: (params)=>{
             return (
                 <div className='clientAvatar'>

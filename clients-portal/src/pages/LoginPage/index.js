@@ -3,24 +3,11 @@ import Logo from '../../images/LogoUpdate.svg';
 import "./styles.css";
 import { LogoBrandTwo } from "../../components/Navbar/NavbarElements";
 import { auth } from "../../firebase";
-import { Forgot } from "./LoginElement";
+import { Forgot, Signup } from "./LoginElement";
 
 const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
-  const register = (e) => {
-    e.preventDefault();
-
-    auth.createUserWithEmailAndPassword(
-      emailRef.current.value,
-      passwordRef.current.value
-    ).then((authUser) => {
-        console.log(authUser);
-    }).catch(error => {
-      alert(error.message)
-    });
-  };
 
   const login = (e) => {
     e.preventDefault();
@@ -58,7 +45,7 @@ const Login = () => {
 
             <p className="text-center">
               Don't have an account?
-              <input onClick={register} className="textarea" type="submit" name="send" value="Sign up" />
+              <Signup to='/sign-up'><div className="signup">Sign up</div></Signup>
               <br />
               <i className="fa fa-hand-o-down" aria-hidden="true"></i>
             </p>

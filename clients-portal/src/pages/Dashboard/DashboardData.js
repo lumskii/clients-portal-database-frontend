@@ -16,7 +16,7 @@ export const dashLinks = [
         label:"Clients"
     },
     {
-        to:"/",
+        to:"/edit-a-client",
         icon:<UserEdit />,
         label:"Edit a Client"
     },

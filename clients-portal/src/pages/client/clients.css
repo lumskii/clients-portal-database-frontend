@@ -6,6 +6,12 @@
     height: 800px;
 }
 
+@media only screen and (max-height: 768px) {
+    .clientsList {
+        max-height: 600px;
+    }
+  }
+
 .clientTitleContainerOne{
     display: flex;
     align-items: center;

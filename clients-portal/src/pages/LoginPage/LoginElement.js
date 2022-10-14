@@ -7,3 +7,6 @@ export const Forgot = styled(Link)`
     font-style: italic;
     text-decoration: none;
 `
+export const Signup = styled(Link)`
+    text-decoration: none;
+`

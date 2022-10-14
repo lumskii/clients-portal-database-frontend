@@ -18,7 +18,8 @@ app.use(express.json());
 
 //Load routers
 const userRouter = require("./src/routers/user.router")
-const clientRouter = require("./src/routers/client.router")
+const clientRouter = require("./src/routers/client.router");
+const { insertClient } = require("./controllers/Client.controller");
 
 //Use Routers
 app.use("/v1/user", userRouter)
@@ -46,6 +47,7 @@ app.get("/", (req, res) => {
 
 app.get("/titles", getAllTitles);
 app.post("/titles", addNewTitles);
+app.post("/clients", insertClient);
 
 // Start server...
 const PORT = process.env.PORT || 5000;

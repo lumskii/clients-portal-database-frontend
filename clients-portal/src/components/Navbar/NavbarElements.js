@@ -37,8 +37,14 @@ export const Bars = styled(BsBoxArrowInLeft)`
   cursor: pointer;
   transition: 350ms;
   z-index: 100;
-
   transform: ${({ isOpen }) => (!isOpen ? `rotate(180deg)` : `initial`)};
+
+  // @media screen and (max-height: 768px) {
+  //   top: 0px;
+  //   right: ${({ isOpen }) => (isOpen ? `-40px` : `-40px`)};
+  //   background: #ff9900;
+  //   padding: 3px;
+  // }
 `
 
 export const LogoBrand = styled.img`
@@ -106,6 +112,7 @@ export const NavLink = styled(Tacos)`
   }
   @media screen and (max-height: 768px) {
     margin: 0px;
+    height: 40px;
   }
 
   ${({showOnFocus}) =>
@@ -195,7 +202,7 @@ export const NavMenu = styled.div`
   margin-top: 55px;
 
   @media screen and (max-height: 768px) {
-    margin-top: 40px;
+    margin-top: 37px;
   }
 `
 
@@ -212,7 +219,7 @@ export const NavBtn = styled.div`
   align-item: center;
 
   @media screen and (max-height: 768px) {
-    margin: 0px;
+    margin: -20px auto;
   }
 `
 

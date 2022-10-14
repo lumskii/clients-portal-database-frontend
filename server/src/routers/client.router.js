@@ -10,7 +10,7 @@ router.all('/', (req, res, next)=>{
 
 // - create url endpoints
 
-router.post('/', async(req, res) => {
+router.post('/',(req, res) => {
     try {
          // - receive new client data
     const { filmName, producersEmail, filmsCode, distributionType } = req.body;
@@ -23,7 +23,7 @@ router.post('/', async(req, res) => {
         distributionType,
     }
 
-    const result = await insertClient(clientObj);
+    const result = insertClient(clientObj);
     if(result._id){
         return res.json({status:'success', message: 'New ticket has been created!'});
     }

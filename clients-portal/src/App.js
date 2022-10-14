@@ -3,7 +3,6 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ClientSetup from './pages/ClientSetup';
-// import Testing from './components/Navbar/Testing';
 import Login from './pages/LoginPage';
 import ForgotPassword from './pages/ForgotPassword';
 import NotFound from './pages/NotFound';
@@ -18,6 +17,8 @@ import Navbar from './components/Navbar';
 import Clients from './pages/client/Clients';
 import ClientEdit from './pages/clientEdit/ClientEdit';
 import EditClient from './pages/editClient/EditClient';
+import Signup from './pages/signup/Signup';
+
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Login />} />
           <Route exact path='/forgot-password' element={< ForgotPassword />} />
+          <Route exact path='/sign-up' element={< Signup />} />
           <Route exact path='*' element={< NotFound />} />
         </Routes>
       ) : (
@@ -58,7 +60,6 @@ function App() {
         <Routes>
           <Route exact path='/' element={< Dashboard />} />
           <Route path='/clients' element={< Clients />} />
-          {/* <Route exact path='/' element={< Testing />} /> */}
           <Route path='/clients/:clientsId' element={< ClientEdit />} />
           <Route path='/client-setup' element={< ClientSetup />} />
           <Route path='/edit-a-client' element={< EditClient />} />

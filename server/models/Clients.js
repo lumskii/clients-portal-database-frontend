@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const mongodbErrorHandler = require("mongoose-mongodb-errors");
 const Schema = mongoose.Schema;
+mongoose.Promise = global.Promise;
 
 const ClientSchema = new Schema({
     clientId: {
@@ -107,6 +108,4 @@ const ClientSchema = new Schema({
 
 ClientSchema.plugin(mongodbErrorHandler);
 
-module.exports = {
-    ClientSchema: mongoose.model('Client', ClientSchema),
-};
+module.exports = mongoose.model('Client', ClientSchema, 'Client');
