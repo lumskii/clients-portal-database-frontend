@@ -41,42 +41,39 @@ const ClientSetup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newClient = {
-        filmName: details.filmName,
-        producersEmail: details.producersEmail,
-        filmsCode: details.filmsCode,
-        distributionType: details.distributionType,
-        rightSale: details.rightSale,
-        cama: details.cama,
-        countryLaw: details.countryLaw,
-        stateLaw: details.stateLaw,
-        effectiveDate: details.effectiveDate,
-        dateSignature: details.dateSignature,
-        renewalDate: details.renewalDate,
-        renewalExpiration: details.renewalExpiration,
-        grossCor: details.grossCor,
-        grossCorRights: details.grossCorRights,
-        salesFee: details.salesFee,
-        producerPay: details.producerPay,
-        expenseCap: details.expenseCap,
-        deliveryFees: details.deliveryFees,
-        distributionFee: details.distributionFee,
-        incomeReserves: details.incomeReserves,
-        otherExps:details.otherExps,
-        accountingTerms: details.accountingTerms
-    }
+      filmName: details.filmName,
+      producersEmail: details.producersEmail,
+      filmsCode: details.filmsCode,
+      distributionType: details.distributionType,
+      rightSale: details.rightSale,
+      cama: details.cama,
+      countryLaw: details.countryLaw,
+      stateLaw: details.stateLaw,
+      effectiveDate: details.effectiveDate,
+      dateSignature: details.dateSignature,
+      renewalDate: details.renewalDate,
+      renewalExpiration: details.renewalExpiration,
+      grossCor: details.grossCor,
+      grossCorRights: details.grossCorRights,
+      salesFee: details.salesFee,
+      producerPay: details.producerPay,
+      expenseCap: details.expenseCap,
+      deliveryFees: details.deliveryFees,
+      distributionFee: details.distributionFee,
+      incomeReserves: details.incomeReserves,
+      otherExps: details.otherExps,
+      accountingTerms: details.accountingTerms,
+    };
 
-    axios.post('http://localhost:5000/clients', newClient)
+    axios.post("http://localhost:5000/clients", newClient);
+    // /v1/client/
   };
-
-  
 
   useEffect(() => {
     const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
     console.log("filmcode", filmCode);
     setDetails({ ...details, filmsCode: filmCode });
   }, []);
-
-  
 
   return (
     <DashBoard>
