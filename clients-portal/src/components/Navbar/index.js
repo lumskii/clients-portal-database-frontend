@@ -14,10 +14,13 @@ import {
 } from "./NavbarElements";
 import { auth } from "../../firebase";
 import {linksArray, secondaryLinksArray, thirdLinksArray} from "./NavbarData";
+import Profile from "../Profile";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 // import { IconContext } from "react-icons/lib";
 
 const Navbar = () => {
-
+  const user = useSelector(selectUser);
   const [showContents, setShowContents] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -92,7 +95,8 @@ const Navbar = () => {
           <NavMenu>
           <NavBtn style={!sidebarOpen ? { width: `fit-content` } : {}}>
             <>
-            <img className="avatarImg2" src='https://images.unsplash.com/profile-1518156163490-947fb5399aa6?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff' alt="" />
+            {user && <Profile />}
+            {/* <img className="avatarImg2" src='https://images.unsplash.com/profile-1518156163490-947fb5399aa6?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff' alt="" /> */}
             </>
             
             <NavBtnLink to="/signin">

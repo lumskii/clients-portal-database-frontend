@@ -1,10 +1,17 @@
-import React, { useRef } from 'react'
-import { auth } from '../../firebase';
+import React, { useRef, useState } from 'react'
+import { auth, upload } from '../../firebase';
 import './signup.css';
 import {PageLayout} from '../ForgotPassword/ForgotPasswordElements'
+import { Forgot } from '../LoginPage/LoginElement';
+import Profile from '../../components/Profile';
 import { RiImageEditFill } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/userSlice';
 
 export default function Signup() {
+    const user = useSelector(selectUser);
+    const [photo, setPhoto] = useState(null);
+    const [loading, setLoading] = useState(false);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
 
@@ -21,13 +28,24 @@ export default function Signup() {
         });
       };
 
+      function handleChange(e) {
+        if (e.target.files[0]) {
+          setPhoto(e.target.files[0])
+        }
+      }
+  
+      function handleClick() {
+        upload(photo, user, setLoading);
+      }
+
   return (
     <PageLayout>
         <div className="row">
             <h1>Sign Up</h1>
             <h6 className="information-text">Please, fill out the form below.</h6>
+            <div className="signup_form">
             <form className="form">
-                <div className="rightside">
+                <div className="leftside">
                     <label className="info">First Name</label>
                     <input className='text_area' type='text' />
 
@@ -39,18 +57,19 @@ export default function Signup() {
 
                     <label className="info">Password</label>
                     <input className='text_area' type='password' ref={passwordRef} />
-                </div>
-                <div className="leftside">
-                        <div className="clientUpdateUpload">
-                            <img src="https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="" className="clientUpdateImg" />
-                            <label for="file"><RiImageEditFill className="clientUpdateIcon" /></label>
-                            <input type="file" id="file" style={{ display: "none" }} />
-                        </div>
-                        <button className="clientUpdateButton">Update</button>
+
+                    <label className="info">Profile Picture</label>
+                    <div className='uploadContent'>
+                    <input type="file" onChange={handleChange} className="upload" />
+                    <button disabled={loading || !photo} className='uploadBtn' onClick={handleClick}><RiImageEditFill /> Upload</button>
+                    <Profile />
+                    </div>
                 </div>
 
                 <input to='/signup' onClick={register} className="textarea" type="submit" name="send" value="Sign up" />
+                <Forgot to='/'>Already have an account? <span className='signupButton'>Login page</span></Forgot>
             </form>
+            </div>
         </div>
     </PageLayout>
   )
