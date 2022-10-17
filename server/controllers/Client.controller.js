@@ -80,7 +80,7 @@ exports.insertClient = (req, res, next) => {
     !otherExps ||
     !accountingTerms
   ) {
-    res.json({
+    return res.json({
       status: 500,
       message: "Some fields are empty.",
     });
@@ -93,7 +93,7 @@ exports.insertClient = (req, res, next) => {
       return res.json({ status: 500, message: "Unable to save amenity", err });
     }
 
-    res.json({
+    return res.json({
       success: true,
       status: 200,
       data: {
@@ -107,10 +107,13 @@ exports.insertClient = (req, res, next) => {
 exports.getAllClients = (req, res, next) => {
   Client.find({}, function (err, clients) {
     if (err)
-      res.json({ status: 500, message: "Error occured in retrieving clients" });
+      return res.json({
+        status: 500,
+        message: "Error occured in retrieving clients",
+      });
 
     if (!clients) {
-      res.json({
+      return res.json({
         success: true,
         status: 200,
         data: {
@@ -118,7 +121,7 @@ exports.getAllClients = (req, res, next) => {
         },
       });
     } else {
-      res.json({
+      return res.json({
         success: true,
         status: 200,
         data: {

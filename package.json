@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/lumskii/clients-portal-database-frontend#readme",
   "dependencies": {
+    "cogo-toast": "^4.2.3",
     "concurrently": "^7.4.0",
     "nodemon": "^2.0.20"
   }
