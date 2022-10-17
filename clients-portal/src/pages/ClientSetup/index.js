@@ -3,33 +3,36 @@ import { DashBoard, PageTemplate } from "../Dashboard/DashboardElements";
 import { Header, HeaderTitle } from "./ClientSetupElements";
 import axios from "axios";
 import "./ClientStyles.css";
+import cogoToast from "cogo-toast";
+
+const initialState = {
+  filmName: "",
+  producersEmail: "",
+  filmsPassword: "",
+  filmsCode: "",
+  distributionType: "",
+  rightSale: "",
+  cama: "",
+  countryLaw: "",
+  stateLaw: "",
+  effectiveDate: "",
+  dateSignature: "",
+  renewalDate: "",
+  renewalExpiration: "",
+  grossCor: "",
+  grossCorRights: "",
+  salesFee: "",
+  producerPay: "",
+  expenseCap: "",
+  deliveryFees: "",
+  distributionFee: "",
+  incomeReserves: "",
+  otherExps: "",
+  accountingTerms: "",
+};
 
 const ClientSetup = () => {
-  const [details, setDetails] = useState({
-    filmName: "",
-    producersEmail: "",
-    filmsPassword: "",
-    filmsCode: "",
-    distributionType: "",
-    rightSale: "",
-    cama: "",
-    countryLaw: "",
-    stateLaw: "",
-    effectiveDate: "",
-    dateSignature: "",
-    renewalDate: "",
-    renewalExpiration: "",
-    grossCor: "",
-    grossCorRights: "",
-    salesFee: "",
-    producerPay: "",
-    expenseCap: "",
-    deliveryFees: "",
-    distributionFee: "",
-    incomeReserves: "",
-    otherExps: "",
-    accountingTerms: "",
-  });
+  const [details, setDetails] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,33 +43,26 @@ const ClientSetup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newClient = {
-      filmName: details.filmName,
-      producersEmail: details.producersEmail,
-      filmsCode: details.filmsCode,
-      distributionType: details.distributionType,
-      rightSale: details.rightSale,
-      cama: details.cama,
-      countryLaw: details.countryLaw,
-      stateLaw: details.stateLaw,
-      effectiveDate: details.effectiveDate,
-      dateSignature: details.dateSignature,
-      renewalDate: details.renewalDate,
-      renewalExpiration: details.renewalExpiration,
-      grossCor: details.grossCor,
-      grossCorRights: details.grossCorRights,
-      salesFee: details.salesFee,
-      producerPay: details.producerPay,
-      expenseCap: details.expenseCap,
-      deliveryFees: details.deliveryFees,
-      distributionFee: details.distributionFee,
-      incomeReserves: details.incomeReserves,
-      otherExps: details.otherExps,
-      accountingTerms: details.accountingTerms,
+
+    const submitClientDetails = async () => {
+      const submitted = await axios.post("v1/clients", details);
+
+      if (
+        submitted &&
+        submitted.data.success &&
+        submitted.data.status === 200
+      ) {
+        cogoToast.success("Client added successfully", {
+          position: "top-center",
+        });
+        console.log("submitted", submitted.data);
+        setDetails(initialState);
+      } else {
+        cogoToast.error("Could not submit client info");
+      }
     };
 
-    axios.post("http://localhost:5000/clients", newClient);
-    // /v1/client/
+    submitClientDetails();
   };
 
   useEffect(() => {
@@ -88,6 +84,7 @@ const ClientSetup = () => {
               className="text_area"
               type="text"
               name="filmName"
+              value={details.filmName}
               onChange={handleChange}
             />
             <p>Producer's Email</p>
@@ -95,6 +92,7 @@ const ClientSetup = () => {
               className="text_area"
               type="email"
               name="producersEmail"
+              value={details.producersEmail}
               onChange={handleChange}
             />
             <p>Film's Password</p>
@@ -102,13 +100,14 @@ const ClientSetup = () => {
               className="text_area"
               type="password"
               name="filmsPassword"
+              value={details.filmsPassword}
               onChange={handleChange}
             />
             <p>Film's Code</p>
             <input
               className="text_area"
               type="text"
-              value={`${details.filmsCode}`}
+              value={details.filmsCode}
               name="filmsCode"
             />
             <p>Distribution type</p>
@@ -210,6 +209,7 @@ const ClientSetup = () => {
               className="text_area2"
               type="date"
               name="effectiveDate"
+              value={details.effectiveDate}
               onChange={handleChange}
             />
 
@@ -218,6 +218,7 @@ const ClientSetup = () => {
               className="text_area2"
               type="date"
               name="dateSignature"
+              value={details.dateSignature}
               onChange={handleChange}
             />
 
@@ -226,6 +227,7 @@ const ClientSetup = () => {
               className="text_area2"
               type="date"
               name="renewalDate"
+              value={details.renewalDate}
               onChange={handleChange}
             />
 
@@ -234,6 +236,7 @@ const ClientSetup = () => {
               className="text_area2"
               type="date"
               name="renewalExpiration"
+              value={details.renewalExpiration}
               onChange={handleChange}
             />
 
@@ -244,6 +247,7 @@ const ClientSetup = () => {
               min="1"
               max="100"
               name="grossCor"
+              value={details.grossCor}
               onChange={handleChange}
             />
 
@@ -271,6 +275,7 @@ const ClientSetup = () => {
               min="1"
               max="100"
               name="salesFee"
+              value={details.salesFee}
               onChange={handleChange}
             />
 
@@ -279,6 +284,7 @@ const ClientSetup = () => {
               className="text_area2"
               type="text"
               name="producerPay"
+              value={details.producerPay}
               onChange={handleChange}
             />
 
@@ -288,6 +294,7 @@ const ClientSetup = () => {
               type="text"
               placeholder="$"
               name="expenseCap"
+              value={details.expenseCap}
               onChange={handleChange}
             />
 
@@ -297,6 +304,7 @@ const ClientSetup = () => {
               type="text"
               placeholder="$"
               name="deliveryFees"
+              value={details.deliveryFees}
               onChange={handleChange}
             />
 
@@ -307,6 +315,7 @@ const ClientSetup = () => {
               min="1"
               max="100"
               name="distributionFee"
+              value={details.distributionFee}
               onChange={handleChange}
             />
 
@@ -317,6 +326,7 @@ const ClientSetup = () => {
               min="1"
               max="100"
               name="incomeReserves"
+              value={details.incomeReserves}
               onChange={handleChange}
             />
 
