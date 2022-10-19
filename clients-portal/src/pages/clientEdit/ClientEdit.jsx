@@ -3,8 +3,42 @@ import {RiImageEditFill} from "react-icons/ri"
 import { MdLocationSearching, MdMailOutline, MdPermIdentity, MdPhoneAndroid } from "react-icons/md"
 import "./clientEdit.css"
 import { Link } from "react-router-dom"
+import axios from "axios"
+import { useEffect, useState } from "react"
 
 export default function ClientEdit() {
+
+      const clientDetails = (id) => {
+        axios.get(`/v1/clients/detail/${id}`).then((res) => {
+            if (res.data.success) {
+                this.setState({
+                    filmName: res.data.filmName,
+                    producersEmail: res.data.producersEmail,
+                    filmsCode: res.data.filmsCode,
+                    distributionType: res.data.distributionType,
+                    rightSale: res.data.rightSale,
+                    cama: res.data.cama,
+                    countryLaw: res.data.countryLaw,
+                    stateLaw: res.data.stateLaw,
+                    effectiveDate: res.data.effectiveDate,
+                    dateSignature: res.data.dateSignature,
+                    renewalDate: res.data.renewalDate,
+                    renewalExpiration: res.data.renewalExpiration,
+                    grossCor: res.data.grossCor,
+                    grossCorRights: res.data.grossCorRights,
+                    salesFee: res.data.salesFee,
+                    producerPay: res.data.producerPay,
+                    expenseCap: res.data.expenseCap,
+                    deliveryFees: res.data.deliveryFees,
+                    distributionFee: res.data.distributionFee,
+                    incomeReserves: res.data.incomeReserves,
+                    otherExps: res.data.otherExps,
+                    accountingTerms: res.data.accountingTerms,
+                })
+            }
+        })
+      }
+
   return (
     <div className="client_edit">
         <div className="clientTitleContainer">

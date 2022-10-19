@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./clients.css";
 import { DataGrid } from "@mui/x-data-grid";
 import { AiOutlineDeleteRow } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import axios from "axios";
+import cogoToast from "cogo-toast";
 
 export default function Clients() {
   const [data, setData] = useState([]);
@@ -36,8 +37,14 @@ export default function Clients() {
   }, []);
 
   const handleDelete = (id) => {
+    axios.delete(`/v1/clients/delete/${id}`).then((res) => {
+      cogoToast.success(res.data.filmName + "has been deleted successfully", {
+        position: "top-center",
+      });
+    })
     setData(data.filter((item) => item.id !== id));
   };
+
   const columns = [
     // { field: 'id', headerName: 'ID', width: 70 },
     {
@@ -96,8 +103,8 @@ export default function Clients() {
         disableSelectionOnClick
         rows={data}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={15}
+        rowsPerPageOptions={[15]}
         checkboxSelection
       />
     </div>

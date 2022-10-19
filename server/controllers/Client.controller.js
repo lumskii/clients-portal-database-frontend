@@ -1,3 +1,4 @@
+const { findByIdAndUpdate, findByIdAndRemove } = require("../models/Client");
 const Client = require("../models/Client");
 
 // const insertClient = clientObj =>{
@@ -132,3 +133,25 @@ exports.getAllClients = (req, res, next) => {
     }
   });
 };
+
+exports.updateClient = (req, res) => {
+  Client.put("/update/:id", function (err) {
+    if (err) {
+      return res.json({
+        status: 500,
+        message: "Unable to update",
+      });
+    } else {
+      return findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: req.body,
+        }
+      )
+    }
+  });
+};
+
+exports.deleteClient = (req, res) => {
+  
+}
