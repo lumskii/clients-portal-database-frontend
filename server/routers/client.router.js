@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const clientController = require("../controllers/client.controller");
-const Client = require("../models/Client");
 
 // - create url endpoints
 // router.post("/", (req, res) => {

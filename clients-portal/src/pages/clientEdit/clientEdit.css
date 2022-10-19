@@ -161,3 +161,11 @@
     color: #fff;
     font-weight: bold;
 }
+
+.accountInfoTitle{
+    font-size: 14px;
+}
+
+.capi{
+    text-transform: capitalize;
+}
