@@ -31,38 +31,13 @@ const Client = require("../models/Client");
 // });
 
 router.post("/", clientController.insertClient);
+
 router.get("/", clientController.getAllClients);
 
-router.get("/detail/:id", (req, res) => {
-    let id = req.params.id;
-  
-    Client.findById(id, function (err, post) {
-      if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true, post });
-    });
-  });
+router.get("/:id", clientController.getClientDetails);
 
-router.put("/update/:id", (req, res) => {
-    Client.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      (err, data) => {
-        if (err) returnres.status(400).json({ success: false, err });
-        return res.status(200).json({ success: true });
-      }
-    );
-  });
-  
-  router.delete("/delete/:id", (req, res) => {
-    Client.findByIdAndRemove(req.params.id).exec((error, deletedItem) => {
-      if (error) {
-        res.send(error);
-      }
-      return res.json(deletedItem);
-    });
-  });
-  
+router.patch("/:id", clientController.updateClient);
+
+router.delete("/:id", clientController.deleteClient);
 
 module.exports = router;

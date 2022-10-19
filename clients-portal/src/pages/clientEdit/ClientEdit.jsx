@@ -1,122 +1,193 @@
-import { BsCalendar } from "react-icons/bs"
-import {RiImageEditFill} from "react-icons/ri"
-import { MdLocationSearching, MdMailOutline, MdPermIdentity, MdPhoneAndroid } from "react-icons/md"
-import "./clientEdit.css"
-import { Link } from "react-router-dom"
-import axios from "axios"
-import { useEffect, useState } from "react"
+import { BsCalendar } from "react-icons/bs";
+import { RiImageEditFill } from "react-icons/ri";
+import {
+  MdLocationSearching,
+  MdMailOutline,
+  MdPermIdentity,
+  MdPhoneAndroid,
+} from "react-icons/md";
+import "./clientEdit.css";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-export default function ClientEdit() {
+const ClientEdit = (props) => {
+  const [client, setClient] = useState({});
+  const [loading, setLoading] = useState(false);
+  const { clientsId } = useParams();
+  console.log("params", clientsId);
 
-      const clientDetails = (id) => {
-        axios.get(`/v1/clients/detail/${id}`).then((res) => {
-            if (res.data.success) {
-                this.setState({
-                    filmName: res.data.filmName,
-                    producersEmail: res.data.producersEmail,
-                    filmsCode: res.data.filmsCode,
-                    distributionType: res.data.distributionType,
-                    rightSale: res.data.rightSale,
-                    cama: res.data.cama,
-                    countryLaw: res.data.countryLaw,
-                    stateLaw: res.data.stateLaw,
-                    effectiveDate: res.data.effectiveDate,
-                    dateSignature: res.data.dateSignature,
-                    renewalDate: res.data.renewalDate,
-                    renewalExpiration: res.data.renewalExpiration,
-                    grossCor: res.data.grossCor,
-                    grossCorRights: res.data.grossCorRights,
-                    salesFee: res.data.salesFee,
-                    producerPay: res.data.producerPay,
-                    expenseCap: res.data.expenseCap,
-                    deliveryFees: res.data.deliveryFees,
-                    distributionFee: res.data.distributionFee,
-                    incomeReserves: res.data.incomeReserves,
-                    otherExps: res.data.otherExps,
-                    accountingTerms: res.data.accountingTerms,
-                })
-            }
-        })
+  useEffect(() => {
+    const getClient = async (id) => {
+      setLoading(true);
+      const details = await axios.get(`/v1/clients/${id}`);
+
+      if (details && details.data.success) {
+        setLoading(false);
+        setClient(details.data.client);
       }
+
+      console.log("details", details);
+    };
+
+    getClient(clientsId);
+  }, []);
+
+  // const clientDetails = (id) => {
+  //   axios.get(`/v1/clients/${id}`).then((res) => {
+  //     if (res.data.success) {
+  //       this.setState({
+  //         filmName: res.data.filmName,
+  //         producersEmail: res.data.producersEmail,
+  //         filmsCode: res.data.filmsCode,
+  //         distributionType: res.data.distributionType,
+  //         rightSale: res.data.rightSale,
+  //         cama: res.data.cama,
+  //         countryLaw: res.data.countryLaw,
+  //         stateLaw: res.data.stateLaw,
+  //         effectiveDate: res.data.effectiveDate,
+  //         dateSignature: res.data.dateSignature,
+  //         renewalDate: res.data.renewalDate,
+  //         renewalExpiration: res.data.renewalExpiration,
+  //         grossCor: res.data.grossCor,
+  //         grossCorRights: res.data.grossCorRights,
+  //         salesFee: res.data.salesFee,
+  //         producerPay: res.data.producerPay,
+  //         expenseCap: res.data.expenseCap,
+  //         deliveryFees: res.data.deliveryFees,
+  //         distributionFee: res.data.distributionFee,
+  //         incomeReserves: res.data.incomeReserves,
+  //         otherExps: res.data.otherExps,
+  //         accountingTerms: res.data.accountingTerms,
+  //       });
+  //     }
+  //   });
+  // };
 
   return (
     <div className="client_edit">
-        <div className="clientTitleContainer">
-            <h1 className="headerTitle">Edit Client</h1>
-            <Link to='/client-setup'>
-                <button className="clientAddButton">Create</button>
-            </Link>
-        </div>
+      <div className="clientTitleContainer">
+        <h1 className="headerTitle">Edit Client</h1>
+        <Link to="/client-setup">
+          <button className="clientAddButton">Create</button>
+        </Link>
+      </div>
+      {client && !loading && (
         <div className="clientContainer">
-            <div className="clientShow">
-                <div className="clientShowTop">
-                    <img src="https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="" className="clientShowImg" />
-                    <div className="clientShowTopTitle">
-                        <span className="clientShowClientName">The Test</span>
-                        <span className="clientShowClientDT">Sales Only</span>
-                    </div>
-                </div>
-                <div className="clientShowBottom">
-                    <span className="clientShowTitle">Account Details</span>
-                        <div className="clientShowInfo">
-                            <MdPermIdentity className="clientShowIcon" />
-                            <span className="clientShowClientCode">octane1234</span>
-                        </div>
-                        <div className="clientShowInfo">
-                            <BsCalendar className="clientShowIcon" />
-                            <span className="clientShowClientCode">10.12.1999</span>
-                        </div>
-                        <span className="clientShowTitle">Contact Details</span>
-                        <div className="clientShowInfo">
-                            <MdPhoneAndroid className="clientShowIcon" />
-                            <span className="clientShowClientCode">+1 123 456 7890</span>
-                        </div>
-                        <div className="clientShowInfo">
-                            <MdMailOutline className="clientShowIcon" />
-                            <span className="clientShowClientCode">producer@gmail.com</span>
-                        </div>
-                        <div className="clientShowInfo">
-                            <MdLocationSearching className="clientShowIcon" />
-                            <span className="clientShowClientCode">New York | USA</span>
-                        </div>
-                </div>
+          <div className="clientShow">
+            <div className="clientShowTop">
+              <img
+                src="https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                alt=""
+                className="clientShowImg"
+              />
+              <div className="clientShowTopTitle">
+                <span className="clientShowClientName">
+                  {client && client.filmName}
+                </span>
+                <span className="clientShowClientDT">
+                  {client && client.distributionType}
+                </span>
+              </div>
             </div>
-            <div className="clientUpdate">
-                <span className="clientUpdateTitle">Edit</span>
-                <form className="clientUpdateForm">
-                    <div className="clientUpdateLeft">
-                        <div className="clientUpdateItem">
-                            <label>Film Name</label>
-                            <input type="text" placeholder="The Test" className="clientUpdateInput" />
-                        </div>
-                        <div className="clientUpdateItem">
-                            <label>Producer's Email</label>
-                            <input type="email" placeholder="producer@gmail.com" className="clientUpdateInput" />
-                        </div>
-                        <div className="clientUpdateItem">
-                            <label>Distribution Type</label>
-                            <input type="text" placeholder="Sales only" className="clientUpdateInput" />
-                        </div>
-                        <div className="clientUpdateItem">
-                            <label>Phone Number</label>
-                            <input type="text" placeholder="+1 123 456 7890" className="clientUpdateInput" />
-                        </div>
-                        <div className="clientUpdateItem">
-                            <label>Location</label>
-                            <input type="text" placeholder="New York | USA" className="clientUpdateInput" />
-                        </div>
-                    </div>
-                    <div className="clientUpdateRight">
-                        <div className="clientUpdateUpload">
-                            <img src="https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="" className="clientUpdateImg" />
-                            <label for="file"><RiImageEditFill className="clientUpdateIcon" /></label>
-                            <input type="file" id="file" style={{ display: "none" }} />
-                        </div>
-                        <button className="clientUpdateButton">Update</button>
-                    </div>
-                </form>
+            <div className="clientShowBottom">
+              <span className="clientShowTitle">Account Details</span>
+              <div className="clientShowInfo">
+                <MdPermIdentity className="clientShowIcon" />
+                <span className="clientShowClientCode">
+                  {client && client.filmsCode}
+                </span>
+              </div>
+              <div className="clientShowInfo">
+                <BsCalendar className="clientShowIcon" />
+                <span className="clientShowClientCode">10.12.1999</span>
+              </div>
+              <span className="clientShowTitle">Contact Details</span>
+              <div className="clientShowInfo">
+                <MdPhoneAndroid className="clientShowIcon" />
+                <span className="clientShowClientCode">+1 123 456 7890</span>
+              </div>
+              <div className="clientShowInfo">
+                <MdMailOutline className="clientShowIcon" />
+                <span className="clientShowClientCode">
+                  {client && client.producersEmail}
+                </span>
+              </div>
+              <div className="clientShowInfo">
+                <MdLocationSearching className="clientShowIcon" />
+                <span className="clientShowClientCode">New York | USA</span>
+              </div>
             </div>
+          </div>
+          <div className="clientUpdate">
+            <span className="clientUpdateTitle">Edit</span>
+            <form className="clientUpdateForm">
+              <div className="clientUpdateLeft">
+                <div className="clientUpdateItem">
+                  <label>Film Name</label>
+                  <input
+                    type="text"
+                    placeholder="The Test"
+                    className="clientUpdateInput"
+                    value={client && client.filmName}
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Producer's Email</label>
+                  <input
+                    type="email"
+                    placeholder="producer@gmail.com"
+                    className="clientUpdateInput"
+                    value={client && client.producersEmail}
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Distribution Type</label>
+                  <input
+                    type="text"
+                    placeholder="Sales only"
+                    className="clientUpdateInput"
+                    value={client && client.distributionType}
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Phone Number</label>
+                  <input
+                    type="text"
+                    placeholder="+1 123 456 7890"
+                    className="clientUpdateInput"
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Location</label>
+                  <input
+                    type="text"
+                    placeholder="New York | USA"
+                    className="clientUpdateInput"
+                  />
+                </div>
+              </div>
+              <div className="clientUpdateRight">
+                <div className="clientUpdateUpload">
+                  <img
+                    src="https://images.unsplash.com/photo-1635805737707-575885ab0820?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+                    alt=""
+                    className="clientUpdateImg"
+                  />
+                  <label for="file">
+                    <RiImageEditFill className="clientUpdateIcon" />
+                  </label>
+                  <input type="file" id="file" style={{ display: "none" }} />
+                </div>
+                <button className="clientUpdateButton">Update</button>
+              </div>
+            </form>
+          </div>
         </div>
+      )}
+      {loading && <p>Loading client's details...</p>}
     </div>
-  )
-}
+  );
+};
+
+export default ClientEdit;

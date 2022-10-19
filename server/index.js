@@ -46,10 +46,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/titles", getAllTitles);
-// app.get("/clients", getAllClients);
-
-// app.post("/titles", addNewTitles);
-// app.post("/clients", insertClient);
 
 // Start server...
 const PORT = process.env.PORT || 5000;

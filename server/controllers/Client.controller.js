@@ -134,24 +134,41 @@ exports.getAllClients = (req, res, next) => {
   });
 };
 
-exports.updateClient = (req, res) => {
-  Client.put("/update/:id", function (err) {
-    if (err) {
-      return res.json({
-        status: 500,
-        message: "Unable to update",
-      });
-    } else {
-      return findByIdAndUpdate(
-        req.params.id,
-        {
-          $set: req.body,
-        }
-      )
-    }
+exports.getClientDetails = (req, res) => {
+  let id = req.params.id;
+
+  Client.findById(id, function (err, client) {
+    if (err) return res.json({ success: false, error: err });
+
+    console.log("get client details", client);
+
+    return res.json({ success: true, client });
   });
 };
 
+exports.updateClient = (req, res) => {
+  Client.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: req.body,
+    },
+    (err, data) => {
+      if (err) return res.status(400).json({ success: false, err });
+      return res.status(200).json({ success: true });
+    }
+  );
+};
+
 exports.deleteClient = (req, res) => {
-  
-}
+  Client.findByIdAndRemove(req.params.id).exec((error, deletedItem) => {
+    if (error) {
+      res.send(error);
+    }
+    return res.json({
+      success: true,
+      deletedItem,
+      message: "Client successfully deleted",
+    });
+  });
+};
+// exports.deleteClient = (req, res) => {};
