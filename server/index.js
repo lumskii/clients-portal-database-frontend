@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const colors = require("colors");
 const dotenv = require("dotenv");
 const logger = require("morgan");
+const path = require('path');
 const {
   getAllTitles,
   addNewTitles,
@@ -46,6 +47,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/titles", getAllTitles);
+
 
 // Start server...
 const PORT = process.env.PORT || 5000;

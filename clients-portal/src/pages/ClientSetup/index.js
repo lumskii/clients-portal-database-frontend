@@ -4,6 +4,7 @@ import { Header, HeaderTitle } from "./ClientSetupElements";
 import axios from "axios";
 import "./ClientStyles.css";
 import cogoToast from "cogo-toast";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   filmName: "",
@@ -32,6 +33,7 @@ const initialState = {
 };
 
 const ClientSetup = () => {
+  const navigate = useNavigate();
   const [details, setDetails] = useState(initialState);
 
   const handleChange = (e) => {
@@ -57,6 +59,7 @@ const ClientSetup = () => {
         });
         console.log("submitted", submitted.data);
         setDetails(initialState);
+        navigate('/clients');
       } else {
         cogoToast.error("Could not submit client info");
       }
@@ -66,7 +69,7 @@ const ClientSetup = () => {
   };
 
   useEffect(() => {
-    const filmCode = "octane" + Math.floor(100000 + Math.random() * 900000);
+    const filmCode = "OMM" + Math.floor(100000 + Math.random() * 900000);
     console.log("filmcode", filmCode);
     setDetails({ ...details, filmsCode: filmCode });
   }, []);

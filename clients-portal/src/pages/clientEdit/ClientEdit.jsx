@@ -12,6 +12,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const ClientEdit = (props) => {
+  const [details, setDetails] = useState("");
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(false);
   const { clientsId } = useParams();
@@ -33,7 +34,8 @@ const ClientEdit = (props) => {
     getClient(clientsId);
   }, [clientsId]);
 
- 
+
+  
 
   return (
     <div className="client_edit">

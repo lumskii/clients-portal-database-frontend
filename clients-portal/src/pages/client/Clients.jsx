@@ -37,8 +37,8 @@ export default function Clients() {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`/v1/clients/delete/${id}`).then((res) => {
-      cogoToast.success(res.data.filmName + "has been deleted successfully", {
+    axios.delete(`/v1/clients/${id}`).then((res) => {
+      cogoToast.success(res.data.filmName + " has been deleted successfully", {
         position: "top-center",
       });
     })
