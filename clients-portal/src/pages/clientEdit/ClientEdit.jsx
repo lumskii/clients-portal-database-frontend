@@ -10,9 +10,9 @@ import "./clientEdit.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import cogoToast from "cogo-toast";
 
 const ClientEdit = (props) => {
-  const [details, setDetails] = useState("");
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(false);
   const { clientsId } = useParams();
@@ -34,8 +34,35 @@ const ClientEdit = (props) => {
     getClient(clientsId);
   }, [clientsId]);
 
+  const handleChange = (e) => {
+    const newValue = {};
+    newValue[e.target.name] = e.target.value;
 
-  
+    console.log(newValue);
+
+    setClient({ ...client, ...newValue });
+  };
+
+  const handleUpdateClient = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const updateClient = async (id) => {
+      const details = await axios.patch(`/v1/clients/${id}`, client);
+
+      if (details && details.data.success) {
+        cogoToast.success("Client updated successfully", {
+          position: "top-center",
+        });
+        console.log("Updated", details.data);
+        setLoading(false);
+      } else {
+        cogoToast.error("Could not submit client info");
+        setLoading(false);
+      }
+    };
+
+    updateClient(clientsId);
+  };
 
   return (
     <div className="client_edit">
@@ -90,68 +117,96 @@ const ClientEdit = (props) => {
               </div>
               <div className="clientShowInfo">
                 <MdLocationSearching className="clientShowIcon" />
-                <span className="clientShowClientCode capi">{client && client.stateLaw} | {client && client.countryLaw}</span>
+                <span className="clientShowClientCode capi">
+                  {client && client.stateLaw} | {client && client.countryLaw}
+                </span>
               </div>
 
               {/* .........Account info starts here ......... */}
               <span className="clientShowTitle">Account Information</span>
               <div className="clientShowInfo">
                 <h5 className="accountInfoTitle">Date of signature:</h5>
-                <span className="clientShowClientCode">{client && client.dateSignature}</span>
+                <span className="clientShowClientCode">
+                  {client && client.dateSignature}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Renewal Date:</h5>
-                <span className="clientShowClientCode">{client && client.renewalDate}</span>
+                <h5 className="accountInfoTitle">Renewal Date:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.renewalDate}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Renewal expiration:</h5>
-                <span className="clientShowClientCode">{client && client.renewalExpiration}</span>
+                <h5 className="accountInfoTitle">Renewal expiration:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.renewalExpiration}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Gross Corridor:</h5>
-                <span className="clientShowClientCode">{client && client.grossCor}</span>
+                <h5 className="accountInfoTitle">Gross Corridor:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.grossCor}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Gross Corridor Rights:</h5>
-                <span className="clientShowClientCode">{client && client.grossCorRights}</span>
+                <h5 className="accountInfoTitle">Gross Corridor Rights:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.grossCorRights}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Sales Fee:</h5>
-                <span className="clientShowClientCode">{client && client.salesFee}%</span>
+                <h5 className="accountInfoTitle">Sales Fee:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.salesFee}%
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Producer's Payment:</h5>
-                <span className="clientShowClientCode">${client && client.producerPay}</span>
+                <h5 className="accountInfoTitle">Producer's Payment:</h5>
+                <span className="clientShowClientCode">
+                  ${client && client.producerPay}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Expense Cap:</h5>
-                <span className="clientShowClientCode">${client && client.expenseCap}</span>
+                <h5 className="accountInfoTitle">Expense Cap:</h5>
+                <span className="clientShowClientCode">
+                  ${client && client.expenseCap}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Delivery fees:</h5>
-                <span className="clientShowClientCode">${client && client.deliveryFees}</span>
+                <h5 className="accountInfoTitle">Delivery fees:</h5>
+                <span className="clientShowClientCode">
+                  ${client && client.deliveryFees}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Distribution fees:</h5>
-                <span className="clientShowClientCode">{client && client.distributionFee}%</span>
+                <h5 className="accountInfoTitle">Distribution fees:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.distributionFee}%
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Income reserves:</h5>
-                <span className="clientShowClientCode">{client && client.incomeReserves}%</span>
+                <h5 className="accountInfoTitle">Income reserves:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.incomeReserves}%
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Other Expenses:</h5>
-                <span className="clientShowClientCode">{client && client.otherExps}</span>
+                <h5 className="accountInfoTitle">Other Expenses:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.otherExps}
+                </span>
               </div>
               <div className="clientShowInfo">
-              <h5 className="accountInfoTitle">Accounting terms:</h5>
-                <span className="clientShowClientCode">{client && client.accountingTerms}</span>
+                <h5 className="accountInfoTitle">Accounting terms:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.accountingTerms}
+                </span>
               </div>
             </div>
           </div>
           <div className="clientUpdate">
             <span className="clientUpdateTitle">Edit</span>
-            <form className="clientUpdateForm">
+            <form className="clientUpdateForm" onSubmit={handleUpdateClient}>
               <div className="clientUpdateLeft">
                 <div className="clientUpdateItem">
                   <label>Film Name</label>
@@ -160,6 +215,8 @@ const ClientEdit = (props) => {
                     placeholder="The Test"
                     className="clientUpdateInput"
                     value={client && client.filmName}
+                    name="filmName"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -169,6 +226,8 @@ const ClientEdit = (props) => {
                     placeholder="producer@gmail.com"
                     className="clientUpdateInput"
                     value={client && client.producersEmail}
+                    name="producersEmail"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -178,6 +237,8 @@ const ClientEdit = (props) => {
                     placeholder="Sales only"
                     className="clientUpdateInput"
                     value={client && client.distributionType}
+                    name="distributionType"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -195,6 +256,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.stateLaw}
+                    name="stateLaw"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -204,6 +267,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.dateSignature}
+                    name="dateSignature"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -213,6 +278,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.renewalDate}
+                    name="renewalDate"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -222,6 +289,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.renewalExpiration}
+                    name="renewalExpiration"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -231,6 +300,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.grossCor}
+                    name="grossCor"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -240,6 +311,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.grossCorRights}
+                    name="grossCorRights"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -249,6 +322,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.salesFee}
+                    name="salesFee"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -258,6 +333,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.producerPay}
+                    name="producerPay"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -267,6 +344,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.expenseCap}
+                    name="expenseCap"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -276,6 +355,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.deliveryFees}
+                    name="deliveryFees"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -285,6 +366,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.distributionFee}
+                    name="distributionFee"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -294,6 +377,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.incomeReserves}
+                    name="incomeReserves"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -303,6 +388,8 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.otherExps}
+                    name="otherExps"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="clientUpdateItem">
@@ -312,9 +399,10 @@ const ClientEdit = (props) => {
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.accountingTerms}
+                    name="accountingTerms"
+                    onChange={handleChange}
                   />
                 </div>
-                
               </div>
               <div className="clientUpdateRight">
                 <div className="clientUpdateUpload">
@@ -328,7 +416,13 @@ const ClientEdit = (props) => {
                   </label>
                   <input type="file" id="file" style={{ display: "none" }} />
                 </div>
-                <button className="clientUpdateButton">Update</button>
+                <button
+                  className="clientUpdateButton"
+                  type="submit"
+                  disabled={loading}
+                >
+                  Update
+                </button>
               </div>
             </form>
           </div>
