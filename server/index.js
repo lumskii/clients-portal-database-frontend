@@ -8,7 +8,7 @@ const {
   getAllTitles,
   addNewTitles,
 } = require("./controllers/titles.controller");
-const { getAllClients } = require("./controllers/client.controller");
+const { getAllClients } = require("./controllers/Client.controller");
 const clientRouter = require("./routers/client.router");
 
 const app = express();
