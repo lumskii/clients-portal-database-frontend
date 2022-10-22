@@ -11,12 +11,12 @@ import {
 
 export const dashLinks = [
     {
-        to:"/client-setup",
+        to:"/clients",
         icon:<UserPlus />,
-        label:"Set Up New Client"
+        label:"Clients"
     },
     {
-        to:"/",
+        to:"/edit-a-client",
         icon:<UserEdit />,
         label:"Edit a Client"
     },
@@ -26,18 +26,18 @@ export const dashLinks = [
         label:"Bulk Updates"
     },
     {
-        to:"",
+        to:"/add-expenses",
         icon:<PayMoney />,
         label:"Add Expenses"
     },
     {
         to:"/add-edit-sales",
         icon:<PointOfSale />,
-        label:"Add/Edit Sales Revenue"
+        label:"Sales Revenue"
     },
     {
-        to:"",
+        to:"/distribution-revenue",
         icon:<DistributeHori />,
-        label:"Add/Edit Distribution Revenue"
+        label:"Distribution Revenue"
     }
 ]

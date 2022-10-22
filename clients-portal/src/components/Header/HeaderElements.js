@@ -8,13 +8,13 @@ import {BsChatDots} from 'react-icons/bs';
 
 export const Head = styled.nav`
   background: #fff;
-  height: 80px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
-//   width: ${({ isOpen }) => (!isOpen ? `calc(100vw - 100px)` : `calc(100vw - 280px)`)};
-//   margin: 0 ${({ isOpen }) => (!isOpen ? `100px` : `300px`)};
+  position: sticky;
   width: 100%;
   top: 0;
+  z-index: 999;
 `
 
 export const HeadLink = styled(Tacos)`
@@ -23,6 +23,7 @@ export const HeadLink = styled(Tacos)`
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
+  margin-top: 10px;
   height: 100%;
   cursor: pointer;
   &.active {
@@ -35,6 +36,7 @@ export const HeadLabel = styled.div`
     display: flex;
     min-width: 100px;
     align-items: center;
+    margin-top: 10px;
 `
 
 export const Search = styled(FaSearch)`
@@ -61,7 +63,7 @@ export const HeadBtns = styled.div`
     min-width: 150px;
     right: 0;
     align-items: center;
-    top: 10px;
+    top: 0px;
 `
 
 export const HeadBtnLink = styled.button`
@@ -78,10 +80,26 @@ export const Bell = styled(FaRegBell)`
     position: relative;
     width: 25px;
     height: 25px;
+    top: 5px;
+`
+export const Badge = styled.span`
+    position: relative;
+    width: 18px;
+    height: 18px;
+    font-size: 15px;
+    top: -35px;
+    right: -30px;
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 `
 
 export const Chat = styled(BsChatDots)`
     position: relative;
     width: 25px;
     height: 25px;
+    top: 5px;
 `

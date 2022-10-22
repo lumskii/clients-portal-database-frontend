@@ -1,4 +1,5 @@
 import React from 'react'
+import { LogoBrand } from '../Navbar/NavbarElements'
 import {
      Bell, 
      Head,
@@ -8,8 +9,10 @@ import {
      HeadInput,
      Search,
      HeadBtns,
-     Chat 
-    } from './HeaderElements'
+     Chat, 
+     Badge
+    } from './HeaderElements';
+import Logo from "../../images/Logo.svg";
 
 const Header = () => {
   return (
@@ -18,7 +21,7 @@ const Header = () => {
         <Head>
         
         <HeadLink to="/">
-            <h1>Dashboard</h1>
+          <LogoBrand src={Logo} />
         </HeadLink>
 
         <HeadLabel>
@@ -29,9 +32,11 @@ const Header = () => {
             <HeadBtns>
                 <HeadBtnLink>
                 <Bell />
+                <Badge>2</Badge>
                 </HeadBtnLink>
                 <HeadBtnLink>
                 <Chat />
+                <Badge>2</Badge>
                 </HeadBtnLink>
             </HeadBtns>
         </Head>

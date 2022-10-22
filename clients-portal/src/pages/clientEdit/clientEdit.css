@@ -1,0 +1,171 @@
+.client_edit{
+    flex: 4;
+    margin: 20px 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.clientTitleContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.clientAddButton{
+    width: 80px;
+    border: none;
+    padding: 5px;
+    background-color: teal;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+}
+
+.clientContainer{
+    display: flex;
+    margin-top: 20px;
+}
+
+.clientShow{
+    flex: 1;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.clientUpdate{
+    flex: 2;
+    padding: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 20px;
+}
+
+.clientShowTop{
+    display: flex;
+    align-items: center;
+}
+
+.clientShowImg{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.clientShowTopTitle{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.clientShowClientName{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.clientShowClientDT{
+    font-weight: 300;
+    color: gray;
+}
+
+.clientShowBottom{
+    margin-top: 20px;
+}
+
+.clientShowTitle{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(158, 153, 153); 
+       
+}
+
+.clientShowInfo{
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    color: #444;
+}
+
+.clientShowIcon{
+    font-size: 16px !important;
+}
+
+.clientShowClientCode{
+    margin-left: 10px;
+}
+
+.clientUpdateTitle{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.clientUpdateItem{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.clientUpdateItem>label{
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.clientUpdateInput{
+    border: none;
+    width: 250px;
+    border-bottom: 1px solid gray;
+    height: 30px;
+}
+
+.clientUpdateForm{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.clientUpdateRight{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.clientUpdateUpload{
+    display: flex;
+    align-items: center;
+}
+
+.clientUpdateImg{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.clientUpdateIcon{
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
+.clientUpdateButton{
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    background-color: darkblue;
+    color: #fff;
+    font-weight: bold;
+}
+
+.accountInfoTitle{
+    font-size: 14px;
+}
+
+.capi{
+    text-transform: capitalize;
+}

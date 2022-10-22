@@ -1,0 +1,27 @@
+{
+  "name": "clients-portal-database-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon --quiet server/index.js",
+    "client": "npm start --prefix clients-portal",
+    "start": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lumskii/clients-portal-database-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lumskii/clients-portal-database-frontend/issues"
+  },
+  "homepage": "https://github.com/lumskii/clients-portal-database-frontend#readme",
+  "dependencies": {
+    "cogo-toast": "^4.2.3",
+    "concurrently": "^7.4.0",
+    "nodemon": "^2.0.20"
+  }
+}
