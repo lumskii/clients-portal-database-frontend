@@ -8,10 +8,8 @@ const colors = require("colors/safe");
 const logger = require("morgan");
 const path = require('path');
 const {
-  getAllTitles,
-  addNewTitles,
+  getAllTitles
 } = require("./controllers/titles.controller");
-const { getAllClients } = require("./controllers/Client.controller");
 const clientRouter = require("./routers/client.router");
 
 const app = express();
