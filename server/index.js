@@ -1,7 +1,10 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require("express");
 const mongoose = require("mongoose");
-const colors = require("colors");
-const dotenv = require("dotenv");
+const colors = require("colors/safe");
 const logger = require("morgan");
 const path = require('path');
 const {
@@ -12,7 +15,6 @@ const { getAllClients } = require("./controllers/Client.controller");
 const clientRouter = require("./routers/client.router");
 
 const app = express();
-dotenv.config();
 
 // Set body bodyParser
 
@@ -29,14 +31,14 @@ app.use("/v1/clients", clientRouter);
 // Connect to MongoDB...
 let mongoDB = process.env.MONGODB_URL;
 
-mongoose.connect(mongoDB);
+mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on("error", () => {
-  console.log("> MongoDB Connection Error...".red);
+  console.log(colors.red("> MongoDB Connection Error..."));
 });
 db.once("open", () => {
-  console.log(`> Successfully Connected the database`.blue);
+  console.log(colors.blue(`> Successfully Connected the database`));
 });
 
 app.get("/", (req, res) => {
