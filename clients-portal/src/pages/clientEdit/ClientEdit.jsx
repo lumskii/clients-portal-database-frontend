@@ -21,7 +21,7 @@ const ClientEdit = (props) => {
   useEffect(() => {
     const getClient = async (id) => {
       setLoading(true);
-      const details = await axios.get(`/v1/clients/${id}`);
+      const details = await axios.get(`https://omm-server.herokuapp.com/v1/clients/${id}`);
 
       if (details && details.data.success) {
         setLoading(false);
@@ -47,7 +47,7 @@ const ClientEdit = (props) => {
     e.preventDefault();
     setLoading(true);
     const updateClient = async (id) => {
-      const details = await axios.patch(`/v1/clients/${id}`, client);
+      const details = await axios.patch(`https://omm-server.herokuapp.com/v1/clients/${id}`, client);
 
       if (details && details.data.success) {
         cogoToast.success("Client updated successfully", {

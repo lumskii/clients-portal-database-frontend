@@ -12,7 +12,7 @@ export default function Clients() {
   useEffect(() => {
     const retrieveAllClients = () => {
       console.log("fetching...");
-      fetch("/v1/clients")
+      fetch("https://omm-server.herokuapp.com/v1/clients")
         .then((res) => res.json())
         .then((res) => {
           if (res.status === 200) {
@@ -37,7 +37,7 @@ export default function Clients() {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`/v1/clients/${id}`).then((res) => {
+    axios.delete(`https://omm-server.herokuapp.com/v1/clients/${id}`).then((res) => {
       cogoToast.success(res.data.filmName + " has been deleted successfully", {
         position: "top-center",
       });

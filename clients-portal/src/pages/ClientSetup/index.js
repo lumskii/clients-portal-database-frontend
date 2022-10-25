@@ -47,7 +47,7 @@ const ClientSetup = () => {
     e.preventDefault();
 
     const submitClientDetails = async () => {
-      const submitted = await axios.post("v1/clients", details);
+      const submitted = await axios.post("https://omm-server.herokuapp.com/v1/clients", details);
 
       if (
         submitted &&

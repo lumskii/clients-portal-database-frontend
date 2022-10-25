@@ -17,7 +17,7 @@ export default function EditClient() {
       useEffect(() => {
         const callBackendAPI = () => {
           console.log("fetching...");
-          fetch("/titles")
+          fetch("https://omm-server.herokuapp.com/titles")
             .then((res) => res.json())
             .then((res) => {
               if (res.status === 200) {
