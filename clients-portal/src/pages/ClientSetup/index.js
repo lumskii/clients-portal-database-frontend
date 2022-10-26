@@ -5,6 +5,7 @@ import axios from "axios";
 import "./ClientStyles.css";
 import cogoToast from "cogo-toast";
 import { useNavigate } from "react-router-dom";
+import { server } from "../../constance";
 
 const initialState = {
   filmName: "",
@@ -47,7 +48,7 @@ const ClientSetup = () => {
     e.preventDefault();
 
     const submitClientDetails = async () => {
-      const submitted = await axios.post("https://omm-server.herokuapp.com/v1/clients", details);
+      const submitted = await axios.post(`${server}/v1/clients`, details);
 
       if (
         submitted &&

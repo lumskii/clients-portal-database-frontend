@@ -5,6 +5,7 @@ import { AiOutlineDeleteRow } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import cogoToast from "cogo-toast";
+import { server } from "../../constance";
 
 export default function Clients() {
   const [data, setData] = useState([]);
@@ -12,7 +13,7 @@ export default function Clients() {
   useEffect(() => {
     const retrieveAllClients = () => {
       console.log("fetching...");
-      fetch("https://omm-server.herokuapp.com/v1/clients")
+      fetch(`${server}/v1/clients`)
         .then((res) => res.json())
         .then((res) => {
           if (res.status === 200) {
@@ -37,7 +38,7 @@ export default function Clients() {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`https://omm-server.herokuapp.com/v1/clients/${id}`).then((res) => {
+    axios.delete(`${server}/v1/clients/${id}`).then((res) => {
       cogoToast.success(res.data.filmName + " has been deleted successfully", {
         position: "top-center",
       });
@@ -78,7 +79,7 @@ export default function Clients() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/clients/" + params.row.id}>
+            <Link to={`/clients/` + params.row.id}>
               <button className="clientListEdit">Edit</button>
             </Link>
             <AiOutlineDeleteRow

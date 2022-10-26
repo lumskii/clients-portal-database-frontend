@@ -11,8 +11,9 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import cogoToast from "cogo-toast";
+import { server } from "../../constance";
 
-const ClientEdit = (props) => {
+const ClientEdit = () => {
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(false);
   const { clientsId } = useParams();
@@ -21,7 +22,7 @@ const ClientEdit = (props) => {
   useEffect(() => {
     const getClient = async (id) => {
       setLoading(true);
-      const details = await axios.get(`https://omm-server.herokuapp.com/v1/clients/${id}`);
+      const details = await axios.get(`${server}/v1/clients/${id}`);
 
       if (details && details.data.success) {
         setLoading(false);
@@ -47,7 +48,7 @@ const ClientEdit = (props) => {
     e.preventDefault();
     setLoading(true);
     const updateClient = async (id) => {
-      const details = await axios.patch(`https://omm-server.herokuapp.com/v1/clients/${id}`, client);
+      const details = await axios.patch(server + `/v1/clients/${id}`, client);
 
       if (details && details.data.success) {
         cogoToast.success("Client updated successfully", {

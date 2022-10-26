@@ -3,6 +3,7 @@ import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
 import Select, { components } from "react-select";
 import './SalesStyle.css'
+import { server } from '../../constance';
 
 const AddEditSales = () => {
     const [toggleState, setToggleState] = useState(1);
@@ -43,7 +44,7 @@ const AddEditSales = () => {
       useEffect(() => {
         const callBackendAPI = () => {
           console.log("fetching...");
-          fetch("https://omm-server.herokuapp.com/titles")
+          fetch(`${server}/titles`)
             .then((res) => res.json())
             .then((res) => {
               if (res.status === 200) {

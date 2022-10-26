@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
 import Select, { components } from "react-select";
+import { server } from '../../constance';
 
 const Distribution = () => {
         const [toggleState, setToggleState] = useState(1);
@@ -42,7 +43,7 @@ const Distribution = () => {
         useEffect(() => {
           const callBackendAPI = () => {
             console.log("fetching...");
-            fetch("https://omm-server.herokuapp.com/titles")
+            fetch(`${server}/titles`)
               .then((res) => res.json())
               .then((res) => {
                 if (res.status === 200) {

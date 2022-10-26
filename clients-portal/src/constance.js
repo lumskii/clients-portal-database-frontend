@@ -1,0 +1,1 @@
+export const server = "https://omm-server.herokuapp.com";

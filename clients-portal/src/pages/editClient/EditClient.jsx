@@ -3,6 +3,7 @@ import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
 import Select, { components } from "react-select";
 import './editClient.css'
+import { server } from '../../constance';
 
 export default function EditClient() {
     const [titles, setTitles] = useState([]);
@@ -17,7 +18,7 @@ export default function EditClient() {
       useEffect(() => {
         const callBackendAPI = () => {
           console.log("fetching...");
-          fetch("https://omm-server.herokuapp.com/titles")
+          fetch(`${server}/titles`)
             .then((res) => res.json())
             .then((res) => {
               if (res.status === 200) {

@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require("express");
 const mongoose = require("mongoose");
 const colors = require("colors/safe");
-// const logger = require("morgan");
+const logger = require("morgan");
 const path = require('path');
 const {
   getAllTitles
@@ -13,10 +13,13 @@ const {
 const clientRouter = require("./routers/client.router");
 
 const app = express();
+//authentication
+const cors = require('cors')
+app.use(cors());
 
 // Set body bodyParser
 
-// app.use(logger("dev"));
+app.use(logger("dev"));
 app.use(express.json());
 
 //Load routers
@@ -49,9 +52,6 @@ app.get("/", (req, res) => {
 //fetching title link
 app.get("/titles", getAllTitles);
 
-//authentication
-const cors = require('cors')
-app.use(cors())
 
 
 // Start server...
