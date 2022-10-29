@@ -124,6 +124,7 @@ const ClientEdit = () => {
               </div>
 
               {/* .........Account info starts here ......... */}
+              
               <span className="clientShowTitle">Account Information</span>
               <div className="clientShowInfo">
                 <h5 className="accountInfoTitle">Date of signature:</h5>

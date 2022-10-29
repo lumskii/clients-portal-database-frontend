@@ -103,6 +103,10 @@ const ClientSchema = new Schema({
         type: String,
         maxlength: 50,
         required: true,
+    },
+    pic: {
+        data: Buffer,
+        contentType: String,
     }
 });
 

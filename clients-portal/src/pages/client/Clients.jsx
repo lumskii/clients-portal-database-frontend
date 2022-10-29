@@ -20,6 +20,7 @@ export default function Clients() {
             console.log("res", res.data.clients);
             let allData = res.data.clients.map((client) => ({
               id: client._id,
+              pic: client.pic,
               filmName: client.filmName,
               filmCode: client.filmsCode,
               avatar: client.avatar,
@@ -55,7 +56,7 @@ export default function Clients() {
       renderCell: (params) => {
         return (
           <div className="clientAvatar">
-            <img className="avatarImg" src={params.row.avatar} alt="" />
+            <img className="avatarImg" src={params.row.pic} alt="" />
             {params.row.filmName}
           </div>
         );

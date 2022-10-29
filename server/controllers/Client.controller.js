@@ -1,22 +1,4 @@
-const { findByIdAndUpdate, findByIdAndRemove } = require("../models/Client");
 const Client = require("../models/Client");
-
-// const insertClient = clientObj =>{
-//     return new Promise((resolve, reject) => {
-//         try {
-//             Client(clientObj)
-//                 .save()
-//                 .then((data) => resolve(data))
-//                 .catch((error) => reject(error));
-//         } catch (error) {
-//             reject(error);
-//         }
-//     });
-// };
-
-// module.exports = {
-//     insertClient,
-// };
 
 exports.insertClient = (req, res, next) => {
   const filmName = req.body.filmName;
@@ -41,6 +23,7 @@ exports.insertClient = (req, res, next) => {
   const incomeReserves = req.body.incomeReserves;
   const otherExps = req.body.otherExps;
   const accountingTerms = req.body.accountingTerms;
+  const pic = req.body.pic;
 
   const data = {
     filmName,
@@ -65,6 +48,7 @@ exports.insertClient = (req, res, next) => {
     incomeReserves,
     otherExps,
     accountingTerms,
+    pic,
   };
 
   if (
