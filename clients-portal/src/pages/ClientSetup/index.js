@@ -37,7 +37,7 @@ const initialState = {
   incomeReserves: "",
   otherExps: "",
   accountingTerms: "",
-  pic: "",
+  avatar: "",
   customExp: "",
   expense: "",
 };

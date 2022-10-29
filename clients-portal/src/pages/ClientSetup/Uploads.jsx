@@ -7,7 +7,7 @@ export default function Uploads({details, setDetails, handleChange}) {
             <input
               className="pics"
               type="file"
-              value={details.pic}
+              value={details.avatar}
               onChange={handleChange}
             />
             </div>
