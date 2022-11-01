@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DashBoard, PageTemplate } from "../Dashboard/DashboardElements";
+import { DashBoard2, PageTemplate2 } from "../Dashboard/DashboardElements";
 import { Header, HeaderTitle } from "./ClientSetupElements";
 import axios from "axios";
 import "./ClientStyles.css";
@@ -12,11 +12,11 @@ import Date from "./Date";
 import MarketingExp from "./MarketingExp";
 import Accounting from "./Accounting";
 import Uploads from "./Uploads";
+import Confirm from "./Confirm";
 
 const initialState = {
   filmName: "",
   producersEmail: "",
-  filmsPassword: "",
   filmsCode: "",
   distributionType: "",
   rightSale: "",
@@ -27,19 +27,17 @@ const initialState = {
   dateSignature: "",
   renewalDate: "",
   renewalExpiration: "",
+  expenseCap: "",
+  customExp: "",
+  expense: "",
   grossCor: "",
   grossCorRights: "",
-  salesFee: "",
   producerPay: "",
-  expenseCap: "",
   deliveryFees: "",
   distributionFee: "",
   incomeReserves: "",
-  otherExps: "",
   accountingTerms: "",
   avatar: "",
-  customExp: "",
-  expense: "",
 };
 
 const ClientSetup = () => {
@@ -54,6 +52,7 @@ const ClientSetup = () => {
     "Marketing Expense Cap",
     "Accounting Terms",
     "Upload Film Poster",
+    "Confirm Details",
   ];
 
   const handleChange = (e) => {
@@ -74,8 +73,10 @@ const ClientSetup = () => {
       return <MarketingExp details={details} setDetails={setDetails} handleChange={handleChange} />;
     } else if (page === 4) {
       return <Accounting details={details} setDetails={setDetails} handleChange={handleChange} />;
+    } else if (page === 5) {
+      return <Uploads details={details} setDetails={setDetails} handleChange={handleChange} />;
     } else {
-      return <Uploads details={details} setDetails={setDetails} handleChange={handleChange} />
+      return <Confirm details={details} />;
     }
   };
 
@@ -110,9 +111,10 @@ const ClientSetup = () => {
     setDetails({ ...details, filmsCode: filmCode });
   }, []);
 
+
   return (
-    <DashBoard>
-      <PageTemplate>
+    <DashBoard2>
+      <PageTemplate2>
         <Header>
           <HeaderTitle>Client Form</HeaderTitle>
         </Header>
@@ -155,12 +157,10 @@ const ClientSetup = () => {
             }
             
             </div>
-
-            {/*  */}
           </form>
         </div>
-      </PageTemplate>
-    </DashBoard>
+      </PageTemplate2>
+    </DashBoard2>
   );
 };
 

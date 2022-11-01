@@ -60,6 +60,18 @@ const ClientSchema = new Schema({
     renewalExpiration: {
         type: Date,
     },
+    expenseCap: {
+        type: String,
+        maxlength: 100,
+    },
+    customExp: {
+        type: String,
+        maxlength: 100,
+    },
+    expense: {
+        type: Number,
+        maxlenght: 20,
+    },
     grossCor: {
         type: Number,
         maxlength: 3,
@@ -69,18 +81,10 @@ const ClientSchema = new Schema({
         maxlength: 50,
         required: true,
     },
-    salesFee: {
-        type: Number,
-        maxlength: 3,
-    },
     producerPay: {
         type: String,
-        maxlength: 50,
-        required: true,
-    },
-    expenseCap: {
-        type: Number,
         maxlength: 20,
+        required: true,
     },
     deliveryFees: {
         type: Number,
@@ -94,19 +98,10 @@ const ClientSchema = new Schema({
         type: Number,
         maxlength: 3,
     },
-    otherExps: {
-        type: String,
-        maxlength: 50,
-        required: true,
-    },
     accountingTerms: {
         type: String,
         maxlength: 50,
         required: true,
-    },
-    pic: {
-        data: Buffer,
-        contentType: String,
     }
 });
 

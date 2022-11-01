@@ -13,17 +13,16 @@ exports.insertClient = (req, res, next) => {
   const dateSignature = req.body.dateSignature;
   const renewalDate = req.body.renewalDate;
   const renewalExpiration = req.body.renewalExpiration;
+  const expenseCap = req.body.expenseCap;
+  const customExp = req.body.customExp;
+  const expense = req.body.expense;
   const grossCor = req.body.grossCor;
   const grossCorRights = req.body.grossCorRights;
-  const salesFee = req.body.salesFee;
   const producerPay = req.body.producerPay;
-  const expenseCap = req.body.expenseCap;
   const deliveryFees = req.body.deliveryFees;
   const distributionFee = req.body.distributionFee;
   const incomeReserves = req.body.incomeReserves;
-  const otherExps = req.body.otherExps;
   const accountingTerms = req.body.accountingTerms;
-  const pic = req.body.pic;
 
   const data = {
     filmName,
@@ -38,17 +37,16 @@ exports.insertClient = (req, res, next) => {
     dateSignature,
     renewalDate,
     renewalExpiration,
+    expenseCap,
+    customExp,
+    expense,
     grossCor,
     grossCorRights,
-    salesFee,
     producerPay,
-    expenseCap,
     deliveryFees,
     distributionFee,
     incomeReserves,
-    otherExps,
     accountingTerms,
-    pic,
   };
 
   if (
@@ -62,7 +60,6 @@ exports.insertClient = (req, res, next) => {
     !stateLaw ||
     !grossCorRights ||
     !producerPay ||
-    !otherExps ||
     !accountingTerms
   ) {
     return res.json({

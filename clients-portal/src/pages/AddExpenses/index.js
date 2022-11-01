@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
-import { PageTemplate, DashBoard } from '../Dashboard/DashboardElements'
+import { PageTemplate2, DashBoard2 } from '../Dashboard/DashboardElements'
 
 const AddExpenses = () => {
     const [details, setDetails] = useState({
@@ -28,8 +28,8 @@ const AddExpenses = () => {
     }
 
   return (
-    <DashBoard>
-        <PageTemplate>
+    <DashBoard2>
+        <PageTemplate2>
             <Header>
                 <HeaderTitle>Add Expenses</HeaderTitle>
                     <form className="form" onSubmit={handleSubmit}>
@@ -90,8 +90,8 @@ const AddExpenses = () => {
                 </form>
             </Header>
 
-        </PageTemplate>
-    </DashBoard>
+        </PageTemplate2>
+    </DashBoard2>
   )
 }
 

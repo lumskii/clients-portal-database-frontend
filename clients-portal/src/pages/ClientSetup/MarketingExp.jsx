@@ -92,6 +92,7 @@ export default function MarketingExp({details, setDetails, handleChange}) {
               className="text_area2"
               type="text"
               name="producerPay"
+              maxlength="20"
               value={details.producerPay}
               onChange={handleChange}
             />

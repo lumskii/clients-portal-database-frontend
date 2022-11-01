@@ -14,7 +14,7 @@ import {BsDistributeHorizontal, BsChatDots, BsBoxArrowInLeft} from 'react-icons/
 import {VscGear} from 'react-icons/vsc';
 
 export const SideBar = styled.nav`
-    width: ${({ isOpen }) => (!isOpen ? `80px` : `280px`)};
+    width: ${({ isopen }) => (!isopen ? `80px` : `280px`)};
     background: #ff9900;
     padding: 6px 14px;
     transition: all 0.5s ease;
@@ -25,9 +25,9 @@ export const SideBar = styled.nav`
 `
 
 export const Bars = styled(BsBoxArrowInLeft)`
-  color: ${({ isOpen }) => (isOpen ? `#000` : `#fff`)};
+  color: ${({ isopen }) => (isopen ? `#000` : `#fff`)};
   position: absolute;
-  right: ${({ isOpen }) => (isOpen ? `20px` : `50px`)};
+  right: ${({ isopen }) => (isopen ? `20px` : `50px`)};
   top: 2px;
   font-size: 20px;
   height: 35px;
@@ -37,11 +37,11 @@ export const Bars = styled(BsBoxArrowInLeft)`
   cursor: pointer;
   transition: 350ms;
   z-index: 100;
-  transform: ${({ isOpen }) => (!isOpen ? `rotate(180deg)` : `initial`)};
+  transform: ${({ isopen }) => (!isopen ? `rotate(180deg)` : `initial`)};
 
   // @media screen and (max-height: 768px) {
   //   top: 0px;
-  //   right: ${({ isOpen }) => (isOpen ? `-40px` : `-40px`)};
+  //   right: ${({ isopen }) => (isopen ? `-40px` : `-40px`)};
   //   background: #ff9900;
   //   padding: 3px;
   // }
@@ -69,7 +69,7 @@ export const MenuBar = styled.div`
   font-size: .75rem;
   text-transform: uppercase;
   color: rgb(228, 228, 228);
-  left: ${({ isOpen }) => (isOpen ? `20px` : `0px`)};
+  left: ${({ isopen }) => (isopen ? `20px` : `0px`)};
   position: relative;
   top: -8px;
 
@@ -79,7 +79,7 @@ export const MenuBar = styled.div`
     height: 1px;
     background: #BCB9B9;
     position: absolute;
-    left: ${({ isOpen }) => (isOpen ? `-20px` : `0px`)};
+    left: ${({ isopen }) => (isopen ? `-20px` : `0px`)};
     top: -8px;
 
     @media screen and (max-height: 768px) {
@@ -230,7 +230,7 @@ export const NavBtnLink = styled.div`
   line-height: 35px;
 `
 export const ArrowDown = styled.span`
-  margin-left: ${({ isOpen }) => (isOpen ? `10px` : `5px`)};
+  margin-left: ${({ isopen }) => (isopen ? `10px` : `5px`)};
   cursor: pointer;
   font-size: 1.5rem;
   position: relative;
@@ -245,7 +245,7 @@ export const ProfileArea = styled.div`
   background: #000;
   color: #fff;
   top: 50px;
-  right: ${({ isOpen }) => (isOpen ? `25px` : `10px`)};
+  right: ${({ isopen }) => (isopen ? `25px` : `10px`)};
   cursor: pointer;
 `
 export const NavLinkTooltip = styled.span`
@@ -282,8 +282,8 @@ export const Head = styled.nav`
   height: 80px;
   display: flex;
   justify-content: space-between;
-  width: ${({ isOpen }) => (!isOpen ? `calc(100vw - 100px)` : `calc(100vw - 280px)`)};
-  margin: 0 ${({ isOpen }) => (!isOpen ? `100px` : `300px`)};
+  width: ${({ isopen }) => (!isopen ? `calc(100vw - 100px)` : `calc(100vw - 280px)`)};
+  margin: 0 ${({ isopen }) => (!isopen ? `100px` : `300px`)};
   top: 0;
 `
 

@@ -4,7 +4,7 @@ export default function MovieInfo({details, setDetails, handleChange}) {
 
   return (
     <div id="movieInfo">
-            <p>Film name</p>
+            <p>Film Name</p>
             <input
               className="text_area"
               type="text"

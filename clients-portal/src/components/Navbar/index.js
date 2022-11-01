@@ -26,9 +26,9 @@ const Navbar = () => {
 
   return (
     <>
-    <SideBar isOpen={sidebarOpen}>
+    <SideBar isopen={sidebarOpen}>
       <>
-        <Bars isOpen={sidebarOpen} onClick={() => setSidebarOpen((p) => !p)} />
+        <Bars isopen={sidebarOpen} onClick={() => setSidebarOpen((p) => !p)} />
       </>
       
         {/* <NavLinkLogo to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
@@ -118,7 +118,7 @@ const Navbar = () => {
     </SideBar>
     
     {/* ...Header Starts Here... */}
-    {/* <Head isOpen={sidebarOpen}>
+    {/* <Head isopen={sidebarOpen}>
       <HeadLink to="/">
         <h1>Dashboard</h1>
       </HeadLink>
