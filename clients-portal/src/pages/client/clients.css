@@ -22,7 +22,6 @@
 .clientAvatar{
     display: flex;
     align-items: center;
-
 }
 
 .avatarImg{
@@ -36,7 +35,7 @@
 .avatarImg2{
     height: 45px;
     width: 45px;
-    margin: -10px 5px 0 5px;
+    margin: 10px 5px 0 5px;
     object-fit: cover;
     border-radius: 50%;
     vertical-align: middle;

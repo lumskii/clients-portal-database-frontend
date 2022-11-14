@@ -10,7 +10,7 @@ import {
   FaRegBell,
 } from "react-icons/fa";
 import {GiPayMoney} from 'react-icons/gi';
-import {BsDistributeHorizontal, BsChatDots, BsBoxArrowInLeft} from 'react-icons/bs';
+import {BsDistributeHorizontal, BsChatDots, BsBoxArrowInLeft, BsFileSpreadsheet} from 'react-icons/bs';
 import {VscGear} from 'react-icons/vsc';
 
 export const SideBar = styled.nav`
@@ -18,20 +18,20 @@ export const SideBar = styled.nav`
     background: #ff9900;
     padding: 6px 14px;
     transition: all 0.5s ease;
-    z-index: 100;
-    height: calc(100vh - 50px);
+    height: 100vh;
     position: sticky;
-    top: 50px;
+    top: 0;
+    z-index: 999;
 `
 
 export const Bars = styled(BsBoxArrowInLeft)`
   color: ${({ isopen }) => (isopen ? `#000` : `#fff`)};
   position: absolute;
-  right: ${({ isopen }) => (isopen ? `20px` : `50px`)};
-  top: 2px;
+  right: ${({ isopen }) => (isopen ? `20px` : `60px`)};
+  top: ${({ isopen }) => (isopen ? `2px` : `15px`)};
   font-size: 20px;
-  height: 35px;
-  width: 35px;
+  height: ${({ isopen }) => (isopen ? `35px` : `20px`)};
+  width: ${({ isopen }) => (isopen ? `35px` : `20px`)};
   text-align: center;
   line-height: 50px;
   cursor: pointer;
@@ -61,7 +61,7 @@ export const NavLinkLogo = styled(Tacos)`
   align-items: center;
   margin-right: 5px;
   text-decoration: none;
-  top: 20px;
+  top: 5px;
   position: absolute;
 `
 
@@ -127,64 +127,72 @@ export const LinkIcons = styled.div`
 `
 
 export const DashBoard = styled(MdOutlineDashboard)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const UserPlus = styled(FaUserPlus)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const UserEdit = styled(FaUserEdit)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const UsersCog = styled(FaUsersCog)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const PayMoney = styled(GiPayMoney)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const PointOfSale = styled(MdOutlinePointOfSale)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const DistributeHori = styled(BsDistributeHorizontal)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const HandsHelp = styled(FaHandsHelping)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
 `
 export const Gear = styled(VscGear)`
-  height: 30px;
-  min-width: 30px;
+  height: 20px;
+  min-width: 20px;
+  margin: auto 10px;
+  line-height: 50px;
+  text-align: center;
+`
+
+export const Report = styled(BsFileSpreadsheet)`
+  height: 20px;
+  min-width: 20px;
   margin: auto 10px;
   line-height: 50px;
   text-align: center;
@@ -279,12 +287,15 @@ export const TooltipBox = styled.span`
 
 export const Head = styled.nav`
   background: #fff;
-  height: 80px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
-  width: ${({ isopen }) => (!isopen ? `calc(100vw - 100px)` : `calc(100vw - 280px)`)};
-  margin: 0 ${({ isopen }) => (!isopen ? `100px` : `300px`)};
+  width: ${({ isopen }) => (!isopen ? `calc(90vw - 100px)` : `calc(100% - 280px)`)};
+  margin: 0 ${({ isopen }) => (!isopen ? `100px` : `240px`)};
+  position: absolute;
   top: 0;
+  padding: 0 40px;
+  z-index: 120;
 `
 
 export const HeadLink = styled(Tacos)`
@@ -305,6 +316,7 @@ export const HeadLabel = styled.div`
     display: flex;
     min-width: 100px;
     align-items: center;
+    margin-top: 10px;
 `
 
 export const Search = styled(FaSearch)`
@@ -331,7 +343,7 @@ export const HeadBtns = styled.div`
     min-width: 150px;
     right: 0;
     align-items: center;
-    top: 10px;
+    top: 0px;
 `
 
 export const HeadBtnLink = styled.button`
@@ -348,10 +360,26 @@ export const Bell = styled(FaRegBell)`
     position: relative;
     width: 25px;
     height: 25px;
+    top: 5px;
 `
 
 export const Chat = styled(BsChatDots)`
     position: relative;
     width: 25px;
     height: 25px;
+    top: 5px;
+`
+export const Badge = styled.span`
+    position: relative;
+    width: 18px;
+    height: 18px;
+    font-size: 15px;
+    top: -35px;
+    right: -30px;
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 `

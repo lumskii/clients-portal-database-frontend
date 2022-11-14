@@ -43,6 +43,7 @@ const initialState = {
 const ClientSetup = () => {
   const navigate = useNavigate();
   const [details, setDetails] = useState(initialState);
+  const [files, setFiles] = useState([]);
   const [page, setPage] = useState(0);
 
   const FormTitles = [
@@ -70,13 +71,13 @@ const ClientSetup = () => {
     } else if (page === 2) {
       return <Date details={details} setDetails={setDetails} handleChange={handleChange} />;
     } else if (page === 3) {
-      return <MarketingExp details={details} setDetails={setDetails} handleChange={handleChange} />;
+      return <MarketingExp details={details} handleChange={handleChange} />;
     } else if (page === 4) {
       return <Accounting details={details} setDetails={setDetails} handleChange={handleChange} />;
     } else if (page === 5) {
-      return <Uploads details={details} setDetails={setDetails} handleChange={handleChange} />;
+      return <Uploads files={files} setFiles={setFiles} details={details} setDetails={setDetails} handleChange={handleChange} />;
     } else {
-      return <Confirm details={details} />;
+      return <Confirm details={details} files={files} setFiles={setFiles} />;
     }
   };
 

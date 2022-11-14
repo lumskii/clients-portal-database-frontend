@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 
-export default function MarketingExp({details, setDetails, handleChange}) {
+export default function MarketingExp({details, handleChange}) {
     const [showContents, setShowContents] = useState(false);
 
   return (

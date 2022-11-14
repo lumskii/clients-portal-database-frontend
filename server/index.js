@@ -11,6 +11,7 @@ const {
   getAllTitles
 } = require("./controllers/titles.controller");
 const clientRouter = require("./routers/client.router");
+const expenseRouter = require("./routers/expense.router")
 
 const app = express();
 //authentication
@@ -28,6 +29,7 @@ const userRouter = require("./routers/user.router");
 //Use Routers
 app.use("/v1/user", userRouter);
 app.use("/v1/clients", clientRouter);
+app.use("/v1/expenses", expenseRouter);
 
 // Connect to MongoDB...
 let mongoDB = process.env.MONGODB_URL;

@@ -1,9 +1,13 @@
-import { Comment } from '@mui/icons-material'
-import { IconButton, List, ListItem, ListItemText } from '@mui/material'
+import { List, ListItem, ListItemText } from '@mui/material'
 import React from 'react'
-import { useState } from 'react';
+import { FilePond, registerPlugin } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
+import FilePondPluginFilePoster from 'filepond-plugin-file-poster';
+import 'filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css';
 
-export default function Confirm({details}) {
+registerPlugin(FilePondPluginFilePoster);
+
+export default function Confirm({details, files, setFiles}) {
     const primary = [
         "Film Name:",
         "Producer's Email",
@@ -59,8 +63,16 @@ export default function Confirm({details}) {
         <li>{`${details.distributionFee}`}</li>
         <li>{`${details.incomeReserves}`}</li>
         <li>{`${details.accountingTerms}`}</li>
-        <li>{`${details.avatar}`}</li>
+        {/* <li><FilePond 
+             files={files}
+             onupdatefiles={setFiles}
+             allowFilePoster={true}
+             filePosterHeight={30}
+             filePosterWidth={30}
+             stylePanelAspectRatio={30/30}
+        /></li> */}
         </ul>
     </List>
+    
   )
 }

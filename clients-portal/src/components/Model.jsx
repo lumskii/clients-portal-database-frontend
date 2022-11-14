@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
-import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
 import Select, { components } from "react-select";
-import './editClient.css'
-import { server } from '../../constance';
+import './../pages/AddEditSales/SalesStyle.css';
+import { server } from '../constance'
 
-export default function EditClient() {
+export default function Model({openModal, setOpenModal}) {
     const [titles, setTitles] = useState([]);
 
     const CustomInput = (props) => {
@@ -15,7 +13,7 @@ export default function EditClient() {
         return <components.Input {...inputProps} />;
       };
 
-      useEffect(() => {
+    useEffect(() => {
         const callBackendAPI = () => {
           console.log("fetching...");
           fetch(`${server}/v1/clients`)
@@ -38,28 +36,28 @@ export default function EditClient() {
     
         callBackendAPI();
       }, []);
-
+    
   return (
-    <DashBoard>
-        <PageTemplate>
-            <Header>
-                <HeaderTitle>Edit a Client</HeaderTitle>
-            </Header>
-            <div className="cap2">
-                <form className="form_spaceEdit">
-                    <p>Film Name</p>
+        <div className='modalBg'>
+            <div className="modalContainer">
+                <div className="titleCloseBtn">
+                    <button onClick={() => setOpenModal(false)}> X </button>
+                </div>
+                <div className="modalTitle">
+                    <h1>Enter Movie Title</h1>
+                </div>
+                <div className="modalBody">
                     <Select
-                        options={titles}
-                        components={{ Input: CustomInput }}
-                        maxLength="4"
-                        className='selectField'
-                    />
-                    <button type="submit" id="submit">
-                        Submit
-                    </button>
-                </form>
+                            options={titles}
+                            components={{ Input: CustomInput }}
+                            maxLength="4"
+                            className='selectField'
+                        />
+                </div>
+                <div className="modalFooter">
+                    <button>Search</button>
+                </div>
             </div>
-        </PageTemplate>
-    </DashBoard>
+        </div>
   )
 }

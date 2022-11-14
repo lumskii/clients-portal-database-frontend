@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 const ClientSchema = new Schema({
     clientId: {
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId, ref:'Expense'
     },
     filmName: {
         type: String,
@@ -16,7 +16,6 @@ const ClientSchema = new Schema({
     producersEmail: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     filmsCode: {
         type: String,
@@ -26,27 +25,22 @@ const ClientSchema = new Schema({
     distributionType: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     rightSale: {
         type: String,
         maxlength: 3,
-        required: true,
     },
     cama: {
         type: String,
         maxlength: 3,
-        required: true,
     },
     countryLaw: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     stateLaw: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     effectiveDate: {
         type: Date,
@@ -79,12 +73,10 @@ const ClientSchema = new Schema({
     grossCorRights: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     producerPay: {
         type: String,
         maxlength: 20,
-        required: true,
     },
     deliveryFees: {
         type: Number,
@@ -101,9 +93,17 @@ const ClientSchema = new Schema({
     accountingTerms: {
         type: String,
         maxlength: 50,
-        required: true,
+    },
+    avatar: {
+        type: String,
     }
 });
+
+// ClientSchema.virtual('avatarPath').get(function() {
+//     if (this.avatar != null && this.avatarType != null) {
+//       return `data:${this.avatarType};charset=utf-8;base64,${this.avatar.toString('base64')}`
+//     }
+//   });
 
 ClientSchema.plugin(mongodbErrorHandler);
 

@@ -12,12 +12,12 @@ import { login, logout, selectUser } from './features/userSlice';
 import AddEditSales from './pages/AddEditSales';
 import Distribution from './pages/DistributionRev';
 import AddExpenses from './pages/AddExpenses';
-import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Clients from './pages/client/Clients';
 import ClientEdit from './pages/clientEdit/ClientEdit';
 import EditClient from './pages/editClient/EditClient';
 import Signup from './pages/signup/Signup';
+import Header from './components/Header';
 
 
 
@@ -54,20 +54,24 @@ function App() {
         </Routes>
       ) : (
         <>
-        <Header />
-        <div className="container">
-          <Navbar />
-        <Routes>
-          <Route exact path='/' element={< Dashboard />} />
-          <Route path='/clients' element={< Clients />} />
-          <Route path='/clients/:clientsId' element={< ClientEdit />} />
-          <Route path='/client-setup' element={< ClientSetup />} />
-          <Route path='/edit-a-client' element={< EditClient />} />
-          <Route path='/add-edit-sales' element={< AddEditSales />} />
-          <Route path='/distribution-revenue' element={< Distribution />} />
-          <Route path='/add-expenses' element={< AddExpenses />} />
-          <Route path='*' element={< NotFound />} />
-        </Routes>
+
+            
+          <div className="container">
+            <Navbar />
+          <div className='container2'>
+          <Header />
+          <Routes>
+            <Route exact path='/' element={< Dashboard />} />
+            <Route path='/clients' element={< Clients />} />
+            <Route path='/clients/:clientsId' element={< ClientEdit />} />
+            <Route path='/client-setup' element={< ClientSetup />} />
+            <Route path='/edit-a-client' element={< EditClient />} />
+            <Route path='/add-edit-sales' element={< AddEditSales />} />
+            <Route path='/distribution-revenue' element={< Distribution />} />
+            <Route path='/add-expenses' element={< AddExpenses />} />
+            <Route path='*' element={< NotFound />} />
+          </Routes>
+          </div>
         </div>
         </>
       )}

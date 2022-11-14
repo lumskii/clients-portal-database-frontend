@@ -11,10 +11,9 @@ export const Head = styled.nav`
   height: 50px;
   display: flex;
   justify-content: space-between;
-  position: sticky;
   width: 100%;
   top: 0;
-  z-index: 999;
+  
 `
 
 export const HeadLink = styled(Tacos)`
@@ -22,9 +21,6 @@ export const HeadLink = styled(Tacos)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0 1rem;
-  margin-top: 10px;
-  height: 100%;
   cursor: pointer;
   &.active {
     color: #000;
@@ -36,7 +32,7 @@ export const HeadLabel = styled.div`
     display: flex;
     min-width: 100px;
     align-items: center;
-    margin-top: 10px;
+    margin: 10px;
 `
 
 export const Search = styled(FaSearch)`
@@ -64,6 +60,7 @@ export const HeadBtns = styled.div`
     right: 0;
     align-items: center;
     top: 0px;
+    margin: -3px 0;
 `
 
 export const HeadBtnLink = styled.button`

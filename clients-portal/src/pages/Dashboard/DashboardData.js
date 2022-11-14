@@ -3,7 +3,7 @@ import React from 'react'
 import {
      DistributeHori,
      UserPlus,
-     UserEdit,
+     Report,
      UsersCog,
      PayMoney,
      PointOfSale
@@ -17,7 +17,7 @@ export const dashLinks = [
     },
     {
         to:"/edit-a-client",
-        icon:<UserEdit />,
+        icon:<Report />,
         label:"Edit a Client"
     },
     {
