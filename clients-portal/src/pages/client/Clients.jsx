@@ -145,8 +145,6 @@ export default function Clients() {
         disableSelectionOnClick
         rows={data}
         columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[15]}
         components={{ Toolbar: GridToolbar }}
       />
       </Box>
