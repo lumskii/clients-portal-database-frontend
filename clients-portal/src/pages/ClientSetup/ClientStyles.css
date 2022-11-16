@@ -1,5 +1,4 @@
 .cap{
-    top: 50px;
     margin: auto 20px;
     position: relative;
     display: grid;
@@ -10,16 +9,11 @@
     /* overflow: hidden; */
 }
 
-.cap>h3{
+.form_section_title{
     text-align: center;
     margin: 20px;    
 }
 
-.form_space{
-    padding: 10px;
-    display: grid;
-    margin-bottom: 20px;
-}
 
 .nav_btns{
     display: flex;

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { DashBoard2, PageTemplate2 } from "../Dashboard/DashboardElements";
-import { Header, HeaderTitle } from "./ClientSetupElements";
+import Header from "../../components/Heading";
+import { Box, Button, TextField } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import * as yup from "yup";
 import axios from "axios";
 import "./ClientStyles.css";
 import cogoToast from "cogo-toast";
@@ -45,6 +48,7 @@ const ClientSetup = () => {
   const [details, setDetails] = useState(initialState);
   const [files, setFiles] = useState([]);
   const [page, setPage] = useState(0);
+  const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const FormTitles = [
     "Movie Information",
@@ -65,9 +69,9 @@ const ClientSetup = () => {
 
   const PageDisplay = () => {
     if (page === 0) {
-      return <MovieInfo details={details} setDetails={setDetails} handleChange={handleChange} />;
+      return <MovieInfo details={details} handleFormSubmit={handleFormSubmit} handleChange={handleChange} checkoutSchema={checkoutSchema} setDetails={setDetails} initialState={initialState} />;
     } else if (page === 1) {
-      return <AgreementInfo details={details} setDetails={setDetails} handleChange={handleChange} />;
+      return <AgreementInfo details={details} setDetails={setDetails} handlFormeChange={handleChange} />;
     } else if (page === 2) {
       return <Date details={details} setDetails={setDetails} handleChange={handleChange} />;
     } else if (page === 3) {
@@ -81,7 +85,7 @@ const ClientSetup = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     
 
@@ -112,23 +116,46 @@ const ClientSetup = () => {
     setDetails({ ...details, filmsCode: filmCode });
   }, []);
 
+  const phoneRegExp =
+  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+  const checkoutSchema = yup.object().shape({
+    filmName: yup.string().required("required"),
+    producersEmail: yup.string().email("invalid email").required("required"),
+    distributionType: yup.string().required("required"),
+    // contact: yup
+    //   .string()
+    //   .matches(phoneRegExp, "Phone number is not valid")
+    //   .required("required"),
+    rightSale: yup.string().required("required"),
+    effectiveDate: yup.string().required("required"),
+  });
+
 
   return (
-    <DashBoard2>
-      <PageTemplate2>
-        <Header>
-          <HeaderTitle>Client Form</HeaderTitle>
-        </Header>
-        <div className="cap">
-          <div className="progressbar">
-            <div style={{ width: `${(100 / FormTitles.length) * (page + 1)}%` }}></div>
-          </div>
-          <h3>{FormTitles[page]}</h3>
-          <form className="form_space" onSubmit={handleSubmit}>
+    <Box m="-80px 20px 20px 20px">
+      <Header title="CLIENT FORM" subtitle="Add a new title" />
+        
+        
+            <>
+            <div className="progressbar">
+              <div style={{ width: `${(100 / FormTitles.length) * (page + 1)}%` }}></div>
+            </div>
+              <h3 className="form_section_title">{FormTitles[page]}</h3>
+            <form onSubmit={handleFormSubmit}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                sx={{
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                }}
+              >
 
             {/* Page contents called from pageDisplay function above......  */}
-            {PageDisplay()}
 
+                {PageDisplay()}
+              </Box>
             {/* Footer elements starts here... */}
             <div className="nav_btns">
         
@@ -159,9 +186,8 @@ const ClientSetup = () => {
             
             </div>
           </form>
-        </div>
-      </PageTemplate2>
-    </DashBoard2>
+          </>
+    </Box>
   );
 };
 
