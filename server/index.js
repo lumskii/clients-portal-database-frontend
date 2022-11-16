@@ -1,18 +1,22 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const express = require("express");
 const mongoose = require("mongoose");
-const colors = require("colors");
-const dotenv = require("dotenv");
+const colors = require("colors/safe");
 const logger = require("morgan");
 const path = require('path');
 const {
-  getAllTitles,
-  addNewTitles,
+  getAllTitles
 } = require("./controllers/titles.controller");
-const { getAllClients } = require("./controllers/Client.controller");
 const clientRouter = require("./routers/client.router");
+const expenseRouter = require("./routers/expense.router")
 
 const app = express();
-dotenv.config();
+//authentication
+const cors = require('cors')
+app.use(cors());
 
 // Set body bodyParser
 
@@ -25,18 +29,19 @@ const userRouter = require("./routers/user.router");
 //Use Routers
 app.use("/v1/user", userRouter);
 app.use("/v1/clients", clientRouter);
+app.use("/v1/expenses", expenseRouter);
 
 // Connect to MongoDB...
 let mongoDB = process.env.MONGODB_URL;
 
-mongoose.connect(mongoDB);
+mongoose.connect(mongoDB, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on("error", () => {
-  console.log("> MongoDB Connection Error...".red);
+  console.log(colors.red("> MongoDB Connection Error..."));
 });
 db.once("open", () => {
-  console.log(`> Successfully Connected the database`.blue);
+  console.log(colors.blue(`> Successfully Connected the database`));
 });
 
 app.get("/", (req, res) => {
@@ -46,7 +51,9 @@ app.get("/", (req, res) => {
   });
 });
 
+//fetching title link
 app.get("/titles", getAllTitles);
+
 
 
 // Start server...

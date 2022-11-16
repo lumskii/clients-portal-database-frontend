@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [showContents, setShowContents] = useState(false);
 
   return (
-    // <DashBoard isOpened={sidebarOpen}>
+    // <DashBoard isopened={sidebarOpen}>
     <DashBoard>
       <PageContainer>
       <PageTemplate>

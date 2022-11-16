@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
-import { DashBoard, PageTemplate } from '../Dashboard/DashboardElements'
+import { DashBoard2, PageTemplate2 } from '../Dashboard/DashboardElements'
 import Select, { components } from "react-select";
 import './SalesStyle.css'
+import { server } from '../../constance';
 
 const AddEditSales = () => {
     const [toggleState, setToggleState] = useState(1);
@@ -43,7 +44,7 @@ const AddEditSales = () => {
       useEffect(() => {
         const callBackendAPI = () => {
           console.log("fetching...");
-          fetch("/titles")
+          fetch(`${server}/titles`)
             .then((res) => res.json())
             .then((res) => {
               if (res.status === 200) {
@@ -65,8 +66,8 @@ const AddEditSales = () => {
       }, []);
 
   return (
-    <DashBoard>
-      <PageTemplate>
+    <DashBoard2>
+      <PageTemplate2>
         <Header>
           <HeaderTitle>Add/Edit Sales Revenue</HeaderTitle>
         </Header>
@@ -246,8 +247,8 @@ const AddEditSales = () => {
             </div>
           </div>
         </div>
-      </PageTemplate>
-    </DashBoard>
+      </PageTemplate2>
+    </DashBoard2>
   );
 }
 

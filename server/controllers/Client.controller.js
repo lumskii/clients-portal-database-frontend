@@ -1,22 +1,5 @@
-const { findByIdAndUpdate, findByIdAndRemove } = require("../models/Client");
 const Client = require("../models/Client");
-
-// const insertClient = clientObj =>{
-//     return new Promise((resolve, reject) => {
-//         try {
-//             Client(clientObj)
-//                 .save()
-//                 .then((data) => resolve(data))
-//                 .catch((error) => reject(error));
-//         } catch (error) {
-//             reject(error);
-//         }
-//     });
-// };
-
-// module.exports = {
-//     insertClient,
-// };
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 
 exports.insertClient = (req, res, next) => {
   const filmName = req.body.filmName;
@@ -31,16 +14,17 @@ exports.insertClient = (req, res, next) => {
   const dateSignature = req.body.dateSignature;
   const renewalDate = req.body.renewalDate;
   const renewalExpiration = req.body.renewalExpiration;
+  const expenseCap = req.body.expenseCap;
+  const customExp = req.body.customExp;
+  const expense = req.body.expense;
   const grossCor = req.body.grossCor;
   const grossCorRights = req.body.grossCorRights;
-  const salesFee = req.body.salesFee;
   const producerPay = req.body.producerPay;
-  const expenseCap = req.body.expenseCap;
   const deliveryFees = req.body.deliveryFees;
   const distributionFee = req.body.distributionFee;
   const incomeReserves = req.body.incomeReserves;
-  const otherExps = req.body.otherExps;
   const accountingTerms = req.body.accountingTerms;
+  const avatar = req.body.avatar;
 
   const data = {
     filmName,
@@ -55,31 +39,22 @@ exports.insertClient = (req, res, next) => {
     dateSignature,
     renewalDate,
     renewalExpiration,
+    expenseCap,
+    customExp,
+    expense,
     grossCor,
     grossCorRights,
-    salesFee,
     producerPay,
-    expenseCap,
     deliveryFees,
     distributionFee,
     incomeReserves,
-    otherExps,
     accountingTerms,
+    avatar,
   };
 
   if (
     !filmName ||
-    !producersEmail ||
-    !filmsCode ||
-    !distributionType ||
-    !rightSale ||
-    !cama ||
-    !countryLaw ||
-    !stateLaw ||
-    !grossCorRights ||
-    !producerPay ||
-    !otherExps ||
-    !accountingTerms
+    !filmsCode
   ) {
     return res.json({
       status: 500,
@@ -104,6 +79,8 @@ exports.insertClient = (req, res, next) => {
     });
   });
 };
+
+// saveAvatar(insertClient, req.body.cover)
 
 exports.getAllClients = (req, res, next) => {
   Client.find({}, function (err, clients) {
@@ -171,4 +148,12 @@ exports.deleteClient = (req, res) => {
     });
   });
 };
-// exports.deleteClient = (req, res) => {};
+
+// function saveAvatar(insertClient, avatarEncoded) {
+//   if (avatarEncoded == null) return
+//   const avatar = JSON.parse(avatarEncoded)
+//   if (avatar != null && imageMimeTypes.includes(avatar.type)) {
+//     insertClient.avatar = new Buffer.from(avatar.data, 'base64')
+//     insertClient.avatarType = avatar.type
+//   }
+// };

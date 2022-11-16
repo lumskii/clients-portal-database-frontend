@@ -3,7 +3,6 @@ import { auth, upload } from '../../firebase';
 import './signup.css';
 import {PageLayout} from '../ForgotPassword/ForgotPasswordElements'
 import { Forgot } from '../LoginPage/LoginElement';
-import Profile from '../../components/Profile';
 import { RiImageEditFill } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
@@ -62,7 +61,6 @@ export default function Signup() {
                     <div className='uploadContent'>
                     <input type="file" onChange={handleChange} className="upload" />
                     <button disabled={loading || !photo} className='uploadBtn' onClick={handleClick}><RiImageEditFill /> Upload</button>
-                    <Profile />
                     </div>
                 </div>
 

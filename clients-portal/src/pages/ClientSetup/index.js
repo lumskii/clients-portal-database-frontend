@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { DashBoard, PageTemplate } from "../Dashboard/DashboardElements";
-import { Header, HeaderTitle } from "./ClientSetupElements";
+import { DashBoard2, PageTemplate2 } from "../Dashboard/DashboardElements";
+import Header from "../../components/Heading";
+import { Box, Button, TextField } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import * as yup from "yup";
 import axios from "axios";
 import "./ClientStyles.css";
 import cogoToast from "cogo-toast";
 import { useNavigate } from "react-router-dom";
+import { server } from "../../constance";
+import MovieInfo from "./MovieInfo";
+import AgreementInfo from "./AgreementInfo";
+import Date from "./Date";
+import MarketingExp from "./MarketingExp";
+import Accounting from "./Accounting";
+import Uploads from "./Uploads";
+import Confirm from "./Confirm";
 
 const initialState = {
   filmName: "",
   producersEmail: "",
-  filmsPassword: "",
   filmsCode: "",
   distributionType: "",
   rightSale: "",
@@ -20,21 +30,35 @@ const initialState = {
   dateSignature: "",
   renewalDate: "",
   renewalExpiration: "",
+  expenseCap: "",
+  customExp: "",
+  expense: "",
   grossCor: "",
   grossCorRights: "",
-  salesFee: "",
   producerPay: "",
-  expenseCap: "",
   deliveryFees: "",
   distributionFee: "",
   incomeReserves: "",
-  otherExps: "",
   accountingTerms: "",
+  avatar: "",
 };
 
 const ClientSetup = () => {
   const navigate = useNavigate();
   const [details, setDetails] = useState(initialState);
+  const [files, setFiles] = useState([]);
+  const [page, setPage] = useState(0);
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  const FormTitles = [
+    "Movie Information",
+    "Agreement Information",
+    "Agreement Dates",
+    "Marketing Expense Cap",
+    "Accounting Terms",
+    "Upload Film Poster",
+    "Confirm Details",
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,12 +67,30 @@ const ClientSetup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const PageDisplay = () => {
+    if (page === 0) {
+      return <MovieInfo details={details} handleFormSubmit={handleFormSubmit} handleChange={handleChange} checkoutSchema={checkoutSchema} setDetails={setDetails} initialState={initialState} />;
+    } else if (page === 1) {
+      return <AgreementInfo details={details} setDetails={setDetails} handlFormeChange={handleChange} />;
+    } else if (page === 2) {
+      return <Date details={details} setDetails={setDetails} handleChange={handleChange} />;
+    } else if (page === 3) {
+      return <MarketingExp details={details} handleChange={handleChange} />;
+    } else if (page === 4) {
+      return <Accounting details={details} setDetails={setDetails} handleChange={handleChange} />;
+    } else if (page === 5) {
+      return <Uploads files={files} setFiles={setFiles} details={details} setDetails={setDetails} handleChange={handleChange} />;
+    } else {
+      return <Confirm details={details} files={files} setFiles={setFiles} />;
+    }
+  };
+
+  const handleFormSubmit = (e) => {
     e.preventDefault();
+    
 
     const submitClientDetails = async () => {
-      const submitted = await axios.post("v1/clients", details);
-
+      const submitted = await axios.post(`${server}/v1/clients`, details);
       if (
         submitted &&
         submitted.data.success &&
@@ -74,303 +116,78 @@ const ClientSetup = () => {
     setDetails({ ...details, filmsCode: filmCode });
   }, []);
 
+  const phoneRegExp =
+  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+  const checkoutSchema = yup.object().shape({
+    filmName: yup.string().required("required"),
+    producersEmail: yup.string().email("invalid email").required("required"),
+    distributionType: yup.string().required("required"),
+    // contact: yup
+    //   .string()
+    //   .matches(phoneRegExp, "Phone number is not valid")
+    //   .required("required"),
+    rightSale: yup.string().required("required"),
+    effectiveDate: yup.string().required("required"),
+  });
+
+
   return (
-    <DashBoard>
-      <PageTemplate>
-        <Header>
-          <HeaderTitle>Client Form</HeaderTitle>
-        </Header>
-        <div className="cap">
-          <form className="form_space" onSubmit={handleSubmit}>
-            <p>Film name</p>
-            <input
-              className="text_area"
-              type="text"
-              name="filmName"
-              value={details.filmName}
-              onChange={handleChange}
-            />
-            <p>Producer's Email</p>
-            <input
-              className="text_area"
-              type="email"
-              name="producersEmail"
-              value={details.producersEmail}
-              onChange={handleChange}
-            />
-            <p>Film's Password</p>
-            <input
-              className="text_area"
-              type="password"
-              name="filmsPassword"
-              value={details.filmsPassword}
-              onChange={handleChange}
-            />
-            <p>Film's Code</p>
-            <input
-              className="text_area"
-              type="text"
-              value={details.filmsCode}
-              name="filmsCode"
-            />
-            <p>Distribution type</p>
-            <select
-              id="dropdown"
-              className="text_area"
-              name="distributionType"
-              onChange={handleChange}
+    <Box m="-80px 20px 20px 20px">
+      <Header title="CLIENT FORM" subtitle="Add a new title" />
+        
+        
+            <>
+            <div className="progressbar">
+              <div style={{ width: `${(100 / FormTitles.length) * (page + 1)}%` }}></div>
+            </div>
+              <h3 className="form_section_title">{FormTitles[page]}</h3>
+            <form onSubmit={handleFormSubmit}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                sx={{
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                }}
+              >
+
+            {/* Page contents called from pageDisplay function above......  */}
+
+                {PageDisplay()}
+              </Box>
+            {/* Footer elements starts here... */}
+            <div className="nav_btns">
+        
+            <div
+              className={page === 0 ? "invisible" : "prev"}
+              onClick={() => {
+                setPage((currPage) => currPage - 1);
+              }}
             >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="sales">Sales Only</option>
-              <option value="distribution">Distribution Only</option>
-              <option value="sales_distribution">Sales & Distribution</option>
-            </select>
+              Prev
+            </div>
 
-            <p>Agreement Information</p>
-            <span className="sub_heading">Right of Sale</span>
-            <label className="option">
-              <input
-                className="radio-check"
-                type="radio"
-                value="yes"
-                name="rightSale"
-                onChange={handleChange}
-              />
-              <span>Yes</span>
-            </label>
-            <label className="option">
-              <input
-                className="radio-check"
-                type="radio"
-                value="no"
-                name="rightSale"
-                onChange={handleChange}
-              />
-              <span>No</span>
-            </label>
-
-            <span className="sub_heading">CAMA Involved</span>
-            <label className="option">
-              <input
-                className="radio-check"
-                type="radio"
-                value="yes"
-                name="cama"
-                onChange={handleChange}
-              />
-              <span>Yes</span>
-            </label>
-            <label className="option">
-              <input
-                className="radio-check"
-                type="radio"
-                value="no"
-                name="cama"
-                onChange={handleChange}
-              />
-              <span>No</span>
-            </label>
-
-            <span className="sub_heading">Country of Law</span>
-            <select
-              id="dropdown2"
-              className="text_area2"
-              name="countryLaw"
-              onChange={handleChange}
-            >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="usa">USA</option>
-              <option value="canada">Canada</option>
-              <option value="mexico">Mexico</option>
-              <option value="uk">UK</option>
-              <option value="germany">Germany</option>
-              <option value="japan">Japan</option>
-              <option value="other">other...</option>
-            </select>
-
-            <span className="sub_heading">State of Law</span>
-            <select
-              id="dropdown3"
-              className="text_area2"
-              name="stateLaw"
-              onChange={handleChange}
-            >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="california">California</option>
-              <option value="arizona">Arizona</option>
-              <option value="other">other...</option>
-            </select>
-
-            <span className="sub_heading">Effective Date</span>
-            <input
-              className="text_area2"
-              type="date"
-              name="effectiveDate"
-              value={details.effectiveDate}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Date of Signature</span>
-            <input
-              className="text_area2"
-              type="date"
-              name="dateSignature"
-              value={details.dateSignature}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Renewal Date</span>
-            <input
-              className="text_area2"
-              type="date"
-              name="renewalDate"
-              value={details.renewalDate}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Renewal Expiration</span>
-            <input
-              className="text_area2"
-              type="date"
-              name="renewalExpiration"
-              value={details.renewalExpiration}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Gross Corridor %</span>
-            <input
-              className="text_area2"
-              type="number"
-              min="1"
-              max="100"
-              name="grossCor"
-              value={details.grossCor}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Gross Corridor Rights</span>
-            <select
-              id="dropdown4"
-              className="text_area2"
-              name="grossCorRights"
-              onChange={handleChange}
-            >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="tvod">TVOD</option>
-              <option value="svod">SVOD</option>
-              <option value="avod">AVOD</option>
-              <option value="tv">TV</option>
-              <option value="sell_thru">Sell through...</option>
-            </select>
-
-            <span className="sub_heading">Sales Fee %</span>
-            <input
-              className="text_area2"
-              type="number"
-              min="1"
-              max="100"
-              name="salesFee"
-              value={details.salesFee}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Producer Payment Terms</span>
-            <input
-              className="text_area2"
-              type="text"
-              name="producerPay"
-              value={details.producerPay}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Expense Cap</span>
-            <input
-              className="text_area2"
-              type="text"
-              placeholder="$"
-              name="expenseCap"
-              value={details.expenseCap}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Delivery Fees</span>
-            <input
-              className="text_area2"
-              type="text"
-              placeholder="$"
-              name="deliveryFees"
-              value={details.deliveryFees}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Distribution Fee %</span>
-            <input
-              className="text_area2"
-              type="number"
-              min="1"
-              max="100"
-              name="distributionFee"
-              value={details.distributionFee}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Income Reserves %</span>
-            <input
-              className="text_area2"
-              type="number"
-              min="1"
-              max="100"
-              name="incomeReserves"
-              value={details.incomeReserves}
-              onChange={handleChange}
-            />
-
-            <span className="sub_heading">Other Expenses Caps Description</span>
-            <select
-              id="dropdown5"
-              className="text_area2"
-              name="otherExps"
-              onChange={handleChange}
-            >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="add_cap">Add Cap</option>
-              <option value="anotherExps">Another Expense...</option>
-            </select>
-
-            <span className="sub_heading">Accounting Terms</span>
-            <select
-              id="dropdown6"
-              className="text_area2"
-              name="accountingTerms"
-              onChange={handleChange}
-            >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="monthly">Monthly</option>
-              <option value="quarterly">Quaterly</option>
-              <option value="bi_annual">Bi-annual</option>
-              <option value="none">None</option>
-              <option value="other">other...</option>
-            </select>
-
-            <button type="submit" id="submit">
-              Submit
-            </button>
+            {page === FormTitles.length - 1 ? 
+            <button className="submit" type="submit" id="submit">
+            Submit
+          </button>
+                :
+            <div
+            // disabled={page === FormTitles.length - 1}
+            className={page === 0 ? "next position" : "next"}
+            onClick={() => {
+              setPage((currPage) => currPage + 1);
+            }}
+          >
+            Next
+          </div> 
+            }
+            
+            </div>
           </form>
-        </div>
-      </PageTemplate>
-    </DashBoard>
+          </>
+    </Box>
   );
 };
 

@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 const ClientSchema = new Schema({
     clientId: {
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId, ref:'Expense'
     },
     filmName: {
         type: String,
@@ -16,7 +16,6 @@ const ClientSchema = new Schema({
     producersEmail: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     filmsCode: {
         type: String,
@@ -26,27 +25,22 @@ const ClientSchema = new Schema({
     distributionType: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     rightSale: {
         type: String,
         maxlength: 3,
-        required: true,
     },
     cama: {
         type: String,
         maxlength: 3,
-        required: true,
     },
     countryLaw: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     stateLaw: {
         type: String,
         maxlength: 50,
-        required: true,
     },
     effectiveDate: {
         type: Date,
@@ -60,6 +54,18 @@ const ClientSchema = new Schema({
     renewalExpiration: {
         type: Date,
     },
+    expenseCap: {
+        type: String,
+        maxlength: 100,
+    },
+    customExp: {
+        type: String,
+        maxlength: 100,
+    },
+    expense: {
+        type: Number,
+        maxlenght: 20,
+    },
     grossCor: {
         type: Number,
         maxlength: 3,
@@ -67,19 +73,9 @@ const ClientSchema = new Schema({
     grossCorRights: {
         type: String,
         maxlength: 50,
-        required: true,
-    },
-    salesFee: {
-        type: Number,
-        maxlength: 3,
     },
     producerPay: {
         type: String,
-        maxlength: 50,
-        required: true,
-    },
-    expenseCap: {
-        type: Number,
         maxlength: 20,
     },
     deliveryFees: {
@@ -94,17 +90,20 @@ const ClientSchema = new Schema({
         type: Number,
         maxlength: 3,
     },
-    otherExps: {
-        type: String,
-        maxlength: 50,
-        required: true,
-    },
     accountingTerms: {
         type: String,
         maxlength: 50,
-        required: true,
+    },
+    avatar: {
+        type: String,
     }
 });
+
+// ClientSchema.virtual('avatarPath').get(function() {
+//     if (this.avatar != null && this.avatarType != null) {
+//       return `data:${this.avatarType};charset=utf-8;base64,${this.avatar.toString('base64')}`
+//     }
+//   });
 
 ClientSchema.plugin(mongodbErrorHandler);
 

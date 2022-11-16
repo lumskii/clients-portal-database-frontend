@@ -1,15 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 import {
     DashBoard,
     UserPlus,
-    UserEdit,
     UsersCog,
     DistributeHori,
     HandsHelp,
     Gear,
     PayMoney,
     PointOfSale,
+    Report,
 } from './NavbarElements'
 
 export const linksArray = [
@@ -52,8 +52,8 @@ export const linksArray = [
 
   export const secondaryLinksArray = [
     {
-      label: "Edit a Client",
-      icon: <UserEdit />,
+      label: "Generate Reports",
+      icon: <Report />,
       to: "/edit-a-client",
       notification: "Edit a Client",
       cName: 'nav-text' 

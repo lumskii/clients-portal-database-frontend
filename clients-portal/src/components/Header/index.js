@@ -19,10 +19,6 @@ const Header = () => {
     <>
         {/* ...Header Starts Here... */}
         <Head>
-        
-        <HeadLink to="/">
-          <LogoBrand src={Logo} />
-        </HeadLink>
 
         <HeadLabel>
             <HeadInput type="text" placeholder='Search anything here...' />

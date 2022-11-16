@@ -9,7 +9,7 @@ export const Header =styled.div`
 
 export const HeaderTitle =styled.p`
     font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 2em;
     display: flex;
     padding-left: 20px;
 `

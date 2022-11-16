@@ -11,8 +11,9 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import cogoToast from "cogo-toast";
+import { server } from "../../constance";
 
-const ClientEdit = (props) => {
+const ClientEdit = () => {
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(false);
   const { clientsId } = useParams();
@@ -21,7 +22,7 @@ const ClientEdit = (props) => {
   useEffect(() => {
     const getClient = async (id) => {
       setLoading(true);
-      const details = await axios.get(`/v1/clients/${id}`);
+      const details = await axios.get(`${server}/v1/clients/${id}`);
 
       if (details && details.data.success) {
         setLoading(false);
@@ -47,7 +48,7 @@ const ClientEdit = (props) => {
     e.preventDefault();
     setLoading(true);
     const updateClient = async (id) => {
-      const details = await axios.patch(`/v1/clients/${id}`, client);
+      const details = await axios.patch(server + `/v1/clients/${id}`, client);
 
       if (details && details.data.success) {
         cogoToast.success("Client updated successfully", {
@@ -123,6 +124,7 @@ const ClientEdit = (props) => {
               </div>
 
               {/* .........Account info starts here ......... */}
+              
               <span className="clientShowTitle">Account Information</span>
               <div className="clientShowInfo">
                 <h5 className="accountInfoTitle">Date of signature:</h5>
@@ -143,9 +145,27 @@ const ClientEdit = (props) => {
                 </span>
               </div>
               <div className="clientShowInfo">
+                <h5 className="accountInfoTitle">Expense Type:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.expenseCap}
+                </span>
+              </div>
+              <div className="clientShowInfo">
+                <h5 className="accountInfoTitle">Customized Expenses:</h5>
+                <span className="clientShowClientCode">
+                  {client && client.customExp}
+                </span>
+              </div>
+              <div className="clientShowInfo">
+                <h5 className="accountInfoTitle">Film Expenses:</h5>
+                <span className="clientShowClientCode">
+                  ${client && client.expense}
+                </span>
+              </div>
+              <div className="clientShowInfo">
                 <h5 className="accountInfoTitle">Gross Corridor:</h5>
                 <span className="clientShowClientCode">
-                  {client && client.grossCor}
+                  {client && client.grossCor}%
                 </span>
               </div>
               <div className="clientShowInfo">
@@ -155,27 +175,9 @@ const ClientEdit = (props) => {
                 </span>
               </div>
               <div className="clientShowInfo">
-                <h5 className="accountInfoTitle">Sales Fee:</h5>
-                <span className="clientShowClientCode">
-                  {client && client.salesFee}%
-                </span>
-              </div>
-              <div className="clientShowInfo">
                 <h5 className="accountInfoTitle">Producer's Payment:</h5>
                 <span className="clientShowClientCode">
-                  ${client && client.producerPay}
-                </span>
-              </div>
-              <div className="clientShowInfo">
-                <h5 className="accountInfoTitle">Expense Cap:</h5>
-                <span className="clientShowClientCode">
-                  ${client && client.expenseCap}
-                </span>
-              </div>
-              <div className="clientShowInfo">
-                <h5 className="accountInfoTitle">Delivery fees:</h5>
-                <span className="clientShowClientCode">
-                  ${client && client.deliveryFees}
+                  {client && client.producerPay}
                 </span>
               </div>
               <div className="clientShowInfo">
@@ -188,12 +190,6 @@ const ClientEdit = (props) => {
                 <h5 className="accountInfoTitle">Income reserves:</h5>
                 <span className="clientShowClientCode">
                   {client && client.incomeReserves}%
-                </span>
-              </div>
-              <div className="clientShowInfo">
-                <h5 className="accountInfoTitle">Other Expenses:</h5>
-                <span className="clientShowClientCode">
-                  {client && client.otherExps}
                 </span>
               </div>
               <div className="clientShowInfo">
@@ -261,7 +257,18 @@ const ClientEdit = (props) => {
                   />
                 </div>
                 <div className="clientUpdateItem">
-                  <label>Date of signature</label>
+                  <label>Effective Date</label>
+                  <input
+                    type="text"
+                    placeholder="effective date"
+                    className="clientUpdateInput"
+                    value={client && client.effectiveDate}
+                    name="effectiveDate"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Date of Signature</label>
                   <input
                     type="text"
                     placeholder="{client && client.countryLaw}"
@@ -283,13 +290,46 @@ const ClientEdit = (props) => {
                   />
                 </div>
                 <div className="clientUpdateItem">
-                  <label>Renewal expiration</label>
+                  <label>Renewal Expiration</label>
                   <input
                     type="text"
                     placeholder="{client && client.countryLaw}"
                     className="clientUpdateInput"
                     value={client && client.renewalExpiration}
                     name="renewalExpiration"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Expense Type</label>
+                  <input
+                    type="text"
+                    placeholder="Expense type"
+                    className="clientUpdateInput"
+                    value={client && client.expenseCap}
+                    name="expenseCap"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Customized Expenses</label>
+                  <input
+                    type="text"
+                    placeholder="Expenses"
+                    className="clientUpdateInput"
+                    value={client && client.customExp}
+                    name="customExp"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="clientUpdateItem">
+                  <label>Film Expenses</label>
+                  <input
+                    type="text"
+                    placeholder="Expenses"
+                    className="clientUpdateInput"
+                    value={client && client.expense}
+                    name="expense"
                     onChange={handleChange}
                   />
                 </div>
@@ -316,17 +356,6 @@ const ClientEdit = (props) => {
                   />
                 </div>
                 <div className="clientUpdateItem">
-                  <label>Sales Fee</label>
-                  <input
-                    type="text"
-                    placeholder="{client && client.countryLaw}"
-                    className="clientUpdateInput"
-                    value={client && client.salesFee}
-                    name="salesFee"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="clientUpdateItem">
                   <label>Producer's Payment</label>
                   <input
                     type="text"
@@ -334,28 +363,6 @@ const ClientEdit = (props) => {
                     className="clientUpdateInput"
                     value={client && client.producerPay}
                     name="producerPay"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="clientUpdateItem">
-                  <label>Expense Cap</label>
-                  <input
-                    type="text"
-                    placeholder="{client && client.countryLaw}"
-                    className="clientUpdateInput"
-                    value={client && client.expenseCap}
-                    name="expenseCap"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="clientUpdateItem">
-                  <label>Delivery fees</label>
-                  <input
-                    type="text"
-                    placeholder="{client && client.countryLaw}"
-                    className="clientUpdateInput"
-                    value={client && client.deliveryFees}
-                    name="deliveryFees"
                     onChange={handleChange}
                   />
                 </div>
@@ -378,17 +385,6 @@ const ClientEdit = (props) => {
                     className="clientUpdateInput"
                     value={client && client.incomeReserves}
                     name="incomeReserves"
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="clientUpdateItem">
-                  <label>Other Expenses</label>
-                  <input
-                    type="text"
-                    placeholder="{client && client.countryLaw}"
-                    className="clientUpdateInput"
-                    value={client && client.otherExps}
-                    name="otherExps"
                     onChange={handleChange}
                   />
                 </div>

@@ -10,35 +10,34 @@ import {
   ProfileArea,
   ArrowDown,
   LinkIcons,
-  ListItems
+  ListItems,
+  LogoBrand,
+  NavLinkLogo,
 } from "./NavbarElements";
 import { auth } from "../../firebase";
 import {linksArray, secondaryLinksArray, thirdLinksArray} from "./NavbarData";
-import Profile from "../Profile";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/userSlice";
-// import { IconContext } from "react-icons/lib";
+import Logo from "../../images/Logo.svg";
 
 const Navbar = () => {
-  const user = useSelector(selectUser);
   const [showContents, setShowContents] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <>
-    <SideBar isOpen={sidebarOpen}>
+    <SideBar isopen={sidebarOpen}>
       <>
-        <Bars isOpen={sidebarOpen} onClick={() => setSidebarOpen((p) => !p)} />
+        <Bars isopen={sidebarOpen} onClick={() => setSidebarOpen((p) => !p)} />
       </>
       
-        {/* <NavLinkLogo to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
+        <NavLinkLogo to="/" style={!sidebarOpen ? { width: `fit-content` } : {}}>
         {sidebarOpen && (
           <LogoBrand src={Logo} />
         )}
-        </NavLinkLogo> */}
+        </NavLinkLogo>
 
         <ListItems>
         <NavMenu>
+           
           <MenuBar>Main Menu</MenuBar>
           {linksArray.map(({ label, icon, to, index }) => (
             <NavLink
@@ -95,8 +94,7 @@ const Navbar = () => {
           <NavMenu>
           <NavBtn style={!sidebarOpen ? { width: `fit-content` } : {}}>
             <>
-            {user && <Profile />}
-            {/* <img className="avatarImg2" src='https://images.unsplash.com/profile-1518156163490-947fb5399aa6?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff' alt="" /> */}
+              <img className="avatarImg2" src='https://images.unsplash.com/profile-1518156163490-947fb5399aa6?dpr=1&auto=format&fit=crop&w=150&h=150&q=60&crop=faces&bg=fff' alt="" />
             </>
             
             <NavBtnLink to="/signin">
@@ -118,24 +116,23 @@ const Navbar = () => {
     </SideBar>
     
     {/* ...Header Starts Here... */}
-    {/* <Head isOpen={sidebarOpen}>
-      <HeadLink to="/">
-        <h1>Dashboard</h1>
-      </HeadLink>
+    {/* <Head isopen={sidebarOpen}>
 
       <HeadLabel>
         <HeadInput type="text" placeholder='Search anything here...' />
         <Search />
       </HeadLabel>
 
-        <HeadBtns>
-            <HeadBtnLink>
-            <Bell />
-            </HeadBtnLink>
-            <HeadBtnLink>
-            <Chat />
-            </HeadBtnLink>
-        </HeadBtns>
+      <HeadBtns>
+          <HeadBtnLink>
+          <Bell />
+          <Badge>2</Badge>
+          </HeadBtnLink>
+          <HeadBtnLink>
+          <Chat />
+          <Badge>2</Badge>
+          </HeadBtnLink>
+      </HeadBtns>
     </Head> */}
   </>
   );
