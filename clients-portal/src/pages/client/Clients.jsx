@@ -9,6 +9,7 @@ import { server } from "../../constance";
 import { Box } from "@mui/material";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
+import { DashBoard } from "../Dashboard/DashboardElements";
 
 export default function Clients() {
   const [data, setData] = useState([]);
@@ -27,9 +28,10 @@ export default function Clients() {
               id: client._id,
               filmName: client.filmName,
               filmCode: client.filmsCode,
-              avatar: client.avatar,
               email: client.producersEmail,
               distributionType: client.distributionType,
+              avatar: client.avatar,
+              // avatar: btoa(String.fromCharCode(...new Uint8Array(client.avatar.data.data)))
             }));
 
             setData(allData);
@@ -62,7 +64,7 @@ export default function Clients() {
           <>
           <Link to={`/clients/` + params.row.id} style={{textDecoration: "none", color:"inherit", fontWeight: "bold"}}>
             <div className="clientAvatar">
-              <img className="avatarImg" src={params.row.avatar} alt="" />
+            <img className="avatarImg" src={params.row.avatar} alt="" />
               {params.row.filmName}
             </div>
           </Link>
@@ -81,73 +83,76 @@ export default function Clients() {
       headerName: "Distribution Type",
       width: 160,
     },
-    // {
-    //   field: "action",
-    //   headerName: "Action",
-    //   width: 150,
-    //   renderCell: (params) => {
-    //     return (
-    //       <>
-    //         <Link to={`/clients/` + params.row.id}>
-    //           <button className="clientListEdit">Edit</button>
-    //         </Link>
-    //         <AiOutlineDeleteRow
-    //           className="clientListDelete"
-    //           onClick={() => handleDelete(params.row.id)}
-    //         />
-    //       </>
-    //     );
-    //   },
-    // },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <>
+            {/* <Link to={`/clients/` + params.row.id}>
+              <button className="clientListEdit">Edit</button>
+            </Link> */}
+            <AiOutlineDeleteRow
+              className="clientListDelete"
+              onClick={() => handleDelete(params.row.id)}
+            />
+            Delete
+          </>
+        );
+      },
+    },
   ];
 
   return (
-    <div className="clientsList">
-      <div className="clientTitleContainerOne">
-        <h1 className="headerTitle">Client List</h1>
-        <Link to="/client-setup">
-          <button className="clientAddButton">Create</button>
-        </Link>
+    <DashBoard>
+      <div className="clientsList">
+        <div className="clientTitleContainerOne">
+          <h1 className="headerTitle">Client List</h1>
+          <Link to="/client-setup">
+            <button className="clientAddButton">Create</button>
+          </Link>
+        </div>
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${colors.grey[100]} !important`,
+            },
+          }}
+        >
+        <DataGrid
+          disableSelectionOnClick
+          rows={data}
+          columns={columns}
+          components={{ Toolbar: GridToolbar }}
+        />
+        </Box>
       </div>
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
-          },
-        }}
-      >
-      <DataGrid
-        disableSelectionOnClick
-        rows={data}
-        columns={columns}
-        components={{ Toolbar: GridToolbar }}
-      />
-      </Box>
-    </div>
+    </DashBoard>
   );
 }

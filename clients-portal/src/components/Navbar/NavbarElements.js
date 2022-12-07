@@ -71,16 +71,14 @@ export const MenuBar = styled.div`
   color: rgb(228, 228, 228);
   left: ${({ isopen }) => (isopen ? `20px` : `0px`)};
   position: relative;
-  top: -8px;
+  top: -5px;
 
   &:before {
     content: " ";
     width: 100%;
-    height: 1px;
-    background: #BCB9B9;
     position: absolute;
     left: ${({ isopen }) => (isopen ? `-20px` : `0px`)};
-    top: -8px;
+    top: -5px;
 
     @media screen and (max-height: 768px) {
       top: 0px;

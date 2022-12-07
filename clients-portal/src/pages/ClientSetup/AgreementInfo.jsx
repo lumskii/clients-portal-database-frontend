@@ -1,87 +1,94 @@
+import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
 import React from 'react'
+import { useState } from 'react'
 
 export default function AgreementInfo({details, setDetails, handleChange}) {
+  const [isToggled, setIsToggled] = useState(false);
+
+  const handleRadioChange = (e) => {
+    setDetails({ ...details, rightSale: e.target.value});
+  };
   return (
-    <div id="agreement">
-            <span className="sub_heading">Right of Sale</span>
-            <label className="option" >
-              <input
-                className="radio-check"
-                type="radio"
-                value="yes"
-                name="rightSale"
-                onChange={(e) => setDetails({ ...details, rightSale: e.target.value})}
-              />
-              <span>Yes</span>
-            </label>
-            <label className="option">
-              <input
-                className="radio-check"
-                type="radio"
-                value="no"
-                name="rightSale"
-                onChange={(e) => setDetails({ ...details, rightSale: e.target.value})}
-              />
-              <span>No</span>
-            </label>
+      <>
+        <FormControl 
+        fullWidth
+        variant="filled"
+        sx={{ gridColumn: "span 2" }}
+        >
+          <FormLabel id="agreement">Right of Sale</FormLabel>
+          <RadioGroup
+            aria-labelledby='agreement'
+            name="rightSale"
+            value={details.rightSale}
+            onChange={handleRadioChange}
+          >
+            <FormControlLabel value="yes" onClick={() => setIsToggled(false)} control={<Radio />} label="Yes" />
+            <FormControlLabel value="no" onClick={() => setIsToggled(true)} control={<Radio />} label="No" />
+            {isToggled ? <TextField
+              id="filled-multiline-static"
+              label="Comment"
+              multiline
+              value={details.descri}
+              rows={4}
+              placeholder="Give details..."
+              // defaultValue="Default Value"
+              variant="filled"
+            /> : <></>}
+          </RadioGroup>
+        </FormControl>
 
-            <span className="sub_heading">CAMA Involved</span>
-            <label className="option">
-              <input
-                className="radio-check"
-                type="radio"
-                value="yes"
-                name="cama"
-                onChange={(e) => setDetails({ ...details, cama: e.target.value})}
-              />
-              <span>Yes</span>
-            </label>
-            <label className="option">
-              <input
-                className="radio-check"
-                type="radio"
-                value="no"
-                name="cama"
-                onChange={(e) => setDetails({ ...details, cama: e.target.value})}
-              />
-              <span>No</span>
-            </label>
+        <FormControl 
+        fullWidth
+        variant="filled"
+        sx={{ gridColumn: "span 2" }}
+        >
+          <FormLabel id="agreement">CAMA Involved</FormLabel>
+          <RadioGroup
+            aria-labelledby='agreement'
+            name="cama"
+            value={details.cama}
+            onChange={(e) => setDetails({ ...details, cama: e.target.value})}
+          >
+            <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+            <FormControlLabel value="no" control={<Radio />} label="No" />
+          </RadioGroup>
+        </FormControl>
 
-            <span className="sub_heading">Country of Law</span>
-            <select
-              id="dropdown2"
-              className="text_area2"
-              name="countryLaw"
-              value={details.countryLaw}
-              onChange={handleChange}
-            >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="usa">USA</option>
-              <option value="canada">Canada</option>
-              <option value="mexico">Mexico</option>
-              <option value="uk">UK</option>
-              <option value="germany">Germany</option>
-              <option value="japan">Japan</option>
-              <option value="other">other...</option>
-            </select>
+        <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+        <InputLabel id="dropdown2">Country of Law</InputLabel>
+          <Select
+            labelId="dropdown2"
+            id="dropdown2"
+            name="countryLaw"
+            value={details.countryLaw}
+            onChange={handleChange}
+            label="Country of Law"
+          >
+            <MenuItem value="usa">USA</MenuItem>
+            <MenuItem value="canada">Canada</MenuItem>
+            <MenuItem value="mexico">Mexico</MenuItem>
+            <MenuItem value="uk">UK</MenuItem>
+            <MenuItem value="germany">Germany</MenuItem>
+            <MenuItem value="japan">Japan</MenuItem>
+            <MenuItem value="other">other...</MenuItem>
+          </Select>
+        </FormControl>
 
-            <span className="sub_heading">State of Law</span>
-            <select
-              id="dropdown3"
-              className="text_area2"
-              name="stateLaw"
-              value={details.stateLaw}
-              onChange={handleChange}
-            >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="california">California</option>
-              <option value="arizona">Arizona</option>
-              <option value="other">other...</option>
-            </select>
-            </div>
+        <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+        <InputLabel id="dropdown3">State of Law</InputLabel>
+          <Select
+            labelId="dropdown3"
+            id="dropdown3"
+            name="stateLaw"
+            value={details.stateLaw}
+            onChange={handleChange}
+            label="State of Law"
+          >
+            <MenuItem value="california">California</MenuItem>
+            <MenuItem value="arizona">Arizona</MenuItem>
+            <MenuItem value="other">other...</MenuItem>
+          </Select>
+        </FormControl>
+      </>
   )
 }

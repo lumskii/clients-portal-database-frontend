@@ -96,14 +96,12 @@ const ClientSchema = new Schema({
     },
     avatar: {
         type: String,
-    }
+    },
+    postDate: {
+        type: Date,
+        default: Date.now,
+    },
 });
-
-// ClientSchema.virtual('avatarPath').get(function() {
-//     if (this.avatar != null && this.avatarType != null) {
-//       return `data:${this.avatarType};charset=utf-8;base64,${this.avatar.toString('base64')}`
-//     }
-//   });
 
 ClientSchema.plugin(mongodbErrorHandler);
 

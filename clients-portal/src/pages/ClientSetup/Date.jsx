@@ -1,43 +1,52 @@
+import { FormControl, FormLabel, TextField } from '@mui/material'
 import React from 'react'
 
 export default function Date({details, setDetails, handleChange}) {
   return (
-    <div id="dates">
-            <span className="sub_heading">Effective Date</span>
-            <input
-              className="text_area2"
+      <>
+          <FormControl fullWidth  sx={{ gridColumn: "span 2" }}>
+            <FormLabel id='dates'>Effective Date</FormLabel>
+            <TextField
               type="date"
               name="effectiveDate"
               value={details.effectiveDate}
               onChange={handleChange}
+              variant="filled"
             />
+          </FormControl>
 
-            <span className="sub_heading">Date of Signature</span>
-            <input
-              className="text_area2"
+          <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+            <FormLabel id="dates">Date of Signature</FormLabel>
+            <TextField
               type="date"
               name="dateSignature"
               value={details.dateSignature}
               onChange={handleChange}
+              variant="filled"
             />
+          </FormControl>
 
-            <span className="sub_heading">Renewal Date</span>
-            <input
-              className="text_area2"
+          <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+            <FormLabel id="dates">Renewal Date</FormLabel>
+            <TextField
               type="date"
               name="renewalDate"
               value={details.renewalDate}
               onChange={handleChange}
+              variant="filled"
             />
+          </FormControl>
 
-            <span className="sub_heading">Renewal Expiration</span>
-            <input
-              className="text_area2"
+          <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+            <FormLabel id="dates">Term Expiration</FormLabel>
+            <TextField
               type="date"
               name="renewalExpiration"
               value={details.renewalExpiration}
               onChange={handleChange}
+              variant="filled"
             />
-            </div>
+          </FormControl>
+      </>
   )
 }

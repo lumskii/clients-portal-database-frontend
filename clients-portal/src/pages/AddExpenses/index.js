@@ -7,6 +7,7 @@ import { server } from '../../constance';
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard2, PageTemplate3 } from '../Dashboard/DashboardElements'
 import cogoToast from "cogo-toast";
+import MultiStepForm from '../../components/MultiStepForm';
 
 const initialState = {
     dateExp: "",
@@ -118,97 +119,100 @@ const AddExpenses = () => {
     }
 
   return (
-    <DashBoard2>
-        <PageTemplate3>
-        {openModal && <Model openModal={openModal} setOpenModal={setOpenModal} />}
-            <Header>
-                <HeaderTitle>Add Expenses</HeaderTitle>
-            </Header>
 
-            <div className='exp_form_header' onClick={handleToggle}>Add New Expenses</div>
-            {form && <form className="form_exps" onSubmit={handleSubmit}>
-                <div className="form-input">
-                    <p>Date Expensed</p>
-                    <input
-                    type="date"
-                    className="text_area"
-                    name="dateExp"
-                    onChange={handleChange}
-                    />
-                </div>
-                <div className="form-input">
-                    <p>Company Type</p>
-                    <select
-                    type="dropdown"
-                    className="text_area"
-                    name="cType"
-                    onChange={handleChange}
-                    >
-                    <option disabled selected value="">
-                        Please select category
-                    </option>
-                    <option value="platform">Platform</option>
-                    <option value="retail">Retail</option>
-                    <option value="miscellaneous">Miscellaneous...</option>
-                    </select>
-                </div>
+        <MultiStepForm />
+
+    // <DashBoard2>
+    //     <PageTemplate3>
+    //     {openModal && <Model openModal={openModal} setOpenModal={setOpenModal} />}
+    //         <Header>
+    //             <HeaderTitle>Add Expenses</HeaderTitle>
+    //         </Header>
+
+    //         <div className='exp_form_header' onClick={handleToggle}>Add New Expenses</div>
+    //         {form && <form className="form_exps" onSubmit={handleSubmit}>
+    //             <div className="form-input">
+    //                 <p>Date Expensed</p>
+    //                 <input
+    //                 type="date"
+    //                 className="text_area"
+    //                 name="dateExp"
+    //                 onChange={handleChange}
+    //                 />
+    //             </div>
+    //             <div className="form-input">
+    //                 <p>Company Type</p>
+    //                 <select
+    //                 type="dropdown"
+    //                 className="text_area"
+    //                 name="cType"
+    //                 onChange={handleChange}
+    //                 >
+    //                 <option disabled selected value="">
+    //                     Please select category
+    //                 </option>
+    //                 <option value="platform">Platform</option>
+    //                 <option value="retail">Retail</option>
+    //                 <option value="miscellaneous">Miscellaneous...</option>
+    //                 </select>
+    //             </div>
                 
-                <div className="form-input">
-                    <p>Description</p>
-                    <textarea
-                    type="text"
-                    style={styleObj}
-                    className="text_area"
-                    name="describe"
-                    onChange={handleChange}
-                    />
-                </div>
-                <div className="form-input">
-                    <p>Amount</p>
-                    <input
-                    type="number"
-                    className="text_area"
-                    name="amount"
-                    onChange={handleChange}
-                    />
-                </div>
+    //             <div className="form-input">
+    //                 <p>Description</p>
+    //                 <textarea
+    //                 type="text"
+    //                 style={styleObj}
+    //                 className="text_area"
+    //                 name="describe"
+    //                 onChange={handleChange}
+    //                 />
+    //             </div>
+    //             <div className="form-input">
+    //                 <p>Amount</p>
+    //                 <input
+    //                 type="number"
+    //                 className="text_area"
+    //                 name="amount"
+    //                 onChange={handleChange}
+    //                 />
+    //             </div>
 
-                <div className="buttons">
-                    <button type="submit" id="submit-button" className="left">
-                    Save
-                    </button>
-                    <button type="submit" id="submit-button" className="right">
-                    Publish
-                    </button>
-                </div>
-            </form>}
+    //             <div className="buttons">
+    //                 <button type="submit" id="submit-button" className="left">
+    //                 Save
+    //                 </button>
+    //                 <button type="submit" id="submit-button" className="right">
+    //                 Publish
+    //                 </button>
+    //             </div>
+    //         </form>}
 
-            <div className='info_wrapper'>
-                <div className='saved'>
-                    <h3>Saved Expenses</h3>
-                    <DataGrid
-                        rows={details}
-                        columns={columns}
-                        pageSize={5}
-                        rowsPerPageOptions={[5]}
-                        style={{ height: '350px'}}
-                    />
-                    {/* <button className='publish_save'>Publish</button> */}
-                </div>
-                <div className='published'>
-                    <h3>Published Expenses</h3>
-                    <ul>
-                        <li>Date Expensed: <span>{details.dateExp}</span></li>
-                        <li>Company Type: <span>{details.cType}</span></li>
-                        <li>Description: <span>{details.describe}</span></li>
-                        <li>Amount: <span>{details.amount}</span></li>
-                    </ul>
-                </div>
-            </div>
+    //         <div className='info_wrapper'>
+    //             <div className='saved'>
+    //                 <h3>Saved Expenses</h3>
+    //                 <DataGrid
+    //                     rows={details}
+    //                     columns={columns}
+    //                     pageSize={5}
+    //                     rowsPerPageOptions={[5]}
+    //                     style={{ height: '350px'}}
+    //                 />
+    //                 {/* <button className='publish_save'>Publish</button> */}
+    //             </div>
+    //             <div className='published'>
+    //                 <h3>Published Expenses</h3>
+    //                 <ul>
+    //                     <li>Date Expensed: <span>{details.dateExp}</span></li>
+    //                     <li>Company Type: <span>{details.cType}</span></li>
+    //                     <li>Description: <span>{details.describe}</span></li>
+    //                     <li>Amount: <span>{details.amount}</span></li>
+    //                 </ul>
+    //             </div>
+    //         </div>
             
 
-        </PageTemplate3>
-    </DashBoard2>
+    //     </PageTemplate3>
+    // </DashBoard2>
   )
 }
 

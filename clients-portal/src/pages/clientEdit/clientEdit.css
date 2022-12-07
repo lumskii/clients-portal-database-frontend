@@ -27,6 +27,7 @@
 .clientContainer{
     display: flex;
     margin-top: 20px;
+    justify-content: space-between;
 }
 
 .clientShow{
@@ -136,6 +137,7 @@
 .clientUpdateUpload{
     display: flex;
     align-items: center;
+    margin: 20px;
 }
 
 .clientUpdateImg{
@@ -168,4 +170,57 @@
 
 .capi{
     text-transform: capitalize;
+}
+
+.edit{
+    box-shadow:inset 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #ff9900 5%, #fab444 100%);
+	background-color:#ff9900;
+	border-radius:6px;
+	border:1px solid #dea44d;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+}
+
+.edit:hover{
+    background:linear-gradient(to bottom, #fab444 5%, #ff9900 100%);
+	background-color:#fab444;
+}
+
+.edit:active{
+    position:relative;
+	top:1px;
+}
+
+.edit_close{
+    box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background-color:#f24537;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:15px;
+	font-weight: bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+    margin: -50px 40px;
+}
+
+.edit_close:hover{
+    background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background-color:#c62d1f;
+}
+
+.edit_close:active{
+    position:relative;
+	top:1px;
 }

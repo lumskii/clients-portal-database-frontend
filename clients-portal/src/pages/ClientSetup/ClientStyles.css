@@ -18,7 +18,7 @@
 .nav_btns{
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 60px;
 }
 
 
@@ -183,9 +183,13 @@
 	background-color:#c62d1f;
 }
 
-.exp_btn:active, .exp_btn_close:active, .exp_btn2:active, .next:active, .prev:active, .submit:active {
+.exp_btn:active, .exp_btn_close:active, .exp_btn2:active, .prev:active, .submit:active {
 	position:relative;
 	top:1px;
+}
+
+.next:active {
+    margin-top: 1px;
 }
 
 .dropDown{
@@ -202,31 +206,31 @@
     overflow-x: hidden;
 }
 
-.dropDown::-webkit-scrollbar {
+.dropDown::-webkit-scrollbar, .confirm_bg_right::-webkit-scrollbar {
     width: 5px;
     background: #ff9900;
     border-radius: 2.5px;
 }
 
-.dropDown::-webkit-scrollbar-thumb {
+.dropDown::-webkit-scrollbar-thumb, .confirm_bg_right::-webkit-scrollbar-thumb {
     background: #ff9900;
     border-radius: 1.5px;
     width: 5px;
 }
 
-.dropDown::-webkit-scrollbar-track {
+.dropDown::-webkit-scrollbar-track, .confirm_bg_right::-webkit-scrollbar-track {
     background: #bcbcbc;
 }
 
-.dropDown::-webkit-scrollbar-track-thumb {
+.dropDown::-webkit-scrollbar-track-thumb, .confirm_bg_right::-webkit-scrollbar-track-thumb {
     background: #bcbcbc;
 }
 
-.dropDown::-webkit-scrollbar-track:hover {
+.dropDown::-webkit-scrollbar-track:hover, .confirm_bg_right::-webkit-scrollbar-track:hover {
     background: #bcbc;
 }
 
-.dropDown::-webkit-scrollbar-thumb:hover {
+.dropDown::-webkit-scrollbar-thumb:hover, .confirm_bg_right::-webkit-scrollbar-thumb:hover {
      background-color: #ff99;
  }
 
@@ -269,7 +273,8 @@
 }
 
 .position{
-    margin-left: 130px;
+    position: absolute;
+    right: 20px;
 }
 
 .results{
@@ -282,10 +287,25 @@
 .results li{
     text-decoration: none;
     list-style: none;
-    margin: 16px 0 3px 0;
-    background-color: rgb(204, 204, 204);
-    border: 2px solid #000;
+    margin: 20px 0 3px 0;
     height: 25px;
-    width: 220px;
-    font-weight: bold;
+}
+
+.confirm_bg{
+    display: flex;
+    background-color: #fff;
+    height: 350px;
+    justify-content: space-between;
+    padding: 20px;
+    grid-column: 4;
+}
+
+.confirm_bg_left{
+    flex:1;
+}
+
+.confirm_bg_right{
+    flex:2;
+    overflow: scroll;
+    overflow-x: hidden;
 }

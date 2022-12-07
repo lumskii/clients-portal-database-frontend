@@ -12,8 +12,24 @@ const {
 } = require("./controllers/titles.controller");
 const clientRouter = require("./routers/client.router");
 const expenseRouter = require("./routers/expense.router")
+const fs = require("fs")
+const ImageModel = require('./models/Uploads')
 
 const app = express();
+
+// Uploading images
+const multer = require("multer")
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, 'images')
+  },
+  filename: (req, file, cb) => {
+    console.log(file)
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({storage: storage})
 //authentication
 const cors = require('cors')
 app.use(cors());
@@ -30,6 +46,24 @@ const userRouter = require("./routers/user.router");
 app.use("/v1/user", userRouter);
 app.use("/v1/clients", clientRouter);
 app.use("/v1/expenses", expenseRouter);
+
+app.post("/v1/upload", upload.single('avatar'), (req, res) => {
+  const saveAvatar = new ImageModel({
+    name: req.body.name,
+    img:{
+      data: fs.readFileSync('images/' + req.file.filename),
+      contentType:"image/png"
+    }
+  });
+  saveAvatar.save()
+  .then((res) => {
+    console.log("Image Uploaded");
+})
+  .catch((err) => {
+    console.log(err, "An error has occured");
+  })
+  res.send("Image Uploaded")
+});
 
 // Connect to MongoDB...
 let mongoDB = process.env.MONGODB_URL;

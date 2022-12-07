@@ -1,5 +1,5 @@
 const Client = require("../models/Client");
-const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
+
 
 exports.insertClient = (req, res, next) => {
   const filmName = req.body.filmName;
@@ -80,7 +80,7 @@ exports.insertClient = (req, res, next) => {
   });
 };
 
-// saveAvatar(insertClient, req.body.cover)
+
 
 exports.getAllClients = (req, res, next) => {
   Client.find({}, function (err, clients) {
@@ -128,6 +128,7 @@ exports.updateClient = (req, res) => {
     req.params.id,
     {
       $set: req.body,
+      $set: req.file,
     },
     (err, data) => {
       if (err) return res.status(400).json({ success: false, err });
@@ -149,11 +150,4 @@ exports.deleteClient = (req, res) => {
   });
 };
 
-// function saveAvatar(insertClient, avatarEncoded) {
-//   if (avatarEncoded == null) return
-//   const avatar = JSON.parse(avatarEncoded)
-//   if (avatar != null && imageMimeTypes.includes(avatar.type)) {
-//     insertClient.avatar = new Buffer.from(avatar.data, 'base64')
-//     insertClient.avatarType = avatar.type
-//   }
-// };
+

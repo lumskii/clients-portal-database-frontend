@@ -1,22 +1,22 @@
 import React from 'react'
-import { TextField } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 
-export default function MovieInfo({details, handleChange, checkoutSchema, initialState}) {
+export default function MovieInfo({details, formik, handleChange}) {
 
   return (
-    <>
+      <>
       <TextField
         fullWidth
         variant="filled"
         type="text"
         label="Film Name"
-        onChange={handleChange}
-        value={details.filmName}
+        onBlur={formik.handleBlur}
+        onChange={formik.handleChange}
+        value={formik.values.filmName}
         name="filmName"
-        errorMesssage="This Should not include any special characters"
-        // error={!!touched.filmName && !!errors.filmName}
-        // helperText={touched.filmName && errors.filmName}
+        error={!!formik.touched.filmName && !!formik.errors.filmName}
+        helperText={formik.touched.filmName && formik.errors.filmName}
         sx={{ gridColumn: "span 2" }}
       />
 
@@ -26,8 +26,11 @@ export default function MovieInfo({details, handleChange, checkoutSchema, initia
         label="Producer's Email"
         type="email"
         name="producersEmail"
-        value={details.producersEmail}
-        onChange={handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.producersEmail}
+        onChange={formik.handleChange}
+        error={!!formik.touched.producersEmail && !!formik.errors.producersEmail}
+        helperText={formik.touched.producersEmail && formik.errors.producersEmail}
         sx={{ gridColumn: "span 2" }}
       />
       <TextField
@@ -39,21 +42,24 @@ export default function MovieInfo({details, handleChange, checkoutSchema, initia
         name="filmsCode"
         sx={{ gridColumn: "span 2" }}
       />
-      <p>Distribution type</p>
-      <select
-        id="dropdown"
-        className="text_area"
-        name="distributionType"
-        value={details.distributionType}
-        onChange={handleChange}
-      >
-        <option disabled selected value="">
-          Please select category
-        </option>
-        <option value="sales">Sales Only</option>
-        <option value="distribution">Distribution Only</option>
-        <option value="sales_distribution">Sales & Distribution</option>
-      </select>
-    </>
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+        <InputLabel id="dropdown">Distribution type</InputLabel>
+        <Select
+          labelId="dropdown"
+          id="dropdown"
+          name="distributionType"
+          value={formik.values.distributionType}
+          onChange={formik.handleChange}
+          label="Distribution Type"
+          error={!!formik.touched.distributionType && !!formik.errors.distributionType}
+          helperText={formik.touched.distributionType && formik.errors.distributionType}
+        >
+          <MenuItem value="North America">North America</MenuItem>
+          <MenuItem value="World">World</MenuItem>
+          <MenuItem value="World excluding North America">World excluding North America</MenuItem>
+          <MenuItem value="International">International - Limited</MenuItem>
+        </Select>
+      </FormControl>
+      </>
   );
 }

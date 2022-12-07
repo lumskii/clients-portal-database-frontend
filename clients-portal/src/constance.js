@@ -1,1 +1,1 @@
-export const server = "https://omm-server.herokuapp.com";
+export const server = "http://localhost:5000";

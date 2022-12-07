@@ -1,25 +1,23 @@
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import React from 'react'
 
 export default function Accounting({details, setDetails, handleChange}) {
   return (
-    <div id="accounting">
-            <span className="sub_heading">Accounting Terms</span>
-            <select
+    <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 4" }}>
+        <InputLabel id="dropdown">Accounting Terms</InputLabel>
+            <Select
+              labelId="dropdown6"
               id="dropdown6"
-              className="text_area2"
               name="accountingTerms"
               value={details.accountingTerms}
               onChange={handleChange}
             >
-              <option disabled selected value="">
-                Please select category
-              </option>
-              <option value="monthly">Monthly</option>
-              <option value="quarterly">Quaterly</option>
-              <option value="bi_annual">Bi-annual</option>
-              <option value="none">None</option>
-              <option value="other">other...</option>
-            </select>
-            </div>
+                  <MenuItem value="monthly">Monthly</MenuItem>
+                  <MenuItem value="quarterly">Quaterly</MenuItem>
+                  <MenuItem value="bi_annual">Bi-annual</MenuItem>
+                  <MenuItem value="none">None</MenuItem>
+                  <MenuItem value="other">other...</MenuItem>
+            </Select>
+    </FormControl>
   )
 }
