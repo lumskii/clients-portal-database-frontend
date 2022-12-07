@@ -2,7 +2,7 @@ import { FilledInput, FormControl, InputAdornment, InputLabel, MenuItem, Outline
 import React from 'react'
 import { useState } from 'react';
 
-export default function ComissionExps({details, handleChange}) {
+export default function ComissionExps({formik}) {
     const [showContents, setShowContents] = useState(false);
     const [price, setPrice] = useState([]);
 
@@ -62,8 +62,8 @@ export default function ComissionExps({details, handleChange}) {
 
               <TextField
                 id="filled-end-adornment"
-                value={details.grossCor}
-                onChange={handleChange}
+                value={formik.values.grossCor}
+                onChange={formik.handleChange}
                 InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
                 name="grossCor"
                 type="number"
@@ -79,8 +79,8 @@ export default function ComissionExps({details, handleChange}) {
                   labelId="dropdown4"
                   id="dropdown4"
                   name="grossCorRights"
-                  value={details.grossCorRights}
-                  onChange={handleChange}
+                  value={formik.values.grossCorRights}
+                  onChange={formik.handleChange}
                 >
                   <MenuItem value="tvod">TVOD</MenuItem>
                   <MenuItem value="svod">SVOD</MenuItem>
@@ -92,8 +92,8 @@ export default function ComissionExps({details, handleChange}) {
 
               <TextField
                 id="filled-end-adornment"
-                value={details.distributionFee}
-                onChange={handleChange}
+                value={formik.values.distributionFee}
+                onChange={formik.handleChange}
                 InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
                 name="distributionFee"
                 type="number"
@@ -105,8 +105,8 @@ export default function ComissionExps({details, handleChange}) {
 
               <TextField
                 id="filled-end-adornment"
-                value={details.incomeReserves}
-                onChange={handleChange}
+                value={formik.values.incomeReserves}
+                onChange={formik.handleChange}
                 InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
                 name="incomeReserves"
                 type="number"

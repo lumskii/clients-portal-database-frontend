@@ -7,7 +7,7 @@ import 'filepond-plugin-file-poster/dist/filepond-plugin-file-poster.css';
 
 registerPlugin(FilePondPluginFilePoster);
 
-export default function Confirm({details, files, setFiles}) {
+export default function Confirm({details, files, formik}) {
     const primary = [
         "Producer's Email:",
         "Distribution Type:",
@@ -37,17 +37,17 @@ export default function Confirm({details, files, setFiles}) {
                 <div className="confirm_bg_left">
                     <div className="film_image">
                         <div>
-                            <FilePond 
+                            {/* <FilePond 
                                 files={files}
                                 allowFilePoster={true}
                                 filePosterHeight={20}
                                 filePosterWidth={20}
                                 stylePanelAspectRatio={20/20}
-                             />  
+                             />   */}
                              {/* <label htmlFor='file'>Film Poster</label>
                              <input type="file" name="avatar" value={files}/> */}
                     </div>
-                        <div>Film Name: {`${details.filmName}`}</div>
+                        <div>Film Name: {`${formik.values.filmName}`}</div>
                         <span>Film's Code: {`${details.filmsCode}`}</span>
                     </div>
                 </div>
@@ -61,25 +61,25 @@ export default function Confirm({details, files, setFiles}) {
                                 </ListItem>
                             ))}
                             <ul className="results">
-                                <li>{`${details.producersEmail}`}</li>
-                                <li>{`${details.distributionType}`}</li>
-                                <li>{`${details.rightSale}`}</li>
-                                <li>{`${details.cama}`}</li>
-                                <li>{`${details.countryLaw}`}</li>
-                                <li>{`${details.stateLaw}`}</li>
-                                <li>{`${details.effectiveDate}`}</li>
-                                <li>{`${details.dateSignature}`}</li>
-                                <li>{`${details.renewalDate}`}</li>
-                                <li>{`${details.renewalExpiration}`}</li>
-                                <li>{`${details.expenseCap}`}</li>
-                                <li>{`${details.customExp}`}</li>
-                                <li>{`${details.expense}`}</li>
-                                <li>{`${details.grossCor}`}</li>
-                                <li>{`${details.grossCorRights}`}</li>
-                                <li>{`${details.producerPay}`}</li>
-                                <li>{`${details.distributionFee}`}</li>
-                                <li>{`${details.incomeReserves}`}</li>
-                                <li>{`${details.accountingTerms}`}</li>
+                                <li>{`${formik.values.producersEmail}`}</li>
+                                <li>{`${formik.values.distributionType}`}</li>
+                                <li>{`${formik.values.rightSale}`}</li>
+                                <li>{`${formik.values.cama}`}</li>
+                                <li>{`${formik.values.countryLaw}`}</li>
+                                <li>{`${formik.values.stateLaw}`}</li>
+                                <li>{`${formik.values.effectiveDate}`}</li>
+                                <li>{`${formik.values.dateSignature}`}</li>
+                                <li>{`${formik.values.renewalDate}`}</li>
+                                <li>{`${formik.values.renewalExpiration}`}</li>
+                                <li>{`${formik.values.expenseCap}`}</li>
+                                <li>{`${formik.values.customExp}`}</li>
+                                <li>{`${formik.values.expense}`}</li>
+                                <li>{`${formik.values.grossCor}`}</li>
+                                <li>{`${formik.values.grossCorRights}`}</li>
+                                <li>{`${formik.values.producerPay}`}</li>
+                                <li>{`${formik.values.distributionFee}`}</li>
+                                <li>{`${formik.values.incomeReserves}`}</li>
+                                <li>{`${formik.values.accountingTerms}`}</li>
                             </ul>
                         </List>
                     </div>

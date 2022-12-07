@@ -2,7 +2,7 @@ import React from 'react'
 import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 
-export default function MovieInfo({details, formik, handleChange}) {
+export default function MovieInfo({details, formik}) {
 
   return (
       <>
@@ -38,7 +38,7 @@ export default function MovieInfo({details, formik, handleChange}) {
         variant="filled"
         label="Film's Code"
         type="text"
-        value={details.filmsCode}
+        value={formik.values.filmsCode}
         name="filmsCode"
         sx={{ gridColumn: "span 2" }}
       />

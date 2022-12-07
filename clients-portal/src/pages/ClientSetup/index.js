@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DashBoard } from "../Dashboard/DashboardElements";
 import Header from "../../components/Heading";
-import { Box, Step } from "@mui/material";
+import { Box } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import * as yup from "yup";
 import axios from "axios";
@@ -17,7 +17,6 @@ import Accounting from "./Accounting";
 import Uploads from "./Uploads";
 import Confirm from "./Confirm";
 import { useFormik } from "formik";
-import { NextPlan } from "@mui/icons-material";
 
 const initialState = {
   filmName: "",
@@ -43,6 +42,7 @@ const initialState = {
   distributionFee: "",
   incomeReserves: "",
   accountingTerms: "",
+  avatar: "", // new key-value pair
 };
 
 const ClientSetup = () => {
@@ -51,6 +51,7 @@ const ClientSetup = () => {
   const [files, setFiles] = useState([]);
   const [page, setPage] = useState(0);
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const [isToggled, setIsToggled] = useState(false);
 
   const FormTitles = [
     "Movie Information",
@@ -67,6 +68,7 @@ const ClientSetup = () => {
     setDetails((prev) => {
       return { ...prev, [name]: value };
     });
+    formik.handleChange(e);
   };
 
   const onChangeFile = (e) => {
@@ -79,29 +81,29 @@ const ClientSetup = () => {
         <MovieInfo
           details={details}
           formik={formik}
-          handleChange={handleChange}
         />
       );
     } else if (page === 1) {
-      return <AgreementInfo details={details} setDetails={setDetails} formik={formik} />;
+      return <AgreementInfo formik={formik} isToggled={isToggled} setIsToggled={setIsToggled} />;
     } else if (page === 2) {
-      return <Date details={details} setDetails={setDetails} handleChange={handleChange} />;
+      return <Date formik={formik} />;
     } else if (page === 3) {
-      return <ComissionExps details={details} handleChange={handleChange} />;
+      return <ComissionExps formik={formik} />;
     } else if (page === 4) {
-      return <Accounting details={details} setDetails={setDetails} handleChange={handleChange} />;
+      return <Accounting formik={formik} />;
     } else if (page === 5) {
       return <Uploads files={files} setFiles={setFiles} details={details} setDetails={setDetails} onChangeFile={onChangeFile} />;
     } else {
-      return <Confirm details={details} files={files} setFiles={setFiles} />;
+      return <Confirm details={details} files={files} formik={formik} />;
     }
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
+    formik.handleSubmit(e);
+    // console.log(formik.values)
     const submitClientDetails = async () => {
-      const submitted = await axios.post(`${server}/v1/clients`, details);
+      const submitted = await axios.post(`${server}/v1/clients`, formik.values);
       if (
         submitted &&
         submitted.data.success &&
@@ -124,7 +126,7 @@ const ClientSetup = () => {
   useEffect(() => {
     const filmCode = "OMM" + Math.floor(100000 + Math.random() * 900000);
     console.log("filmcode", filmCode);
-    setDetails({ ...details, filmsCode: filmCode });
+    formik.setFieldValue("filmsCode", filmCode );
   }, []);
 
 
@@ -140,17 +142,13 @@ const ClientSetup = () => {
     //   .matches(phoneRegExp, "Phone number is not valid")
     //   .required("required"),
     rightSale: yup.string().required("required"),
+    descri: yup.string().required("Please enter description"),
     effectiveDate: yup.string().required("required"),
   });
 
   const formik = useFormik({
     initialValues: details,
     validationSchema: checkoutSchema,
-    handleChange: handleChange,
-    onSubmit: (values, bag) => {
-      
-      
-    },
   });
 
 
@@ -158,54 +156,54 @@ const ClientSetup = () => {
     <DashBoard>
       <Box m="80px 20px 20px 20px">
         <Header title="CLIENT FORM" subtitle="Add a new title" />
-              <>
-              <div className="progressbar">
-                <div style={{ width: `${(100 / FormTitles.length) * (page + 1)}%` }}></div>
-              </div>
-                <h3 className="form_section_title">{FormTitles[page]}</h3>
-                  <form onSubmit={handleFormSubmit} encType="multipart/form-data">
-                    <Box
-                      display="grid"
-                      gap="30px"
-                      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                      sx={{
-                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-                      }}
-                    >
-                  {/* Page contents called from pageDisplay function above......  */}
-                      {PageDisplay()}
-                    </Box>
-                  {/* Footer elements starts here... */}
-                  <div className="nav_btns">
-              
-                  <div
-                    className={page === 0 ? "invisible" : "prev"}
-                    onClick={() => {
-                      setPage((currPage) => currPage - 1);
-                    }}
-                  >
-                    Prev
-                  </div>
+        <>
+          <div className="progressbar">
+            <div
+              style={{ width: `${(100 / FormTitles.length) * (page + 1)}%` }}
+            ></div>
+          </div>
+          <h3 className="form_section_title">{FormTitles[page]}</h3>
+            <form onSubmit={handleFormSubmit}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                sx={{
+                  "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                }}
+              >
+                {/* Page contents called from pageDisplay function above......  */}
+                {PageDisplay()}
+              </Box>
+              {/* Footer elements starts here... */}
+              <div className="nav_btns">
+                <div
+                  className={page === 0 ? "invisible" : "prev"}
+                  onClick={() => {
+                    setPage((currPage) => currPage - 1);
+                  }}
+                >
+                  Prev
+                </div>
 
-                  {page === FormTitles.length - 1 ? 
+                {page === FormTitles.length - 1 ? (
                   <button className="submit" type="submit" id="submit">
                     Submit
                   </button>
-                      :
+                ) : (
                   <div
-                  // disabled={page === FormTitles.length - 1}
-                  className={page === 0 ? "next position" : "next"}
-                  onClick={() => {
-                    setPage((currPage) => currPage + 1);
-                  }}
-                >
-                  Next
-                </div> 
-                  }
-                  
+                    // disabled={page === FormTitles.length - 1}
+                    className={page === 0 ? "next position" : "next"}
+                    onClick={() => {
+                      setPage((currPage) => currPage + 1);
+                    }}
+                  >
+                    Next
                   </div>
-                </form>
-            </>
+                )}
+              </div>
+            </form>
+        </>
       </Box>
     </DashBoard>
   );
