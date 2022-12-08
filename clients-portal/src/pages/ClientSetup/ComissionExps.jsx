@@ -1,4 +1,5 @@
-import { FilledInput, FormControl, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
+import { Button, FilledInput, FormControl, FormLabel, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
+import { FieldArray } from 'formik';
 import React from 'react'
 import { useState } from 'react';
 
@@ -8,7 +9,84 @@ export default function ComissionExps({formik}) {
 
   return (
     <>
-            {/* <div
+        <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 3", alignItems: "center" }}>
+          <FieldArray name="gross">
+            {({ push, remove }) => (
+              <React.Fragment>
+                <FormLabel sx={{ fontWeight: "bold" }}>Add Movie Gross</FormLabel>
+
+                {formik.values.gross.map((_, index) => (
+                  <>
+                    <TextField 
+                      id="filled-end-adornment"
+                      value={formik.values.gross.grossCor}
+                      onChange={formik.handleChange}
+                      InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
+                      name={`gross.${index}.grossCor`}
+                      type="number"
+                      variant="filled" 
+                      label="Gross Corridor"
+                      sx={{ gridColumn: "span 2" }}
+                      fullWidth
+                    />
+                    
+                    <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+                      <InputLabel id="dropdown4">Gross Corridor Rights</InputLabel>
+                      <Select
+                        labelId="dropdown4"
+                        id="dropdown4"
+                        name={`gross[${index}].grossCorRights`}
+                        value={formik.values.grossCorRights}
+                        onChange={formik.handleChange}
+                      >
+                        <MenuItem value="tvod">TVOD</MenuItem>
+                        <MenuItem value="svod">SVOD</MenuItem>
+                        <MenuItem value="avod">AVOD</MenuItem>
+                        <MenuItem value="tv">TV</MenuItem>
+                        <MenuItem value="sell_thru">SELL THROUGH</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <div className="exp_btn_close" onClick={() => remove(index)}>Delete</div>
+                  </>
+                ))}
+                  <div className="exp_btn" onClick={() => push({ grossCor: '', grossCorRights: 0 })}>
+                  Add
+                </div>
+              </React.Fragment>
+            )}
+          </FieldArray>
+        </FormControl>
+
+        <TextField
+          id="filled-end-adornment"
+          value={formik.values.distributionFee}
+          onChange={formik.handleChange}
+          InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
+          name="distributionFee"
+          type="number"
+          sx={{ gridColumn: "span 2" }}
+          variant="filled" 
+          fullWidth
+          label="Distribution Fee"
+        />
+
+        <TextField
+          id="filled-end-adornment"
+          value={formik.values.incomeReserves}
+          onChange={formik.handleChange}
+          InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
+          name="incomeReserves"
+          type="number"
+          sx={{ gridColumn: "span 2" }}
+          variant="filled" 
+          fullWidth
+          label="Income Reserves"
+        />
+    </>
+  )
+}
+
+ {/* <div
               className={showContents ? "exp_btn_close" : "exp_btn"}
               onClick={() => setShowContents(!showContents)}
             >
@@ -59,62 +137,3 @@ export default function ComissionExps({formik}) {
                 />
               </div>
             )} */}
-
-              <TextField
-                id="filled-end-adornment"
-                value={formik.values.grossCor}
-                onChange={formik.handleChange}
-                InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
-                name="grossCor"
-                type="number"
-                sx={{ gridColumn: "span 2" }}
-                variant="filled" 
-                fullWidth
-                label="Gross Corridor"
-              />
-
-              <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
-                <InputLabel id="dropdown">Gross Corridor Rights</InputLabel>
-                <Select
-                  labelId="dropdown4"
-                  id="dropdown4"
-                  name="grossCorRights"
-                  value={formik.values.grossCorRights}
-                  onChange={formik.handleChange}
-                >
-                  <MenuItem value="tvod">TVOD</MenuItem>
-                  <MenuItem value="svod">SVOD</MenuItem>
-                  <MenuItem value="avod">AVOD</MenuItem>
-                  <MenuItem value="tv">TV</MenuItem>
-                  <MenuItem value="sell_thru">SELL THROUGH</MenuItem>
-                </Select>
-              </FormControl>
-
-              <TextField
-                id="filled-end-adornment"
-                value={formik.values.distributionFee}
-                onChange={formik.handleChange}
-                InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
-                name="distributionFee"
-                type="number"
-                sx={{ gridColumn: "span 2" }}
-                variant="filled" 
-                fullWidth
-                label="Distribution Fee"
-              />
-
-              <TextField
-                id="filled-end-adornment"
-                value={formik.values.incomeReserves}
-                onChange={formik.handleChange}
-                InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
-                name="incomeReserves"
-                type="number"
-                sx={{ gridColumn: "span 2" }}
-                variant="filled" 
-                fullWidth
-                label="Income Reserves"
-              />
-            </>
-  )
-}

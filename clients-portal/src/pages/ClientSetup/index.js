@@ -24,7 +24,8 @@ const initialState = {
   filmsCode: "",
   distributionType: "",
   rightSale: "",
-  descri: "",
+  rightSaleOpt: "",
+  comment: "",
   cama: "",
   countryLaw: "",
   stateLaw: "",
@@ -35,12 +36,11 @@ const initialState = {
   expenseCap: "",
   customExp: "",
   expense: "",
-  grossCor: "",
-  grossCorRights: "",
+  gross: [{ grossCor: "", grossCorRights: 0 }],
   producerPay: "",
   deliveryFees: "",
-  distributionFee: "",
-  incomeReserves: "",
+  distributionFee: 0,
+  incomeReserves: 0,
   accountingTerms: "",
   avatar: "", // new key-value pair
 };
@@ -52,6 +52,7 @@ const ClientSetup = () => {
   const [page, setPage] = useState(0);
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [isToggled, setIsToggled] = useState(false);
+  const [comment, setComment] = useState(false);
 
   const FormTitles = [
     "Movie Information",
@@ -63,13 +64,13 @@ const ClientSetup = () => {
     "Confirm Details",
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDetails((prev) => {
-      return { ...prev, [name]: value };
-    });
-    formik.handleChange(e);
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setDetails((prev) => {
+  //     return { ...prev, [name]: value };
+  //   });
+  //   formik.handleChange(e);
+  // };
 
   const onChangeFile = (e) => {
     setFiles(e.target.file[0]);
@@ -79,12 +80,19 @@ const ClientSetup = () => {
     if (page === 0) {
       return (
         <MovieInfo
-          details={details}
           formik={formik}
         />
       );
     } else if (page === 1) {
-      return <AgreementInfo formik={formik} isToggled={isToggled} setIsToggled={setIsToggled} />;
+      return (
+        <AgreementInfo
+          formik={formik}
+          isToggled={isToggled}
+          setIsToggled={setIsToggled}
+          comment={comment}
+          setComment={setComment}
+        />
+      );
     } else if (page === 2) {
       return <Date formik={formik} />;
     } else if (page === 3) {
@@ -116,7 +124,7 @@ const ClientSetup = () => {
         setDetails(initialState);
         navigate('/clients');
       } else {
-        cogoToast.error("Could not submit client info");
+        cogoToast.error("Could not submit client info due to missing field or fields");
       }
     };
 
@@ -142,7 +150,7 @@ const ClientSetup = () => {
     //   .matches(phoneRegExp, "Phone number is not valid")
     //   .required("required"),
     rightSale: yup.string().required("required"),
-    descri: yup.string().required("Please enter description"),
+    comment: yup.string().required("Please enter description"),
     effectiveDate: yup.string().required("required"),
   });
 

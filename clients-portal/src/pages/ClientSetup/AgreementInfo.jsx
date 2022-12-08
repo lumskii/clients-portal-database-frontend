@@ -2,7 +2,7 @@ import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, 
 import React from 'react'
 import { useState } from 'react'
 
-export default function AgreementInfo({formik, isToggled, setIsToggled}) {
+export default function AgreementInfo({formik, isToggled, setIsToggled, comment, setComment}) {
 
   // const handleRadioChange = (e) => {
   //   setDetails({ ...details, rightSale: e.target.value});
@@ -32,24 +32,39 @@ export default function AgreementInfo({formik, isToggled, setIsToggled}) {
             control={<Radio />}
             label="No"
           />
-          {isToggled ? (
+          {isToggled && (
+            <FormControl fullWidth variant="filled">
+              <InputLabel id="dropdown4">Choose an option</InputLabel>
+              <Select
+                labelId="dropdown4"
+                id="dropdown4"
+                name="rightSaleOpt"
+                value={formik.values.rightSaleOpt}
+                onChange={formik.handleChange}
+              >
+                <MenuItem value="above 'low' in estimates" onClick={() => setComment(false)}>Above "Low" in Estimates</MenuItem>
+                <MenuItem value="mexico" onClick={() => setComment(false)}>Producer - With Time Restraint</MenuItem>
+                <MenuItem value="uk" onClick={() => setComment(false)}>Producer</MenuItem>
+                <MenuItem value="other" onClick={() => setComment(true)}>Other</MenuItem>
+              </Select>
+            </FormControl>
+          )}
+          {comment && (
             <TextField
               id="filled-multiline-static"
               label="Comment"
-              name="descri"
+              name="comment"
               multiline
-              value={formik.values.descri}
+              value={formik.values.comment}
               onChange={formik.handleChange}
               rows={4}
               type="text"
               placeholder="Give details..."
               onBlur={formik.handleBlur}
-              error={!!formik.touched.descri && !!formik.errors.descri}
-              helperText={formik.touched.descri && formik.errors.descri}
+              error={!!formik.touched.comment && !!formik.errors.comment}
+              helperText={formik.touched.comment && formik.errors.comment}
               variant="filled"
             />
-          ) : (
-            <></>
           )}
         </RadioGroup>
       </FormControl>
@@ -76,7 +91,6 @@ export default function AgreementInfo({formik, isToggled, setIsToggled}) {
           name="countryLaw"
           value={formik.values.countryLaw}
           onChange={formik.handleChange}
-          label="Country of Law"
         >
           <MenuItem value="usa">USA</MenuItem>
           <MenuItem value="canada">Canada</MenuItem>
@@ -84,7 +98,7 @@ export default function AgreementInfo({formik, isToggled, setIsToggled}) {
           <MenuItem value="uk">UK</MenuItem>
           <MenuItem value="germany">Germany</MenuItem>
           <MenuItem value="japan">Japan</MenuItem>
-          <MenuItem value="other">other...</MenuItem>
+          <MenuItem value="other">Other</MenuItem>
         </Select>
       </FormControl>
 
@@ -100,7 +114,7 @@ export default function AgreementInfo({formik, isToggled, setIsToggled}) {
         >
           <MenuItem value="california">California</MenuItem>
           <MenuItem value="arizona">Arizona</MenuItem>
-          <MenuItem value="other">other...</MenuItem>
+          <MenuItem value="other">Other</MenuItem>
         </Select>
       </FormControl>
     </>

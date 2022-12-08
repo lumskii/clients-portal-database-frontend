@@ -2,7 +2,7 @@ import React from 'react'
 import { FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 
-export default function MovieInfo({details, formik}) {
+export default function MovieInfo({formik}) {
 
   return (
       <>
