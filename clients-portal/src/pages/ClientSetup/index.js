@@ -36,7 +36,7 @@ const initialState = {
   expenseCap: "",
   customExp: "",
   expense: "",
-  gross: [{ grossCor: "", grossCorRights: 0 }],
+  gross: [{ grossCor: 0, grossCorRights: "" }],
   producerPay: "",
   deliveryFees: "",
   distributionFee: 0,

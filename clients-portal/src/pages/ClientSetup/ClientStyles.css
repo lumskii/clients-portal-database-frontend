@@ -87,9 +87,10 @@
 
 .exp_btn{
     position: relative;
-    margin: 20px 40px;
+    margin: 0px 40px 20px;
     background-color: rgb(85, 138, 5);
     font-size: 15px;
+    font-weight: bold;
     color:#000;
     box-shadow:inset 0px 1px 0px 0px #a4e271;
 	background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
@@ -100,6 +101,8 @@
     padding:6px 24px;
     text-decoration:none;
     text-shadow:0px 1px 0px #528009;
+    text-align: center;
+    width: 45px;
 }
 
 .exp_btn2{
@@ -167,7 +170,6 @@
 	text-shadow:0px 1px 0px #810e05;
     margin: 20px 40px;
     text-align: center;
-    width: 50px;
 }
 
 .exp_btn:hover, .exp_btn2:hover, .submit:hover {

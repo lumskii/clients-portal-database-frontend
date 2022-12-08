@@ -1,42 +1,69 @@
-import { Button, FilledInput, FormControl, FormLabel, InputAdornment, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
-import { FieldArray } from 'formik';
+import { Button, FormControl, FormLabel, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import {  FieldArray, Formik } from 'formik';
 import React from 'react'
 import { useState } from 'react';
 
-export default function ComissionExps({formik}) {
-    const [showContents, setShowContents] = useState(false);
-    const [price, setPrice] = useState([]);
-
+const ComissionExps = ({ formik }) => {
   return (
     <>
-        <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 3", alignItems: "center" }}>
-          <FieldArray name="gross">
-            {({ push, remove }) => (
+      <Formik initialValues={formik.values}>
+        <FormControl
+          fullWidth
+          variant="filled"
+          sx={{ gridColumn: "span 3", alignItems: "center" }}
+        >
+          <FieldArray
+            name="gross"
+            handleChange={formik.handleChange}
+            values={formik.values}
+            render={arrayHelpers => (
               <React.Fragment>
-                <FormLabel sx={{ fontWeight: "bold" }}>Add Movie Gross</FormLabel>
+                <FormLabel sx={{ fontWeight: "bold" }}>
+                  Add Movie Gross
+                </FormLabel>
 
                 {formik.values.gross.map((_, index) => (
                   <>
-                    <TextField 
+                    <TextField
+                      key={index}
                       id="filled-end-adornment"
-                      value={formik.values.gross.grossCor}
+                      value={formik.values["gross"][index]["grossCor"]}
                       onChange={formik.handleChange}
-                      InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
+                      // onChange={(e) => {
+                      //   if (formik) {
+                      //     formik.setFieldValue(
+                      //       `gross.${index}.grossCor`,
+                      //       e.target.value
+                      //     );
+                      //     formik.validate(`gross.${index}.grossCor`);
+                      //   }
+                      // }}
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">%</InputAdornment>
+                        ),
+                      }}
                       name={`gross.${index}.grossCor`}
                       type="number"
-                      variant="filled" 
+                      variant="filled"
                       label="Gross Corridor"
                       sx={{ gridColumn: "span 2" }}
                       fullWidth
                     />
-                    
-                    <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
-                      <InputLabel id="dropdown4">Gross Corridor Rights</InputLabel>
+
+                    <FormControl
+                      fullWidth
+                      variant="filled"
+                      sx={{ gridColumn: "span 2" }}
+                    >
+                      <InputLabel id="dropdown4">
+                        Gross Corridor Rights
+                      </InputLabel>
                       <Select
                         labelId="dropdown4"
                         id="dropdown4"
                         name={`gross[${index}].grossCorRights`}
-                        value={formik.values.grossCorRights}
+                        value={formik.values["gross"][index]["grossCorRights"]}
                         onChange={formik.handleChange}
                       >
                         <MenuItem value="tvod">TVOD</MenuItem>
@@ -46,53 +73,88 @@ export default function ComissionExps({formik}) {
                         <MenuItem value="sell_thru">SELL THROUGH</MenuItem>
                       </Select>
                     </FormControl>
-                    <div className="exp_btn_close" onClick={() => remove(index)}>Delete</div>
+                    <Button
+                      type="button"
+                      className="exp_btn_close"
+                      onClick={() => arrayHelpers.remove(index)}
+                    >
+                      Delete
+                    </Button>
                   </>
                 ))}
-                  <div className="exp_btn" onClick={() => push({ grossCor: '', grossCorRights: 0 })}>
+                <div
+                  className="exp_btn"
+                  onClick={() =>
+                    arrayHelpers.push({ grossCor: 0, grossCorRights: "" })
+                  }
+                >
                   Add
                 </div>
               </React.Fragment>
             )}
-          </FieldArray>
+          />
         </FormControl>
+      </Formik>
 
-        <TextField
-          id="filled-end-adornment"
-          value={formik.values.distributionFee}
-          onChange={formik.handleChange}
-          InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
-          name="distributionFee"
-          type="number"
-          sx={{ gridColumn: "span 2" }}
-          variant="filled" 
-          fullWidth
-          label="Distribution Fee"
-        />
+      <TextField
+        id="filled-end-adornment"
+        value={formik.values.distributionFee}
+        onChange={formik.handleChange}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">%</InputAdornment>,
+        }}
+        name="distributionFee"
+        type="number"
+        sx={{ gridColumn: "span 2" }}
+        variant="filled"
+        fullWidth
+        label="Distribution Fee"
+      />
 
-        <TextField
-          id="filled-end-adornment"
-          value={formik.values.incomeReserves}
-          onChange={formik.handleChange}
-          InputProps={{endAdornment:<InputAdornment position="end">%</InputAdornment>}}
-          name="incomeReserves"
-          type="number"
-          sx={{ gridColumn: "span 2" }}
-          variant="filled" 
-          fullWidth
-          label="Income Reserves"
-        />
+      <TextField
+        id="filled-end-adornment"
+        value={formik.values.incomeReserves}
+        onChange={formik.handleChange}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">%</InputAdornment>,
+        }}
+        name="incomeReserves"
+        type="number"
+        sx={{ gridColumn: "span 2" }}
+        variant="filled"
+        fullWidth
+        label="Income Reserves"
+      />
     </>
-  )
-}
+  );
+};
 
- {/* <div
+export default ComissionExps;
+
+// export default function ComissionExps({formik}) {
+//   const [showContents, setShowContents] = useState(false);
+//   const [price, setPrice] = useState([]);
+
+//   return (
+    
+
+// <>
+  
+
+// </>
+//        );
+//      }
+
+{
+  /* <div
               className={showContents ? "exp_btn_close" : "exp_btn"}
               onClick={() => setShowContents(!showContents)}
             >
               {showContents === true ? "Close" : "Add"}
-            </div> */}
-            {/* {showContents && (
+            </div> */
+}
+{
+  /* {showContents && (
               <div className="dropDown">
                 <span className="sub_heading">Please Choose Expense Type</span>
                 <div className="selectorContainer">
@@ -111,9 +173,13 @@ export default function ComissionExps({formik}) {
                     </option>
                     <option value="Delivery Expense">Delivery Expense</option>
                     <option value="Sales Expense">Sales Expense</option>
-                  </select> */}
-                  {/* <div className="exp_btn2 adjust" type='submit'>add</div> */}
-                {/* </div>
+                  </select> */
+}
+{
+  /* <div className="exp_btn2 adjust" type='submit'>add</div> */
+}
+{
+  /* </div>
 
                 <span className="sub_heading">Or Add Customized Details</span>
                 <textarea
@@ -136,4 +202,5 @@ export default function ComissionExps({formik}) {
                   onChange={handleChange}
                 />
               </div>
-            )} */}
+            )} */
+}
