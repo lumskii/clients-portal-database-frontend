@@ -114,26 +114,6 @@ const Navbar = () => {
           </NavMenu>
       </ListItems>
     </SideBar>
-    
-    {/* ...Header Starts Here... */}
-    {/* <Head isopen={sidebarOpen}>
-
-      <HeadLabel>
-        <HeadInput type="text" placeholder='Search anything here...' />
-        <Search />
-      </HeadLabel>
-
-      <HeadBtns>
-          <HeadBtnLink>
-          <Bell />
-          <Badge>2</Badge>
-          </HeadBtnLink>
-          <HeadBtnLink>
-          <Chat />
-          <Badge>2</Badge>
-          </HeadBtnLink>
-      </HeadBtns>
-    </Head> */}
   </>
   );
 };

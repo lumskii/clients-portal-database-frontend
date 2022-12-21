@@ -22,8 +22,8 @@ export default function Confirm({details, files, formik}) {
         "Expense Type:",
         "Customized Expenses:",
         "Film Expenses:",
-        "Gross Corridor %:",
-        "Gross Corridor Rights:",
+        "Gross:",
+        "Fees:",
         "Producer Payment Terms:",
         "Distribution Fee %:",
         "Income Reserves%:",
@@ -48,7 +48,7 @@ export default function Confirm({details, files, formik}) {
                              <input type="file" name="avatar" value={files}/> */}
                     </div>
                         <div>Film Name: {`${formik.values.filmName}`}</div>
-                        <span>Film's Code: {`${details.filmsCode}`}</span>
+                        <span>Film's Code: {`${formik.values.filmsCode}`}</span>
                     </div>
                 </div>
                 <div className="confirm_bg_right">
@@ -74,8 +74,8 @@ export default function Confirm({details, files, formik}) {
                                 <li>{`${formik.values.expenseCap}`}</li>
                                 <li>{`${formik.values.customExp}`}</li>
                                 <li>{`${formik.values.expense}`}</li>
-                                <li>{`${formik.values.grossCor}`}</li>
-                                <li>{`${formik.values.grossCorRights}`}</li>
+                                <li>{`${formik.values.gross}`}</li>
+                                <li>{`${formik.values.fees}`}</li>
                                 <li>{`${formik.values.producerPay}`}</li>
                                 <li>{`${formik.values.distributionFee}`}</li>
                                 <li>{`${formik.values.incomeReserves}`}</li>

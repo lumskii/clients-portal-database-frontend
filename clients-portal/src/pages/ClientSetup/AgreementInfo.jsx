@@ -4,9 +4,6 @@ import { useState } from 'react'
 
 export default function AgreementInfo({formik, isToggled, setIsToggled, comment, setComment}) {
 
-  // const handleRadioChange = (e) => {
-  //   setDetails({ ...details, rightSale: e.target.value});
-  // };
   return (
     <>
       <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
@@ -18,11 +15,11 @@ export default function AgreementInfo({formik, isToggled, setIsToggled, comment,
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={!!formik.touched.rightSale && !!formik.errors.rightSale}
-          helperText={formik.touched.rightSale && formik.errors.rightSale}
+          helpertext={formik.touched.rightSale && formik.errors.rightSale}
         >
           <FormControlLabel
             value="yes"
-            onClick={() => setIsToggled(false)}
+            onClick={() => {setIsToggled(false) || setComment(false)}}
             control={<Radio />}
             label="Yes"
           />
@@ -62,7 +59,7 @@ export default function AgreementInfo({formik, isToggled, setIsToggled, comment,
               placeholder="Give details..."
               onBlur={formik.handleBlur}
               error={!!formik.touched.comment && !!formik.errors.comment}
-              helperText={formik.touched.comment && formik.errors.comment}
+              helpertext={formik.touched.comment && formik.errors.comment}
               variant="filled"
             />
           )}

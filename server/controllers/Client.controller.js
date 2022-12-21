@@ -6,7 +6,11 @@ exports.insertClient = (req, res, next) => {
   const producersEmail = req.body.producersEmail;
   const filmsCode = req.body.filmsCode;
   const distributionType = req.body.distributionType;
+  const runtime = req.body.runtime;
+  const genre = req.body.genre;
   const rightSale = req.body.rightSale;
+  const rightSaleOpt = req.body.rightSaleOpt;
+  const comment = req.body.comment;
   const cama = req.body.cama;
   const countryLaw = req.body.countryLaw;
   const stateLaw = req.body.stateLaw;
@@ -14,16 +18,16 @@ exports.insertClient = (req, res, next) => {
   const dateSignature = req.body.dateSignature;
   const renewalDate = req.body.renewalDate;
   const renewalExpiration = req.body.renewalExpiration;
-  const expenseCap = req.body.expenseCap;
-  const customExp = req.body.customExp;
-  const expense = req.body.expense;
-  const grossCor = req.body.grossCor;
-  const grossCorRights = req.body.grossCorRights;
-  const producerPay = req.body.producerPay;
-  const deliveryFees = req.body.deliveryFees;
+  const gross = req.body.gross;
+  const fees = req.body.fees;
   const distributionFee = req.body.distributionFee;
   const incomeReserves = req.body.incomeReserves;
+  const ingestionFee = req.body.ingestionFee;
+  const marketingCap = req.body.marketingCap;
+  const filmMarketCost = req.body.filmMarketCost;
   const accountingTerms = req.body.accountingTerms;
+  const reportingSchedule = req.body.reportingSchedule;
+  const reportingStartDate = req.body.reportingStartDate;
   const avatar = req.body.avatar;
 
   const data = {
@@ -31,7 +35,11 @@ exports.insertClient = (req, res, next) => {
     producersEmail,
     filmsCode,
     distributionType,
+    runtime,
+    genre,
     rightSale,
+    rightSaleOpt,
+    comment,
     cama,
     countryLaw,
     stateLaw,
@@ -39,16 +47,16 @@ exports.insertClient = (req, res, next) => {
     dateSignature,
     renewalDate,
     renewalExpiration,
-    expenseCap,
-    customExp,
-    expense,
-    grossCor,
-    grossCorRights,
-    producerPay,
-    deliveryFees,
+    gross,
+    fees,
     distributionFee,
     incomeReserves,
+    ingestionFee,
+    marketingCap,
+    filmMarketCost,
     accountingTerms,
+    reportingSchedule,
+    reportingStartDate,
     avatar,
   };
 

@@ -21,14 +21,28 @@ const ClientSchema = new Schema({
         type: String,
         maxlength: 12,
         required: true,
+        unique: true,
     },
     distributionType: {
         type: String,
         maxlength: 50,
     },
+    runtime: {
+        type: Number,
+        maxlength: 6,
+    },
+    genre: {
+        type: String,
+    },
     rightSale: {
         type: String,
         maxlength: 3,
+    },
+    rightSaleOpt: {
+        type: String,
+    },
+    comment: {
+        type: String,
     },
     cama: {
         type: String,
@@ -54,34 +68,25 @@ const ClientSchema = new Schema({
     renewalExpiration: {
         type: Date,
     },
-    expenseCap: {
-        type: String,
-        maxlength: 100,
-    },
-    customExp: {
-        type: String,
-        maxlength: 100,
-    },
-    expense: {
-        type: Number,
-        maxlenght: 20,
-    },
-    grossCor: {
-        type: Number,
-        maxlength: 3,
-    },
-    grossCorRights: {
-        type: String,
-        maxlength: 50,
-    },
-    producerPay: {
-        type: String,
-        maxlength: 20,
-    },
-    deliveryFees: {
-        type: Number,
-        maxlength: 20,
-    },
+    gross: [
+        {
+          grossCor: {
+            type: Number,
+            default: 0,
+          },
+          grossCorRights: {
+            type: String,
+          },
+        },
+    ],
+    fees: [
+        {
+          salesFee: {
+            type: Number,
+            default: 0,
+          },
+        },
+    ],
     distributionFee: {
         type: Number,
         maxlength: 3,
@@ -90,13 +95,50 @@ const ClientSchema = new Schema({
         type: Number,
         maxlength: 3,
     },
+    ingestionFee: {
+        type: Number,
+        maxlength: 20,
+    },
+    marketingCap: {
+        type: String,
+    },
+    filmMarketCost: {
+        type: Number,
+        maxlength: 20,
+    },
     accountingTerms: {
         type: String,
         maxlength: 50,
     },
+    reportingSchedule: {
+        type: String,
+    },
+    reportingStartDate: {
+        type: Date,
+    },
     avatar: {
         type: String,
     },
+    expense: [{
+        expenseId: {
+            type: Schema.Types.ObjectId,
+        },
+        dateExp: {
+            type: Date, default: Date.now
+        },
+        cType: {
+            type: String,
+            maxlength: 20,
+        },
+        describe: {
+            type: String,
+            maxlength: 150,
+        },
+        amount: {
+            type: Number,
+            maxlength: 20,
+        }
+    }],
     postDate: {
         type: Date,
         default: Date.now,
