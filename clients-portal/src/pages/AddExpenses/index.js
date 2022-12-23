@@ -7,7 +7,6 @@ import { server } from '../../constance';
 import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements'
 import { DashBoard2, PageTemplate3 } from '../Dashboard/DashboardElements'
 import cogoToast from "cogo-toast";
-import MultiStepForm from '../../components/MultiStepForm';
 import FormCustom from '../../components/form';
 
 const initialState = {
@@ -121,9 +120,9 @@ const AddExpenses = () => {
 
   return (
 
-        <MultiStepForm />
+        // <MultiStepForm />
 
-        // <FormCustom />
+        <FormCustom />
 
     // <DashBoard2>
     //     <PageTemplate3>

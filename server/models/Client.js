@@ -117,7 +117,8 @@ const ClientSchema = new Schema({
         type: Date,
     },
     avatar: {
-        type: String,
+        data: Buffer,
+        contentType: String,
     },
     expense: [{
         expenseId: {

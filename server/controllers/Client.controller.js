@@ -1,7 +1,28 @@
 const Client = require("../models/Client");
+const multer = require("multer");
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '../images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage }).single('avatar');
 
 exports.insertClient = (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) {
+      return res.json({ status: 500, message: "Unable to save image", err });
+    } else {
+      return res.json({
+        status: 200,
+        message: "image saved successfully",
+      })
+    }
+  });
   const filmName = req.body.filmName;
   const producersEmail = req.body.producersEmail;
   const filmsCode = req.body.filmsCode;
@@ -28,7 +49,7 @@ exports.insertClient = (req, res, next) => {
   const accountingTerms = req.body.accountingTerms;
   const reportingSchedule = req.body.reportingSchedule;
   const reportingStartDate = req.body.reportingStartDate;
-  const avatar = req.body.avatar;
+  const avatar = req.file.filename;
 
   const data = {
     filmName,
@@ -73,10 +94,11 @@ exports.insertClient = (req, res, next) => {
   const clientObj = Client(data);
 
   clientObj.save(function (err, dbClient) {
-    if (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json({ status: false, message: err.message });
+    } else if (err) {
       return res.json({ status: 500, message: "Unable to save amenity", err });
     }
-
     return res.json({
       success: true,
       status: 200,

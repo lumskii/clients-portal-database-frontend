@@ -39,9 +39,9 @@ const Navbar = () => {
         <NavMenu>
            
           <MenuBar>Main Menu</MenuBar>
-          {linksArray.map(({ label, icon, to, index }) => (
+          {linksArray.map(({ label, icon, to, id }) => (
             <NavLink
-              key={index}
+              key={id}
               to={to}
               style={!sidebarOpen ? { width: `fit-content` } : {}}
             >
@@ -57,9 +57,9 @@ const Navbar = () => {
 
         <NavMenu>
           <MenuBar>Edit</MenuBar>
-          {secondaryLinksArray.map(({ label, icon, to, index }) => (
+          {secondaryLinksArray.map(({ label, icon, to, id }) => (
             <NavLink
-              key={index}
+              key={id}
               to={to}
               style={!sidebarOpen ? { width: `fit-content` } : {}}
             >
@@ -75,9 +75,9 @@ const Navbar = () => {
 
         <NavMenu>
           <MenuBar>Help</MenuBar>
-          {thirdLinksArray.map(({ label, icon, to, index }) => (
+          {thirdLinksArray.map(({ label, icon, to, id }) => (
             <NavLink
-              key={index}
+              key={id}
               to={to}
               style={!sidebarOpen ? { width: `fit-content` } : {}}
             >

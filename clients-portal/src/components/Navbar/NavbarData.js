@@ -14,6 +14,7 @@ import {
 
 export const linksArray = [
     {
+      id: 0,
       label: "Dashboard",
       icon: <DashBoard />,
       to: "/",
@@ -21,6 +22,7 @@ export const linksArray = [
       cName: 'nav-text' 
     },
     {
+      id: 1,
       label: "Clients",
       icon: <UserPlus />,
       to: "/clients",
@@ -28,6 +30,7 @@ export const linksArray = [
       cName: 'nav-text' 
     },
     {
+      id: 2,
       label: "Add Expenses",
       icon: <PayMoney />,
       to: "/add-expenses",
@@ -35,6 +38,7 @@ export const linksArray = [
       cName: 'nav-text' 
     },
     {
+      id: 3,
       label: "Sales Revenue",
       icon: <PointOfSale />,
       to: "/add-edit-sales",
@@ -42,6 +46,7 @@ export const linksArray = [
       cName: 'nav-text' 
     },
     {
+      id: 4,
       label: "Distribution Revenue",
       icon: <DistributeHori />,
       to: "/distribution-revenue",
@@ -52,6 +57,7 @@ export const linksArray = [
 
   export const secondaryLinksArray = [
     {
+      id: 0,
       label: "Generate Reports",
       icon: <Report />,
       to: "/edit-a-client",
@@ -59,6 +65,7 @@ export const linksArray = [
       cName: 'nav-text' 
     },
     {
+      id: 1,
       label: "Bulk Updates",
       icon: <UsersCog />,
       to: "/bulk-updates",
@@ -69,6 +76,7 @@ export const linksArray = [
 
   export const thirdLinksArray = [
     {
+      id: 0,
       label: "Help & Center",
       icon: <HandsHelp />,
       to: "/help-center",
@@ -76,6 +84,7 @@ export const linksArray = [
       cName: 'nav-text' 
     },
     {
+      id: 1,
       label: "Settings",
       icon: <Gear />,
       to: "/settings",

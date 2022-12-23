@@ -56,7 +56,7 @@ const initialState = {
   accountingTerms: "",
   reportingSchedule: "", // make adjustment on the backend
   reportingStartDate: "", // make adjustment on the backend
-  avatar: "", // new key-value pair
+  avatar: [], // new key-value pair
   // expense: "", // change position on the backend
 };
 
@@ -68,7 +68,6 @@ const ClientSetup = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [isToggled, setIsToggled] = useState(false);
   const [comment, setComment] = useState(false);
-  const [emptyGross, setEmptyGross] = useState([{ grossCor: 0, grossCorRights: "" }]);
   const [showContents, setShowContents] = useState(false);
 
   const FormTitles = [
@@ -80,18 +79,6 @@ const ClientSetup = () => {
     "Upload Film Poster",
     "Confirm Details",
   ];
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setDetails((prev) => {
-  //     return { ...prev, [name]: value };
-  //   });
-  //   formik.handleChange(e);
-  // };
-
-  const onChangeFile = (e) => {
-    setFiles(e.target.file[0]);
-  }
 
   const PageDisplay = () => {
     if (page === 0) { 
@@ -122,11 +109,7 @@ const ClientSetup = () => {
     } else if (page === 5) {
       return (
         <Uploads
-          files={files}
-          setFiles={setFiles}
-          details={details}
-          setDetails={setDetails}
-          onChangeFile={onChangeFile}
+          Upload={Upload}
         />
       );
     } else {
@@ -134,12 +117,40 @@ const ClientSetup = () => {
     }
   };
 
+  const Upload = () => {
+    return (
+      <TextField 
+            fullWidth
+            variant="filled"
+            type="file"
+            onChange={(e) => {
+              formik.setFieldValue("avatar", e.currentTarget.files[0]);
+              setFiles(e.currentTarget.files[0]);
+            }}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            name="avatar"
+            InputProps={{
+              accept: "image/*",
+            }}
+          />
+    )
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     formik.handleSubmit(e);
     // console.log(formik.values)
+
     const submitClientDetails = async () => {
-      const submitted = await axios.post(`${server}/v1/clients`, formik.values);
+      const formData = new FormData();
+      formData.append("avatar", formik.values.avatar);
+      Object.keys(formik.values).forEach((key) => formData.append(key, formik.values[key]));
+
+      const submitted = await axios.post(`${server}/v1/clients`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       if (
         submitted &&
         submitted.data.success &&
@@ -199,9 +210,9 @@ const ClientSetup = () => {
                     name="gross"
                     render={(arrayHelpers) => (
                       <FormControl
-                        fullWidth
                         variant="filled"
                         sx={{ gridColumn: "span 4" }}
+                        style={{ width: '100%' }}
                       >
                         <React.Fragment>
                           <Grid item sx={{ marginBottom: "20px" }}>
@@ -235,7 +246,7 @@ const ClientSetup = () => {
                                     />
                                   </Grid>
                                   <Grid item xs={12} sm={5}>
-                                    <FormControl fullWidth variant="filled">
+                                    <FormControl style={{ width: '100%' }} variant="filled">
                                       <InputLabel id="dropdown4">
                                         Gross Corridor Rights
                                       </InputLabel>
@@ -292,7 +303,7 @@ const ClientSetup = () => {
                     name="fees"
                     render={(arrayHelpers) => (
                       <FormControl
-                        fullWidth
+                        style={{ width: '100%' }}
                         variant="filled"
                         sx={{ gridColumn: "span 4" }}
                       >

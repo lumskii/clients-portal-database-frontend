@@ -20,13 +20,12 @@ import { flexbox } from '@mui/system';
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileEncode, FilePondPluginImageResize);
 
 
-export default function Uploads({details, files, setFiles, setDetails, onChangeFile}) {
-  
+export default function Uploads({ Upload }) {
 
   return (
     <>
       <FormControl
-        fullWidth
+        style={{ width: '100%' }}
         sx={{
           gridColumn: "span 4",
           textAlign: "center",
@@ -36,15 +35,7 @@ export default function Uploads({details, files, setFiles, setDetails, onChangeF
       >
         <Card variant="outlined" sx={{ width: "400px", display: "grid", textAlign: "center", alignItems: "center", padding: "20px", fontWeight: "bold"}}>
           <label htmlFor="file">Film Poster</label>
-          <TextField 
-            fullWidth
-            variant="filled"
-            type="file"
-            onChange={onChangeFile}
-            // onChange={({files}) => setDetails({ ...details, avatar: files})}
-            value={details.avatar}
-            name="avatar"
-          />
+            <Upload />
           </Card>
         {/* <FilePond
         allowMultiple={false}
