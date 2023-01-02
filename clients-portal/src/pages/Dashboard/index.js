@@ -5,7 +5,6 @@ import {
   PageTemplate,
   More,
   StatArea,
-  StatTemplate,
   PageContainer,
 } from "./DashboardElements";
 // import { sidebarOpen } from "../../components/Navbar";
@@ -23,7 +22,7 @@ const Dashboard = () => {
       <PageContainer>
       <PageTemplate>
         <div className="header">
-          <p className="header-title">Dashboard Overview</p>
+          <span className="header-title">Dashboard Overview</span>
           <div
             className="symbols"
             onClick={() => setShowContents(!showContents)}
@@ -33,10 +32,10 @@ const Dashboard = () => {
           {showContents && <StatArea>Statistic Stuffs</StatArea>}
         </div>
         <div className="cards">
-          {dashLinks.map((item, index) => {
+          {dashLinks.map((item, id) => {
             return (
-              <div className="card">
-                <Links key={index} to={item.to} className="links">
+              <div className="card" key={id}>
+                <Links to={item.to} className="links">
                   <div className="card__inner">
                     {item.icon}
                     <span className="text">{item.label}</span>
@@ -49,10 +48,6 @@ const Dashboard = () => {
       </PageTemplate>
           <WidgetSm />
       </PageContainer>
-
-      {/* .........Statistic Template starts here......... */}
-
-      <StatTemplate></StatTemplate>
     </DashBoard>
   );
 };

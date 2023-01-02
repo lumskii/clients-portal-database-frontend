@@ -102,7 +102,7 @@
     text-decoration:none;
     text-shadow:0px 1px 0px #528009;
     text-align: center;
-    width: 45px;
+    
 }
 
 .exp_btn2{
@@ -171,6 +171,24 @@
     text-align: center;
 }
 
+.exp_btn_close_two {
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background-color:#f24537;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:20px;
+	font-weight: bold;
+	padding:1px 6px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+    text-align: center;
+    margin: 8px 40px 10px;
+}
+
 .exp_btn:hover, .exp_btn2:hover, .submit:hover {
 	background:linear-gradient(to bottom, #77a809 5%, #89c403 100%);
 	background-color:#77a809;
@@ -181,12 +199,12 @@
 	background-color:#fab444;
 }
 
-.exp_btn_close:hover {
+.exp_btn_close:hover, .exp_btn_close_two:hover {
 	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
 	background-color:#c62d1f;
 }
 
-.exp_btn:active, .exp_btn_close:active, .exp_btn2:active, .prev:active, .submit:active {
+.exp_btn:active, .exp_btn_close:active, .exp_btn_close_two:active, .exp_btn2:active, .prev:active, .submit:active {
 	position:relative;
 	top:1px;
 }

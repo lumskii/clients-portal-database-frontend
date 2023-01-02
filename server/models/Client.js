@@ -21,7 +21,7 @@ const ClientSchema = new Schema({
         type: String,
         maxlength: 12,
         required: true,
-        unique: true,
+        // unique: true,
     },
     distributionType: {
         type: String,

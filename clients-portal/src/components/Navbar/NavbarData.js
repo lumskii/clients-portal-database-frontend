@@ -60,8 +60,8 @@ export const linksArray = [
       id: 0,
       label: "Generate Reports",
       icon: <Report />,
-      to: "/edit-a-client",
-      notification: "Edit a Client",
+      to: "/reports",
+      notification: "Generate Reports",
       cName: 'nav-text' 
     },
     {

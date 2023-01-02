@@ -1,10 +1,6 @@
 import React from 'react'
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
-
-// Import the Image EXIF Orientation and Image Preview plugins
-// Note: These need to be installed separately
-// `npm i filepond-plugin-image-preview filepond-plugin-image-exif-orientation --save`
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
@@ -13,6 +9,7 @@ import FilePondPluginImageResize from 'filepond-plugin-image-resize';
 import { Card, FormControl, InputLabel, TextField } from '@mui/material';
 import { server } from '../../constance';
 import { flexbox } from '@mui/system';
+import { Field } from 'formik';
 
 
 

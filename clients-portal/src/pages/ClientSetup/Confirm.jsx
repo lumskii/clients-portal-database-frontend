@@ -32,20 +32,14 @@ export default function Confirm({details, files, formik}) {
 
   return (
     <>
-        <FormControl fullWidth sx={{ gridColumn: "span 4" }}>
+        <FormControl style={{ width: '100%' }} sx={{ gridColumn: "span 4" }}>
             <div className="confirm_bg">
                 <div className="confirm_bg_left">
                     <div className="film_image">
                         <div>
-                            {/* <FilePond 
-                                files={files}
-                                allowFilePoster={true}
-                                filePosterHeight={20}
-                                filePosterWidth={20}
-                                stylePanelAspectRatio={20/20}
-                             />   */}
-                             {/* <label htmlFor='file'>Film Poster</label>
-                             <input type="file" name="avatar" value={files}/> */}
+                        {/* {formik.values.avatar && (
+  <img src={URL.createObjectURL(formik.values.avatar)} alt="avatar preview" />
+)} */}
                     </div>
                         <div>Film Name: {`${formik.values.filmName}`}</div>
                         <span>Film's Code: {`${formik.values.filmsCode}`}</span>

@@ -15,7 +15,7 @@ import AddExpenses from './pages/AddExpenses';
 import Navbar from './components/Navbar';
 import Clients from './pages/client/Clients';
 import ClientEdit from './pages/clientEdit/ClientEdit';
-import EditClient from './pages/editClient/EditClient';
+import GenerateReports from './pages/generateReports/GenerateReports';
 import Signup from './pages/signup/Signup';
 import Header from './components/Header';
 
@@ -65,7 +65,7 @@ function App() {
             <Route path='/clients' element={< Clients />} />
             <Route path='/clients/:clientsId' element={< ClientEdit />} />
             <Route path='/client-setup' element={< ClientSetup />} />
-            <Route path='/edit-a-client' element={< EditClient />} />
+            <Route path='/reports' element={< GenerateReports />} />
             <Route path='/add-edit-sales' element={< AddEditSales />} />
             <Route path='/distribution-revenue' element={< Distribution />} />
             <Route path='/add-expenses' element={< AddExpenses />} />

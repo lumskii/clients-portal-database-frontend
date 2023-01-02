@@ -14,12 +14,13 @@ const ComissionExps = ({
 
   return (
     <>
-      <Grid fullWidth sx={{ gridColumn: "span 4" }}>
+      <Grid style={{ width: '100%' }} sx={{ gridColumn: "span 4" }}>
+        <span style={{ fontWeight: "bold", fontSize: "18px" }} >Gross Corridor & Sales</span>
         <div
-          className={showContents ? "exp_btn_close" : "exp_btn"}
+          className={showContents ? "exp_btn_close_two" : "exp_btn"}
           onClick={() => setShowContents(!showContents)}
         >
-          {showContents === true ? "Close" : "Add"}
+          {showContents === true ? "-" : "+"}
         </div>
 
         {showContents && (

@@ -117,6 +117,10 @@ const ClientSetup = () => {
     }
   };
 
+  const onChangeFile = (e) => {
+    setFiles(e.target.file[0]);
+  }
+
   const Upload = () => {
     return (
       <TextField 
@@ -148,9 +152,11 @@ const ClientSetup = () => {
       formData.append("avatar", formik.values.avatar);
       Object.keys(formik.values).forEach((key) => formData.append(key, formik.values[key]));
 
-      const submitted = await axios.post(`${server}/v1/clients`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const submitted = await axios.post(`${server}/v1/clients`, formik.values
+      // formData,{
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // }
+      );
       if (
         submitted &&
         submitted.data.success &&
