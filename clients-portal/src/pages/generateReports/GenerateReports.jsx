@@ -6,10 +6,12 @@ import { server } from '../../constance';
 import {
   Box,
   FormControl,
+  FormLabel,
   InputLabel,
   MenuItem,
   Select,
   Slider,
+  TextField,
   // TextField,
   useMediaQuery,
 } from "@mui/material";
@@ -27,6 +29,12 @@ export default function Reports() {
   const [selectedRevenue, setSelectedRevenue] = useState('');
   const [selectedSales, setSelectedSales] = useState('');
   const [selectedClient, setSelectedClient] = useState('');
+  const [filmTerritory, setFilmTerritory] = useState('');
+  const [selectedSalesRuntime, setSelectedSalesRuntime] = useState('');
+  const [selectedSalesGenre, setSelectedSalesGenre] = useState('');
+  const [selectedRevTerritory, setSelectedRevTerritory] = useState('');
+  const [selectedRevPlatform, setSelectedRevPlatform] = useState('');
+  const [selectedSalesTerritory, setSelectedSalesTerritory] = useState('');
   const [button, setButton] = useState(false);
   const [runButton, setRunButton] = useState(false);
   const [titles, setTitles] = useState([]);
@@ -213,7 +221,58 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <MSelect options={titles} maxLength="4" />
+                          <InputLabel id="territory">
+                            Select territory
+                          </InputLabel>
+                          <Select
+                            name="territory"
+                            value={filmTerritory}
+                            onChange={(e) => {
+                              setFilmTerritory(e.target.value);
+                            }}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
+                            <MenuItem value="australia">Australia/NZ</MenuItem>
+                            <MenuItem value="benelux">Benelux</MenuItem>
+                            <MenuItem value="france">France</MenuItem>
+                            <MenuItem value="germany">Germany</MenuItem>
+                            <MenuItem value="iceland">Iceland</MenuItem>
+                            <MenuItem value="israel">Israel</MenuItem>
+                            <MenuItem value="italy">Italy</MenuItem>
+                            <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                            <MenuItem value="spain/portugal">
+                              Spain/Portugal
+                            </MenuItem>
+                            <MenuItem value="turkey">Turkey</MenuItem>
+                            <MenuItem value="poland">Poland</MenuItem>
+                            <MenuItem value="united_kingdom">
+                              United Kingdom
+                            </MenuItem>
+                            <MenuItem value="russia">Russia</MenuItem>
+                            <MenuItem value="eastern_europe">
+                              Eastern Europe(Excluding CIS)
+                            </MenuItem>
+                            <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                            <MenuItem value="india">India</MenuItem>
+                            <MenuItem value="china">China</MenuItem>
+                            <MenuItem value="malaysia">Malaysia</MenuItem>
+                            <MenuItem value="philippines">Philippines</MenuItem>
+                            <MenuItem value="thailand">Thailand</MenuItem>
+                            <MenuItem value="singapore">Singapore</MenuItem>
+                            <MenuItem value="japan">Japan</MenuItem>
+                            <MenuItem value="taiwan">Taiwan</MenuItem>
+                            <MenuItem value="Vietnam">South Korea</MenuItem>
+                            <MenuItem value="middle_east">Middle East</MenuItem>
+                            <MenuItem value="latin_america">
+                              Latin America
+                            </MenuItem>
+                            <MenuItem value="south_africa">
+                              South Africa
+                            </MenuItem>
+                            <MenuItem value="ancillary">Ancillary</MenuItem>
+                          </Select>
                         </FormControl>
                       )}
 
@@ -263,42 +322,160 @@ export default function Reports() {
               {selectedOption === "revenue report" && (
                 <>
                   {
-                    <FormControl
-                      style={{ width: "100%" }}
-                      variant="filled"
-                      sx={{ gridColumn: "span 2" }}
-                    >
-                      <InputLabel id="dropdown3">Select option</InputLabel>
-                      <Select
-                        name="revenueReport"
-                        value={selectedRevenue}
-                        onChange={(event) =>
-                          setSelectedRevenue(event.target.value)
-                        }
+                    <>
+                      <FormControl
+                        style={{ width: "100%" }}
+                        variant="filled"
+                        sx={{ gridColumn: "span 2" }}
                       >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value="revenue by territory">
-                          Revenue by Territory
-                        </MenuItem>
-                        <MenuItem value="revenue by platform">
-                          Revenue by Platform
-                        </MenuItem>
-                        <MenuItem value="revenue by year">
-                          Revenue by Year
-                        </MenuItem>
-                        <MenuItem value="revenue by month">
-                          Revenue by Month
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
+                        <InputLabel id="dropdown3">Select option</InputLabel>
+                        <Select
+                          name="revenueReport"
+                          value={selectedRevenue}
+                          onChange={(event) =>
+                            setSelectedRevenue(event.target.value)
+                          }
+                        >
+                          <MenuItem value="" onClick={() => setSelectedRevTerritory(null)}>
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value="revenue by territory">
+                            Revenue by Territory
+                          </MenuItem>
+                          <MenuItem value="revenue by platform">
+                            Revenue by Platform
+                          </MenuItem>
+                          <MenuItem value="revenue by year">
+                            Revenue by Year
+                          </MenuItem>
+                          <MenuItem value="revenue by month">
+                            Revenue by Month
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+
+                      {selectedRevenue === "revenue by territory" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <InputLabel id="dropdown4">
+                            Select territory
+                          </InputLabel>
+                          <Select
+                            name="revTerritory"
+                            value={selectedRevTerritory}
+                            onChange={(event) =>
+                              setSelectedRevTerritory(event.target.value)
+                            }
+                          >
+                            <MenuItem value="all">All</MenuItem>
+                            <MenuItem value="australia">Australia/NZ</MenuItem>
+                            <MenuItem value="benelux">Benelux</MenuItem>
+                            <MenuItem value="france">France</MenuItem>
+                            <MenuItem value="germany">Germany</MenuItem>
+                            <MenuItem value="iceland">Iceland</MenuItem>
+                            <MenuItem value="israel">Israel</MenuItem>
+                            <MenuItem value="italy">Italy</MenuItem>
+                            <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                            <MenuItem value="spain/portugal">
+                              Spain/Portugal
+                            </MenuItem>
+                            <MenuItem value="turkey">Turkey</MenuItem>
+                            <MenuItem value="poland">Poland</MenuItem>
+                            <MenuItem value="united_kingdom">
+                              United Kingdom
+                            </MenuItem>
+                            <MenuItem value="russia">Russia</MenuItem>
+                            <MenuItem value="eastern_europe">
+                              Eastern Europe(Excluding CIS)
+                            </MenuItem>
+                            <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                            <MenuItem value="india">India</MenuItem>
+                            <MenuItem value="china">China</MenuItem>
+                            <MenuItem value="malaysia">Malaysia</MenuItem>
+                            <MenuItem value="philippines">Philippines</MenuItem>
+                            <MenuItem value="thailand">Thailand</MenuItem>
+                            <MenuItem value="singapore">Singapore</MenuItem>
+                            <MenuItem value="japan">Japan</MenuItem>
+                            <MenuItem value="taiwan">Taiwan</MenuItem>
+                            <MenuItem value="Vietnam">South Korea</MenuItem>
+                            <MenuItem value="middle_east">Middle East</MenuItem>
+                            <MenuItem value="latin_america">
+                              Latin America
+                            </MenuItem>
+                            <MenuItem value="south_africa">
+                              South Africa
+                            </MenuItem>
+                            <MenuItem value="ancillary">Ancillary</MenuItem>
+                          </Select>
+                        </FormControl>
+                      )}
+
+                      {selectedRevenue === "revenue by platform" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <InputLabel id="dropdown5">
+                            Select platform
+                          </InputLabel>
+                          <Select
+                            name="revPlatform"
+                            value={selectedRevPlatform}
+                            onChange={(event) =>
+                              setSelectedRevPlatform(event.target.value)}
+                          >
+                            <MenuItem value="all">All Platforms</MenuItem>
+                            <MenuItem value="amazon">Amazon</MenuItem>
+                            <MenuItem value="apple">Apple</MenuItem>
+                            <MenuItem value="google">Google</MenuItem>
+                            <MenuItem value="hulu">Hulu</MenuItem>
+                            <MenuItem value="netflix">Netflix</MenuItem>
+                            <MenuItem value="vudu">Vudu</MenuItem>
+                            <MenuItem value="youtube">YouTube</MenuItem>
+                            <MenuItem value="other">Other</MenuItem>
+                          </Select>
+                        </FormControl>
+                      )}
+
+                      {selectedRevenue === "revenue by year" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          {/* <FormLabel id="dates">Select year</FormLabel> */}
+                          <TextField
+                            name="revYear"
+                            type="date"
+                          />
+                        </FormControl>
+                      )}
+
+                      {selectedRevenue === "revenue by month" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <TextField
+                            name="revMonth"
+                            type="date"
+                          />
+                        </FormControl>
+
+                      )}
+                    </>
                   }
                 </>
               )}
               {selectedOption === "sales report" && (
                 <>
                   {
+                    <>
                     <FormControl
                       style={{ width: "100%" }}
                       variant="filled"
@@ -330,6 +507,158 @@ export default function Reports() {
                         </MenuItem>
                       </Select>
                     </FormControl>
+
+                    {selectedSales === "sales by buyer" && (
+                      <FormControl
+                        style={{ width: "100%" }}
+                        variant="filled"
+                        sx={{ gridColumn: "span 2" }}
+                      >
+                        <TextField
+                          placeholder='Enter buyer name'
+                          onchange={() => setRunButton(true)}
+                        />
+                      </FormControl>
+                    )}
+
+                    {selectedSales === "sales by territory" && (
+                      <FormControl
+                        style={{ width: "100%" }}
+                        variant="filled"
+                        sx={{ gridColumn: "span 2" }}
+                      >
+                        <InputLabel id="dropdown3">
+                          Select territory
+                        </InputLabel>
+                        <Select
+                          name="salesTerritory"
+                          value={selectedSalesTerritory}
+                          onChange={(event) =>  setSelectedSalesTerritory(event.target.value)}
+                        >
+                          <MenuItem value="all">All Territories</MenuItem>
+                          <MenuItem value="australia">Australia/NZ</MenuItem>
+                            <MenuItem value="benelux">Benelux</MenuItem>
+                            <MenuItem value="france">France</MenuItem>
+                            <MenuItem value="germany">Germany</MenuItem>
+                            <MenuItem value="iceland">Iceland</MenuItem>
+                            <MenuItem value="israel">Israel</MenuItem>
+                            <MenuItem value="italy">Italy</MenuItem>
+                            <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                            <MenuItem value="spain/portugal">
+                              Spain/Portugal
+                            </MenuItem>
+                            <MenuItem value="turkey">Turkey</MenuItem>
+                            <MenuItem value="poland">Poland</MenuItem>
+                            <MenuItem value="united_kingdom">
+                              United Kingdom
+                            </MenuItem>
+                            <MenuItem value="russia">Russia</MenuItem>
+                            <MenuItem value="eastern_europe">
+                              Eastern Europe(Excluding CIS)
+                            </MenuItem>
+                            <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                            <MenuItem value="india">India</MenuItem>
+                            <MenuItem value="china">China</MenuItem>
+                            <MenuItem value="malaysia">Malaysia</MenuItem>
+                            <MenuItem value="philippines">Philippines</MenuItem>
+                            <MenuItem value="thailand">Thailand</MenuItem>
+                            <MenuItem value="singapore">Singapore</MenuItem>
+                            <MenuItem value="japan">Japan</MenuItem>
+                            <MenuItem value="taiwan">Taiwan</MenuItem>
+                            <MenuItem value="Vietnam">South Korea</MenuItem>
+                            <MenuItem value="middle_east">Middle East</MenuItem>
+                            <MenuItem value="latin_america">
+                              Latin America
+                            </MenuItem>
+                            <MenuItem value="south_africa">
+                              South Africa
+                            </MenuItem>
+                            <MenuItem value="ancillary">Ancillary</MenuItem>
+                        </Select>
+                      </FormControl>
+                    )}
+
+                    {selectedSales === "sales by year" && (
+                      <FormControl
+                        style={{ width: "100%" }}
+                        variant="filled"
+                        sx={{ gridColumn: "span 2" }}
+                      >
+                        <InputLabel id="dropdown4">Select year</InputLabel>
+                        <TextField
+                          name="salesYear"
+                          type="date"
+                        />
+                      </FormControl>
+                    )}
+
+                    {selectedSales === "sales by runtime" && (
+                      <FormControl
+                        style={{ width: "100%" }}
+                        variant="filled"
+                        sx={{ gridColumn: "span 2" }}
+                      >
+                        <InputLabel id="dropdown5">
+                          Select runtime
+                        </InputLabel>
+                        <Select
+                          name="salesRuntime"
+                          value={selectedSalesRuntime}
+                          onChange={(event) =>
+                            setSelectedSalesRuntime(event.target.value)
+                          }
+                        >
+                          <MenuItem value="all">All</MenuItem>
+                          <MenuItem value="0-30">0-30</MenuItem>
+                          <MenuItem value="30-60">30-60</MenuItem>
+                          <MenuItem value="60-90">60-90</MenuItem>
+                          <MenuItem value="90-120">90-120</MenuItem>
+                          
+                        </Select>
+                      </FormControl>
+                    )}
+
+                    {selectedSales === "sales by genre" && (
+                      <FormControl
+                        style={{ width: "100%" }}
+                        variant="filled"
+                        sx={{ gridColumn: "span 2" }}
+                      >
+                        <InputLabel id="dropdown6">Select genre</InputLabel>
+                        <Select
+                          name="salesGenre"
+                          value={selectedSalesGenre}
+                          onChange={(event) =>
+                            setSelectedSalesGenre(event.target.value)
+                          }
+                        >
+                          <MenuItem value="all">All</MenuItem>
+                          <MenuItem value="action">Action</MenuItem>
+                          <MenuItem value="adventure">Adventure</MenuItem>
+                          <MenuItem value="animation">Animation</MenuItem>
+                          <MenuItem value="comedy">Comedy</MenuItem>
+                          <MenuItem value="crime">Crime</MenuItem>
+                          <MenuItem value="documentary">Documentary</MenuItem>
+                          <MenuItem value="drama">Drama</MenuItem>
+                          <MenuItem value="family">Family</MenuItem>
+                          <MenuItem value="fantasy">Fantasy</MenuItem>
+                          <MenuItem value="history">History</MenuItem>
+                          <MenuItem value="horror">Horror</MenuItem>
+                          <MenuItem value="music">Music</MenuItem>
+                          <MenuItem value="mystery">Mystery</MenuItem>
+                          <MenuItem value="romance">Romance</MenuItem>
+                          <MenuItem value="science_fiction">
+                            Science Fiction
+                          </MenuItem>
+                          <MenuItem value="tv_movie">TV Movie</MenuItem>
+                          <MenuItem value="thriller">Thriller</MenuItem>
+                          <MenuItem value="war">War</MenuItem>
+                          <MenuItem value="western">Western</MenuItem>
+                        </Select>
+                      </FormControl>
+                    )}
+
+                    </>
                   }
                 </>
               )}
@@ -367,6 +696,21 @@ export default function Reports() {
             </>
           )}
         </Box>
+
+        {selectedRevTerritory ? (
+                        <FormControl
+                          style={{ width: "100%", margin: "20px 0 0 0" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 4" }}
+                        >
+                          <FormLabel id="dates">Select Date Range</FormLabel>
+                          <TextField 
+                            fullWidth
+                            type="date"
+                            onChange={() => setRunButton(true)}
+                          />
+                        </FormControl>
+                        ) : null }
 
         {selectedFilm === "film by contract" && (
           <FormControl
