@@ -5,6 +5,10 @@ import './generateReports.css'
 import { server } from '../../constance';
 import {
   Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   FormControl,
   FormLabel,
   InputLabel,
@@ -13,12 +17,11 @@ import {
   Select,
   Slider,
   TextField,
-  // TextField,
   useMediaQuery,
 } from "@mui/material";
 import Header from '../../components/Heading';
 import { CustomSelect } from './Styled';
-import { DatePicker } from 'antd';
+import { DatePicker, Space } from 'antd';
 import moment from 'moment';
 const { RangePicker } = DatePicker;
 
@@ -43,6 +46,8 @@ export default function Reports() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [fullWidth, setFullWidth] = useState(true);
+  const [maxWidth, setMaxWidth] = useState('sm');
   const [selectedTitles, setSelectedTitles] = useState([]);
   const [sliderValue, setSliderValue] = useState(1);
   const [dates, setDates] = useState([]);
@@ -228,7 +233,7 @@ export default function Reports() {
                           <TextField
                             variant="filled"
                             fullWidth
-                            value={selectedTitles ? selectedTitles.value : ''}
+                            value={selectedTitles ? selectedTitles.value : ""}
                             onClick={handleOpen}
                           />
                           <Modal
@@ -266,6 +271,7 @@ export default function Reports() {
                             value={filmTerritory}
                             onChange={(e) => {
                               setFilmTerritory(e.target.value);
+                              setRunButton(e.target.value !== "");
                             }}
                           >
                             <MenuItem value="">
@@ -319,15 +325,15 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <TextField 
-                            variant='filled'
+                          <TextField
+                            variant="filled"
                             fullWidth
                             value={sliderValue}
                             onClick={handleOpen}
                           />
                           <Modal
                             open={open}
-                            onClose={handleClose}
+                            // onClose={handleClose}
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description"
                           >
@@ -341,8 +347,23 @@ export default function Reports() {
                                 marks={marks}
                                 min={1}
                                 max={30}
-                                onChange={(e, newValue) => setSliderValue(newValue)}
+                                onChange={(e, newValue) =>
+                                  setSliderValue(newValue)
+                                }
                               />
+                              <Button
+                                type="button"
+                                onClick={() => {
+                                  handleClose();
+                                  setRunButton(true);
+                                }}
+                                variant="contained"
+                                style={{
+                                  margin: "20px 0px 0px calc(100% - 80px)",
+                                }}
+                              >
+                                Confirm
+                              </Button>
                             </Box>
                           </Modal>
                         </FormControl>
@@ -354,15 +375,64 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <RangePicker
-                            onChange={(values) => {
-                              setDates(
-                                values.map((item) => {
-                                  return moment(item).format("DD/MM/YYYY");
-                                })
-                              );
-                            }}
+                          <TextField
+                            variant="filled"
+                            fullWidth
+                            onClick={handleOpen}
                           />
+                          <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            fullWidth={fullWidth}
+                            maxWidth={maxWidth}
+                          >
+                            <DialogTitle>Select Date Range</DialogTitle>
+                            <DialogContent>
+                              <Box
+                                noValidate
+                                sx={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  m: "auto",
+                                  width: "fit-content",
+                                  height: "500px",
+                                  zIndex: "99",
+                                }}
+                              >
+                                <Space direction="vertical" size={12}>
+                                  <RangePicker
+                                    dateRender={(current) => {
+                                      const style = {};
+                                      if (current.date() === 1) {
+                                        style.border = "1px solid #1890ff";
+                                        style.borderRadius = "50%";
+                                        style.zIndex = "999";
+                                      }
+                                      return (
+                                        <div
+                                          className="ant-picker-cell-inner"
+                                          style={style}
+                                        >
+                                          {current.date()}
+                                        </div>
+                                      );
+                                    }}
+                                  />
+                                </Space>
+                                {/* <RangePicker
+                                  onChange={(values) => {
+                                    setDates(
+                                      values.map((item) => {
+                                        return moment(item).format(
+                                          "DD/MM/YYYY"
+                                        );
+                                      })
+                                    );
+                                  }}
+                                /> */}
+                              </Box>
+                            </DialogContent>
+                          </Dialog>
                         </FormControl>
                       )}
 
