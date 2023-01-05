@@ -9,6 +9,7 @@ import {
   FormLabel,
   InputLabel,
   MenuItem,
+  Modal,
   Select,
   Slider,
   TextField,
@@ -16,11 +17,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Header from '../../components/Heading';
-import { DateRangePicker } from 'react-date-range';
 import { CustomSelect } from './Styled';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css'; 
-import { addDays } from 'date-fns';
+import { DatePicker } from 'antd';
+import moment from 'moment';
+const { RangePicker } = DatePicker;
+
+
 
 export default function Reports() {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -38,13 +40,13 @@ export default function Reports() {
   const [button, setButton] = useState(false);
   const [runButton, setRunButton] = useState(false);
   const [titles, setTitles] = useState([]);
-  const [state, setState] = useState([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 7),
-      key: 'selection'
-    }
-  ]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [selectedTitles, setSelectedTitles] = useState([]);
+  const [sliderValue, setSliderValue] = useState(1);
+  const [dates, setDates] = useState([]);
+  console.log(dates);
 
   const CustomInput = (inputProps) => {
     const { maxLength } = inputProps.selectProps;
@@ -110,6 +112,18 @@ export default function Reports() {
     
         callBackendAPI();
       }, []);
+
+      const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+      };
 
   return (
     <DashBoard>
@@ -183,7 +197,7 @@ export default function Reports() {
                           value={selectedFilm}
                           onChange={(event) => {
                             setSelectedFilm(event.target.value);
-                            setRunButton(true);
+                            setRunButton(false);
                           }}
                         >
                           <MenuItem value="">
@@ -211,7 +225,30 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <MSelect options={titles} maxLength="4" />
+                          <TextField
+                            variant="filled"
+                            fullWidth
+                            value={selectedTitles ? selectedTitles.value : ''}
+                            onClick={handleOpen}
+                          />
+                          <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                          >
+                            <Box sx={style}>
+                              <MSelect
+                                options={titles}
+                                maxLength="4"
+                                onChange={(option) => {
+                                  setSelectedTitles(option);
+                                  handleClose();
+                                  setRunButton(true);
+                                }}
+                              />
+                            </Box>
+                          </Modal>
                         </FormControl>
                       )}
 
@@ -282,15 +319,49 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <Slider
-                            aria-label="Years"
-                            defaultValue={1}
-                            getAriaValueText={valuetext}
-                            valueLabelDisplay="auto"
-                            step={1}
-                            marks={marks}
-                            min={1}
-                            max={30}
+                          <TextField 
+                            variant='filled'
+                            fullWidth
+                            value={sliderValue}
+                            onClick={handleOpen}
+                          />
+                          <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                          >
+                            <Box sx={style}>
+                              <Slider
+                                aria-label="Years"
+                                defaultValue={1}
+                                getAriaValueText={valuetext}
+                                valueLabelDisplay="auto"
+                                step={1}
+                                marks={marks}
+                                min={1}
+                                max={30}
+                                onChange={(e, newValue) => setSliderValue(newValue)}
+                              />
+                            </Box>
+                          </Modal>
+                        </FormControl>
+                      )}
+
+                      {selectedFilm === "film by contract" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <RangePicker
+                            onChange={(values) => {
+                              setDates(
+                                values.map((item) => {
+                                  return moment(item).format("DD/MM/YYYY");
+                                })
+                              );
+                            }}
                           />
                         </FormControl>
                       )}
@@ -336,7 +407,10 @@ export default function Reports() {
                             setSelectedRevenue(event.target.value)
                           }
                         >
-                          <MenuItem value="" onClick={() => setSelectedRevTerritory(null)}>
+                          <MenuItem
+                            value=""
+                            onClick={() => setSelectedRevTerritory(null)}
+                          >
                             <em>None</em>
                           </MenuItem>
                           <MenuItem value="revenue by territory">
@@ -426,7 +500,8 @@ export default function Reports() {
                             name="revPlatform"
                             value={selectedRevPlatform}
                             onChange={(event) =>
-                              setSelectedRevPlatform(event.target.value)}
+                              setSelectedRevPlatform(event.target.value)
+                            }
                           >
                             <MenuItem value="all">All Platforms</MenuItem>
                             <MenuItem value="amazon">Amazon</MenuItem>
@@ -448,10 +523,7 @@ export default function Reports() {
                           sx={{ gridColumn: "span 2" }}
                         >
                           {/* <FormLabel id="dates">Select year</FormLabel> */}
-                          <TextField
-                            name="revYear"
-                            type="date"
-                          />
+                          <TextField name="revYear" type="date" />
                         </FormControl>
                       )}
 
@@ -461,12 +533,8 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <TextField
-                            name="revMonth"
-                            type="date"
-                          />
+                          <TextField name="revMonth" type="date" />
                         </FormControl>
-
                       )}
                     </>
                   }
@@ -476,67 +544,71 @@ export default function Reports() {
                 <>
                   {
                     <>
-                    <FormControl
-                      style={{ width: "100%" }}
-                      variant="filled"
-                      sx={{ gridColumn: "span 2" }}
-                    >
-                      <InputLabel id="dropdown2">Select option</InputLabel>
-                      <Select
-                        name="salesReport"
-                        value={selectedSales}
-                        onChange={(event) =>
-                          setSelectedSales(event.target.value)
-                        }
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value="sales by buyer">
-                          Sales by Buyer
-                        </MenuItem>
-                        <MenuItem value="sales by territory">
-                          Sales by Territory
-                        </MenuItem>
-                        <MenuItem value="sales by year">Sales by Year</MenuItem>
-                        <MenuItem value="sales by runtime">
-                          Sales by Runtime
-                        </MenuItem>
-                        <MenuItem value="sales by genre">
-                          Sales by Genre
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-
-                    {selectedSales === "sales by buyer" && (
                       <FormControl
                         style={{ width: "100%" }}
                         variant="filled"
                         sx={{ gridColumn: "span 2" }}
                       >
-                        <TextField
-                          placeholder='Enter buyer name'
-                          onchange={() => setRunButton(true)}
-                        />
-                      </FormControl>
-                    )}
-
-                    {selectedSales === "sales by territory" && (
-                      <FormControl
-                        style={{ width: "100%" }}
-                        variant="filled"
-                        sx={{ gridColumn: "span 2" }}
-                      >
-                        <InputLabel id="dropdown3">
-                          Select territory
-                        </InputLabel>
+                        <InputLabel id="dropdown2">Select option</InputLabel>
                         <Select
-                          name="salesTerritory"
-                          value={selectedSalesTerritory}
-                          onChange={(event) =>  setSelectedSalesTerritory(event.target.value)}
+                          name="salesReport"
+                          value={selectedSales}
+                          onChange={(event) =>
+                            setSelectedSales(event.target.value)
+                          }
                         >
-                          <MenuItem value="all">All Territories</MenuItem>
-                          <MenuItem value="australia">Australia/NZ</MenuItem>
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value="sales by buyer">
+                            Sales by Buyer
+                          </MenuItem>
+                          <MenuItem value="sales by territory">
+                            Sales by Territory
+                          </MenuItem>
+                          <MenuItem value="sales by year">
+                            Sales by Year
+                          </MenuItem>
+                          <MenuItem value="sales by runtime">
+                            Sales by Runtime
+                          </MenuItem>
+                          <MenuItem value="sales by genre">
+                            Sales by Genre
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+
+                      {selectedSales === "sales by buyer" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <TextField
+                            placeholder="Enter buyer name"
+                            onchange={() => setRunButton(true)}
+                          />
+                        </FormControl>
+                      )}
+
+                      {selectedSales === "sales by territory" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <InputLabel id="dropdown3">
+                            Select territory
+                          </InputLabel>
+                          <Select
+                            name="salesTerritory"
+                            value={selectedSalesTerritory}
+                            onChange={(event) =>
+                              setSelectedSalesTerritory(event.target.value)
+                            }
+                          >
+                            <MenuItem value="all">All Territories</MenuItem>
+                            <MenuItem value="australia">Australia/NZ</MenuItem>
                             <MenuItem value="benelux">Benelux</MenuItem>
                             <MenuItem value="france">France</MenuItem>
                             <MenuItem value="germany">Germany</MenuItem>
@@ -574,90 +646,83 @@ export default function Reports() {
                               South Africa
                             </MenuItem>
                             <MenuItem value="ancillary">Ancillary</MenuItem>
-                        </Select>
-                      </FormControl>
-                    )}
+                          </Select>
+                        </FormControl>
+                      )}
 
-                    {selectedSales === "sales by year" && (
-                      <FormControl
-                        style={{ width: "100%" }}
-                        variant="filled"
-                        sx={{ gridColumn: "span 2" }}
-                      >
-                        <InputLabel id="dropdown4">Select year</InputLabel>
-                        <TextField
-                          name="salesYear"
-                          type="date"
-                        />
-                      </FormControl>
-                    )}
-
-                    {selectedSales === "sales by runtime" && (
-                      <FormControl
-                        style={{ width: "100%" }}
-                        variant="filled"
-                        sx={{ gridColumn: "span 2" }}
-                      >
-                        <InputLabel id="dropdown5">
-                          Select runtime
-                        </InputLabel>
-                        <Select
-                          name="salesRuntime"
-                          value={selectedSalesRuntime}
-                          onChange={(event) =>
-                            setSelectedSalesRuntime(event.target.value)
-                          }
+                      {selectedSales === "sales by year" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
                         >
-                          <MenuItem value="all">All</MenuItem>
-                          <MenuItem value="0-30">0-30</MenuItem>
-                          <MenuItem value="30-60">30-60</MenuItem>
-                          <MenuItem value="60-90">60-90</MenuItem>
-                          <MenuItem value="90-120">90-120</MenuItem>
-                          
-                        </Select>
-                      </FormControl>
-                    )}
+                          <InputLabel id="dropdown4">Select year</InputLabel>
+                          <TextField name="salesYear" type="date" />
+                        </FormControl>
+                      )}
 
-                    {selectedSales === "sales by genre" && (
-                      <FormControl
-                        style={{ width: "100%" }}
-                        variant="filled"
-                        sx={{ gridColumn: "span 2" }}
-                      >
-                        <InputLabel id="dropdown6">Select genre</InputLabel>
-                        <Select
-                          name="salesGenre"
-                          value={selectedSalesGenre}
-                          onChange={(event) =>
-                            setSelectedSalesGenre(event.target.value)
-                          }
+                      {selectedSales === "sales by runtime" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
                         >
-                          <MenuItem value="all">All</MenuItem>
-                          <MenuItem value="action">Action</MenuItem>
-                          <MenuItem value="adventure">Adventure</MenuItem>
-                          <MenuItem value="animation">Animation</MenuItem>
-                          <MenuItem value="comedy">Comedy</MenuItem>
-                          <MenuItem value="crime">Crime</MenuItem>
-                          <MenuItem value="documentary">Documentary</MenuItem>
-                          <MenuItem value="drama">Drama</MenuItem>
-                          <MenuItem value="family">Family</MenuItem>
-                          <MenuItem value="fantasy">Fantasy</MenuItem>
-                          <MenuItem value="history">History</MenuItem>
-                          <MenuItem value="horror">Horror</MenuItem>
-                          <MenuItem value="music">Music</MenuItem>
-                          <MenuItem value="mystery">Mystery</MenuItem>
-                          <MenuItem value="romance">Romance</MenuItem>
-                          <MenuItem value="science_fiction">
-                            Science Fiction
-                          </MenuItem>
-                          <MenuItem value="tv_movie">TV Movie</MenuItem>
-                          <MenuItem value="thriller">Thriller</MenuItem>
-                          <MenuItem value="war">War</MenuItem>
-                          <MenuItem value="western">Western</MenuItem>
-                        </Select>
-                      </FormControl>
-                    )}
+                          <InputLabel id="dropdown5">Select runtime</InputLabel>
+                          <Select
+                            name="salesRuntime"
+                            value={selectedSalesRuntime}
+                            onChange={(event) =>
+                              setSelectedSalesRuntime(event.target.value)
+                            }
+                          >
+                            <MenuItem value="all">All</MenuItem>
+                            <MenuItem value="0-30">0-30</MenuItem>
+                            <MenuItem value="30-60">30-60</MenuItem>
+                            <MenuItem value="60-90">60-90</MenuItem>
+                            <MenuItem value="90-120">90-120</MenuItem>
+                          </Select>
+                        </FormControl>
+                      )}
 
+                      {selectedSales === "sales by genre" && (
+                        <FormControl
+                          style={{ width: "100%" }}
+                          variant="filled"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <InputLabel id="dropdown6">Select genre</InputLabel>
+                          <Select
+                            name="salesGenre"
+                            value={selectedSalesGenre}
+                            onChange={(event) =>
+                              setSelectedSalesGenre(event.target.value)
+                            }
+                          >
+                            <MenuItem value="all">All</MenuItem>
+                            <MenuItem value="action">Action</MenuItem>
+                            <MenuItem value="adventure">Adventure</MenuItem>
+                            <MenuItem value="animation">Animation</MenuItem>
+                            <MenuItem value="comedy">Comedy</MenuItem>
+                            <MenuItem value="crime">Crime</MenuItem>
+                            <MenuItem value="documentary">Documentary</MenuItem>
+                            <MenuItem value="drama">Drama</MenuItem>
+                            <MenuItem value="family">Family</MenuItem>
+                            <MenuItem value="fantasy">Fantasy</MenuItem>
+                            <MenuItem value="history">History</MenuItem>
+                            <MenuItem value="horror">Horror</MenuItem>
+                            <MenuItem value="music">Music</MenuItem>
+                            <MenuItem value="mystery">Mystery</MenuItem>
+                            <MenuItem value="romance">Romance</MenuItem>
+                            <MenuItem value="science_fiction">
+                              Science Fiction
+                            </MenuItem>
+                            <MenuItem value="tv_movie">TV Movie</MenuItem>
+                            <MenuItem value="thriller">Thriller</MenuItem>
+                            <MenuItem value="war">War</MenuItem>
+                            <MenuItem value="western">Western</MenuItem>
+                          </Select>
+                        </FormControl>
+                      )}
                     </>
                   }
                 </>
@@ -698,36 +763,19 @@ export default function Reports() {
         </Box>
 
         {selectedRevTerritory ? (
-                        <FormControl
-                          style={{ width: "100%", margin: "20px 0 0 0" }}
-                          variant="filled"
-                          sx={{ gridColumn: "span 4" }}
-                        >
-                          <FormLabel id="dates">Select Date Range</FormLabel>
-                          <TextField 
-                            fullWidth
-                            type="date"
-                            onChange={() => setRunButton(true)}
-                          />
-                        </FormControl>
-                        ) : null }
-
-        {selectedFilm === "film by contract" && (
           <FormControl
-            style={{ width: "100%" }}
+            style={{ width: "100%", margin: "20px 0 0 0" }}
             variant="filled"
-            sx={{ gridColumn: "span 2" }}
+            sx={{ gridColumn: "span 4" }}
           >
-            <DateRangePicker
-              onChange={(item) => setState([item.selection])}
-              showSelectionPreview={true}
-              moveRangeOnFirstSelection={false}
-              months={2}
-              ranges={state}
-              direction="horizontal"
+            <FormLabel id="dates">Select Date Range</FormLabel>
+            <TextField
+              fullWidth
+              type="date"
+              onChange={() => setRunButton(true)}
             />
           </FormControl>
-        )}
+        ) : null}
 
         {runButton && (
           <button

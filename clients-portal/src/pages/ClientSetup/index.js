@@ -56,7 +56,7 @@ const initialState = {
   accountingTerms: "",
   reportingSchedule: "", // make adjustment on the backend
   reportingStartDate: "", // make adjustment on the backend
-  avatar: [], // new key-value pair
+  avatar: "", // new key-value pair
   // expense: "", // change position on the backend
 };
 
@@ -148,9 +148,9 @@ const ClientSetup = () => {
     // console.log(formik.values)
 
     const submitClientDetails = async () => {
-      const formData = new FormData();
-      formData.append("avatar", formik.values.avatar);
-      Object.keys(formik.values).forEach((key) => formData.append(key, formik.values[key]));
+      // const formData = new FormData();
+      // formData.append("avatar", formik.values.avatar);
+      // Object.keys(formik.values).forEach((key) => formData.append(key, formik.values[key]));
 
       const submitted = await axios.post(`${server}/v1/clients`, formik.values
       // formData,{
