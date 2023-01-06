@@ -6,11 +6,7 @@ import { server } from '../../constance';
 import {
   Box,
   Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
   FormControl,
-  FormLabel,
   InputLabel,
   MenuItem,
   Modal,
@@ -21,7 +17,7 @@ import {
 } from "@mui/material";
 import Header from '../../components/Heading';
 import { CustomSelect } from './Styled';
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Modal as ModalAD } from 'antd';
 import moment from 'moment';
 const { RangePicker } = DatePicker;
 
@@ -35,9 +31,10 @@ export default function Reports() {
   const [selectedSales, setSelectedSales] = useState('');
   const [selectedClient, setSelectedClient] = useState('');
   const [filmTerritory, setFilmTerritory] = useState('');
+  const [filmGenre, setFilmGenre] = useState('');
   const [selectedSalesRuntime, setSelectedSalesRuntime] = useState('');
   const [selectedSalesGenre, setSelectedSalesGenre] = useState('');
-  const [selectedRevTerritory, setSelectedRevTerritory] = useState('');
+  const [selectedRevTerritory, setSelectedRevTerritory] = useState(false);
   const [selectedRevPlatform, setSelectedRevPlatform] = useState('');
   const [selectedSalesTerritory, setSelectedSalesTerritory] = useState('');
   const [button, setButton] = useState(false);
@@ -46,12 +43,12 @@ export default function Reports() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [fullWidth, setFullWidth] = useState(true);
-  const [maxWidth, setMaxWidth] = useState('sm');
   const [selectedTitles, setSelectedTitles] = useState([]);
   const [sliderValue, setSliderValue] = useState(1);
   const [dates, setDates] = useState([]);
   console.log(dates);
+  const [showRangePicker, setShowRangePicker] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(null);
 
   const CustomInput = (inputProps) => {
     const { maxLength } = inputProps.selectProps;
@@ -128,6 +125,11 @@ export default function Reports() {
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+      };
+
+      const handleOk = (values) => {
+        setSelectedValue(values);
+        setShowRangePicker(false);
       };
 
   return (
@@ -378,61 +380,37 @@ export default function Reports() {
                           <TextField
                             variant="filled"
                             fullWidth
-                            onClick={handleOpen}
+                            value={
+                              selectedValue
+                                ? `${selectedValue[0].format(
+                                    "DD/MM/YYYY"
+                                  )} - ${selectedValue[1].format("DD/MM/YYYY")}`
+                                : ""
+                            }
+                            onClick={() => setShowRangePicker(true)}
                           />
-                          <Dialog
-                            open={open}
-                            onClose={handleClose}
-                            fullWidth={fullWidth}
-                            maxWidth={maxWidth}
+                          <ModalAD
+                            open={showRangePicker}
+                            onCancel={() => {
+                              setShowRangePicker(false);
+                              if (selectedValue) {
+                                setSelectedValue(null);
+                              }
+                              setRunButton(false);
+                            }}
+                            onOk={() => {
+                              handleOk(selectedValue);
+                              if (selectedValue) {
+                                setRunButton(true);
+                              }
+                            }}
                           >
-                            <DialogTitle>Select Date Range</DialogTitle>
-                            <DialogContent>
-                              <Box
-                                noValidate
-                                sx={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  m: "auto",
-                                  width: "fit-content",
-                                  height: "500px",
-                                  zIndex: "99",
-                                }}
-                              >
-                                <Space direction="vertical" size={12}>
-                                  <RangePicker
-                                    dateRender={(current) => {
-                                      const style = {};
-                                      if (current.date() === 1) {
-                                        style.border = "1px solid #1890ff";
-                                        style.borderRadius = "50%";
-                                        style.zIndex = "999";
-                                      }
-                                      return (
-                                        <div
-                                          className="ant-picker-cell-inner"
-                                          style={style}
-                                        >
-                                          {current.date()}
-                                        </div>
-                                      );
-                                    }}
-                                  />
-                                </Space>
-                                {/* <RangePicker
-                                  onChange={(values) => {
-                                    setDates(
-                                      values.map((item) => {
-                                        return moment(item).format(
-                                          "DD/MM/YYYY"
-                                        );
-                                      })
-                                    );
-                                  }}
-                                /> */}
-                              </Box>
-                            </DialogContent>
-                          </Dialog>
+                            <RangePicker
+                              onChange={(values) => {
+                                setSelectedValue(values);
+                              }}
+                            />
+                          </ModalAD>
                         </FormControl>
                       )}
 
@@ -443,7 +421,17 @@ export default function Reports() {
                           style={{ width: "100%" }}
                         >
                           <InputLabel id="dropdown">Movie Genre</InputLabel>
-                          <Select name="genre">
+                          <Select 
+                            name="genre"
+                            value={filmGenre}
+                            onChange={(e) => {
+                              setFilmGenre(e.target.value);
+                              setRunButton(e.target.value !== "");
+                            }}
+                          >
+                            <MenuItem value="">
+                              <em>None</em>
+                            </MenuItem>
                             <MenuItem value="action">Action</MenuItem>
                             <MenuItem value="comedy">Comedy</MenuItem>
                             <MenuItem value="drama">Drama</MenuItem>
@@ -473,14 +461,13 @@ export default function Reports() {
                         <Select
                           name="revenueReport"
                           value={selectedRevenue}
-                          onChange={(event) =>
-                            setSelectedRevenue(event.target.value)
-                          }
+                          onChange={(event) => {
+                            setSelectedRevenue(event.target.value);
+                            setRunButton(false);
+                            setSelectedRevTerritory(false);
+                          }}
                         >
-                          <MenuItem
-                            value=""
-                            onClick={() => setSelectedRevTerritory(null)}
-                          >
+                          <MenuItem value="">
                             <em>None</em>
                           </MenuItem>
                           <MenuItem value="revenue by territory">
@@ -510,9 +497,9 @@ export default function Reports() {
                           <Select
                             name="revTerritory"
                             value={selectedRevTerritory}
-                            onChange={(event) =>
-                              setSelectedRevTerritory(event.target.value)
-                            }
+                            onChange={(e) => {
+                              setSelectedRevTerritory(e.target.value, true);
+                            }}
                           >
                             <MenuItem value="all">All</MenuItem>
                             <MenuItem value="australia">Australia/NZ</MenuItem>
@@ -592,8 +579,35 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          {/* <FormLabel id="dates">Select year</FormLabel> */}
-                          <TextField name="revYear" type="date" />
+                          <TextField
+                            fullWidth
+                            variant="filled" 
+                            onClick={() => setShowRangePicker(true)}
+                            value={selectedValue ? selectedValue.format('YYYY') : ''}
+                          />
+                          <ModalAD
+                            open={showRangePicker}
+                            onCancel={() => {
+                              setShowRangePicker(false);
+                              if (selectedValue) {
+                                setSelectedValue(null);
+                              }
+                              setRunButton(false);
+                            }}
+                            onOk={() => {
+                              handleOk(selectedValue);
+                              if (selectedValue) {
+                                setRunButton(true);
+                              }
+                            }}
+                          >
+                          <DatePicker 
+                            picker='year'
+                            onChange={(values) => {
+                              setSelectedValue(values);
+                            }}
+                          />
+                          </ModalAD>
                         </FormControl>
                       )}
 
@@ -603,7 +617,35 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <TextField name="revMonth" type="date" />
+                          <TextField
+                            fullWidth
+                            variant="filled" 
+                            onClick={() => setShowRangePicker(true)}
+                            value={selectedValue ? selectedValue.format('MM/YYYY') : ''}
+                          />
+                          <ModalAD
+                            open={showRangePicker}
+                            onCancel={() => {
+                              setShowRangePicker(false);
+                              if (selectedValue) {
+                                setSelectedValue(null);
+                              }
+                              setRunButton(false);
+                            }}
+                            onOk={() => {
+                              handleOk(selectedValue);
+                              if (selectedValue) {
+                                setRunButton(true);
+                              }
+                            }}
+                          >
+                            <DatePicker 
+                              picker='month'
+                              onChange={(values) => {
+                              setSelectedValue(values);
+                              }}
+                          />
+                          </ModalAD>
                         </FormControl>
                       )}
                     </>
@@ -726,8 +768,35 @@ export default function Reports() {
                           variant="filled"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <InputLabel id="dropdown4">Select year</InputLabel>
-                          <TextField name="salesYear" type="date" />
+                          <TextField
+                            fullWidth
+                            variant="filled" 
+                            onClick={() => setShowRangePicker(true)}
+                            value={selectedValue ? selectedValue.format('YYYY') : ''}
+                          />
+                          <ModalAD
+                            open={showRangePicker}
+                            onCancel={() => {
+                              setShowRangePicker(false);
+                              if (selectedValue) {
+                                setSelectedValue(null);
+                              }
+                              setRunButton(false);
+                            }}
+                            onOk={() => {
+                              handleOk(selectedValue);
+                              if (selectedValue) {
+                                setRunButton(true);
+                              }
+                            }}
+                          >
+                          <DatePicker 
+                            picker='year'
+                            onChange={(values) => {
+                              setSelectedValue(values);
+                            }}
+                          />
+                          </ModalAD>
                         </FormControl>
                       )}
 
@@ -750,6 +819,7 @@ export default function Reports() {
                             <MenuItem value="30-60">30-60</MenuItem>
                             <MenuItem value="60-90">60-90</MenuItem>
                             <MenuItem value="90-120">90-120</MenuItem>
+                            <MenuItem value="90-120">120+</MenuItem>
                           </Select>
                         </FormControl>
                       )}
@@ -832,27 +902,54 @@ export default function Reports() {
           )}
         </Box>
 
-        {selectedRevTerritory ? (
+        {selectedRevTerritory && (
           <FormControl
             style={{ width: "100%", margin: "20px 0 0 0" }}
             variant="filled"
             sx={{ gridColumn: "span 4" }}
           >
-            <FormLabel id="dates">Select Date Range</FormLabel>
             <TextField
               fullWidth
-              type="date"
-              onChange={() => setRunButton(true)}
+              variant="filled"
+              value={
+                selectedValue
+                  ? `${selectedValue[0].format(
+                      "DD/MM/YYYY"
+                    )} - ${selectedValue[1].format("DD/MM/YYYY")}`
+                  : ""
+              }
+              onClick={() => setShowRangePicker(true)}
             />
+            <ModalAD
+              open={showRangePicker}
+              onCancel={() => {
+                setShowRangePicker(false);
+                if (selectedValue) {
+                  setSelectedValue(null);
+                }
+                setRunButton(false);
+              }}
+              onOk={() => {
+                handleOk(selectedValue);
+                if (selectedValue) {
+                  setRunButton(true);
+                }
+              }}
+            >
+              <RangePicker
+                onChange={(values) => {
+                  setSelectedValue(values);
+                }}
+              />
+            </ModalAD>
           </FormControl>
-        ) : null}
+        )}
 
         {runButton && (
           <button
             type="button"
             className="submit"
             style={{ margin: "20px 0 0 0" }}
-            // disabled={MSelect}
           >
             Run Report
           </button>
