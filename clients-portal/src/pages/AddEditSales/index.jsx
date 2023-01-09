@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Heading'
-import { DashBoard, PageTemplate2 } from '../Dashboard/DashboardElements'
+import { DashBoard} from '../Dashboard/DashboardElements'
 import Select, { components } from "react-select";
 import SwipeableViews from 'react-swipeable-views';
 import './SalesStyle.css'

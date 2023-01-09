@@ -5,7 +5,8 @@ mongoose.Promise = global.Promise;
 
 const ClientSchema = new Schema({
     clientId: {
-        type: Schema.Types.ObjectId, ref:'Expense'
+        type: Schema.Types.ObjectId, 
+        ref:'Expense'
     },
     filmName: {
         type: String,
@@ -120,26 +121,6 @@ const ClientSchema = new Schema({
         data: Buffer,
         contentType: String,
     },
-    expense: [{
-        expenseId: {
-            type: Schema.Types.ObjectId,
-        },
-        dateExp: {
-            type: Date, default: Date.now
-        },
-        cType: {
-            type: String,
-            maxlength: 20,
-        },
-        describe: {
-            type: String,
-            maxlength: 150,
-        },
-        amount: {
-            type: Number,
-            maxlength: 20,
-        }
-    }],
     postDate: {
         type: Date,
         default: Date.now,
