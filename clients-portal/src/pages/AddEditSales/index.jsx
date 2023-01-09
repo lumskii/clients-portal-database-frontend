@@ -6,7 +6,11 @@ import SwipeableViews from 'react-swipeable-views';
 import './SalesStyle.css'
 import PropTypes from 'prop-types'
 import { server } from '../../constance';
-import { Box, Tabs, Tab, Typography, useMediaQuery, AppBar, useTheme, FormControl, TextField } from '@mui/material';
+import { Box, Tabs, Tab, Typography, useMediaQuery, AppBar, useTheme, FormControl, TextField, Select as MSelect, InputLabel, MenuItem, FormLabel, Dialog } from '@mui/material';
+import { Modal } from 'antd';
+import axios from 'axios';
+import cogoToast from "cogo-toast";
+import { useParams } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,20 +45,25 @@ function a11yProps(index) {
   };
 }
 
+const initialDetails = {
+  cName: "",
+  territory: "",
+  salesAmount: "",
+  receivedAmount: "",
+  dealCD: "",
+  dealED: "",
+}
+
 export default function AddEditSales() {
+    const [selectedTitle , setSelectedTitle] = useState(null);
     const [toggleState, setToggleState] = useState(0);
     const [titles, setTitles] = useState([]);
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const theme = useTheme();
-
-    const [details, setDetails] = useState({
-        cName: "",
-        territory: "",
-        salesAmount: "",
-        receivedAmount: "",
-        dealCD: "",
-        dealED: "",
-    });
+    const [open, setOpen] = useState(true);
+    const [details, setDetails] = useState(initialDetails);
+    const [loading, setLoading] = useState(false);
+    const { clientsId } = useParams();
 
     const handleTabChange = (event, newValue) => {
         setToggleState(newValue);
@@ -73,18 +82,36 @@ export default function AddEditSales() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(details);
-    };
+        setLoading(true);
 
-    // const toggleTab = (index) => {
-    //   setToggleState(index);
-    // };
+        const submitData = async (id) => {
+            const response = await axios.post(`${server}/v1/clients/${id}`, details);
+            if (
+              response &&
+              response.data.success &&
+              response.data.status === 200
+            ) {
+              cogoToast.success("sales revenue added successfully", {
+                position: "top-center",
+              });
+              console.log("submitted", response.data);
+              setLoading(false);
+              setDetails(initialDetails);
+              setOpen(true);
+            } else {
+            cogoToast.error("unable to add sales revenue");
+            setLoading(false);
+            }
+        };
+
+        submitData(clientsId);
+    };
 
     const CustomInput = (props) => {
         const { maxLength } = props.selectProps;
         const inputProps = { ...props, maxLength };
     
-        return <components.Input {...inputProps} />;
+        return <components.TextField {...inputProps} />;
       };
 
       useEffect(() => {
@@ -123,185 +150,238 @@ export default function AddEditSales() {
             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
           }}
         >
-          <AppBar
-            position="static"
-            color="default"
-            sx={{ gridColumn: "span 4" }}
+          <Modal
+            title="Select Film Name"
+            centered
+            open={open}
+            onOk={() => setOpen(false)}
+            onCancel={() => setOpen(true)}
+            width={500}
           >
-            <Tabs
-              value={toggleState}
-              onChange={handleTabChange}
-              indicatorColor="primary"
-              textColor="inherit"
-              variant="fullWidth"
-              aria-label="full width tabs example"
-            >
-              <Tab label="Add Sales Revenue" {...a11yProps(0)} />
-              <Tab label="Edit Sales Revenue" {...a11yProps(1)} />
-            </Tabs>
-          </AppBar>
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={toggleState}
-            onChangeIndex={handleChangeIndex}
-            style={{ gridColumn: "span 4"}}
-          >
-            <TabPanel value={toggleState} index={0} dir={theme.direction} variant="fullWidth">
-              <form onSubmit={handleSubmit}>
-                <FormControl>
-                  <TextField
-                    fullWidth
-                    variant="filled"
-                    label= "Company name"
-                    type="text"
-                    name="cName"
-                    onChange={handleChange}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  <p>Territory</p>
-                  <select
-                    type="text"
-                    className="text_area"
-                    name="territory"
-                    onChange={handleChange}
-                  >
-                    <option disabled selected value="">
-                      Please select category
-                    </option>
-                    <option value="united_states/canada">
-                      United States/Canada
-                    </option>
-                    <option value="australia">Australia/NZ</option>
-                    <option value="benelux">Benelux</option>
-                    <option value="france">France</option>
-                    <option value="germany">Germany</option>
-                    <option value="iceland">Iceland</option>
-                    <option value="israel">Israel</option>
-                    <option value="italy">Italy</option>
-                    <option value="scandinavia">Scandinavia</option>
-                    <option value="spain/portugal">Spain/Portugal</option>
-                    <option value="turkey">Turkey</option>
-                    <option value="poland">Poland</option>
-                    <option value="united_kingdom">United Kingdom</option>
-                    <option value="russia">Russia</option>
-                    <option value="eastern_europe">
-                      Eastern Europe(Excluding CIS)
-                    </option>
-                    <option value="asia_pay_tv">Asia Pay TV</option>
-                    <option value="india">India</option>
-                    <option value="china">China</option>
-                    <option value="malaysia">Malaysia</option>
-                    <option value="philippines">Philippines</option>
-                    <option value="thailand">Thailand</option>
-                    <option value="singapore">Singapore</option>
-                    <option value="japan">Japan</option>
-                    <option value="taiwan">Taiwan</option>
-                    <option value="Vietnam">South Korea</option>
-                    <option value="middle_east">Middle East</option>
-                    <option value="latin_america">Latin America</option>
-                    <option value="south_africa">South Africa</option>
-                    <option value="ancillary">Ancillary</option>
-                  </select>
-                  <p>Sales Amount</p>
-                  <input
-                    type="number"
-                    className="text_area"
-                    name="salesAmount"
-                    onChange={handleChange}
-                  />
-                  <p>Received Amount</p>
-                  <input
-                    type="number"
-                    className="text_area"
-                    name="receivedAmount"
-                    onChange={handleChange}
-                  />
-                  <p>Deal closed Date</p>
-                  <input
-                    type="date"
-                    className="text_area"
-                    name="dealCD"
-                    onChange={handleChange}
-                  />
-                  <p>Deal Entered Date</p>
-                  <input
-                    type="date"
-                    className="text_area"
-                    name="dealED"
-                    onChange={handleChange}
-                  />
+              <Select
+                  options={titles}
+                  components={{ TextField: CustomInput }}
+                  maxLength="4"
+                  className='text_area3'
+                  placeholder="Film Name"
+                  onChange={(e) => {
+                    setSelectedTitle(e);
+                  }}
+                  value={selectedTitle}
+              />
+          </Modal>
+          {selectedTitle !== null && (
+            <>
+              <div style={{ fontWeight: "Bolder", fontSize: "22px", width: "500px" }}>Title: {selectedTitle ? selectedTitle.value : 'Please select a title'}</div>
+              <AppBar
+                position="static"
+                color="default"
+                sx={{ gridColumn: "span 4" }}
+              >
+                <Tabs
+                  value={toggleState}
+                  onChange={handleTabChange}
+                  indicatorColor="primary"
+                  textColor="inherit"
+                  variant="fullWidth"
+                  aria-label="full width tabs example"
+                >
+                  <Tab label="Add Sales Revenue" {...a11yProps(0)} />
+                  <Tab label="Edit Sales Revenue" {...a11yProps(1)} />
+                </Tabs>
+              </AppBar>
+              
+              <SwipeableViews
+                axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                index={toggleState}
+                onChangeIndex={handleChangeIndex}
+                style={{ gridColumn: "span 4" }}
+              >
+                <TabPanel
+                  value={toggleState}
+                  index={0}
+                  dir={theme.direction}
+                  variant="fullWidth"
+                  style={{ width: "100%" }}
+                >
+                  <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+                    <Box
+                      display="grid"
+                      gap="30px"
+                      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                      sx={{
+                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                      }}
+                    >
+                    <FormControl sx={{ gridColumn: "span 2" }}>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        label="Company name"
+                        type="text"
+                        name="cName"
+                        value={details.cName}
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: "span 2" }} variant="filled">
+                      <InputLabel id="territory">Territory</InputLabel>
+                      <MSelect
+                        name="territory"
+                        value={details.territory}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value="">
+                          <em> None </em>
+                        </MenuItem>
+                        <MenuItem value="united_states/canada">
+                          United States/Canada
+                        </MenuItem>
+                        <MenuItem value="australia">Australia/NZ</MenuItem>
+                        <MenuItem value="benelux">Benelux</MenuItem>
+                        <MenuItem value="france">France</MenuItem>
+                        <MenuItem value="germany">Germany</MenuItem>
+                        <MenuItem value="iceland">Iceland</MenuItem>
+                        <MenuItem value="israel">Israel</MenuItem>
+                        <MenuItem value="italy">Italy</MenuItem>
+                        <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                        <MenuItem value="spain/portugal">Spain/Portugal</MenuItem>
+                        <MenuItem value="turkey">Turkey</MenuItem>
+                        <MenuItem value="poland">Poland</MenuItem>
+                        <MenuItem value="united_kingdom">United Kingdom</MenuItem>
+                        <MenuItem value="russia">Russia</MenuItem>
+                        <MenuItem value="eastern_europe">
+                          Eastern Europe(Excluding CIS)
+                        </MenuItem>
+                        <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                        <MenuItem value="india">India</MenuItem>
+                        <MenuItem value="china">China</MenuItem>
+                        <MenuItem value="malaysia">Malaysia</MenuItem>
+                        <MenuItem value="philippines">Philippines</MenuItem>
+                        <MenuItem value="thailand">Thailand</MenuItem>
+                        <MenuItem value="singapore">Singapore</MenuItem>
+                        <MenuItem value="japan">Japan</MenuItem>
+                        <MenuItem value="taiwan">Taiwan</MenuItem>
+                        <MenuItem value="Vietnam">South Korea</MenuItem>
+                        <MenuItem value="middle_east">Middle East</MenuItem>
+                        <MenuItem value="latin_america">Latin America</MenuItem>
+                        <MenuItem value="south_africa">South Africa</MenuItem>
+                        <MenuItem value="ancillary">Ancillary</MenuItem>
+                      </MSelect>
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: "span 2" }}>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        label="Sales Amount"
+                        type="number"
+                        name="salesAmount"
+                        onChange={handleChange}
+                        value={details.salesAmount}
+                      />
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: "span 2" }}>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        label="Received Amount"
+                        type="number"
+                        name="receivedAmount"
+                        onChange={handleChange}
+                        value={details.receivedAmount}
+                      />
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: "span 2" }}>
+                    <FormLabel id="dates">Deal Closed Date</FormLabel>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="date"
+                        name="dealCD"
+                        onChange={handleChange}
+                        value={details.dealCD}
+                      />
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: "span 2" }}>
+                    <FormLabel id="dates">Deal Entered Date</FormLabel>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        type="date"
+                        name="dealED"
+                        onChange={handleChange}
+                        value={details.dealED}
+                      />
+                    </FormControl>
 
-                  <button type="save" id="submit-button" className="left">
-                    Save
-                  </button>
-                  <button type="submit" id="submit-button" className="right">
-                    Publish
-                  </button>
-                </FormControl>
-              </form>
-            </TabPanel>
-            <TabPanel value={toggleState} index={1} dir={theme.direction}>
-              <form onSubmit={handleSubmit}>
-                <div className="edit_container">
-                  <div className="form-input2">
-                    <span className="clientUpdateTitle">Edit</span>
-                    <div className="clientUpdateLeft">
-                      <div className="clientUpdateItem">
-                        <label>Film Name</label>
-                        <input
-                          type="text"
-                          placeholder="The Test"
-                          className="clientUpdateInput"
-                        />
-                      </div>
-                      <div className="clientUpdateItem">
-                        <label>Producer's Email</label>
-                        <input
-                          type="email"
-                          placeholder="producer@gmail.com"
-                          className="clientUpdateInput"
-                        />
-                      </div>
-                      <div className="clientUpdateItem">
-                        <label>Distribution Type</label>
-                        <input
-                          type="text"
-                          placeholder="Sales only"
-                          className="clientUpdateInput"
-                        />
-                      </div>
-                      <div className="clientUpdateItem">
-                        <label>Phone Number</label>
-                        <input
-                          type="text"
-                          placeholder="+1 123 456 7890"
-                          className="clientUpdateInput"
-                        />
-                      </div>
-                      <div className="clientUpdateItem">
-                        <label>Location</label>
-                        <input
-                          type="text"
-                          placeholder="New York | USA"
-                          className="clientUpdateInput"
-                        />
+                    <div style={{ width: "100%" }}>
+                      <button type="button" className="left submit">
+                        Save
+                      </button>
+                      <button type="submit" className="position next">
+                        Publish
+                      </button>
+                    </div>
+                    </Box>
+                  </form>
+                </TabPanel>
+                <TabPanel value={toggleState} index={1} dir={theme.direction}>
+                  <form onSubmit={handleSubmit}>
+                    <div className="edit_container">
+                      <div className="form-input2">
+                        <span className="clientUpdateTitle">Edit</span>
+                        <div className="clientUpdateLeft">
+                          <div className="clientUpdateItem">
+                            <label>Film Name</label>
+                            <input
+                              type="text"
+                              placeholder="The Test"
+                              className="clientUpdateInput"
+                            />
+                          </div>
+                          <div className="clientUpdateItem">
+                            <label>Producer's Email</label>
+                            <input
+                              type="email"
+                              placeholder="producer@gmail.com"
+                              className="clientUpdateInput"
+                            />
+                          </div>
+                          <div className="clientUpdateItem">
+                            <label>Distribution Type</label>
+                            <input
+                              type="text"
+                              placeholder="Sales only"
+                              className="clientUpdateInput"
+                            />
+                          </div>
+                          <div className="clientUpdateItem">
+                            <label>Phone Number</label>
+                            <input
+                              type="text"
+                              placeholder="+1 123 456 7890"
+                              className="clientUpdateInput"
+                            />
+                          </div>
+                          <div className="clientUpdateItem">
+                            <label>Location</label>
+                            <input
+                              type="text"
+                              placeholder="New York | USA"
+                              className="clientUpdateInput"
+                            />
+                          </div>
+                        </div>
+                        <button type="submit" id="submit-button2">
+                          Submit
+                        </button>
                       </div>
                     </div>
-                    <button type="submit" id="submit-button2">
-                      Submit
-                    </button>
-                    {/* <p>Film Name</p>
-                      <Select
-                          options={titles}
-                          components={{ Input: CustomInput }}
-                          maxLength="4"
-                          className='text_area3'
-                      /> */}
-                  </div>
-                </div>
-              </form>
-            </TabPanel>
-          </SwipeableViews>
+                  </form>
+                </TabPanel>
+              </SwipeableViews>
+          </>
+          )}
         </Box>
       </Box>
     </DashBoard>
