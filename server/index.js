@@ -11,7 +11,8 @@ const {
   getAllTitles
 } = require("./controllers/titles.controller");
 const clientRouter = require("./routers/client.router");
-const expenseRouter = require("./routers/expense.router")
+const expenseRouter = require("./routers/expense.router");
+const salesRouter = require("./routers/sales.router");
 const fs = require("fs")
 const ImageModel = require('./models/Uploads')
 
@@ -46,6 +47,7 @@ const userRouter = require("./routers/user.router");
 app.use("/v1/user", userRouter);
 app.use("/v1/clients", clientRouter);
 app.use("/v1/expenses", expenseRouter);
+app.use("/v1/sales", salesRouter);
 
 app.post("/v1/upload", upload.single('avatar'), (req, res) => {
   const saveAvatar = new ImageModel({

@@ -1,7 +1,7 @@
 const Sales = require('../models/Sales');
 
 exports.insertSales = (req, res) => {
-    const client = req.body.salesId;
+    const client = req.body.clientId;
     const cName = req.body.cName;
     const territory = req.body.territory;
     const salesAmount = req.body.salesAmount;

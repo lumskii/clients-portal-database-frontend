@@ -35,6 +35,6 @@ const SalesSchema = new Schema({
   },
 });
 
-ExpenseSchema.plugin(mongodbErrorHandler);
+SalesSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.model("Sales", SalesSchema, "Sales");

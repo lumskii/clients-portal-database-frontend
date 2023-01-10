@@ -52,7 +52,7 @@ const initialDetails = {
   receivedAmount: "",
   dealCD: "",
   dealED: "",
-}
+};
 
 export default function AddEditSales() {
     const [selectedTitle , setSelectedTitle] = useState(null);
@@ -85,7 +85,11 @@ export default function AddEditSales() {
         setLoading(true);
 
         const submitData = async (id) => {
-            const response = await axios.post(`${server}/v1/clients/${id}`, details);
+            const response = await axios.post(`${server}/v1/sales`, {
+              client: clientsId,
+              selectedTitle,
+              ...details,
+            });
             if (
               response &&
               response.data.success &&
@@ -115,27 +119,29 @@ export default function AddEditSales() {
       };
 
       useEffect(() => {
-        const callBackendAPI = () => {
+        const retrieveAllClients = async () => {
           console.log("fetching...");
-          fetch(`${server}/titles`)
-            .then((res) => res.json())
-            .then((res) => {
-              if (res.status === 200) {
-                console.log("res", res.data.titles);
-                let allTitles = res.data.titles.map((title) => ({
-                  label: title.title,
-                  value: title.title,
-                  key: title._id,
-                }));
+          try {
+            const response = await fetch(`${server}/v1/clients`);
+            const data = await response.json();
+            if (data.status === 200) {
+              console.log("res", data.data.clients);
+              let allClients = data.data.clients.map((client) => ({
+                id: client._id,
+                value: client.filmName,
+                label: client.filmName,
+              }));
     
-                setTitles(allTitles);
-              } else {
-                console.log("unable to fetch");
-              }
-            });
+              setTitles(allClients);
+            } else {
+              console.log("unable to fetch");
+            }
+          } catch (error) {
+            console.log("error", error);
+          }
         };
-    
-        callBackendAPI();
+  
+        retrieveAllClients();
       }, []);
 
   return (

@@ -6,7 +6,6 @@ mongoose.Promise = global.Promise;
 const ClientSchema = new Schema({
     clientId: {
         type: Schema.Types.ObjectId, 
-        ref:'Expense'
     },
     filmName: {
         type: String,
