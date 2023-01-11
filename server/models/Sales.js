@@ -33,6 +33,10 @@ const SalesSchema = new Schema({
   dealED: {
     type: Date,
   },
+  filmName: {
+    type: String,
+    maxlength: 50,
+  },
 });
 
 SalesSchema.plugin(mongodbErrorHandler);

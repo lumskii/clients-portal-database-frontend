@@ -49,6 +49,9 @@ app.use("/v1/clients", clientRouter);
 app.use("/v1/expenses", expenseRouter);
 app.use("/v1/sales", salesRouter);
 
+//fetching title link
+app.get("/titles", getAllTitles);
+
 app.post("/v1/upload", upload.single('avatar'), (req, res) => {
   const saveAvatar = new ImageModel({
     name: req.body.name,
@@ -87,8 +90,7 @@ app.get("/", (req, res) => {
   });
 });
 
-//fetching title link
-app.get("/titles", getAllTitles);
+
 
 
 

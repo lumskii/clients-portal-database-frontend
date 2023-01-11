@@ -31,7 +31,6 @@ export default function Clients() {
               email: client.producersEmail,
               distributionType: client.distributionType,
               avatar: client.avatar,
-              // avatar: btoa(String.fromCharCode(...new Uint8Array(client.avatar.data.data)))
             }));
 
             setData(allData);

@@ -8,6 +8,7 @@ exports.insertSales = (req, res) => {
     const receivedAmount = req.body.receivedAmount;
     const dealCD = req.body.dealCD;
     const dealED = req.body.dealED;
+    const filmName = req.body.filmName;
 
     const info = {
         client,
@@ -17,6 +18,7 @@ exports.insertSales = (req, res) => {
         receivedAmount,
         dealCD,
         dealED,
+        filmName,
     };
 
     if (
@@ -24,7 +26,9 @@ exports.insertSales = (req, res) => {
         !territory ||
         !salesAmount ||
         !receivedAmount
-    ) {
+    ) if (
+        !ObjectID.isValid(book.author)
+        ) {
         return res.json({
             status: 500,
             message: 'Some fields are empty.',
@@ -34,18 +38,18 @@ exports.insertSales = (req, res) => {
     const salesObj = Sales(info);
 
     salesObj.save(function (err, dbSales) {
-        if (err) {
-            return res.json({status: 500, message: 'Unable to save sales', err });
-        }
+      if (err) {
+        return res.json({ status: 500, message: "Unable to save sales", err });
+      }
 
-        return res.json({
-            success: true,
-            status: 200,
-            data: {
-                message: 'Sales Added Successfully.',
-                newSales: dbSales,
-            },
-        });
+      return res.json({
+        success: true,
+        status: 200,
+        data: {
+          message: "Sales Added Successfully.",
+          newSales: dbSales,
+        },
+      });
     });
 };
 
@@ -71,7 +75,30 @@ exports.getSalesByClientId = (req, res) => {
 };
 
 exports.getAllSales = (req, res, next) => {
-    Sales.find().populate('salesId').exec(function (err, sales) {
+    Sales.find().populate('client').exec(function (err, sales) {
+        if (err) 
+            return res.json({ 
+                success: false, 
+                error: err 
+            });
+
+        if (!sales) {
+            return res.json({
+                success: false,
+                error: 'No sales found',
+            });
+        } else {
+            console.log('get all sales', sales);
+            return res.json({
+                success: true,
+                data: sales,
+            });
+        }
+    });
+};
+
+exports.getSalesList = (req, res, next) => {
+    Sales.find({}, function (err, sales) {
         if (err) 
             return res.json({ 
                 success: false, 

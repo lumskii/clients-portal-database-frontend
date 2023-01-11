@@ -52,6 +52,7 @@ const initialDetails = {
   receivedAmount: "",
   dealCD: "",
   dealED: "",
+  filmName: "",
 };
 
 export default function AddEditSales() {
@@ -64,6 +65,7 @@ export default function AddEditSales() {
     const [details, setDetails] = useState(initialDetails);
     const [loading, setLoading] = useState(false);
     const { clientsId } = useParams();
+    const [showField, setShowField] = useState(false);
 
     const handleTabChange = (event, newValue) => {
         setToggleState(newValue);
@@ -79,6 +81,19 @@ export default function AddEditSales() {
             return {...prev, [name]: value};
         })
     };
+
+    // const handleCurrChange = (e) => {
+    //     const {name, value} = e.target;
+    //     const formattedValue = value.replace(1234567890);
+    //     const currency = new Intl.NumberFormat("en-US", {
+    //       style: "currency",
+    //       currency: "USD",
+    //     });
+    //     setDetails((prev) => {
+    //         return {...prev, [name]: currency.format(formattedValue)};
+    //     });
+    // }
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -164,21 +179,30 @@ export default function AddEditSales() {
             onCancel={() => setOpen(true)}
             width={500}
           >
-              <Select
-                  options={titles}
-                  components={{ TextField: CustomInput }}
-                  maxLength="4"
-                  className='text_area3'
-                  placeholder="Film Name"
-                  onChange={(e) => {
-                    setSelectedTitle(e);
-                  }}
-                  value={selectedTitle}
-              />
+            <Select
+              options={titles}
+              components={{ TextField: CustomInput }}
+              maxLength="4"
+              className="text_area3"
+              placeholder="Film Name"
+              onChange={(e) => {
+                setSelectedTitle(e);
+              }}
+              value={selectedTitle}
+            />
           </Modal>
           {selectedTitle !== null && (
             <>
-              <div style={{ fontWeight: "Bolder", fontSize: "22px", width: "500px" }}>Title: {selectedTitle ? selectedTitle.value : 'Please select a title'}</div>
+              <div
+                style={{
+                  fontWeight: "Bolder",
+                  fontSize: "22px",
+                  width: "500px",
+                }}
+              >
+                Title:{" "}
+                {selectedTitle ? selectedTitle.value : "Please select a title"}
+              </div>
               <AppBar
                 position="static"
                 color="default"
@@ -196,7 +220,7 @@ export default function AddEditSales() {
                   <Tab label="Edit Sales Revenue" {...a11yProps(1)} />
                 </Tabs>
               </AppBar>
-              
+
               <SwipeableViews
                 axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                 index={toggleState}
@@ -216,118 +240,143 @@ export default function AddEditSales() {
                       gap="30px"
                       gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                       sx={{
-                        "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                        "& > div": {
+                          gridColumn: isNonMobile ? undefined : "span 4",
+                        },
                       }}
                     >
-                    <FormControl sx={{ gridColumn: "span 2" }}>
-                      <TextField
-                        fullWidth
+                      <FormControl sx={{ gridColumn: "span 2" }}>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          label="Company name"
+                          type="text"
+                          name="cName"
+                          value={details.cName}
+                          onChange={handleChange}
+                        />
+                      </FormControl>
+                      <FormControl
+                        sx={{ gridColumn: "span 2" }}
                         variant="filled"
-                        label="Company name"
-                        type="text"
-                        name="cName"
-                        value={details.cName}
-                        onChange={handleChange}
-                      />
-                    </FormControl>
-                    <FormControl sx={{ gridColumn: "span 2" }} variant="filled">
-                      <InputLabel id="territory">Territory</InputLabel>
-                      <MSelect
-                        name="territory"
-                        value={details.territory}
-                        onChange={handleChange}
                       >
-                        <MenuItem value="">
-                          <em> None </em>
-                        </MenuItem>
-                        <MenuItem value="united_states/canada">
-                          United States/Canada
-                        </MenuItem>
-                        <MenuItem value="australia">Australia/NZ</MenuItem>
-                        <MenuItem value="benelux">Benelux</MenuItem>
-                        <MenuItem value="france">France</MenuItem>
-                        <MenuItem value="germany">Germany</MenuItem>
-                        <MenuItem value="iceland">Iceland</MenuItem>
-                        <MenuItem value="israel">Israel</MenuItem>
-                        <MenuItem value="italy">Italy</MenuItem>
-                        <MenuItem value="scandinavia">Scandinavia</MenuItem>
-                        <MenuItem value="spain/portugal">Spain/Portugal</MenuItem>
-                        <MenuItem value="turkey">Turkey</MenuItem>
-                        <MenuItem value="poland">Poland</MenuItem>
-                        <MenuItem value="united_kingdom">United Kingdom</MenuItem>
-                        <MenuItem value="russia">Russia</MenuItem>
-                        <MenuItem value="eastern_europe">
-                          Eastern Europe(Excluding CIS)
-                        </MenuItem>
-                        <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
-                        <MenuItem value="india">India</MenuItem>
-                        <MenuItem value="china">China</MenuItem>
-                        <MenuItem value="malaysia">Malaysia</MenuItem>
-                        <MenuItem value="philippines">Philippines</MenuItem>
-                        <MenuItem value="thailand">Thailand</MenuItem>
-                        <MenuItem value="singapore">Singapore</MenuItem>
-                        <MenuItem value="japan">Japan</MenuItem>
-                        <MenuItem value="taiwan">Taiwan</MenuItem>
-                        <MenuItem value="Vietnam">South Korea</MenuItem>
-                        <MenuItem value="middle_east">Middle East</MenuItem>
-                        <MenuItem value="latin_america">Latin America</MenuItem>
-                        <MenuItem value="south_africa">South Africa</MenuItem>
-                        <MenuItem value="ancillary">Ancillary</MenuItem>
-                      </MSelect>
-                    </FormControl>
-                    <FormControl sx={{ gridColumn: "span 2" }}>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        label="Sales Amount"
-                        type="number"
-                        name="salesAmount"
-                        onChange={handleChange}
-                        value={details.salesAmount}
-                      />
-                    </FormControl>
-                    <FormControl sx={{ gridColumn: "span 2" }}>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        label="Received Amount"
-                        type="number"
-                        name="receivedAmount"
-                        onChange={handleChange}
-                        value={details.receivedAmount}
-                      />
-                    </FormControl>
-                    <FormControl sx={{ gridColumn: "span 2" }}>
-                    <FormLabel id="dates">Deal Closed Date</FormLabel>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        type="date"
-                        name="dealCD"
-                        onChange={handleChange}
-                        value={details.dealCD}
-                      />
-                    </FormControl>
-                    <FormControl sx={{ gridColumn: "span 2" }}>
-                    <FormLabel id="dates">Deal Entered Date</FormLabel>
-                      <TextField
-                        fullWidth
-                        variant="filled"
-                        type="date"
-                        name="dealED"
-                        onChange={handleChange}
-                        value={details.dealED}
-                      />
-                    </FormControl>
+                        <InputLabel id="territory">Territory</InputLabel>
+                        <MSelect
+                          name="territory"
+                          value={details.territory}
+                          onChange={handleChange}
+                        >
+                          <MenuItem value="">
+                            <em> None </em>
+                          </MenuItem>
+                          <MenuItem value="united_states/canada">
+                            United States/Canada
+                          </MenuItem>
+                          <MenuItem value="australia">Australia/NZ</MenuItem>
+                          <MenuItem value="benelux">Benelux</MenuItem>
+                          <MenuItem value="france">France</MenuItem>
+                          <MenuItem value="germany">Germany</MenuItem>
+                          <MenuItem value="iceland">Iceland</MenuItem>
+                          <MenuItem value="israel">Israel</MenuItem>
+                          <MenuItem value="italy">Italy</MenuItem>
+                          <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                          <MenuItem value="spain/portugal">
+                            Spain/Portugal
+                          </MenuItem>
+                          <MenuItem value="turkey">Turkey</MenuItem>
+                          <MenuItem value="poland">Poland</MenuItem>
+                          <MenuItem value="united_kingdom">
+                            United Kingdom
+                          </MenuItem>
+                          <MenuItem value="russia">Russia</MenuItem>
+                          <MenuItem value="eastern_europe">
+                            Eastern Europe(Excluding CIS)
+                          </MenuItem>
+                          <MenuItem value="cis/baltics">CIS/Baltics</MenuItem>
+                          <MenuItem value="africa">Africa</MenuItem>
+                          <MenuItem value="saarc">SAARC</MenuItem>
+                          <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                          <MenuItem value="india">India</MenuItem>
+                          <MenuItem value="china">China</MenuItem>
+                          <MenuItem value="malaysia">Malaysia</MenuItem>
+                          <MenuItem value="philippines">Philippines</MenuItem>
+                          <MenuItem value="thailand">Thailand</MenuItem>
+                          <MenuItem value="singapore">Singapore</MenuItem>
+                          <MenuItem value="japan">Japan</MenuItem>
+                          <MenuItem value="taiwan">Taiwan</MenuItem>
+                          <MenuItem value="Vietnam">South Korea</MenuItem>
+                          <MenuItem value="middle_east">Middle East</MenuItem>
+                          <MenuItem value="latin_america">
+                            Latin America
+                          </MenuItem>
+                          <MenuItem value="south_africa">South Africa</MenuItem>
+                          <MenuItem value="ancillary">Ancillary</MenuItem>
+                        </MSelect>
+                      </FormControl>
+                      <FormControl sx={{ gridColumn: "span 2" }}>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          label="Sales Amount"
+                          type="number"
+                          name="salesAmount"
+                          onChange={handleChange}
+                          value={details.salesAmount}
+                        />
+                      </FormControl>
+                      <FormControl sx={{ gridColumn: "span 2" }}>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          label="Received Amount"
+                          type="number"
+                          name="receivedAmount"
+                          onChange={handleChange}
+                          value={details.receivedAmount}
+                        />
+                      </FormControl>
+                      <FormControl sx={{ gridColumn: "span 2" }}>
+                        <FormLabel id="dates">Deal Closed Date</FormLabel>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          type="date"
+                          name="dealCD"
+                          onChange={handleChange}
+                          value={details.dealCD}
+                        />
+                      </FormControl>
+                      <FormControl sx={{ gridColumn: "span 2" }}>
+                        <FormLabel id="dates">Deal Entered Date</FormLabel>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          type="date"
+                          name="dealED"
+                          onChange={handleChange}
+                          value={details.dealED}
+                        />
+                      </FormControl>
 
-                    <div style={{ width: "100%" }}>
-                      <button type="button" className="left submit">
-                        Save
-                      </button>
-                      <button type="submit" className="position next">
-                        Publish
-                      </button>
-                    </div>
+                      {showField && (
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          label="Movie title"
+                          type="text"
+                          name="filmName"
+                          value={selectedTitle}
+                        />
+                      )}
+
+                      <div style={{ width: "100%" }}>
+                        <button type="button" className="left submit">
+                          Save
+                        </button>
+                        <button type="submit" className="position next">
+                          Publish
+                        </button>
+                      </div>
                     </Box>
                   </form>
                 </TabPanel>
@@ -386,7 +435,7 @@ export default function AddEditSales() {
                   </form>
                 </TabPanel>
               </SwipeableViews>
-          </>
+            </>
           )}
         </Box>
       </Box>

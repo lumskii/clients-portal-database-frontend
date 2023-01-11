@@ -14,11 +14,14 @@ import {
   Slider,
   TextField,
   useMediaQuery,
+  useTheme,
 } from "@mui/material";
 // import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Heading';
 import { CustomSelect } from './Styled';
 import { DatePicker, Modal as ModalAD } from 'antd';
+import { tokens } from '../../theme';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 // import moment from 'moment';
 const { RangePicker } = DatePicker;
 
@@ -52,6 +55,8 @@ export default function Reports() {
   const [selectedValue, setSelectedValue] = useState(null);
   // const navigate = useNavigate();
   const [showContent, setShowContent] = useState(true);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   const CustomInput = (inputProps) => {
     const { maxLength } = inputProps.selectProps;
@@ -97,15 +102,15 @@ export default function Reports() {
       useEffect(() => {
         const callBackendAPI = () => {
           console.log("fetching...");
-          fetch(`${server}/v1/clients`)
+          fetch(`${server}/v1/sales`)
             .then((res) => res.json())
             .then((res) => {
               if (res.status === 200) {
-                console.log("res", res.data.clients);
-                let allTitles = res.data.clients.map((client) => ({
-                  label: client.filmName,
-                  value: client.filmName,
-                  key: client._id,
+                console.log("res", res.data.sales);
+                let allTitles = res.data.sales.map((sale) => ({
+                  label: sale.cName,
+                  value: sale.cName,
+                  key: sale._id,
                 }));
     
                 setTitles(allTitles);
@@ -134,6 +139,68 @@ export default function Reports() {
         setSelectedValue(values);
         setShowRangePicker(false);
       };
+
+      const table = () => {
+        const columns = [
+          {
+            field: "cName",
+            headerName: "Company Name",
+            width: 300,
+            renderCell: (params) => {
+              return (
+                <div>
+                  <p>{params.row.cName}</p>
+                </div>
+              );
+            },
+          },
+          { field: "dealCD", headerName: "Deal Closed Date", width: 200 },
+          { field: "dealED", headerName: "Deal Expiry Date", width: 200 },
+        ];
+
+        return (
+            <Box
+            m="40px 0 0 0"
+            height="75vh"
+            sx={{
+              "& .MuiDataGrid-root": {
+                border: "none",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "& .name-column--cell": {
+                color: colors.greenAccent[300],
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: colors.blueAccent[700],
+                borderBottom: "none",
+              },
+              "& .MuiDataGrid-virtualScroller": {
+                backgroundColor: colors.primary[400],
+              },
+              "& .MuiDataGrid-footerContainer": {
+                borderTop: "none",
+                backgroundColor: colors.blueAccent[700],
+              },
+              "& .MuiCheckbox-root": {
+                color: `${colors.greenAccent[200]} !important`,
+              },
+              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                color: `${colors.grey[100]} !important`,
+              },
+            }}
+            >
+              <DataGrid
+                rows={titles}
+                columns={columns}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                />
+            </Box>
+        )
+      }
 
   return (
     <DashBoard>
@@ -958,6 +1025,7 @@ export default function Reports() {
             onClick={() => {
               setRunButton(false);
               setShowContent(false);
+              return table();
             }}
           >
             Run Report
