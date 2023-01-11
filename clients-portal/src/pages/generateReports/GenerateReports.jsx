@@ -52,6 +52,8 @@ export default function Reports() {
   const [selectedValue, setSelectedValue] = useState(null);
   // const navigate = useNavigate();
   const [showContent, setShowContent] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
 
   const CustomInput = (inputProps) => {
     const { maxLength } = inputProps.selectProps;
@@ -95,16 +97,16 @@ export default function Reports() {
     ];
 
       useEffect(() => {
-        const callBackendAPI = () => {
+        const fetchTitles = () => {
           console.log("fetching...");
-          fetch(`${server}/v1/clients`)
+          fetch(`${server}/v1/clients/sales`)
             .then((res) => res.json())
             .then((res) => {
               if (res.status === 200) {
                 console.log("res", res.data.clients);
                 let allTitles = res.data.clients.map((client) => ({
                   label: client.filmName,
-                  value: client.filmName,
+                  value: client.FilmName,
                   key: client._id,
                 }));
     
@@ -115,7 +117,7 @@ export default function Reports() {
             });
         };
     
-        callBackendAPI();
+        fetchTitles();
       }, []);
 
       const style = {

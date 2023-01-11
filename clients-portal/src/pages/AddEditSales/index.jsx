@@ -80,35 +80,60 @@ export default function AddEditSales() {
         })
     };
 
+    useEffect(() => {
+      const retrieveAllClients = async () => {
+        console.log("fetching...");
+        try {
+          const response = await fetch(`${server}/v1/clients`);
+          const data = await response.json();
+          if (data.status === 200) {
+            console.log("res", data.data.clients);
+            let allClients = data.data.clients.map((client) => ({
+              id: client._id,
+              value: client.filmName,
+              label: client.filmName,
+            }));
+
+            setTitles(allClients);
+          } else {
+            console.log("unable to fetch");
+          }
+        } catch (error) {
+          console.log("error", error);
+        }
+      };
+
+      retrieveAllClients();
+    }, []);
+
     const handleSubmit = (e) => {
-        e.preventDefault();
-        setLoading(true);
+      e.preventDefault();
+      setLoading(true);
 
-        const submitData = async (id) => {
-            const response = await axios.post(`${server}/v1/sales`, {
-              client: clientsId,
-              selectedTitle,
-              ...details,
-            });
-            if (
-              response &&
-              response.data.success &&
-              response.data.status === 200
-            ) {
-              cogoToast.success("sales revenue added successfully", {
-                position: "top-center",
-              });
-              console.log("submitted", response.data);
-              setLoading(false);
-              setDetails(initialDetails);
-              setOpen(true);
-            } else {
-            cogoToast.error("unable to add sales revenue");
-            setLoading(false);
-            }
-        };
+      const submitSales = async () => {
+        const clientId = selectedTitle.id;
+        const response = await axios.post(
+          `${server}/v1/clients/${clientId}/sales`,
+          details
+        );
+        if (
+          response && 
+          response.data.success &&
+          response.data.status === 200
+        ) {
+          cogoToast.success("sales revenue added successfully", {
+            position: "top-center",
+          });
+          setLoading(false);
+          setDetails(initialDetails);
+          setOpen(true);
+        } else {
+          cogoToast.error("unable to add sales revenue");
+          setLoading(false);
+        }
+      };
 
-        submitData(clientsId);
+      submitSales();
     };
 
     const CustomInput = (props) => {
@@ -118,31 +143,7 @@ export default function AddEditSales() {
         return <components.TextField {...inputProps} />;
       };
 
-      useEffect(() => {
-        const retrieveAllClients = async () => {
-          console.log("fetching...");
-          try {
-            const response = await fetch(`${server}/v1/clients`);
-            const data = await response.json();
-            if (data.status === 200) {
-              console.log("res", data.data.clients);
-              let allClients = data.data.clients.map((client) => ({
-                id: client._id,
-                value: client.filmName,
-                label: client.filmName,
-              }));
-    
-              setTitles(allClients);
-            } else {
-              console.log("unable to fetch");
-            }
-          } catch (error) {
-            console.log("error", error);
-          }
-        };
-  
-        retrieveAllClients();
-      }, []);
+      
 
   return (
     <DashBoard>

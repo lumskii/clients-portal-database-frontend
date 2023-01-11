@@ -181,4 +181,112 @@ exports.deleteClient = (req, res) => {
   });
 };
 
+exports.addSale = (req, res) => {
+    const clientId = req.params.clientId;
+    const cName = req.body.cName;
+    const territory = req.body.territory;
+    const salesAmount = req.body.salesAmount;
+    const receivedAmount = req.body.receivedAmount;
+    const dealCD = req.body.dealCD;
+    const dealED = req.body.dealED;
+
+    const newSale = { 
+      cName, 
+      territory, 
+      salesAmount, 
+      receivedAmount, 
+      dealCD, 
+      dealED, 
+    };
+
+    if (
+      !cName || 
+      !territory || 
+      !salesAmount || 
+      !receivedAmount
+    ) {
+      return res.json({
+        status: 500,
+        message: "Some fields are empty.",
+      });
+    }
+
+    Client.findById(clientId, function (err, client) {
+      if (err) return res.json({ success: false, error: err });
+
+      console.log("get client details", client);
+
+      client.sales.push(newSale);
+      client.save(function (err, dbSale) {
+        if (err) return res.json({ success: false, error: err });
+
+        return res.json({ success: true, sale: dbSale });
+      });
+    });
+};
+
+exports.listSales = async (req, res) => {
+  const clientId = req.params.clientId;
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).json({
+        message: "Client not found",
+      });
+    }
+    return res.status(200).json({
+      sales: client.sales,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error retrieving sales",
+      error: err,
+    });
+  }
+};
+
+exports.listCName = async (req, res) => {
+  try {
+    const clients = await Client.find();
+    const cName = clients.map((client) =>
+      client.sales.map((sale) => sale.cName)
+    );
+    return res.status(200).json({ cName });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error retrieving cName",
+      error: err,
+    });
+  }
+};
+
+exports.listClientsWithSales = async (req, res) => {
+  try {
+    const clients = await Client.find({ sales: { $ne: [] } });
+    if (!clients) {
+      return res.json({
+        success: false,
+        message: "No Clients with sales found",
+      });
+    }
+    return res.json({
+      success: true,
+      data: clients,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.json({
+      success: false,
+      message: "An error occurred while fetching the clients with sales",
+      error: err,
+    });
+  }
+};
+
+
+
+
+
 
