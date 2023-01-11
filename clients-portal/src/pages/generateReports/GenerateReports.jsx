@@ -57,8 +57,9 @@ export default function Reports() {
   const [showContent, setShowContent] = useState(true);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+  const [company, setCompany] = useState([]);
+  const [tableGrid, setTableGrid] = useState(false);
+
 
   const CustomInput = (inputProps) => {
     const { maxLength } = inputProps.selectProps;
@@ -104,18 +105,25 @@ export default function Reports() {
       useEffect(() => {
         const fetchTitles = () => {
           console.log("fetching...");
-          fetch(`${server}/v1/clients/sales`)
+          fetch(`${server}/v1/clients`)
             .then((res) => res.json())
             .then((res) => {
               if (res.status === 200) {
                 console.log("res", res.data.clients);
                 let allTitles = res.data.clients.map((client) => ({
                   label: client.filmName,
-                  value: client.FilmName,
+                  value: client.filmName,
                   key: client._id,
+                  sales: client._id.sales,
                 }));
+
+                // let allCName = res.data.clients.clientId.sales.map((client) => ({
+                //     cName: client.clientId.cName,
+                // }));
     
                 setTitles(allTitles);
+
+                // setCompany(allCName);
               } else {
                 console.log("unable to fetch");
               }
@@ -142,67 +150,22 @@ export default function Reports() {
         setShowRangePicker(false);
       };
 
-      const table = () => {
-        const columns = [
-          {
-            field: "cName",
-            headerName: "Company Name",
-            width: 300,
-            renderCell: (params) => {
-              return (
-                <div>
-                  <p>{params.row.cName}</p>
-                </div>
-              );
-            },
-          },
-          { field: "dealCD", headerName: "Deal Closed Date", width: 200 },
-          { field: "dealED", headerName: "Deal Expiry Date", width: 200 },
-        ];
-
-        return (
-            <Box
-            m="40px 0 0 0"
-            height="75vh"
-            sx={{
-              "& .MuiDataGrid-root": {
-                border: "none",
-              },
-              "& .MuiDataGrid-cell": {
-                borderBottom: "none",
-              },
-              "& .name-column--cell": {
-                color: colors.greenAccent[300],
-              },
-              "& .MuiDataGrid-columnHeaders": {
-                backgroundColor: colors.blueAccent[700],
-                borderBottom: "none",
-              },
-              "& .MuiDataGrid-virtualScroller": {
-                backgroundColor: colors.primary[400],
-              },
-              "& .MuiDataGrid-footerContainer": {
-                borderTop: "none",
-                backgroundColor: colors.blueAccent[700],
-              },
-              "& .MuiCheckbox-root": {
-                color: `${colors.greenAccent[200]} !important`,
-              },
-              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                color: `${colors.grey[100]} !important`,
-              },
-            }}
-            >
-              <DataGrid
-                rows={titles}
-                columns={columns}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                />
-            </Box>
-        )
-      }
+    const columns = [
+        {
+        field: "cName",
+        headerName: "Company Name",
+        width: 300,
+        renderCell: (params) => {
+            return (
+            <div>
+                <p>{params.row.cName}</p>
+            </div>
+            );
+        },
+        },
+        { field: "dealCD", headerName: "Deal Closed Date", width: 200 },
+        { field: "dealED", headerName: "Deal Expiry Date", width: 200 },
+    ];
 
   return (
     <DashBoard>
@@ -1027,12 +990,55 @@ export default function Reports() {
             onClick={() => {
               setRunButton(false);
               setShowContent(false);
-              return table();
+              setTableGrid(!tableGrid)
             }}
           >
             Run Report
           </button>
         )}
+
+            {tableGrid && (
+            <Box
+            m="40px 0 0 0"
+            height="75vh"
+            sx={{
+              "& .MuiDataGrid-root": {
+                border: "none",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "& .name-column--cell": {
+                color: colors.greenAccent[300],
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: colors.blueAccent[700],
+                borderBottom: "none",
+              },
+              "& .MuiDataGrid-virtualScroller": {
+                backgroundColor: colors.primary[400],
+              },
+              "& .MuiDataGrid-footerContainer": {
+                borderTop: "none",
+                backgroundColor: colors.blueAccent[700],
+              },
+              "& .MuiCheckbox-root": {
+                color: `${colors.greenAccent[200]} !important`,
+              },
+              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+                color: `${colors.grey[100]} !important`,
+              },
+            }}
+            >
+              <DataGrid
+                rows={company}
+                columns={columns}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+                />
+            </Box>
+            )}
       </Box>
     </DashBoard>
   );
