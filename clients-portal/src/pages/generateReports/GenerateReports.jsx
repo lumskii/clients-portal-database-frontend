@@ -14,14 +14,12 @@ import {
   Slider,
   TextField,
   useMediaQuery,
-  useTheme,
 } from "@mui/material";
 // import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Heading';
 import { CustomSelect } from './Styled';
 import { DatePicker, Modal as ModalAD } from 'antd';
-import { tokens } from '../../theme';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import RunReport from './RunReport';
 // import moment from 'moment';
 const { RangePicker } = DatePicker;
 
@@ -55,10 +53,9 @@ export default function Reports() {
   const [selectedValue, setSelectedValue] = useState(null);
   // const navigate = useNavigate();
   const [showContent, setShowContent] = useState(true);
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [company, setCompany] = useState([]);
   const [tableGrid, setTableGrid] = useState(false);
+  const [selectedTitle, setSelectedTitle] = useState(null);
 
 
   const CustomInput = (inputProps) => {
@@ -114,16 +111,9 @@ export default function Reports() {
                   label: client.filmName,
                   value: client.filmName,
                   key: client._id,
-                  sales: client._id.sales,
                 }));
-
-                // let allCName = res.data.clients.clientId.sales.map((client) => ({
-                //     cName: client.clientId.cName,
-                // }));
     
                 setTitles(allTitles);
-
-                // setCompany(allCName);
               } else {
                 console.log("unable to fetch");
               }
@@ -150,22 +140,18 @@ export default function Reports() {
         setShowRangePicker(false);
       };
 
-    const columns = [
-        {
-        field: "cName",
-        headerName: "Company Name",
-        width: 300,
-        renderCell: (params) => {
-            return (
-            <div>
-                <p>{params.row.cName}</p>
-            </div>
-            );
-        },
-        },
-        { field: "dealCD", headerName: "Deal Closed Date", width: 200 },
-        { field: "dealED", headerName: "Deal Expiry Date", width: 200 },
-    ];
+    const runReportButton = () => {
+      return (
+        <RunReport
+          setCompany={setCompany}
+          selectedTitle={selectedTitle}
+          company={company}
+          tableGrid={tableGrid}
+          setTableGrid={setTableGrid}
+        />
+      );
+    };
+
 
   return (
     <DashBoard>
@@ -286,9 +272,11 @@ export default function Reports() {
                                   maxLength="4"
                                   onChange={(option) => {
                                     setSelectedTitles(option);
+                                    setSelectedTitle(option);
                                     handleClose();
                                     setRunButton(true);
                                   }}
+                                  value={selectedTitle}
                                 />
                               </Box>
                             </Modal>
@@ -990,7 +978,7 @@ export default function Reports() {
             onClick={() => {
               setRunButton(false);
               setShowContent(false);
-              setTableGrid(!tableGrid)
+              setTableGrid(!tableGrid);
             }}
           >
             Run Report
@@ -998,46 +986,9 @@ export default function Reports() {
         )}
 
             {tableGrid && (
-            <Box
-            m="40px 0 0 0"
-            height="75vh"
-            sx={{
-              "& .MuiDataGrid-root": {
-                border: "none",
-              },
-              "& .MuiDataGrid-cell": {
-                borderBottom: "none",
-              },
-              "& .name-column--cell": {
-                color: colors.greenAccent[300],
-              },
-              "& .MuiDataGrid-columnHeaders": {
-                backgroundColor: colors.blueAccent[700],
-                borderBottom: "none",
-              },
-              "& .MuiDataGrid-virtualScroller": {
-                backgroundColor: colors.primary[400],
-              },
-              "& .MuiDataGrid-footerContainer": {
-                borderTop: "none",
-                backgroundColor: colors.blueAccent[700],
-              },
-              "& .MuiCheckbox-root": {
-                color: `${colors.greenAccent[200]} !important`,
-              },
-              "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                color: `${colors.grey[100]} !important`,
-              },
-            }}
-            >
-              <DataGrid
-                rows={company}
-                columns={columns}
-                components={{
-                  Toolbar: GridToolbar,
-                }}
-                />
-            </Box>
+                <>
+                {runReportButton()}
+                </>
             )}
       </Box>
     </DashBoard>

@@ -82,25 +82,25 @@ export default function Clients() {
       headerName: "Distribution Type",
       width: 160,
     },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => {
-        return (
-          <>
-            {/* <Link to={`/clients/` + params.row.id}>
-              <button className="clientListEdit">Edit</button>
-            </Link> */}
-            <AiOutlineDeleteRow
-              className="clientListDelete"
-              onClick={() => handleDelete(params.row.id)}
-            />
-            Delete
-          </>
-        );
-      },
-    },
+    // {
+    //   field: "action",
+    //   headerName: "Action",
+    //   width: 150,
+    //   renderCell: (params) => {
+    //     return (
+    //       <>
+    //         {/* <Link to={`/clients/` + params.row.id}>
+    //           <button className="clientListEdit">Edit</button>
+    //         </Link> */}
+    //         <AiOutlineDeleteRow
+    //           className="clientListDelete"
+    //           onClick={() => handleDelete(params.row.id)}
+    //         />
+    //         Delete
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   return (

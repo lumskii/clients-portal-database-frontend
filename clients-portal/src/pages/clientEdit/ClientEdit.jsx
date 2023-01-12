@@ -77,6 +77,7 @@ const ClientEdit = () => {
         position: "top-center",
       });
     })
+    navigate("/clients");
     setClient(client.filter((item) => {
       return item.id !== id;
     }));
@@ -229,7 +230,7 @@ const ClientEdit = () => {
               <Button
                 variant="contained"
                 startIcon={<AiOutlineDelete />}
-                // onClick={(item) => {handleDelete(item.id)}}
+                onClick={() => handleDelete(client._id)}
                 sx={{bgcolor:"red", fontWeight:"bold", margin:"-15px 0 0 60px"}}
               >
                 Delete
