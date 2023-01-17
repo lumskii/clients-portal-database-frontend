@@ -1,20 +1,20 @@
-import { BsCalendar } from "react-icons/bs";
-import { RiImageEditFill } from "react-icons/ri";
+import { BsCalendar } from 'react-icons/bs';
+import { RiImageEditFill } from 'react-icons/ri';
 import {
   MdLocationSearching,
   MdMailOutline,
   MdPermIdentity,
   MdPhoneAndroid,
-} from "react-icons/md";
-import "./clientEdit.css";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import cogoToast from "cogo-toast";
-import { server } from "../../constance";
-import { AiOutlineDelete } from "react-icons/ai";
-import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+} from 'react-icons/md';
+import './clientEdit.css';
+import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import cogoToast from 'cogo-toast';
+import { server } from '../../constance';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const ClientEdit = () => {
   const [showContents, setShowContents] = useState(false);
@@ -23,7 +23,7 @@ const ClientEdit = () => {
   const { clientsId } = useParams();
   // const [info, setInfo] = useState([]);
   const navigate = useNavigate();
-  console.log("params", clientsId);
+  console.log('params', clientsId);
 
   useEffect(() => {
     const getClient = async (id) => {
@@ -35,7 +35,7 @@ const ClientEdit = () => {
         setClient(details.data.client);
       }
 
-      console.log("details", details);
+      console.log('details', details);
     };
 
     getClient(clientsId);
@@ -57,13 +57,13 @@ const ClientEdit = () => {
       const details = await axios.patch(server + `/v1/clients/${id}`, client);
 
       if (details && details.data.success) {
-        cogoToast.success("Client updated successfully", {
-          position: "top-center",
+        cogoToast.success('Client updated successfully', {
+          position: 'top-center',
         });
-        console.log("Updated", details.data);
+        console.log('Updated', details.data);
         setLoading(false);
       } else {
-        cogoToast.error("Could not submit client info");
+        cogoToast.error('Could not submit client info');
         setLoading(false);
       }
     };
@@ -73,14 +73,16 @@ const ClientEdit = () => {
 
   const handleDelete = (id) => {
     axios.delete(`${server}/v1/clients/${id}`).then((res) => {
-      cogoToast.success(res.data.filmName + " has been deleted successfully", {
-        position: "top-center",
+      cogoToast.success(res.data.filmName + ' has been deleted successfully', {
+        position: 'top-center',
       });
-    })
-    navigate("/clients");
-    setClient(client.filter((item) => {
-      return item.id !== id;
-    }));
+    });
+    navigate('/clients');
+    setClient(
+      client.filter((item) => {
+        return item.id !== id;
+      })
+    );
   };
 
   return (
@@ -218,10 +220,10 @@ const ClientEdit = () => {
               </div>
             </div>
             <div
-              className={showContents ? "" : "edit"}
+              className={showContents ? '' : 'edit'}
               onClick={() => setShowContents(!showContents)}
             >
-              {showContents === true ? "" : "Edit"}
+              {showContents === true ? '' : 'Edit'}
             </div>
           </div>
           {showContents && (
@@ -231,7 +233,11 @@ const ClientEdit = () => {
                 variant="contained"
                 startIcon={<AiOutlineDelete />}
                 onClick={() => handleDelete(client._id)}
-                sx={{bgcolor:"red", fontWeight:"bold", margin:"-15px 0 0 60px"}}
+                sx={{
+                  bgcolor: 'red',
+                  fontWeight: 'bold',
+                  margin: '-15px 0 0 60px',
+                }}
               >
                 Delete
               </Button>
@@ -434,12 +440,12 @@ const ClientEdit = () => {
                   </div>
                 </div>
                 <div className="clientUpdateRight">
-                  <div style={{ marginTop: "-40px" }}>
+                  <div style={{ marginTop: '-40px' }}>
                     <div
-                      className={showContents ? "edit_close" : ""}
+                      className={showContents ? 'edit_close' : ''}
                       onClick={() => setShowContents(!showContents)}
                     >
-                      {showContents === true ? "Cancel" : ""}
+                      {showContents === true ? 'Cancel' : ''}
                     </div>
                     <div className="clientUpdateUpload">
                       <img
@@ -453,7 +459,7 @@ const ClientEdit = () => {
                       <input
                         type="file"
                         id="file"
-                        style={{ display: "none" }}
+                        style={{ display: 'none' }}
                       />
                     </div>
                   </div>

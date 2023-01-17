@@ -1,9 +1,5 @@
-import {
-  Grid,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
-import React from "react";
+import { Grid, InputAdornment, TextField } from '@mui/material';
+import React from 'react';
 
 const ComissionExps = ({
   formik,
@@ -11,16 +7,17 @@ const ComissionExps = ({
   setShowContents,
   GrossFieldArray,
 }) => {
-
   return (
     <>
-      <Grid style={{ width: '100%' }} sx={{ gridColumn: "span 4" }}>
-        <span style={{ fontWeight: "bold", fontSize: "18px" }} >Gross Corridor & Sales</span>
+      <Grid style={{ width: '100%' }} sx={{ gridColumn: 'span 4' }}>
+        <span style={{ fontWeight: 'bold', fontSize: '18px' }}>
+          Gross Corridor & Sales
+        </span>
         <div
-          className={showContents ? "exp_btn_close_two" : "exp_btn"}
+          className={showContents ? 'exp_btn_close_two' : 'exp_btn'}
           onClick={() => setShowContents(!showContents)}
         >
-          {showContents === true ? "-" : "+"}
+          {showContents === true ? '-' : '+'}
         </div>
 
         {showContents && (
@@ -39,7 +36,7 @@ const ComissionExps = ({
         }}
         name="distributionFee"
         type="number"
-        sx={{ gridColumn: "span 2" }}
+        sx={{ gridColumn: 'span 2' }}
         variant="filled"
         fullWidth
         label="Distribution Fee"
@@ -54,23 +51,19 @@ const ComissionExps = ({
         }}
         name="incomeReserves"
         type="number"
-        sx={{ gridColumn: "span 2" }}
+        sx={{ gridColumn: 'span 2' }}
         variant="filled"
         fullWidth
         label="Income Reserves"
       />
 
       <TextField
-        sx={{ gridColumn: "span 2" }}
+        sx={{ gridColumn: 'span 2' }}
         variant="filled"
         fullWidth
         label="Ingestion Fee (flat)"
         InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              $
-            </InputAdornment>
-          ),
+          startAdornment: <InputAdornment position="start">$</InputAdornment>,
         }}
         id="filled-start-adornment"
         value={formik.values.ingestionFee}
@@ -79,17 +72,13 @@ const ComissionExps = ({
         type="number"
       />
 
-      <TextField 
-        sx={{ gridColumn: "span 2" }}
+      <TextField
+        sx={{ gridColumn: 'span 2' }}
         variant="filled"
         fullWidth
         label="Marketing Cap"
         InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              $
-            </InputAdornment>
-          ),
+          startAdornment: <InputAdornment position="start">$</InputAdornment>,
         }}
         id="filled-start-adornment"
         value={formik.values.marketingCap}
@@ -99,16 +88,12 @@ const ComissionExps = ({
       />
 
       <TextField
-        sx={{ gridColumn: "span 2" }}
+        sx={{ gridColumn: 'span 2' }}
         variant="filled"
         fullWidth
         label="Film Market Cost (flat)"
         InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              $
-            </InputAdornment>
-          ),
+          startAdornment: <InputAdornment position="start">$</InputAdornment>,
         }}
         id="filled-start-adornment"
         value={formik.values.filmMarketCost}
@@ -121,4 +106,3 @@ const ComissionExps = ({
 };
 
 export default ComissionExps;
-    

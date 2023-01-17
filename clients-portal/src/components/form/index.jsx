@@ -1,14 +1,21 @@
-import React from "react";
-import { Formik, Field, FieldArray } from "formik";
-import { Container, Card, CardContent, Typography, Grid, Button } from "@mui/material";
-import { TextField } from "@mui/material";
-import { FormStepper } from "./formStepper";
+import React from 'react';
+import { Formik, Field, FieldArray } from 'formik';
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Button,
+} from '@mui/material';
+import { TextField } from '@mui/material';
+import { FormStepper } from './formStepper';
 
 const FormCustom = () => {
-  const linksGroup = { linkname: "", linkurl: "" };
+  const linksGroup = { linkname: '', linkurl: '' };
 
   return (
-    <Container sx={{ bgcolor: "#87c1ff4d", paddingY: 3, marginTop: 5 }}>
+    <Container sx={{ bgcolor: '#87c1ff4d', paddingY: 3, marginTop: 5 }}>
       <Typography variant="h3" align="center" component="h2">
         Formik Form
       </Typography>
@@ -16,8 +23,8 @@ const FormCustom = () => {
         <CardContent sx={{ paddingY: 10, paddingX: 5 }}>
           <Formik
             initialValues={{
-              firstname: "",
-              lastname: "",
+              firstname: '',
+              lastname: '',
               links: [linksGroup],
             }}
             onSubmit={async (values, actions) => {
@@ -28,15 +35,29 @@ const FormCustom = () => {
               <FormStepper>
                 <Grid container spacing={2}>
                   <Grid item md={6}>
-                    <Field fullWidth name="firstname" component={TextField} label="First Name" />
+                    <Field
+                      fullWidth
+                      name="firstname"
+                      component={TextField}
+                      label="First Name"
+                    />
                   </Grid>
                   <Grid item md={6}>
-                    <Field fullWidth name="lastname" component={TextField} label="Last Name" />
+                    <Field
+                      fullWidth
+                      name="lastname"
+                      component={TextField}
+                      label="Last Name"
+                    />
                   </Grid>
                 </Grid>
                 <FieldArray name="links">
                   {({ push, remove }) => (
-                    <Grid container spacing={2} sx={{ marginTop: 2, paddingX: 2 }}>
+                    <Grid
+                      container
+                      spacing={2}
+                      sx={{ marginTop: 2, paddingX: 2 }}
+                    >
                       <Grid item xs={12}>
                         <Typography variant="h6" component="h2">
                           Add Social Links
@@ -45,22 +66,39 @@ const FormCustom = () => {
                       {values.links.map((_, index) => (
                         <>
                           <Grid item md={5}>
-                            <Field fullWidth name={`links.${index}.linkname`} component={TextField} label="Link Name" />
+                            <Field
+                              fullWidth
+                              name={`links.${index}.linkname`}
+                              component={TextField}
+                              label="Link Name"
+                            />
                           </Grid>
                           <Grid item md={5}>
-                            <Field fullWidth name={`links.${index}.linkurl`} component={TextField} label="Link URL" />
+                            <Field
+                              fullWidth
+                              name={`links.${index}.linkurl`}
+                              component={TextField}
+                              label="Link URL"
+                            />
                           </Grid>
                           {index > 0 && (
                             <Grid item md={2}>
-                              <Button variant="outlined" color="error" onClick={() => remove(index)}>
+                              <Button
+                                variant="outlined"
+                                color="error"
+                                onClick={() => remove(index)}
+                              >
                                 Delete
                               </Button>
                             </Grid>
                           )}
                         </>
-                      ))}{" "}
+                      ))}{' '}
                       <Grid item xs={12}>
-                        <Button variant="outlined" onClick={() => push(linksGroup)}>
+                        <Button
+                          variant="outlined"
+                          onClick={() => push(linksGroup)}
+                        >
                           Add Link
                         </Button>
                       </Grid>

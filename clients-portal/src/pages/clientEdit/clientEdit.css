@@ -1,226 +1,228 @@
-.client_edit{
-    flex: 4;
-    margin: 20px 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
-    padding: 20px;
+.client_edit {
+  flex: 4;
+  margin: 20px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  padding: 20px;
 }
 
-.clientTitleContainer{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.clientTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.clientAddButton{
-    width: 80px;
-    border: none;
-    padding: 5px;
-    background-color: teal;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px;
+.clientAddButton {
+  width: 80px;
+  border: none;
+  padding: 5px;
+  background-color: teal;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
 }
 
-.clientContainer{
-    display: flex;
-    margin-top: 20px;
-    justify-content: space-between;
+.clientContainer {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
 }
 
-.clientShow{
-    flex: 1;
-    padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.clientShow {
+  flex: 1;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.clientUpdate{
-    flex: 2;
-    padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-left: 20px;
+.clientUpdate {
+  flex: 2;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-left: 20px;
 }
 
-.clientShowTop{
-    display: flex;
-    align-items: center;
+.clientShowTop {
+  display: flex;
+  align-items: center;
 }
 
-.clientShowImg{
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
+.clientShowImg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.clientShowTopTitle{
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
+.clientShowTopTitle {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
 }
 
-.clientShowClientName{
-    font-weight: 600;
-    font-size: 1.2rem;
+.clientShowClientName {
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 
-.clientShowClientDT{
-    font-weight: 300;
-    color: gray;
+.clientShowClientDT {
+  font-weight: 300;
+  color: gray;
 }
 
-.clientShowBottom{
-    margin-top: 20px;
+.clientShowBottom {
+  margin-top: 20px;
 }
 
-.clientShowTitle{
-    font-size: 14px;
-    font-weight: 600;
-    color: rgb(158, 153, 153); 
-       
+.clientShowTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(158, 153, 153);
 }
 
-.clientShowInfo{
-    display: flex;
-    align-items: center;
-    margin: 20px 0px;
-    color: #444;
+.clientShowInfo {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px;
+  color: #444;
 }
 
-.clientShowIcon{
-    font-size: 16px !important;
+.clientShowIcon {
+  font-size: 16px !important;
 }
 
-.clientShowClientCode{
-    margin-left: 10px;
+.clientShowClientCode {
+  margin-left: 10px;
 }
 
-.clientUpdateTitle{
-    font-size: 24px;
-    font-weight: 600;
+.clientUpdateTitle {
+  font-size: 24px;
+  font-weight: 600;
 }
 
-.clientUpdateItem{
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
+.clientUpdateItem {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
-.clientUpdateItem>label{
-    margin-bottom: 5px;
-    font-size: 14px;
+.clientUpdateItem > label {
+  margin-bottom: 5px;
+  font-size: 14px;
 }
 
-.clientUpdateInput{
-    border: none;
-    width: 250px;
-    border-bottom: 1px solid gray;
-    height: 30px;
+.clientUpdateInput {
+  border: none;
+  width: 250px;
+  border-bottom: 1px solid gray;
+  height: 30px;
 }
 
-.clientUpdateForm{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+.clientUpdateForm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
-.clientUpdateRight{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.clientUpdateRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.clientUpdateUpload{
-    display: flex;
-    align-items: center;
-    margin: 20px;
+.clientUpdateUpload {
+  display: flex;
+  align-items: center;
+  margin: 20px;
 }
 
-.clientUpdateImg{
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-right: 20px;
+.clientUpdateImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 20px;
 }
 
-.clientUpdateIcon{
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
+.clientUpdateIcon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
 }
 
-.clientUpdateButton{
-    border-radius: 5px;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    background-color: darkblue;
-    color: #fff;
-    font-weight: bold;
+.clientUpdateButton {
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  background-color: darkblue;
+  color: #fff;
+  font-weight: bold;
 }
 
-.accountInfoTitle{
-    font-size: 14px;
+.accountInfoTitle {
+  font-size: 14px;
 }
 
-.capi{
-    text-transform: capitalize;
+.capi {
+  text-transform: capitalize;
 }
 
-.edit{
-    box-shadow:inset 0px 1px 0px 0px #fff6af;
-	background:linear-gradient(to bottom, #ff9900 5%, #fab444 100%);
-	background-color:#ff9900;
-	border-radius:6px;
-	border:1px solid #dea44d;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
+.edit {
+  box-shadow: inset 0px 1px 0px 0px #fff6af;
+  background: linear-gradient(to bottom, #ff9900 5%, #fab444 100%);
+  background-color: #ff9900;
+  border-radius: 6px;
+  border: 1px solid #dea44d;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffee66;
 }
 
-.edit:hover{
-    background:linear-gradient(to bottom, #fab444 5%, #ff9900 100%);
-	background-color:#fab444;
+.edit:hover {
+  background: linear-gradient(to bottom, #fab444 5%, #ff9900 100%);
+  background-color: #fab444;
 }
 
-.edit:active{
-    position:relative;
-	top:1px;
+.edit:active {
+  position: relative;
+  top: 1px;
 }
 
-.edit_close{
-    box-shadow:inset 0px 1px 0px 0px #f5978e;
-	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
-	background-color:#f24537;
-	border-radius:6px;
-	border:1px solid #d02718;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-size:15px;
-	font-weight: bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #810e05;
-    margin: -50px 40px;
+.edit_close {
+  box-shadow: inset 0px 1px 0px 0px #f5978e;
+  background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+  background-color: #f24537;
+  border-radius: 6px;
+  border: 1px solid #d02718;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #810e05;
+  margin: -50px 40px;
 }
 
-.edit_close:hover{
-    background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
-	background-color:#c62d1f;
+.edit_close:hover {
+  background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+  background-color: #c62d1f;
 }
 
-.edit_close:active{
-    position:relative;
-	top:1px;
+.edit_close:active {
+  position: relative;
+  top: 1px;
 }

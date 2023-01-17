@@ -1,61 +1,61 @@
-.signup_form{
-    display: grid;
-    justify-content: center;
-    padding-bottom: 15px;
+.signup_form {
+  display: grid;
+  justify-content: center;
+  padding-bottom: 15px;
 }
 
-.leftside{
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
+.leftside {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
-.signupButton{
-    background-color: #fff;
-    padding: 5px;
-    border-radius: 15px;
-    box-shadow: inset -14px -16px 16px -20px rgba(0,0,0,0.75);
-    font-weight: bold;
-    transition: 350ms;
+.signupButton {
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 15px;
+  box-shadow: inset -14px -16px 16px -20px rgba(0, 0, 0, 0.75);
+  font-weight: bold;
+  transition: 350ms;
 }
-.signupButton:hover{
-    background-color: #000;
-    box-shadow: inset -14px -16px 16px -22px rgba(225,225,225,0.75);
-    color: #fff;
+.signupButton:hover {
+  background-color: #000;
+  box-shadow: inset -14px -16px 16px -22px rgba(225, 225, 225, 0.75);
+  color: #fff;
 }
 
-.signupButton:active{
-    background-color: #fff;
-    font-weight: 100;
-    color:#000;
+.signupButton:active {
+  background-color: #fff;
+  font-weight: 100;
+  color: #000;
 }
 
 .info {
-    margin-bottom: -15px;
-    margin-left: 1em;
-    font-weight: bold;
-    font-size: 1.3rem;
-    text-align: left;
+  margin-bottom: -15px;
+  margin-left: 1em;
+  font-weight: bold;
+  font-size: 1.3rem;
+  text-align: left;
 }
 
-.profilePic{
-    margin: 20px 0px;
+.profilePic {
+  margin: 20px 0px;
 }
 
-.uploadContent{
-    display: flex;
-    justify-content: space-between;
-    width: 350px;
+.uploadContent {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
 }
 
-.upload{
-    flex: 1;
-    margin: 20px;
+.upload {
+  flex: 1;
+  margin: 20px;
 }
 
-.uploadBtn{
-    flex: 2;
-    height: 30px;
-    margin-top: 20px;
-    max-width: 70px;
+.uploadBtn {
+  flex: 2;
+  height: 30px;
+  margin-top: 20px;
+  max-width: 70px;
 }

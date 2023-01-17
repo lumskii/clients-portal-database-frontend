@@ -1,78 +1,78 @@
 .cards {
-    padding: 15px;
-    display: flex;
-    flex-flow: row wrap;
-    position: absolute;
-    top: 150px;
-    margin: auto 10px;
-  }
-  
+  padding: 15px;
+  display: flex;
+  flex-flow: row wrap;
+  position: absolute;
+  top: 150px;
+  margin: auto 10px;
+}
+
+.card {
+  margin: 15px;
+  width: calc((100% / 3) - 30px);
+  transition: all 0.2s ease-in-out;
+  min-width: 250px;
+}
+@media screen and (max-width: 991px) {
   .card {
-    margin: 15px;
-    width: calc((100% / 3) - 30px);
-    transition: all 0.2s ease-in-out;
-    min-width: 250px;
+    width: calc((100% / 2) - 30px);
   }
-  @media screen and (max-width: 991px) {
-    .card {
-      width: calc((100% / 2) - 30px);
-    }
-  }
-  @media screen and (max-width: 767px) {
-    .card {
-      width: 100%;
-    }
-  }
-  .card:hover .card__inner {
-    background-color: #2e2e2d;
-    color: #fff;
-    transform: scale(1.05);
-  }
-
-  .card .links {
-    text-decoration: none;
-  }
-
-  .card__inner {
-    display: grid;
+}
+@media screen and (max-width: 767px) {
+  .card {
     width: 100%;
-    /* max-width: 250px; */
-    position: relative;
-    cursor: pointer;
-    background-color: #ebebeb;
-    border-radius: 10px;
-    color: #000;
-    font-size: 1.1em;
-    font-weight: bold;
-    text-align: center;
-    transition: all 0.2s ease-in-out;
   }
-  .card__inner:after {
-    transition: all 0.3s ease-in-out;
-  }
+}
+.card:hover .card__inner {
+  background-color: #2e2e2d;
+  color: #fff;
+  transform: scale(1.05);
+}
 
-  .text {
-    margin: 0px auto 20px auto;
-  }
+.card .links {
+  text-decoration: none;
+}
 
-  .header{
-    position: absolute;
-    top: 0;
-    padding: 20px 20px 0px 20px;
-    width: 100%;
-    /* background-color: #ebebeb; */
-  }
+.card__inner {
+  display: grid;
+  width: 100%;
+  /* max-width: 250px; */
+  position: relative;
+  cursor: pointer;
+  background-color: #ebebeb;
+  border-radius: 10px;
+  color: #000;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+.card__inner:after {
+  transition: all 0.3s ease-in-out;
+}
 
-  .header-title{
-    font-weight: bold;
-    font-size: 1.3rem;
-    display: flex;
-    padding-left: 20px;
-  }
+.text {
+  margin: 0px auto 20px auto;
+}
 
-  .symbols{
-    position: absolute;
-    right: 60px;
-    top: 25px;
-    cursor: pointer;
-  }
+.header {
+  position: absolute;
+  top: 0;
+  padding: 20px 20px 0px 20px;
+  width: 100%;
+  /* background-color: #ebebeb; */
+}
+
+.header-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+  display: flex;
+  padding-left: 20px;
+}
+
+.symbols {
+  position: absolute;
+  right: 60px;
+  top: 25px;
+  cursor: pointer;
+}

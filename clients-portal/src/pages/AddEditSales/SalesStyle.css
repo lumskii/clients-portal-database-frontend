@@ -3,24 +3,22 @@
   display: flex;
 }
 
-
-
 #submit-button:hover {
   color: #000;
   background-color: #f8b44e;
 }
 
-.left{
+.left {
   flex: 1;
   position: relative;
 }
 
-.right{
+.right {
   flex: 2;
   position: relative;
 }
 
-.content{
+.content {
   display: none;
 }
 
@@ -28,18 +26,18 @@
   display: inline-flex;
 }
 
-.text_area3{
+.text_area3 {
   width: 280px;
 }
 
-.edit_container{
+.edit_container {
   display: grid;
   justify-content: center;
   align-items: center;
   width: 600px;
 }
 
-#submit-button2{
+#submit-button2 {
   width: 100%;
   margin: 60px 0 40px 0;
   height: 40px;
@@ -49,11 +47,11 @@
   font-size: 1.3rem;
   font-weight: bold;
   color: #fff;
-  transition: all ease-out .3s;
+  transition: all ease-out 0.3s;
 }
 
 /* ......................Modal styling........................ */
-.modalBg{
+.modalBg {
   width: 100%;
   height: 100%;
   background-color: rgba(200, 200, 200);
@@ -75,7 +73,7 @@
   padding: 25px;
 }
 
-.modalContainer .modalTitle{
+.modalContainer .modalTitle {
   display: inline-block;
   text-align: center;
   margin-top: 100px;
@@ -93,12 +91,8 @@
   cursor: pointer;
 }
 
-
-
-
-
 /* ........................Saved & Published Wrapper.................... */
-.info_wrapper{
+.info_wrapper {
   display: grid;
   width: 100%;
   height: 500px;
@@ -107,34 +101,38 @@
   justify-content: center;
 }
 
-.saved{
+.saved {
   width: 600px;
   height: fit-content;
   margin: 10px;
-  box-shadow: 7px 22px 48px -4px rgba(0,0,0,0.54);
-  -webkit-box-shadow: 7px 22px 48px -4px rgba(0,0,0,0.54);
-  -moz-box-shadow: 7px 22px 48px -4px rgba(0,0,0,0.54);
+  box-shadow: 7px 22px 48px -4px rgba(0, 0, 0, 0.54);
+  -webkit-box-shadow: 7px 22px 48px -4px rgba(0, 0, 0, 0.54);
+  -moz-box-shadow: 7px 22px 48px -4px rgba(0, 0, 0, 0.54);
   border-radius: 10px;
   padding: 10px;
 }
 
-.saved h3, .published h3{
+.saved h3,
+.published h3 {
   font-size: 1.3rem;
   width: 100%;
   margin-top: 10px;
 }
 
-.saved ul, .published ul{
+.saved ul,
+.published ul {
   margin-top: 50px;
 }
 
-.saved ul li, .published ul li{
+.saved ul li,
+.published ul li {
   list-style: none;
   font-weight: bold;
   margin: 20px 30px;
 }
 
-.saved ul li span, .published ul li span{
+.saved ul li span,
+.published ul li span {
   font-weight: normal;
   border: #000 1px solid;
   border-radius: 5px;
@@ -143,47 +141,47 @@
   margin-left: 5px;
 }
 
-.published{
+.published {
   width: 600px;
   margin: 20px 10px;
-  box-shadow: -14px 22px 48px -4px rgba(0,0,0,0.54);
-  -webkit-box-shadow: -14px 22px 48px -4px rgba(0,0,0,0.54);
-  -moz-box-shadow: -14px 22px 48px -4px rgba(0,0,0,0.54);
+  box-shadow: -14px 22px 48px -4px rgba(0, 0, 0, 0.54);
+  -webkit-box-shadow: -14px 22px 48px -4px rgba(0, 0, 0, 0.54);
+  -moz-box-shadow: -14px 22px 48px -4px rgba(0, 0, 0, 0.54);
   border-radius: 10px;
   padding: 10px;
 }
 
-.publish_save{
+.publish_save {
   width: 100px;
   height: 30px;
   margin: 30px 80px;
 }
 
-.exp_form_header{
-  box-shadow:inset 0px 1px 0px 0px #fff6af;
-	background:linear-gradient(to bottom, #ff9900 5%, #fab444 100%);
-	background-color:#ff9900;
-	border-radius:6px;
-	border:1px solid #dea44d;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-size: 1.3rem;
-	font-weight:bold;
-	padding:6px 24px;
+.exp_form_header {
+  box-shadow: inset 0px 1px 0px 0px #fff6af;
+  background: linear-gradient(to bottom, #ff9900 5%, #fab444 100%);
+  background-color: #ff9900;
+  border-radius: 6px;
+  border: 1px solid #dea44d;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 6px 24px;
   text-align: center;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffee66;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffee66;
   width: 200px;
-  margin: 150px 250px
+  margin: 150px 250px;
 }
 
 .exp_form_header:hover {
-  background:linear-gradient(to bottom, #fab444 5%, #ff9900 100%);
-	background-color:#fab444;
+  background: linear-gradient(to bottom, #fab444 5%, #ff9900 100%);
+  background-color: #fab444;
 }
 
 .exp_form_header:active {
-  position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }

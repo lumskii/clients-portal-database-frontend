@@ -1,5 +1,5 @@
-import React from 'react'
-import './widgetLg.css'
+import React from 'react';
+import './widgetLg.css';
 
 const WidgetLg = () => {
   return (
@@ -9,13 +9,13 @@ const WidgetLg = () => {
       <div className="counterContainer">
         <span className="counter">13</span>
       </div>
-      <div className='divider'></div>
+      <div className="divider"></div>
       <h5 className="subHeading">Contracts Signed</h5>
       <div className="counterContainer">
         <span className="counter">5</span>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default WidgetLg
+export default WidgetLg;

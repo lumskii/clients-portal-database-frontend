@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import "./clients.css";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { AiOutlineDeleteRow } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import cogoToast from "cogo-toast";
-import { server } from "../../constance";
-import { Box } from "@mui/material";
-import { tokens } from "../../theme";
-import { useTheme } from "@mui/material";
-import { DashBoard } from "../Dashboard/DashboardElements";
+import React, { useState, useEffect } from 'react';
+import './clients.css';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { AiOutlineDeleteRow } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import cogoToast from 'cogo-toast';
+import { server } from '../../constance';
+import { Box } from '@mui/material';
+import { tokens } from '../../theme';
+import { useTheme } from '@mui/material';
+import { DashBoard } from '../Dashboard/DashboardElements';
 
 export default function Clients() {
   const [data, setData] = useState([]);
@@ -18,12 +18,12 @@ export default function Clients() {
 
   useEffect(() => {
     const retrieveAllClients = () => {
-      console.log("fetching...");
+      console.log('fetching...');
       fetch(`${server}/v1/clients`)
         .then((res) => res.json())
         .then((res) => {
           if (res.status === 200) {
-            console.log("res", res.data.clients);
+            console.log('res', res.data.clients);
             let allData = res.data.clients.map((client) => ({
               id: client._id,
               filmName: client.filmName,
@@ -35,7 +35,7 @@ export default function Clients() {
 
             setData(allData);
           } else {
-            console.log("unable to fetch");
+            console.log('unable to fetch');
           }
         });
     };
@@ -45,41 +45,48 @@ export default function Clients() {
 
   const handleDelete = (id) => {
     axios.delete(`${server}/v1/clients/${id}`).then((res) => {
-      cogoToast.success(res.data.filmName + " has been deleted successfully", {
-        position: "top-center",
+      cogoToast.success(res.data.filmName + ' has been deleted successfully', {
+        position: 'top-center',
       });
-    })
+    });
     setData(data.filter((item) => item.id !== id));
   };
 
   const columns = [
     // { field: 'id', headerName: 'ID', width: 70 },
     {
-      field: "filmName",
-      headerName: "Film Name",
+      field: 'filmName',
+      headerName: 'Film Name',
       width: 400,
       renderCell: (params) => {
         return (
           <>
-          <Link to={`/clients/` + params.row.id} style={{textDecoration: "none", color:"inherit", fontWeight: "bold"}}>
-            <div className="clientAvatar">
-            <img className="avatarImg" src={params.row.avatar} alt="" />
-              {params.row.filmName}
-            </div>
-          </Link>
+            <Link
+              to={`/clients/` + params.row.id}
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                fontWeight: 'bold',
+              }}
+            >
+              <div className="clientAvatar">
+                <img className="avatarImg" src={params.row.avatar} alt="" />
+                {params.row.filmName}
+              </div>
+            </Link>
           </>
         );
       },
     },
-    { field: "email", headerName: "Producers Email", width: 200 },
+    { field: 'email', headerName: 'Producers Email', width: 200 },
     {
-      field: "filmCode",
-      headerName: "Film Code",
+      field: 'filmCode',
+      headerName: 'Film Code',
       width: 120,
     },
     {
-      field: "distributionType",
-      headerName: "Distribution Type",
+      field: 'distributionType',
+      headerName: 'Distribution Type',
       width: 160,
     },
     // {
@@ -116,40 +123,40 @@ export default function Clients() {
           m="40px 0 0 0"
           height="75vh"
           sx={{
-            "& .MuiDataGrid-root": {
-              border: "none",
+            '& .MuiDataGrid-root': {
+              border: 'none',
             },
-            "& .MuiDataGrid-cell": {
-              borderBottom: "none",
+            '& .MuiDataGrid-cell': {
+              borderBottom: 'none',
             },
-            "& .name-column--cell": {
+            '& .name-column--cell': {
               color: colors.greenAccent[300],
             },
-            "& .MuiDataGrid-columnHeaders": {
+            '& .MuiDataGrid-columnHeaders': {
               backgroundColor: colors.blueAccent[700],
-              borderBottom: "none",
+              borderBottom: 'none',
             },
-            "& .MuiDataGrid-virtualScroller": {
+            '& .MuiDataGrid-virtualScroller': {
               backgroundColor: colors.primary[400],
             },
-            "& .MuiDataGrid-footerContainer": {
-              borderTop: "none",
+            '& .MuiDataGrid-footerContainer': {
+              borderTop: 'none',
               backgroundColor: colors.blueAccent[700],
             },
-            "& .MuiCheckbox-root": {
+            '& .MuiCheckbox-root': {
               color: `${colors.greenAccent[200]} !important`,
             },
-            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            '& .MuiDataGrid-toolbarContainer .MuiButton-text': {
               color: `${colors.grey[100]} !important`,
             },
           }}
         >
-        <DataGrid
-          disableSelectionOnClick
-          rows={data}
-          columns={columns}
-          components={{ Toolbar: GridToolbar }}
-        />
+          <DataGrid
+            disableSelectionOnClick
+            rows={data}
+            columns={columns}
+            components={{ Toolbar: GridToolbar }}
+          />
         </Box>
       </div>
     </DashBoard>
