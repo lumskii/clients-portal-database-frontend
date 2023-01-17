@@ -28,8 +28,8 @@ export default function RunReport({
         let allSales = response.data.sales.map((sale) => ({
           id: sale._id,
           cName: sale.cName,
-          dealCD: sale.dealCD,
-          dealED: sale.dealED,
+          dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
+          dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
         }));
 
         setCompany(allSales);

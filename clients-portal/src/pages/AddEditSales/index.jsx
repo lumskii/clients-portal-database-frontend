@@ -20,12 +20,10 @@ import {
   InputLabel,
   MenuItem,
   FormLabel,
-  Dialog,
 } from '@mui/material';
 import { Modal } from 'antd';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
-import { useParams } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,7 +76,6 @@ export default function AddEditSales() {
   const [open, setOpen] = useState(true);
   const [details, setDetails] = useState(initialDetails);
   const [loading, setLoading] = useState(false);
-  const { clientsId } = useParams();
   const [showField, setShowField] = useState(false);
 
   const handleTabChange = (event, newValue) => {
@@ -332,17 +329,6 @@ export default function AddEditSales() {
                         />
                       </FormControl>
                       <FormControl sx={{ gridColumn: 'span 2' }}>
-                        <FormLabel id="dates">Deal Closed Date</FormLabel>
-                        <TextField
-                          fullWidth
-                          variant="filled"
-                          type="date"
-                          name="dealCD"
-                          onChange={handleChange}
-                          value={details.dealCD}
-                        />
-                      </FormControl>
-                      <FormControl sx={{ gridColumn: 'span 2' }}>
                         <FormLabel id="dates">Deal Entered Date</FormLabel>
                         <TextField
                           fullWidth
@@ -353,7 +339,17 @@ export default function AddEditSales() {
                           value={details.dealED}
                         />
                       </FormControl>
-
+                      <FormControl sx={{ gridColumn: 'span 2' }}>
+                        <FormLabel id="dates">Deal Closed Date</FormLabel>
+                        <TextField
+                          fullWidth
+                          variant="filled"
+                          type="date"
+                          name="dealCD"
+                          onChange={handleChange}
+                          value={details.dealCD}
+                        />
+                      </FormControl>
                       {showField && (
                         <TextField
                           fullWidth
