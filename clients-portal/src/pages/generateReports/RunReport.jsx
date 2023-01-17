@@ -4,7 +4,6 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import axios from 'axios';
 import { Box, useTheme } from '@mui/material';
 import { server } from '../../constance';
-import { useParams } from 'react-router-dom';
 
 export default function RunReport({
     selectedTitle,
@@ -17,32 +16,31 @@ export default function RunReport({
         const [loading, setLoading] = useState(false);
         const clientId = selectedTitle.key;
 
-        console.log(clientId);
-
         useEffect(() => {
-            const handleRun = async (error) => {
-                setLoading(true);
-                const response = await axios.get(`${server}/v1/clients/${clientId}/sales`);
+          const handleRun = async (error) => {
+            setLoading(true);
+            const response = await axios.get(
+              `${server}/v1/clients/${clientId}/sales`
+            );
 
-                if (response && response.success && response.status === 200) {
-                setLoading(false);
-                console.log(response.sales.sales);
-                let allSales = response.sales.sales.map((sale) => ({
-                    id: sale._id,
-                    cName: sale.cName,
-                    dealCD: sale.dealCD,
-                    dealED: sale.dealED,
-                }));
-    
-                setCompany(allSales);
-                setTableGrid(true);
-                } else {
-                    console.log("unable to fetch", error);
-                }
-            };
-    
-            handleRun();
-        }, [])
+            if (response?.status === 200) {
+              setLoading(false);
+              let allSales = response.data.sales.map((sale) => ({
+                id: sale._id,
+                cName: sale.cName,
+                dealCD: sale.dealCD,
+                dealED: sale.dealED,
+              }));
+
+              setCompany(allSales);
+              setTableGrid(true);
+            } else {
+              console.log("unable to fetch", error);
+            }
+          };
+
+          handleRun();
+        }, [clientId, setCompany, setTableGrid]);
         
         const columns = [
             {
