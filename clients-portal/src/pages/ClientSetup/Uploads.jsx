@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
@@ -11,29 +11,40 @@ import { server } from '../../constance';
 import { flexbox } from '@mui/system';
 import { Field } from 'formik';
 
-
-
 // Register the plugins
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileEncode, FilePondPluginImageResize);
-
+registerPlugin(
+  FilePondPluginImageExifOrientation,
+  FilePondPluginImagePreview,
+  FilePondPluginFileEncode,
+  FilePondPluginImageResize
+);
 
 export default function Uploads({ Upload }) {
-
   return (
     <>
       <FormControl
         style={{ width: '100%' }}
         sx={{
-          gridColumn: "span 4",
-          textAlign: "center",
-          margin: "20px 0 80px 0",
-          alignItems: "center",
+          gridColumn: 'span 4',
+          textAlign: 'center',
+          margin: '20px 0 80px 0',
+          alignItems: 'center',
         }}
       >
-        <Card variant="outlined" sx={{ width: "400px", display: "grid", textAlign: "center", alignItems: "center", padding: "20px", fontWeight: "bold"}}>
+        <Card
+          variant="outlined"
+          sx={{
+            width: '400px',
+            display: 'grid',
+            textAlign: 'center',
+            alignItems: 'center',
+            padding: '20px',
+            fontWeight: 'bold',
+          }}
+        >
           <label htmlFor="file">Film Poster</label>
-            <Upload />
-          </Card>
+          <Upload />
+        </Card>
         {/* <FilePond
         allowMultiple={false}
         files={files}

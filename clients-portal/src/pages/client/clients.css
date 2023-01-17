@@ -1,59 +1,59 @@
 .clientsList {
-    flex: 4;
-    margin: 20px 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
-    height: 800px;
+  flex: 4;
+  margin: 20px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  height: 800px;
 }
 
 @media only screen and (max-height: 768px) {
-    .clientsList {
-        max-height: 600px;
-    }
+  .clientsList {
+    max-height: 600px;
   }
-
-.clientTitleContainerOne{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
 }
 
-.clientAvatar{
-    display: flex;
-    align-items: center;
+.clientTitleContainerOne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
-.avatarImg{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
+.clientAvatar {
+  display: flex;
+  align-items: center;
 }
 
-.avatarImg2{
-    height: 45px;
-    width: 45px;
-    margin: 10px 5px 0 5px;
-    object-fit: cover;
-    border-radius: 50%;
-    vertical-align: middle;
+.avatarImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
-.clientListEdit{
-    border: none;
-    border-radius: 10px;
-    padding: 5px 10px;
-    background-color: rgb(85, 138, 5);
-    color: #fff;
-    cursor: pointer;
-    margin-right: 20px;
+.avatarImg2 {
+  height: 45px;
+  width: 45px;
+  margin: 10px 5px 0 5px;
+  object-fit: cover;
+  border-radius: 50%;
+  vertical-align: middle;
 }
 
-.clientListDelete{
-    font-weight: bold;
-    color: red;
-    font-size: 1.5rem;
-    cursor: pointer;
+.clientListEdit {
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: rgb(85, 138, 5);
+  color: #fff;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.clientListDelete {
+  font-weight: bold;
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
 }

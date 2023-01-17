@@ -1,5 +1,4 @@
-import styled, { keyframes } from "styled-components";
-
+import styled, { keyframes } from 'styled-components';
 
 const colorAnime = keyframes`
   0%   {background: rgb(46, 46, 46);}
@@ -7,7 +6,7 @@ const colorAnime = keyframes`
   50%  {background: rgb(20, 100, 153);}
   75%  {background: rgb(62, 46, 100);}
   100% {background: rgb(46, 46, 46);}
-`
+`;
 
 export const PageLayout = styled.div`
   background: #3b3b3b;
@@ -15,7 +14,7 @@ export const PageLayout = styled.div`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  -moz-font-feature-settings: "liga" on;
+  -moz-font-feature-settings: 'liga' on;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -25,6 +24,6 @@ export const PageLayout = styled.div`
   justify-content: center;
   width: 100%;
   height: 100vh;
-  animation: ${colorAnime} 30s; 
+  animation: ${colorAnime} 30s;
   animation-iteration-count: infinite;
-`
+`;

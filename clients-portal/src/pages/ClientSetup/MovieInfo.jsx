@@ -1,11 +1,16 @@
-import React from 'react'
-import { FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import React from 'react';
+import {
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 
-
-export default function MovieInfo({formik}) {
-
+export default function MovieInfo({ formik }) {
   return (
-      <>
+    <>
       <TextField
         fullWidth
         variant="filled"
@@ -17,7 +22,7 @@ export default function MovieInfo({formik}) {
         name="filmName"
         error={!!formik.touched.filmName && !!formik.errors.filmName}
         helpertext={formik.touched.filmName && formik.errors.filmName}
-        sx={{ gridColumn: "span 2" }}
+        sx={{ gridColumn: 'span 2' }}
       />
 
       <TextField
@@ -29,9 +34,13 @@ export default function MovieInfo({formik}) {
         onBlur={formik.handleBlur}
         value={formik.values.producersEmail}
         onChange={formik.handleChange}
-        error={!!formik.touched.producersEmail && !!formik.errors.producersEmail}
-        helpertext={formik.touched.producersEmail && formik.errors.producersEmail}
-        sx={{ gridColumn: "span 2" }}
+        error={
+          !!formik.touched.producersEmail && !!formik.errors.producersEmail
+        }
+        helpertext={
+          formik.touched.producersEmail && formik.errors.producersEmail
+        }
+        sx={{ gridColumn: 'span 2' }}
       />
       <TextField
         fullWidth
@@ -40,9 +49,9 @@ export default function MovieInfo({formik}) {
         type="text"
         value={formik.values.filmsCode}
         name="filmsCode"
-        sx={{ gridColumn: "span 2" }}
+        sx={{ gridColumn: 'span 2' }}
       />
-      <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
         <InputLabel id="dropdown">Distribution type</InputLabel>
         <Select
           labelId="dropdown"
@@ -51,12 +60,19 @@ export default function MovieInfo({formik}) {
           value={formik.values.distributionType}
           onChange={formik.handleChange}
           label="Distribution Type"
-          error={!!formik.touched.distributionType && !!formik.errors.distributionType}
-          helpertext={formik.touched.distributionType && formik.errors.distributionType}
+          error={
+            !!formik.touched.distributionType &&
+            !!formik.errors.distributionType
+          }
+          helpertext={
+            formik.touched.distributionType && formik.errors.distributionType
+          }
         >
           <MenuItem value="North America">North America</MenuItem>
           <MenuItem value="World">World</MenuItem>
-          <MenuItem value="World excluding North America">World excluding North America</MenuItem>
+          <MenuItem value="World excluding North America">
+            World excluding North America
+          </MenuItem>
           <MenuItem value="International">International - Limited</MenuItem>
         </Select>
       </FormControl>
@@ -65,19 +81,15 @@ export default function MovieInfo({formik}) {
         id="filled-end-adornment"
         onChange={formik.handleChange}
         InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              mins
-            </InputAdornment>
-          ),
+          endAdornment: <InputAdornment position="end">mins</InputAdornment>,
         }}
         name="runtime"
         type="number"
         variant="filled"
         label="Movie Runtime"
-        sx={{ gridColumn: "span 2" }}
+        sx={{ gridColumn: 'span 2' }}
       />
-      <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
         <InputLabel id="dropdown">Movie Genre</InputLabel>
         <Select
           name="genre"
@@ -95,6 +107,6 @@ export default function MovieInfo({formik}) {
           <MenuItem value="western">Western</MenuItem>
         </Select>
       </FormControl>
-      </>
+    </>
   );
 }

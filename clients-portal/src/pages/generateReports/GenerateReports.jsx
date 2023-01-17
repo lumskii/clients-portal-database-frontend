@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { DashBoard } from '../Dashboard/DashboardElements'
+import React, { useEffect, useState } from 'react';
+import { DashBoard } from '../Dashboard/DashboardElements';
 import { components } from 'react-select';
-import './generateReports.css'
+import './generateReports.css';
 import { server } from '../../constance';
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   Slider,
   TextField,
   useMediaQuery,
-} from "@mui/material";
+} from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Heading';
 import { CustomSelect } from './Styled';
@@ -23,10 +23,8 @@ import RunReport from './RunReport';
 // import moment from 'moment';
 const { RangePicker } = DatePicker;
 
-
-
 export default function Reports() {
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isNonMobile = useMediaQuery('(min-width:600px)');
   const [selectedOption, setSelectedOption] = useState('');
   const [selectedFilm, setSelectedFilm] = useState('');
   const [selectedRevenue, setSelectedRevenue] = useState('');
@@ -57,7 +55,6 @@ export default function Reports() {
   const [tableGrid, setTableGrid] = useState(false);
   const [selectedTitle, setSelectedTitle] = useState(null);
 
-
   const CustomInput = (inputProps) => {
     const { maxLength } = inputProps.selectProps;
     const inputPropsWithMaxLength = { ...inputProps, maxLength };
@@ -66,92 +63,91 @@ export default function Reports() {
   };
 
   const MSelect = ({ options, maxLength, ...props }) => (
-      <CustomSelect
-        options={options}
-        components={{ Input: CustomInput }}
-        className="select"
-        classNamePrefix="select"
-        inputId="custom-select"
-        {...props}
-      />
+    <CustomSelect
+      options={options}
+      components={{ Input: CustomInput }}
+      className="select"
+      classNamePrefix="select"
+      inputId="custom-select"
+      {...props}
+    />
   );
 
-    const valuetext = (value) => {
-      return `${Number(value)}°C`;
+  const valuetext = (value) => {
+    return `${Number(value)}°C`;
+  };
+
+  const marks = [
+    {
+      value: 1,
+      label: 'year',
+    },
+    {
+      value: 10,
+      label: 'years',
+    },
+    {
+      value: 20,
+      label: 'years',
+    },
+    {
+      value: 30,
+      label: 'years',
+    },
+  ];
+
+  useEffect(() => {
+    const fetchTitles = () => {
+      console.log('fetching...');
+      fetch(`${server}/v1/clients`)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 200) {
+            console.log('res', res.data.clients);
+            let allTitles = res.data.clients.map((client) => ({
+              label: client.filmName,
+              value: client.filmName,
+              key: client._id,
+            }));
+
+            setTitles(allTitles);
+          } else {
+            console.log('unable to fetch');
+          }
+        });
     };
 
-    const marks = [
-      {
-        value: 1,
-        label: 'year',
-      },
-      {
-        value: 10,
-        label: 'years',
-      },
-      {
-        value: 20,
-        label: 'years',
-      },
-      {
-        value: 30,
-        label: 'years',
-      },
-    ];
+    fetchTitles();
+  }, []);
 
-      useEffect(() => {
-        const fetchTitles = () => {
-          console.log("fetching...");
-          fetch(`${server}/v1/clients`)
-            .then((res) => res.json())
-            .then((res) => {
-              if (res.status === 200) {
-                console.log("res", res.data.clients);
-                let allTitles = res.data.clients.map((client) => ({
-                  label: client.filmName,
-                  value: client.filmName,
-                  key: client._id,
-                }));
-    
-                setTitles(allTitles);
-              } else {
-                console.log("unable to fetch");
-              }
-            });
-        };
-    
-        fetchTitles();
-      }, []);
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
-      const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-      };
+  const handleOk = (values) => {
+    setSelectedValue(values);
+    setShowRangePicker(false);
+  };
 
-      const handleOk = (values) => {
-        setSelectedValue(values);
-        setShowRangePicker(false);
-      };
-
-    const runReportButton = () => {
-      return (
-        <RunReport
-          setCompany={setCompany}
-          selectedTitle={selectedTitle}
-          company={company}
-          tableGrid={tableGrid}
-          setTableGrid={setTableGrid}
-        />
-      );
-    };
-
+  const runReportButton = () => {
+    return (
+      <RunReport
+        setCompany={setCompany}
+        selectedTitle={selectedTitle}
+        company={company}
+        tableGrid={tableGrid}
+        setTableGrid={setTableGrid}
+      />
+    );
+  };
 
   return (
     <DashBoard>
@@ -166,32 +162,32 @@ export default function Reports() {
             gap="30px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
-              "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+              '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
             }}
           >
             <div
               sx={{
-                alignItems: "center",
-                width: "500px",
-                backgroundColor: "#000",
-                height: "3px",
+                alignItems: 'center',
+                width: '500px',
+                backgroundColor: '#000',
+                height: '3px',
               }}
             >
               <button
-                className={button ? "exp_btn_close" : "submit"}
+                className={button ? 'exp_btn_close' : 'submit'}
                 type="button"
                 onClick={() => setButton(!button)}
               >
-                {button === true ? "Close" : "Generate"}
+                {button === true ? 'Close' : 'Generate'}
               </button>
             </div>
 
             {button && (
               <>
                 <FormControl
-                  style={{ width: "100%" }}
+                  style={{ width: '100%' }}
                   variant="filled"
-                  sx={{ gridColumn: "span 4" }}
+                  sx={{ gridColumn: 'span 4' }}
                 >
                   <InputLabel id="dropdown">Select type</InputLabel>
                   <Select
@@ -211,14 +207,14 @@ export default function Reports() {
                   </Select>
                 </FormControl>
 
-                {selectedOption === "film report" && (
+                {selectedOption === 'film report' && (
                   <>
                     {
                       <>
                         <FormControl
-                          style={{ width: "100%" }}
+                          style={{ width: '100%' }}
                           variant="filled"
-                          sx={{ gridColumn: "span 2" }}
+                          sx={{ gridColumn: 'span 2' }}
                         >
                           <InputLabel id="dropdown2">Select option</InputLabel>
                           <Select
@@ -248,16 +244,16 @@ export default function Reports() {
                           </Select>
                         </FormControl>
 
-                        {selectedFilm === "film by buyer" && (
+                        {selectedFilm === 'film by buyer' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <TextField
                               variant="filled"
                               fullWidth
-                              value={selectedTitles ? selectedTitles.value : ""}
+                              value={selectedTitles ? selectedTitles.value : ''}
                               onClick={handleOpen}
                             />
                             <Modal
@@ -283,11 +279,11 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedFilm === "film by territory" && (
+                        {selectedFilm === 'film by territory' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <InputLabel id="territory">
                               Select territory
@@ -297,20 +293,24 @@ export default function Reports() {
                               value={filmTerritory}
                               onChange={(e) => {
                                 setFilmTerritory(e.target.value);
-                                setRunButton(e.target.value !== "");
+                                setRunButton(e.target.value !== '');
                               }}
                             >
                               <MenuItem value="">
                                 <em>None</em>
                               </MenuItem>
-                              <MenuItem value="australia">Australia/NZ</MenuItem>
+                              <MenuItem value="australia">
+                                Australia/NZ
+                              </MenuItem>
                               <MenuItem value="benelux">Benelux</MenuItem>
                               <MenuItem value="france">France</MenuItem>
                               <MenuItem value="germany">Germany</MenuItem>
                               <MenuItem value="iceland">Iceland</MenuItem>
                               <MenuItem value="israel">Israel</MenuItem>
                               <MenuItem value="italy">Italy</MenuItem>
-                              <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                              <MenuItem value="scandinavia">
+                                Scandinavia
+                              </MenuItem>
                               <MenuItem value="spain/portugal">
                                 Spain/Portugal
                               </MenuItem>
@@ -323,17 +323,23 @@ export default function Reports() {
                               <MenuItem value="eastern_europe">
                                 Eastern Europe(Excluding CIS)
                               </MenuItem>
-                              <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                              <MenuItem value="asia_pay_tv">
+                                Asia Pay TV
+                              </MenuItem>
                               <MenuItem value="india">India</MenuItem>
                               <MenuItem value="china">China</MenuItem>
                               <MenuItem value="malaysia">Malaysia</MenuItem>
-                              <MenuItem value="philippines">Philippines</MenuItem>
+                              <MenuItem value="philippines">
+                                Philippines
+                              </MenuItem>
                               <MenuItem value="thailand">Thailand</MenuItem>
                               <MenuItem value="singapore">Singapore</MenuItem>
                               <MenuItem value="japan">Japan</MenuItem>
                               <MenuItem value="taiwan">Taiwan</MenuItem>
                               <MenuItem value="Vietnam">South Korea</MenuItem>
-                              <MenuItem value="middle_east">Middle East</MenuItem>
+                              <MenuItem value="middle_east">
+                                Middle East
+                              </MenuItem>
                               <MenuItem value="latin_america">
                                 Latin America
                               </MenuItem>
@@ -345,11 +351,11 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedFilm === "film by age" && (
+                        {selectedFilm === 'film by age' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <TextField
                               variant="filled"
@@ -385,7 +391,7 @@ export default function Reports() {
                                   }}
                                   variant="contained"
                                   style={{
-                                    margin: "20px 0px 0px calc(100% - 80px)",
+                                    margin: '20px 0px 0px calc(100% - 80px)',
                                   }}
                                 >
                                   Confirm
@@ -395,11 +401,11 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedFilm === "film by contract" && (
+                        {selectedFilm === 'film by contract' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <TextField
                               variant="filled"
@@ -407,9 +413,11 @@ export default function Reports() {
                               value={
                                 selectedValue
                                   ? `${selectedValue[0].format(
-                                      "DD/MM/YYYY"
-                                    )} - ${selectedValue[1].format("DD/MM/YYYY")}`
-                                  : ""
+                                      'DD/MM/YYYY'
+                                    )} - ${selectedValue[1].format(
+                                      'DD/MM/YYYY'
+                                    )}`
+                                  : ''
                               }
                               onClick={() => setShowRangePicker(true)}
                             />
@@ -438,19 +446,19 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedFilm === "film by genre" && (
+                        {selectedFilm === 'film by genre' && (
                           <FormControl
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
-                            style={{ width: "100%" }}
+                            sx={{ gridColumn: 'span 2' }}
+                            style={{ width: '100%' }}
                           >
                             <InputLabel id="dropdown">Movie Genre</InputLabel>
-                            <Select 
+                            <Select
                               name="genre"
                               value={filmGenre}
                               onChange={(e) => {
                                 setFilmGenre(e.target.value);
-                                setRunButton(e.target.value !== "");
+                                setRunButton(e.target.value !== '');
                               }}
                             >
                               <MenuItem value="">
@@ -472,14 +480,14 @@ export default function Reports() {
                     }
                   </>
                 )}
-                {selectedOption === "revenue report" && (
+                {selectedOption === 'revenue report' && (
                   <>
                     {
                       <>
                         <FormControl
-                          style={{ width: "100%" }}
+                          style={{ width: '100%' }}
                           variant="filled"
-                          sx={{ gridColumn: "span 2" }}
+                          sx={{ gridColumn: 'span 2' }}
                         >
                           <InputLabel id="dropdown3">Select option</InputLabel>
                           <Select
@@ -509,11 +517,11 @@ export default function Reports() {
                           </Select>
                         </FormControl>
 
-                        {selectedRevenue === "revenue by territory" && (
+                        {selectedRevenue === 'revenue by territory' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <InputLabel id="dropdown4">
                               Select territory
@@ -526,14 +534,18 @@ export default function Reports() {
                               }}
                             >
                               <MenuItem value="all">All</MenuItem>
-                              <MenuItem value="australia">Australia/NZ</MenuItem>
+                              <MenuItem value="australia">
+                                Australia/NZ
+                              </MenuItem>
                               <MenuItem value="benelux">Benelux</MenuItem>
                               <MenuItem value="france">France</MenuItem>
                               <MenuItem value="germany">Germany</MenuItem>
                               <MenuItem value="iceland">Iceland</MenuItem>
                               <MenuItem value="israel">Israel</MenuItem>
                               <MenuItem value="italy">Italy</MenuItem>
-                              <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                              <MenuItem value="scandinavia">
+                                Scandinavia
+                              </MenuItem>
                               <MenuItem value="spain/portugal">
                                 Spain/Portugal
                               </MenuItem>
@@ -546,17 +558,23 @@ export default function Reports() {
                               <MenuItem value="eastern_europe">
                                 Eastern Europe(Excluding CIS)
                               </MenuItem>
-                              <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                              <MenuItem value="asia_pay_tv">
+                                Asia Pay TV
+                              </MenuItem>
                               <MenuItem value="india">India</MenuItem>
                               <MenuItem value="china">China</MenuItem>
                               <MenuItem value="malaysia">Malaysia</MenuItem>
-                              <MenuItem value="philippines">Philippines</MenuItem>
+                              <MenuItem value="philippines">
+                                Philippines
+                              </MenuItem>
                               <MenuItem value="thailand">Thailand</MenuItem>
                               <MenuItem value="singapore">Singapore</MenuItem>
                               <MenuItem value="japan">Japan</MenuItem>
                               <MenuItem value="taiwan">Taiwan</MenuItem>
                               <MenuItem value="Vietnam">South Korea</MenuItem>
-                              <MenuItem value="middle_east">Middle East</MenuItem>
+                              <MenuItem value="middle_east">
+                                Middle East
+                              </MenuItem>
                               <MenuItem value="latin_america">
                                 Latin America
                               </MenuItem>
@@ -568,11 +586,11 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedRevenue === "revenue by platform" && (
+                        {selectedRevenue === 'revenue by platform' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <InputLabel id="dropdown5">
                               Select platform
@@ -597,17 +615,21 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedRevenue === "revenue by year" && (
+                        {selectedRevenue === 'revenue by year' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <TextField
                               fullWidth
-                              variant="filled" 
+                              variant="filled"
                               onClick={() => setShowRangePicker(true)}
-                              value={selectedValue ? selectedValue.format('YYYY') : ''}
+                              value={
+                                selectedValue
+                                  ? selectedValue.format('YYYY')
+                                  : ''
+                              }
                             />
                             <ModalAD
                               open={showRangePicker}
@@ -625,27 +647,31 @@ export default function Reports() {
                                 }
                               }}
                             >
-                            <DatePicker 
-                              picker='year'
-                              onChange={(values) => {
-                                setSelectedValue(values);
-                              }}
-                            />
+                              <DatePicker
+                                picker="year"
+                                onChange={(values) => {
+                                  setSelectedValue(values);
+                                }}
+                              />
                             </ModalAD>
                           </FormControl>
                         )}
 
-                        {selectedRevenue === "revenue by month" && (
+                        {selectedRevenue === 'revenue by month' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <TextField
                               fullWidth
-                              variant="filled" 
+                              variant="filled"
                               onClick={() => setShowRangePicker(true)}
-                              value={selectedValue ? selectedValue.format('MM/YYYY') : ''}
+                              value={
+                                selectedValue
+                                  ? selectedValue.format('MM/YYYY')
+                                  : ''
+                              }
                             />
                             <ModalAD
                               open={showRangePicker}
@@ -663,12 +689,12 @@ export default function Reports() {
                                 }
                               }}
                             >
-                              <DatePicker 
-                                picker='month'
+                              <DatePicker
+                                picker="month"
                                 onChange={(values) => {
-                                setSelectedValue(values);
+                                  setSelectedValue(values);
                                 }}
-                            />
+                              />
                             </ModalAD>
                           </FormControl>
                         )}
@@ -676,14 +702,14 @@ export default function Reports() {
                     }
                   </>
                 )}
-                {selectedOption === "sales report" && (
+                {selectedOption === 'sales report' && (
                   <>
                     {
                       <>
                         <FormControl
-                          style={{ width: "100%" }}
+                          style={{ width: '100%' }}
                           variant="filled"
-                          sx={{ gridColumn: "span 2" }}
+                          sx={{ gridColumn: 'span 2' }}
                         >
                           <InputLabel id="dropdown2">Select option</InputLabel>
                           <Select
@@ -714,11 +740,11 @@ export default function Reports() {
                           </Select>
                         </FormControl>
 
-                        {selectedSales === "sales by buyer" && (
+                        {selectedSales === 'sales by buyer' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <TextField
                               placeholder="Enter buyer name"
@@ -727,11 +753,11 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedSales === "sales by territory" && (
+                        {selectedSales === 'sales by territory' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <InputLabel id="dropdown3">
                               Select territory
@@ -744,14 +770,18 @@ export default function Reports() {
                               }
                             >
                               <MenuItem value="all">All Territories</MenuItem>
-                              <MenuItem value="australia">Australia/NZ</MenuItem>
+                              <MenuItem value="australia">
+                                Australia/NZ
+                              </MenuItem>
                               <MenuItem value="benelux">Benelux</MenuItem>
                               <MenuItem value="france">France</MenuItem>
                               <MenuItem value="germany">Germany</MenuItem>
                               <MenuItem value="iceland">Iceland</MenuItem>
                               <MenuItem value="israel">Israel</MenuItem>
                               <MenuItem value="italy">Italy</MenuItem>
-                              <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                              <MenuItem value="scandinavia">
+                                Scandinavia
+                              </MenuItem>
                               <MenuItem value="spain/portugal">
                                 Spain/Portugal
                               </MenuItem>
@@ -764,17 +794,23 @@ export default function Reports() {
                               <MenuItem value="eastern_europe">
                                 Eastern Europe(Excluding CIS)
                               </MenuItem>
-                              <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                              <MenuItem value="asia_pay_tv">
+                                Asia Pay TV
+                              </MenuItem>
                               <MenuItem value="india">India</MenuItem>
                               <MenuItem value="china">China</MenuItem>
                               <MenuItem value="malaysia">Malaysia</MenuItem>
-                              <MenuItem value="philippines">Philippines</MenuItem>
+                              <MenuItem value="philippines">
+                                Philippines
+                              </MenuItem>
                               <MenuItem value="thailand">Thailand</MenuItem>
                               <MenuItem value="singapore">Singapore</MenuItem>
                               <MenuItem value="japan">Japan</MenuItem>
                               <MenuItem value="taiwan">Taiwan</MenuItem>
                               <MenuItem value="Vietnam">South Korea</MenuItem>
-                              <MenuItem value="middle_east">Middle East</MenuItem>
+                              <MenuItem value="middle_east">
+                                Middle East
+                              </MenuItem>
                               <MenuItem value="latin_america">
                                 Latin America
                               </MenuItem>
@@ -786,17 +822,21 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedSales === "sales by year" && (
+                        {selectedSales === 'sales by year' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <TextField
                               fullWidth
-                              variant="filled" 
+                              variant="filled"
                               onClick={() => setShowRangePicker(true)}
-                              value={selectedValue ? selectedValue.format('YYYY') : ''}
+                              value={
+                                selectedValue
+                                  ? selectedValue.format('YYYY')
+                                  : ''
+                              }
                             />
                             <ModalAD
                               open={showRangePicker}
@@ -814,23 +854,25 @@ export default function Reports() {
                                 }
                               }}
                             >
-                            <DatePicker 
-                              picker='year'
-                              onChange={(values) => {
-                                setSelectedValue(values);
-                              }}
-                            />
+                              <DatePicker
+                                picker="year"
+                                onChange={(values) => {
+                                  setSelectedValue(values);
+                                }}
+                              />
                             </ModalAD>
                           </FormControl>
                         )}
 
-                        {selectedSales === "sales by runtime" && (
+                        {selectedSales === 'sales by runtime' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
-                            <InputLabel id="dropdown5">Select runtime</InputLabel>
+                            <InputLabel id="dropdown5">
+                              Select runtime
+                            </InputLabel>
                             <Select
                               name="salesRuntime"
                               value={selectedSalesRuntime}
@@ -848,11 +890,11 @@ export default function Reports() {
                           </FormControl>
                         )}
 
-                        {selectedSales === "sales by genre" && (
+                        {selectedSales === 'sales by genre' && (
                           <FormControl
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             variant="filled"
-                            sx={{ gridColumn: "span 2" }}
+                            sx={{ gridColumn: 'span 2' }}
                           >
                             <InputLabel id="dropdown6">Select genre</InputLabel>
                             <Select
@@ -868,7 +910,9 @@ export default function Reports() {
                               <MenuItem value="animation">Animation</MenuItem>
                               <MenuItem value="comedy">Comedy</MenuItem>
                               <MenuItem value="crime">Crime</MenuItem>
-                              <MenuItem value="documentary">Documentary</MenuItem>
+                              <MenuItem value="documentary">
+                                Documentary
+                              </MenuItem>
                               <MenuItem value="drama">Drama</MenuItem>
                               <MenuItem value="family">Family</MenuItem>
                               <MenuItem value="fantasy">Fantasy</MenuItem>
@@ -891,13 +935,13 @@ export default function Reports() {
                     }
                   </>
                 )}
-                {selectedOption === "client report" && (
+                {selectedOption === 'client report' && (
                   <>
                     {
                       <FormControl
-                        style={{ width: "100%" }}
+                        style={{ width: '100%' }}
                         variant="filled"
-                        sx={{ gridColumn: "span 2" }}
+                        sx={{ gridColumn: 'span 2' }}
                       >
                         <InputLabel id="dropdown2">Select option</InputLabel>
                         <Select
@@ -916,7 +960,9 @@ export default function Reports() {
                           <MenuItem value="client by location">
                             Client by Territory
                           </MenuItem>
-                          <MenuItem value="client by age">Client by Age</MenuItem>
+                          <MenuItem value="client by age">
+                            Client by Age
+                          </MenuItem>
                         </Select>
                       </FormControl>
                     }
@@ -924,14 +970,14 @@ export default function Reports() {
                 )}
               </>
             )}
-          </Box> 
+          </Box>
         )}
 
         {selectedRevTerritory && (
           <FormControl
-            style={{ width: "100%", margin: "20px 0 0 0" }}
+            style={{ width: '100%', margin: '20px 0 0 0' }}
             variant="filled"
-            sx={{ gridColumn: "span 4" }}
+            sx={{ gridColumn: 'span 4' }}
           >
             <TextField
               fullWidth
@@ -939,9 +985,9 @@ export default function Reports() {
               value={
                 selectedValue
                   ? `${selectedValue[0].format(
-                      "DD/MM/YYYY"
-                    )} - ${selectedValue[1].format("DD/MM/YYYY")}`
-                  : ""
+                      'DD/MM/YYYY'
+                    )} - ${selectedValue[1].format('DD/MM/YYYY')}`
+                  : ''
               }
               onClick={() => setShowRangePicker(true)}
             />
@@ -974,7 +1020,7 @@ export default function Reports() {
           <button
             type="button"
             className="submit"
-            style={{ margin: "20px 0 0 0" }}
+            style={{ margin: '20px 0 0 0' }}
             onClick={() => {
               setRunButton(false);
               setShowContent(false);
@@ -985,11 +1031,7 @@ export default function Reports() {
           </button>
         )}
 
-            {tableGrid && (
-                <>
-                {runReportButton()}
-                </>
-            )}
+        {tableGrid && <>{runReportButton()}</>}
       </Box>
     </DashBoard>
   );

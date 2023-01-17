@@ -1,10 +1,10 @@
-import { FormControl, FormLabel, TextField } from '@mui/material'
-import React from 'react'
+import { FormControl, FormLabel, TextField } from '@mui/material';
+import React from 'react';
 
-export default function Date({formik}) {
+export default function Date({ formik }) {
   return (
     <>
-      <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth sx={{ gridColumn: 'span 2' }}>
         <FormLabel id="dates">Effective Date</FormLabel>
         <TextField
           type="date"
@@ -22,7 +22,7 @@ export default function Date({formik}) {
         />
       </FormControl>
 
-      <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth sx={{ gridColumn: 'span 2' }}>
         <FormLabel id="dates">Date of Signature</FormLabel>
         <TextField
           type="date"
@@ -33,7 +33,7 @@ export default function Date({formik}) {
         />
       </FormControl>
 
-      <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth sx={{ gridColumn: 'span 2' }}>
         <FormLabel id="dates">Renewal Date</FormLabel>
         <TextField
           type="date"
@@ -44,7 +44,7 @@ export default function Date({formik}) {
         />
       </FormControl>
 
-      <FormControl fullWidth sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth sx={{ gridColumn: 'span 2' }}>
         <FormLabel id="dates">Term Expiration</FormLabel>
         <TextField
           type="date"

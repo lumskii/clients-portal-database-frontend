@@ -22,11 +22,10 @@
 .textItem {
   margin: 0 auto 30px;
   width: 280px;
-  color:rgb(230, 230, 230);
+  color: rgb(230, 230, 230);
 }
 
 @media only screen and (max-width: 280px) {
-
   .bodyLayout,
   .textItem {
     width: 95%;
@@ -36,7 +35,6 @@
     font-size: 1.5em;
     margin: 0 0 0.3em;
   }
-
 }
 
 .button {

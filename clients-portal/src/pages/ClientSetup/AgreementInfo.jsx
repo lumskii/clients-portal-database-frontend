@@ -1,12 +1,27 @@
-import { FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
-import React from 'react'
-import { useState } from 'react'
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from '@mui/material';
+import React from 'react';
+import { useState } from 'react';
 
-export default function AgreementInfo({formik, isToggled, setIsToggled, comment, setComment}) {
-
+export default function AgreementInfo({
+  formik,
+  isToggled,
+  setIsToggled,
+  comment,
+  setComment,
+}) {
   return (
     <>
-      <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
         <FormLabel id="agreement">Right of Sale</FormLabel>
         <RadioGroup
           aria-labelledby="agreement"
@@ -19,7 +34,9 @@ export default function AgreementInfo({formik, isToggled, setIsToggled, comment,
         >
           <FormControlLabel
             value="yes"
-            onClick={() => {setIsToggled(false) || setComment(false)}}
+            onClick={() => {
+              setIsToggled(false) || setComment(false);
+            }}
             control={<Radio />}
             label="Yes"
           />
@@ -39,10 +56,21 @@ export default function AgreementInfo({formik, isToggled, setIsToggled, comment,
                 value={formik.values.rightSaleOpt}
                 onChange={formik.handleChange}
               >
-                <MenuItem value="above 'low' in estimates" onClick={() => setComment(false)}>Above "Low" in Estimates</MenuItem>
-                <MenuItem value="mexico" onClick={() => setComment(false)}>Producer - With Time Restraint</MenuItem>
-                <MenuItem value="uk" onClick={() => setComment(false)}>Producer</MenuItem>
-                <MenuItem value="other" onClick={() => setComment(true)}>Other</MenuItem>
+                <MenuItem
+                  value="above 'low' in estimates"
+                  onClick={() => setComment(false)}
+                >
+                  Above "Low" in Estimates
+                </MenuItem>
+                <MenuItem value="mexico" onClick={() => setComment(false)}>
+                  Producer - With Time Restraint
+                </MenuItem>
+                <MenuItem value="uk" onClick={() => setComment(false)}>
+                  Producer
+                </MenuItem>
+                <MenuItem value="other" onClick={() => setComment(true)}>
+                  Other
+                </MenuItem>
               </Select>
             </FormControl>
           )}
@@ -66,7 +94,7 @@ export default function AgreementInfo({formik, isToggled, setIsToggled, comment,
         </RadioGroup>
       </FormControl>
 
-      <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
         <FormLabel id="agreement">CAMA Involved</FormLabel>
         <RadioGroup
           aria-labelledby="agreement"
@@ -80,7 +108,7 @@ export default function AgreementInfo({formik, isToggled, setIsToggled, comment,
         </RadioGroup>
       </FormControl>
 
-      <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
         <InputLabel id="dropdown2">Country of Law</InputLabel>
         <Select
           labelId="dropdown2"
@@ -99,7 +127,7 @@ export default function AgreementInfo({formik, isToggled, setIsToggled, comment,
         </Select>
       </FormControl>
 
-      <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 2" }}>
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
         <InputLabel id="dropdown3">State of Law</InputLabel>
         <Select
           labelId="dropdown3"

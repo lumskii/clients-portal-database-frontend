@@ -1,5 +1,5 @@
-import { Typography, Box, useTheme } from "@mui/material";
-import { tokens } from "../theme";
+import { Typography, Box, useTheme } from '@mui/material';
+import { tokens } from '../theme';
 
 const Heading = ({ title, subtitle }) => {
   const theme = useTheme();
@@ -10,7 +10,7 @@ const Heading = ({ title, subtitle }) => {
         variant="h4"
         color={colors.grey[100]}
         fontWeight="800"
-        sx={{ m: "0 0 -2px 0" }}
+        sx={{ m: '0 0 -2px 0' }}
       >
         {title}
       </Typography>
