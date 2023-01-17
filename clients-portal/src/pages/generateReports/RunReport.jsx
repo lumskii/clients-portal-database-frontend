@@ -10,6 +10,7 @@ export default function RunReport({
   setTableGrid,
   setCompany,
   company,
+  setShowContent,
 }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -52,6 +53,11 @@ export default function RunReport({
     { field: 'dealCD', headerName: 'Deal Closed Date', width: 200 },
   ];
 
+  const handleGoBack = () => {
+    setTableGrid(false);
+    setShowContent(true);
+  };
+
   console.log(columns);
 
   return (
@@ -88,6 +94,9 @@ export default function RunReport({
           },
         }}
       >
+        <button className="position clientAddButton" onClick={handleGoBack}>
+          Go Back
+        </button>
         <DataGrid
           rows={company}
           columns={columns}

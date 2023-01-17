@@ -143,7 +143,7 @@ export default function Reports() {
         setCompany={setCompany}
         selectedTitle={selectedTitle}
         company={company}
-        tableGrid={tableGrid}
+        setShowContent={setShowContent}
         setTableGrid={setTableGrid}
       />
     );
