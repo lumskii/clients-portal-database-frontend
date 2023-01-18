@@ -64,14 +64,14 @@ const Login = () => {
               value="Login"
             />
 
-            <p className="text-center">
+            <div className="text-center">
               Don't have an account?
               <Signup to="/sign-up">
                 <div className="signup">Sign up</div>
               </Signup>
               <br />
               <i className="fa fa-hand-o-down" aria-hidden="true"></i>
-            </p>
+            </div>
             <div className="social-sign">
               {/* <a href="#">
                 <i className="fa fa-facebook-square" aria-hidden="true"></i>
