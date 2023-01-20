@@ -23,22 +23,14 @@ export default function EditSales({
   sales,
   setSales,
   handleChange,
+  handleSave,
 }) {
   const [editSale, setEditSale] = useState({});
+  const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const clientId = selectedTitle.id;
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [open, setOpen] = useState(false);
-
-  const handleEdit = (sale) => {
-    setEditSale(sale);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     const retrieveSales = async (error) => {
@@ -88,7 +80,10 @@ export default function EditSales({
           <Button
             variant="contained"
             color="primary"
-            onClick={() => handleEdit(params.row)}
+            onClick={() => {
+              setEditSale(params.row);
+              setOpenModal(true);
+            }}
           >
             Edit
           </Button>
@@ -138,6 +133,13 @@ export default function EditSales({
           // components={{
           //   Toolbar: GridToolbar,
           // }}
+        />
+        <Model
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          editSale={editSale}
+          handleChange={handleChange}
+          handleSave={handleSave}
         />
       </Box>
     </>
