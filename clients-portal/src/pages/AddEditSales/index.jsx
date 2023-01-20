@@ -20,10 +20,14 @@ import {
   InputLabel,
   MenuItem,
   FormLabel,
+  Alert,
+  AlertTitle,
 } from '@mui/material';
 import { Modal } from 'antd';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
+import EditSales from './EditSales';
+import { NumberFormatBase } from 'react-number-format';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,6 +75,7 @@ export default function AddEditSales() {
   const [selectedTitle, setSelectedTitle] = useState(null);
   const [toggleState, setToggleState] = useState(0);
   const [titles, setTitles] = useState([]);
+  const [sales, setSales] = useState([]);
   const isNonMobile = useMediaQuery('(min-width:600px)');
   const theme = useTheme();
   const [open, setOpen] = useState(true);
@@ -80,6 +85,9 @@ export default function AddEditSales() {
 
   const handleTabChange = (event, newValue) => {
     setToggleState(newValue);
+    // if (newValue === 1) {
+    //   getSalesRevenue();
+    // }
   };
 
   const handleChangeIndex = (index) => {
@@ -152,6 +160,44 @@ export default function AddEditSales() {
     return <components.TextField {...inputProps} />;
   };
 
+  const getSalesRevenue = () => {
+    return (
+      <EditSales
+        selectedTitle={selectedTitle}
+        sales={sales}
+        setSales={setSales}
+        handleChange={handleChange}
+      />
+    );
+  };
+
+  // function MyCustomNumberFormat(props) {
+  //   const format = (numStr) => {
+  //     if (numStr === '') return '';
+  //     return new Intl.NumberFormat('en-US', {
+  //       style: 'currency',
+  //       currency: 'USD',
+  //       maximumFractionDigits: 0,
+  //     }).format(numStr);
+  //   };
+
+  //   const materialUIProps = {
+  //     variant: 'filled',
+  //     label: 'Sales Amount',
+  //     type: 'number',
+  //     name: 'salesAmount',
+  //   };
+
+  //   return (
+  //     <NumberFormatBase
+  //       {...props}
+  //       format={format}
+  //       customInput={TextField}
+  //       {...materialUIProps}
+  //     />
+  //   );
+  // }
+
   return (
     <DashBoard>
       <Box m="80px 20px 20px 20px">
@@ -169,7 +215,12 @@ export default function AddEditSales() {
             centered
             open={open}
             onOk={() => setOpen(false)}
-            onCancel={() => setOpen(true)}
+            onCancel={() => {
+              setSelectedTitle(null);
+              if (selectedTitle === null) {
+                setOpen(false);
+              }
+            }}
             width={500}
           >
             <Select
@@ -184,6 +235,30 @@ export default function AddEditSales() {
               value={selectedTitle}
             />
           </Modal>
+          {selectedTitle === null && open === false && (
+            <Alert
+              severity="info"
+              sx={{ gridRow: '3', gridColumn: 'span 3' }}
+              style={{ gridTemplateColumns: '0fr 1fr' }}
+            >
+              <AlertTitle style={{ fontWeight: 'bold', fontSize: '18px' }}>
+                Info
+              </AlertTitle>
+              <div style={{ fontSize: '16px' }}>
+                {selectedTitle
+                  ? selectedTitle.value
+                  : 'Title is required to add sales revenue'}
+              </div>
+              <button
+                style={{ display: 'grid', margin: '10px 0 5px 0' }}
+                type="button"
+                className="left submit"
+                onClick={() => setOpen(true)}
+              >
+                Go Back
+              </button>
+            </Alert>
+          )}
           {selectedTitle !== null && (
             <>
               <div
@@ -373,58 +448,7 @@ export default function AddEditSales() {
                   </form>
                 </TabPanel>
                 <TabPanel value={toggleState} index={1} dir={theme.direction}>
-                  <form onSubmit={handleSubmit}>
-                    <div className="edit_container">
-                      <div className="form-input2">
-                        <span className="clientUpdateTitle">Edit</span>
-                        <div className="clientUpdateLeft">
-                          <div className="clientUpdateItem">
-                            <label>Film Name</label>
-                            <input
-                              type="text"
-                              placeholder="The Test"
-                              className="clientUpdateInput"
-                            />
-                          </div>
-                          <div className="clientUpdateItem">
-                            <label>Producer's Email</label>
-                            <input
-                              type="email"
-                              placeholder="producer@gmail.com"
-                              className="clientUpdateInput"
-                            />
-                          </div>
-                          <div className="clientUpdateItem">
-                            <label>Distribution Type</label>
-                            <input
-                              type="text"
-                              placeholder="Sales only"
-                              className="clientUpdateInput"
-                            />
-                          </div>
-                          <div className="clientUpdateItem">
-                            <label>Phone Number</label>
-                            <input
-                              type="text"
-                              placeholder="+1 123 456 7890"
-                              className="clientUpdateInput"
-                            />
-                          </div>
-                          <div className="clientUpdateItem">
-                            <label>Location</label>
-                            <input
-                              type="text"
-                              placeholder="New York | USA"
-                              className="clientUpdateInput"
-                            />
-                          </div>
-                        </div>
-                        <button type="submit" id="submit-button2">
-                          Submit
-                        </button>
-                      </div>
-                    </div>
-                  </form>
+                  {getSalesRevenue()}
                 </TabPanel>
               </SwipeableViews>
             </>
