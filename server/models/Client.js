@@ -125,6 +125,7 @@ const ClientSchema = new Schema({
       cName: {
         type: String,
         maxlength: 20,
+        required: true,
       },
       territory: {
         type: String,

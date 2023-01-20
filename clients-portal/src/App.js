@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CircularProgress } from '@mui/material';
 import Dashboard from './pages/Dashboard';
 import ClientSetup from './pages/ClientSetup';
 import Login from './pages/LoginPage';
@@ -8,7 +9,12 @@ import ForgotPassword from './pages/ForgotPassword';
 import NotFound from './pages/NotFound';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout, selectUser } from './features/userSlice';
+import {
+  login,
+  logout,
+  selectIsLoaded,
+  selectUser,
+} from './features/userSlice';
 import AddEditSales from './pages/AddEditSales';
 import Distribution from './pages/DistributionRev';
 import AddExpenses from './pages/AddExpenses';
@@ -21,6 +27,7 @@ import Header from './components/Header';
 
 function App() {
   const user = useSelector(selectUser);
+  const isLoaded = useSelector(selectIsLoaded);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,6 +48,19 @@ function App() {
 
     return unsubscribe;
   }, [dispatch]);
+
+  if (!isLoaded) {
+    return (
+      <CircularProgress
+        sx={{
+          color: '#ff9900',
+          marginLeft: '50vw',
+          marginTop: '50vh',
+          transform: 'translate(-50%, -50%)',
+        }}
+      />
+    );
+  }
 
   return (
     <Router>
