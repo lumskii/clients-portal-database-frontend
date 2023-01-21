@@ -7,9 +7,13 @@ router.post("/", clientController.insertClient);
 
 router.post('/:clientId/sales', clientController.addSale);
 
+router.post('/:clientId/expenses', clientController.addExpense);
+
 router.get("/", clientController.getAllClients);
 
 router.get("/:id", clientController.getClientDetails);
+
+router.get("/:clientId/expenses", clientController.listAllExpenses);
 
 router.get('/:clientId/sales', clientController.listSales);
 

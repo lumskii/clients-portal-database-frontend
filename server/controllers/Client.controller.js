@@ -271,3 +271,57 @@ exports.getSale = (req, res) => {
       })
       .catch(err => res.status(500).json({ message: "Error retrieving sale", error: err }));
 };
+
+exports.addExpense = (req,res) => {
+  const clientId = req.params.clientId;
+  const dateExp = req.body.dateExp;
+  const describe = req.body.describe;
+  const amount = req.body.amount;
+
+  const newExpenses = {
+    dateExp,
+    describe,
+    amount,
+  };
+
+  if (!dateExp || !describe || !amount) {
+    return res.json({
+      status: 500,
+      message: "Some fields are empty.",
+    });
+  }
+
+  Client.findById(clientId, function (err, client) {
+    if (err) return res.json({ success: false, error: err });
+
+    console.log("get client details", client);
+
+    client.expenses.push(newExpenses);
+    client.save(function (err, dbExpenses) {
+      if (err) return res.json({ success: false, error: err });
+
+      return res.json({ success: true, expenses: dbExpenses });
+    });
+  });
+};
+
+exports.listAllExpenses = async (req, res) => {
+  const clientId = req.params.clientId;
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).json({
+        message: "Client not found",
+      });
+    }
+    return res.status(200).json({
+      expenses: client.expenses,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error retrieving expenses",
+      error: err,
+    });
+  }
+};

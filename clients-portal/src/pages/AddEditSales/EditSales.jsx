@@ -10,7 +10,6 @@ export default function EditSales({
   selectedTitle,
   sales,
   setSales,
-  handleChange,
   handleSave,
 }) {
   const [editSale, setEditSale] = useState({});
@@ -126,8 +125,8 @@ export default function EditSales({
           openModal={openModal}
           setOpenModal={setOpenModal}
           editSale={editSale}
-          handleChange={handleChange}
           handleSave={handleSave}
+          clientId={clientId}
         />
       </Box>
     </>

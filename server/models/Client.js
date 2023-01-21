@@ -147,6 +147,26 @@ const ClientSchema = new Schema({
       },
     },
   ],
+  expenses: [
+    {
+      dateExp: {
+        type: Date,
+        default: Date.now,
+      },
+      cType: {
+        type: String,
+        maxlength: 20,
+      },
+      describe: {
+        type: String,
+        maxlength: 150,
+      },
+      amount: {
+        type: Number,
+        maxlength: 20,
+      },
+    },
+  ],
   postDate: {
     type: Date,
     default: Date.now,
@@ -155,4 +175,4 @@ const ClientSchema = new Schema({
 
 ClientSchema.plugin(mongodbErrorHandler);
 
-module.exports = mongoose.model('Client', ClientSchema, 'Client');
+module.exports = mongoose.model("Client", ClientSchema, "Client");
