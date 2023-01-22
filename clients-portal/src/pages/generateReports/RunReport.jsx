@@ -97,13 +97,16 @@ export default function RunReport({
         <button className="position clientAddButton" onClick={handleGoBack}>
           Go Back
         </button>
-        <DataGrid
-          rows={company}
-          columns={columns}
-          components={{
-            Toolbar: GridToolbar,
-          }}
-        />
+        {loading && <p>Loading...</p>}
+        {!loading && (
+          <DataGrid
+            rows={company}
+            columns={columns}
+            components={{
+              Toolbar: GridToolbar,
+            }}
+          />
+        )}
       </Box>
     </>
   );
