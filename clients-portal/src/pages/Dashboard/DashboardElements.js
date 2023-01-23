@@ -1,20 +1,18 @@
 import styled from 'styled-components';
 import { MdOutlinePointOfSale } from 'react-icons/md';
-import { FaUserPlus, FaUserEdit, FaUsersCog } from 'react-icons/fa';
+import { FaUserPlus, FaUsersCog } from 'react-icons/fa';
 import { GiPayMoney } from 'react-icons/gi';
 import { BsDistributeHorizontal, BsFileSpreadsheet } from 'react-icons/bs';
 import { CgMore } from 'react-icons/cg';
 
 export const DashBoard = styled.div`
   background: #f5f5f5;
-  height: 100vh;
   width: 100%;
   overflow: hidden;
 `;
 
 export const DashBoard2 = styled.div`
   background: #f5f5f5;
-  height: 100vh;
   width: 100%;
   overflow: hidden;
   justify-content: space-around;

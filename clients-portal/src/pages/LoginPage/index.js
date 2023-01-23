@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import Logo from '../../images/LogoUpdate.svg';
 import './styles.css';
-import { LogoBrandTwo } from '../../components/Navbar/NavbarElements';
 import { auth } from '../../firebase';
 import { Forgot, Signup } from './LoginElement';
 
@@ -27,7 +26,7 @@ const Login = () => {
     <div className="body">
       <div className="wrapper">
         <div className="sct brand">
-          <LogoBrandTwo src={Logo} />
+          <img src={Logo} alt="" width="300" />
         </div>
         <div className="sct login">
           <form className="mainForm">
