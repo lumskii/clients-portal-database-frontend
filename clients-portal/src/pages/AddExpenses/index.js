@@ -2,12 +2,12 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import Model from '../../components/Model';
 import { server } from '../../constance';
-import { Header, HeaderTitle } from '../ClientSetup/ClientSetupElements';
-import { DashBoard2, PageTemplate3 } from '../Dashboard/DashboardElements';
+import Header from '../../components/Heading';
+import { DashBoard } from '../Dashboard/DashboardElements';
 import cogoToast from 'cogo-toast';
-import FormCustom from '../../components/form';
+import { Box, useTheme } from '@mui/material';
+import { tokens } from '../../theme';
 
 const initialState = {
   dateExp: '',
@@ -18,6 +18,10 @@ const initialState = {
 
 const AddExpenses = () => {
   const [details, setDetails] = useState(initialState);
+  const [expenses, setExpenses] = useState([]);
+  const [form, setForm] = useState(false);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   useEffect(() => {
     const retrieveExpenses = (id) => {
@@ -29,7 +33,7 @@ const AddExpenses = () => {
             console.log('res', res.data.expenses);
             let allExps = res.data.expenses.map((expense) => ({
               id: expense._id,
-              dateExp: expense.dateExp,
+              dateExp: new Date(expense.dateExp).toLocaleDateString('en-US'),
               cType: expense.cType,
               describe: expense.describe,
               amount: expense.amount,
@@ -44,9 +48,6 @@ const AddExpenses = () => {
 
     retrieveExpenses();
   }, []);
-
-  const [openModal, setOpenModal] = useState(true);
-  const [form, setForm] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -121,15 +122,44 @@ const AddExpenses = () => {
 
     // <FormCustom />
 
-    <DashBoard2>
-      <PageTemplate3>
-        {openModal && (
-          <Model openModal={openModal} setOpenModal={setOpenModal} />
-        )}
-        <Header>
-          <HeaderTitle>Add Expenses</HeaderTitle>
-        </Header>
+    <DashBoard>
+      <Box m="80px 20px 20px 20px">
+        <Header title="Expenses" subtitle="View/Add Expenses" />
 
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+          sx={{
+            '& .MuiDataGrid-root': {
+              border: 'none',
+            },
+            '& .MuiDataGrid-cell': {
+              borderBottom: 'none',
+            },
+            '& .name-column--cell': {
+              color: colors.greenAccent[300],
+            },
+            '& .MuiDataGrid-columnHeaders': {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: 'none',
+            },
+            '& .MuiDataGrid-virtualScroller': {
+              backgroundColor: colors.primary[400],
+            },
+            '& .MuiDataGrid-footerContainer': {
+              borderTop: 'none',
+              backgroundColor: colors.blueAccent[700],
+            },
+            '& .MuiCheckbox-root': {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+            '& .MuiDataGrid-toolbarContainer .MuiButton-text': {
+              color: `${colors.grey[100]} !important`,
+            },
+          }}
+        >
+          <DataGrid disableSelectionOnClick rows={expenses} columns={columns} />
+        </Box>
         <div className="exp_form_header" onClick={handleToggle}>
           Add New Expenses
         </div>
@@ -222,8 +252,8 @@ const AddExpenses = () => {
             </ul>
           </div>
         </div>
-      </PageTemplate3>
-    </DashBoard2>
+      </Box>
+    </DashBoard>
   );
 };
 
