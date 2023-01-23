@@ -23,7 +23,6 @@ export const PageLayout = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
   animation: ${colorAnime} 30s;
   animation-iteration-count: infinite;
 `;
