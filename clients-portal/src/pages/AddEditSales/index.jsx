@@ -137,15 +137,15 @@ export default function AddEditSales() {
         `${server}/v1/clients/${clientId}/sales`,
         details
       );
-      if (response && response.data.success && response.data.status === 200) {
-        cogoToast.error('unable to add sales revenue', {
+      if (response.data.success && response.data.status === 200) {
+        cogoToast.success('sales revenue added successfully', {
           position: 'top-center',
         });
         setLoading(false);
+        setDetails(initialDetails);
         setOpen(true);
       } else {
-        cogoToast.success('sales revenue added successfully');
-        setDetails(initialDetails);
+        cogoToast.error('unable to add sales revenue');
         setLoading(false);
       }
     };

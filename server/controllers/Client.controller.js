@@ -207,10 +207,10 @@ exports.addSale = (req, res) => {
     console.log("get client details", client);
 
     client.sales.push(newSale);
-    client.save(function (err, dbSale) {
+    client.save(function (err, dbSales) {
       if (err) return res.json({ success: false, error: err });
 
-      return res.json({ success: true, sale: dbSale });
+      return res.json({ success: true, status: 200, sales: dbSales });
     });
   });
 };
@@ -275,16 +275,18 @@ exports.getSale = (req, res) => {
 exports.addExpense = (req,res) => {
   const clientId = req.params.clientId;
   const dateExp = req.body.dateExp;
+  const cType = req.body.cType;
   const describe = req.body.describe;
   const amount = req.body.amount;
 
   const newExpenses = {
     dateExp,
+    cType,
     describe,
     amount,
   };
 
-  if (!dateExp || !describe || !amount) {
+  if (!dateExp || !cType || !describe || !amount) {
     return res.json({
       status: 500,
       message: "Some fields are empty.",
@@ -300,7 +302,7 @@ exports.addExpense = (req,res) => {
     client.save(function (err, dbExpenses) {
       if (err) return res.json({ success: false, error: err });
 
-      return res.json({ success: true, expenses: dbExpenses });
+      return res.json({ success: true, status: 200, expenses: dbExpenses });
     });
   });
 };
