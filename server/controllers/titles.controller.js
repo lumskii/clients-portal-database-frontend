@@ -1,16 +1,16 @@
-const Title = require("../models/Title");
+const Title = require('../models/Title');
 
 exports.getAllTitles = (req, res, next) => {
   Title.find({}, function (err, titles) {
     if (err)
-      res.json({ status: 500, message: "Error occured in retrieving titles" });
+      res.json({ status: 500, message: 'Error occured in retrieving titles' });
 
     if (!titles) {
       res.json({
         success: true,
         status: 200,
         data: {
-          message: "No title found",
+          message: 'No title found',
         },
       });
     } else {
@@ -18,7 +18,7 @@ exports.getAllTitles = (req, res, next) => {
         success: true,
         status: 200,
         data: {
-          message: "titles found",
+          message: 'titles found',
           titles,
         },
       });
@@ -33,26 +33,26 @@ exports.addNewTitles = (req, res, next) => {
     files: [],
     accessLog: [],
     jobs: [],
-    title: "Some testing string",
-    metadata: "metadata",
+    title: 'Some testing string',
+    metadata: 'metadata',
     packages: [],
-    status: "onboarding",
+    status: 'onboarding',
     directories: [],
-    folder: "folder",
+    folder: 'folder',
   };
 
   const title = Title(data);
 
   title.save(function (err, dbTitle) {
     if (err) {
-      return res.json({ status: 500, message: "Unable to save amenity", err });
+      return res.json({ status: 500, message: 'Unable to save amenity', err });
     }
 
     res.json({
       success: true,
       status: 200,
       data: {
-        message: "Title Added successfully.",
+        message: 'Title Added successfully.',
         newTitle: dbTitle,
       },
     });

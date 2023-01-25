@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const mongodbErrorHandler = require("mongoose-mongodb-errors");
+const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
@@ -19,4 +19,4 @@ const titleSchema = new Schema({
 
 titleSchema.plugin(mongodbErrorHandler);
 
-module.exports = mongoose.model("Title", titleSchema, "Title");
+module.exports = mongoose.model('Title', titleSchema, 'Title');
