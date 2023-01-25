@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const mongodbErrorHandler = require("mongoose-mongodb-errors");
+const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
@@ -11,7 +11,7 @@ const ClientSchema = new Schema({
     type: String,
     maxlength: 50,
     required: true,
-    default: "",
+    default: '',
   },
   producersEmail: {
     type: String,
@@ -204,4 +204,4 @@ const ClientSchema = new Schema({
 
 ClientSchema.plugin(mongodbErrorHandler);
 
-module.exports = mongoose.model("Client", ClientSchema, "Client");
+module.exports = mongoose.model('Client', ClientSchema, 'Client');
