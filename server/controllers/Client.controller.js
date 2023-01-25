@@ -334,30 +334,67 @@ exports.listAllExpenses = async (req, res) => {
   }
 };
 
+// ==== get sales ====
+
+const getSalesByClient = async (clientId) => {
+  const client = await Client.findById(clientId).select('sales');
+  return client?.sales || [];
+};
+
+const getSalesByTerritory = async (territory) => {
+  const clients = await Client.find({
+    sales: {
+      $elemMatch: {
+        territory,
+      },
+    },
+  }).select('sales');
+  return flatten(
+    clients.map((c) => c.sales).filter((s) => s.territory === territory)
+  );
+};
+
+const getSalesByAge = async (age) => {
+  const date = subYears(new Date(), age);
+  const startDate = startOfYear(date);
+  const endDate = endOfYear(date);
+  const clients = await Client.find({
+    effectiveDate: {
+      $gte: startDate,
+      $lte: endDate,
+    },
+  }).select('sales');
+  return flatten(clients.map((c) => c.sales));
+};
+
+const getSalesByExpiration = async (expiration) => {
+  const clients = await Client.find({
+    renewalExpiration: {
+      $gte: new Date(expiration[0]),
+      $lte: new Date(expiration[1]),
+    },
+  }).select('sales');
+  return flatten(clients.map((c) => c.sales));
+};
+
+const getSalesByGenre = async (genre) => {
+  const clients = await Client.find({ genre }).select('sales');
+  return flatten(clients.map((c) => c.sales));
+};
+
 exports.getSales = async (req, res) => {
   try {
     let sales = [];
     if (req.query.client) {
-      const client = await Client.findById(req.query.client).select('sales');
-      if (!client) {
-        return res.status(404).json({
-          message: 'Client not found',
-        });
-      }
-      sales = client.sales;
+      sales = await getSalesByClient(req.query.client);
+    } else if (req.query.territory) {
+      sales = await getSalesByTerritory(req.query.territory);
     } else if (req.query.age) {
-      const date = subYears(new Date(), req.query.age);
-      const startDate = startOfYear(date);
-      const endDate = endOfYear(date);
-      const clients = await Client.find({
-        effectiveDate: { $gte: startDate, $lte: endDate },
-      });
-      sales = flatten(clients.map((c) => c.sales));
+      sales = await getSalesByAge(req.query.age);
+    } else if (req.query.expiration) {
+      sales = await getSalesByExpiration(req.query.expiration);
     } else if (req.query.genre) {
-      const clients = await Client.find({ genre: req.query.genre }).select(
-        'sales'
-      );
-      sales = flatten(clients.map((c) => c.sales));
+      sales = await getSalesByGenre(req.query.genre);
     }
     return res.status(200).json({ sales });
   } catch (err) {

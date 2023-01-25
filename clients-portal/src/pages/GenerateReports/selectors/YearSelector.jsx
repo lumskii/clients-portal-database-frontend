@@ -4,28 +4,29 @@ import { DatePicker, Modal as ModalAD } from 'antd';
 
 const YearSelector = ({ value, setValue }) => {
   const [open, setOpen] = useState(false);
+  const [date, setDate] = useState();
 
   return (
     <>
       <TextField
-        fullWidth
         variant="filled"
+        fullWidth
         value={value?.format('YYYY') || ''}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true);
+          setDate(value);
+        }}
       />
 
       <ModalAD
         open={open}
-        onCancel={() => {
-          setValue();
-          setOpen(false);
-        }}
+        onCancel={() => setOpen(false)}
         onOk={() => {
-          setValue(value);
           setOpen(false);
+          setValue(date);
         }}
       >
-        <DatePicker picker="year" onChange={setValue} />
+        <DatePicker picker="year" value={date} onChange={setDate} />
       </ModalAD>
     </>
   );

@@ -49,14 +49,17 @@ const columns = [
   { field: 'dealCD', headerName: 'Deal Closed Date', width: 200 },
 ];
 
-const ReportView = ({ type, option, value, onClose }) => {
+const ReportView = ({ option, value, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
+    const url = option.getUrl?.(value);
+    if (!url) return;
+
     setLoading(true);
     axios
-      .get(`${server}/v1/clients/sales?${option.key}=${value}`)
+      .get(url)
       .then((response) => {
         const sales = response.data.sales.map((sale) => ({
           id: sale._id,
@@ -72,7 +75,7 @@ const ReportView = ({ type, option, value, onClose }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [type, option, value]);
+  }, [option, value]);
 
   return (
     <Wrapper>

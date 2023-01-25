@@ -8,6 +8,7 @@ const dateFormat = (date) => date.format('DD/MM/YYYY');
 
 const ContractExpirationSelector = ({ value, setValue }) => {
   const [open, setOpen] = useState(false);
+  const [range, setRange] = useState();
 
   return (
     <>
@@ -15,21 +16,21 @@ const ContractExpirationSelector = ({ value, setValue }) => {
         variant="filled"
         fullWidth
         value={value ? `${dateFormat(value[0])} - ${dateFormat(value[1])}` : ''}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true);
+          setRange(value);
+        }}
       />
 
       <ModalAD
         open={open}
-        onCancel={() => {
-          setValue();
-          setOpen(false);
-        }}
+        onCancel={() => setOpen(false)}
         onOk={() => {
-          setValue(value);
           setOpen(false);
+          setValue(range);
         }}
       >
-        <RangePicker onChange={setValue} />
+        <RangePicker value={range} onChange={setRange} />
       </ModalAD>
     </>
   );

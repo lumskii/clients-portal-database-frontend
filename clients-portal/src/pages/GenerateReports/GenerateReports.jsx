@@ -2,72 +2,16 @@ import React, { useState } from 'react';
 import { Box, FormControl, InputLabel, Grid } from '@mui/material';
 import { DashBoard } from '../Dashboard/DashboardElements';
 import Header from '../../components/Heading';
-import AgeSelector from './selectors/AgeSelector';
-import BuyerSelector from './selectors/BuyerSelector';
-import ContractExpirationSelector from './selectors/ContractExpirationSelector';
-import DateSelector from './selectors/DateSelector';
-import GenreSelector from './selectors/GenreSelector';
-import MonthSelector from './selectors/MonthSelector';
-import PlatformSelector from './selectors/PlatformSelector';
-import RuntimeSelector from './selectors/RuntimeSelector';
-import TerritorySelector from './selectors/TerritorySelector';
-import YearSelector from './selectors/YearSelector';
 import Report from './Report';
 import { CustomizedSelect } from './Styled';
 import './generateReports.css';
+import { types } from './Data';
 
 const STATUS = {
   NONE: 'none',
   SELECT_VIEW: 'select_view',
   REPORT_VIEW: 'report_view',
 };
-
-const types = [
-  {
-    label: 'Film Report',
-    options: [
-      { label: 'Film by Buyer', selector: BuyerSelector, key: 'client' },
-      {
-        label: 'Film by Territory',
-        selector: TerritorySelector,
-        key: 'territory',
-      },
-      { label: 'Film by Age', selector: AgeSelector, key: 'age' },
-      {
-        label: 'Film by Contract Expiration',
-        selector: ContractExpirationSelector,
-      },
-      { label: 'Film by Genre', selector: GenreSelector, key: 'genre' },
-    ],
-  },
-  {
-    label: 'Revenue Report',
-    options: [
-      { label: 'Revenue by Territory', selector: TerritorySelector },
-      { label: 'Revenue by Platform', selector: PlatformSelector },
-      { label: 'Revenue by Year', selector: YearSelector },
-      { label: 'Revenue by Month', selector: MonthSelector },
-    ],
-  },
-  {
-    label: 'Sales Report',
-    options: [
-      { label: 'Sales by Buyer', selector: BuyerSelector },
-      { label: 'Sales by Territory', selector: TerritorySelector },
-      { label: 'Sales by Year', selector: YearSelector },
-      { label: 'Sales by Runtime', selector: RuntimeSelector },
-      { label: 'Sales by Genre', selector: GenreSelector },
-    ],
-  },
-  {
-    label: 'Client Report',
-    options: [
-      { label: 'Client by Birthday', selector: DateSelector },
-      { label: 'Client by Territory', selector: TerritorySelector },
-      { label: 'Client by Age', selector: AgeSelector },
-    ],
-  },
-];
 
 export default function Reports() {
   const [status, setStatus] = useState(STATUS.NONE);
@@ -101,7 +45,6 @@ export default function Reports() {
         {status === STATUS.REPORT_VIEW ? (
           <>
             <Report
-              type={type}
               option={option}
               value={value}
               onClose={() => setStatus(STATUS.SELECT_VIEW)}

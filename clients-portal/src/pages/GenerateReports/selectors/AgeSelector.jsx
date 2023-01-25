@@ -9,7 +9,7 @@ const marks = [
   { value: 30, label: '30 years' },
 ];
 
-const AgeSelector = ({ value = 1, setValue }) => {
+const AgeSelector = ({ value, setValue }) => {
   const [open, setOpen] = useState(false);
   const [age, setAge] = useState(1);
 
@@ -18,10 +18,10 @@ const AgeSelector = ({ value = 1, setValue }) => {
       <TextField
         variant="filled"
         fullWidth
-        value={value}
+        value={value || ''}
         onClick={() => {
           setOpen(true);
-          setAge(value);
+          setAge(value || 1);
         }}
       />
 

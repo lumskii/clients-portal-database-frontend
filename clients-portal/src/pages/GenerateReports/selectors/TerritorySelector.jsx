@@ -2,7 +2,6 @@ import { InputLabel } from '@mui/material';
 import { CustomizedSelect } from '../Styled';
 
 const options = [
-  { id: 'all', label: 'All Territories' },
   { id: 'australia', label: 'Australia/NZ' },
   { id: 'benelux', label: 'Benelux' },
   { id: 'france', label: 'France' },
