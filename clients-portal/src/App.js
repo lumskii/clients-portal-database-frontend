@@ -21,7 +21,7 @@ import Distribution from './pages/DistributionRev';
 import AddExpenses from './pages/AddExpenses';
 import Clients from './pages/client/Clients';
 import ClientEdit from './pages/clientEdit/ClientEdit';
-import GenerateReports from './pages/generateReports/GenerateReports';
+import GenerateReports from './pages/GenerateReports/GenerateReports';
 import Signup from './pages/signup/Signup';
 
 function App() {
