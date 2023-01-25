@@ -59,13 +59,6 @@ exports.getSalesByClientId = (req, res) => {
 
       return res.json({ success: true, sales });
     });
-  // Sales.findById(id, function (err, sales) {
-  //     if (err) return res.json({ success: false, error: err });
-
-  //     console.log('get sales details per clients', sales);
-
-  //     return res.json({  success: true, sales });
-  // })
 };
 
 exports.getAllSales = (req, res, next) => {
