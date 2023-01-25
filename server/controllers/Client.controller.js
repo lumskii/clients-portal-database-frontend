@@ -327,3 +327,103 @@ exports.listAllExpenses = async (req, res) => {
     });
   }
 };
+
+exports.addDistributionRev = (req, res) => {
+  const clientId = req.params.clientId;
+  const cName = req.body.cName;
+  const cType = req.body.cType;
+  const rType = req.body.rType;
+  const territory = req.body.territory;
+  const revenueAmount = req.body.revenueAmount;
+  const receivedAmount = req.body.receivedAmount;
+
+  const newDistributionRev = {
+    cName,
+    cType,
+    rType,
+    territory,
+    revenueAmount,
+    receivedAmount,
+  };
+
+  if (!cName || !cType || !rType || !territory || !revenueAmount || !receivedAmount) {
+    return res.json({
+      status: 500,
+      message: "Some fields are empty.",
+    });
+  }
+
+  Client.findById(clientId, function (err, client) {
+    if (err) return res.json({ success: false, error: err });
+
+    console.log("get client details", client);
+
+    client.distributionRev.push(newDistributionRev);
+    client.save(function (err, dbDistributionRev) {
+      if (err) return res.json({ success: false, error: err });
+
+      return res.json({
+        success: true,
+        status: 200,
+        distributionRev: dbDistributionRev,
+      });
+    });
+  });
+  };
+
+exports.listAllDistributionRev = async (req, res) => {
+  const clientId = req.params.clientId;
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).json({
+        message: "Client not found",
+      });
+    }
+    return res.status(200).json({
+      distributionRev: client.distributionRev,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Error retrieving distribution revenue",
+      error: err,
+    });
+  }
+};
+
+exports.updateDistRev = (req, res) => {
+  const clientId = req.params.clientId;
+  const distRevId = req.params.distRevId;
+
+  Client.findById(clientId, function (err, client) {
+    if (err || !client)
+      return res.json({ success: false, error: "Invalid Client ID" });
+    if (!client.distributionRev.id(distRevId))
+      return res.json({ success: false, error: "Invalid Distribution Revenue ID" });
+    const distRev = client.distributionRev.id(distRevId);
+    distRev.set(req.body);
+    client.save(function (err, dbDistRev) {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true, distRev: dbDistRev });
+    });
+  });
+};
+
+exports.getDistRev = (req, res) => {
+  const clientId = req.params.clientId;
+  const distRevId = req.params.distRevId;
+  
+  Client.findById(clientId)
+      .then(client => {
+          if (!client) {
+              return res.status(404).json({ message: "Client not found" });
+          }
+          const distRev = client.distributionRev.id(distRevId);
+          if (!distRev) {
+              return res.status(404).json({ message: "Distribution Revenue not found" });
+          }
+          res.json(distRev);
+      })
+      .catch(err => res.status(500).json({ message: "Error retrieving distribution revenue", error: err }));
+};

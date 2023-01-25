@@ -136,6 +136,23 @@
   text-shadow: 0px 1px 0px #ffee66;
 }
 
+.next2 {
+  box-shadow: inset 0px 1px 0px 0px #fff6af;
+  background: linear-gradient(to bottom, #ff9900 5%, #fab444 100%);
+  background-color: #ff9900;
+  border-radius: 6px;
+  border: 1px solid #dea44d;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: normal;
+  padding: 6px 8px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffee66;
+  width: fit-content;
+}
+
 .submit {
   box-shadow: inset 0px 1px 0px 0px #a4e271;
   background: linear-gradient(to bottom, #89c403 5%, #77a809 100%);
@@ -195,6 +212,7 @@
 }
 
 .prev:hover,
+.next2:hover,
 .next:hover {
   background: linear-gradient(to bottom, #fab444 5%, #ff9900 100%);
   background-color: #fab444;
@@ -216,7 +234,8 @@
   top: 1px;
 }
 
-.next:active {
+.next:active,
+.next2:active {
   margin-top: 1px;
 }
 

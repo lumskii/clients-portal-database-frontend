@@ -8,8 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
 import { server } from '../../constance';
+import cogoToast from 'cogo-toast';
 
 const style = {
   position: 'absolute',
@@ -26,8 +26,6 @@ const style = {
 export default function Model({ editSale, openModal, setOpenModal, clientId }) {
   const [sale, setSale] = useState({});
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
   const [originalSale, setOriginalSale] = useState({});
   const isNonMobile = useMediaQuery('(min-width:600px)');
 
@@ -46,7 +44,6 @@ export default function Model({ editSale, openModal, setOpenModal, clientId }) {
           setLoading(false);
         }
       } catch (err) {
-        setError(true);
         console.log(err);
       }
     };
@@ -71,22 +68,23 @@ export default function Model({ editSale, openModal, setOpenModal, clientId }) {
   };
 
   const handleChange = (e) => {
-    setSale({ ...sale, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setSale({ ...sale, [name]: value });
   };
 
   const handleSaveClick = async () => {
     try {
       const response = await axios.put(
         `${server}/v1/clients/${clientId}/sales/${editSale.id}`,
-        editSale
+        sale
       );
       if (response.status === 200) {
-        setSuccess(true);
         setOpenModal(false);
+        cogoToast.success('Sale updated successfully');
       }
     } catch (err) {
-      setError(true);
       console.log(err);
+      cogoToast.error('Something went wrong');
     }
   };
 
@@ -111,13 +109,11 @@ export default function Model({ editSale, openModal, setOpenModal, clientId }) {
           }}
         >
           {loading && <p>Loading...</p>}
-          {success && <p>Sale updated successfully</p>}
-          {error && <p>An error occurred, please try again</p>}
-          {!loading && !success && !error && (
+          {!loading && (
             <>
               <TextField
                 label="Company Name"
-                value={editSale.cName}
+                value={sale.cName}
                 onChange={handleChange}
                 name="cName"
                 variant="filled"
@@ -126,7 +122,7 @@ export default function Model({ editSale, openModal, setOpenModal, clientId }) {
               />
               <TextField
                 label="Territory"
-                value={editSale.territory}
+                value={sale.territory}
                 onChange={handleChange}
                 variant="filled"
                 name="territory"
@@ -135,7 +131,7 @@ export default function Model({ editSale, openModal, setOpenModal, clientId }) {
               />
               <TextField
                 label="Sales Amount"
-                value={editSale.salesAmount}
+                value={sale.salesAmount}
                 onChange={handleChange}
                 variant="filled"
                 name="salesAmount"
@@ -144,7 +140,7 @@ export default function Model({ editSale, openModal, setOpenModal, clientId }) {
               />
               <TextField
                 label="Received Amount"
-                value={editSale.receivedAmount}
+                value={sale.receivedAmount}
                 onChange={handleChange}
                 variant="filled"
                 name="receivedAmount"
@@ -152,20 +148,22 @@ export default function Model({ editSale, openModal, setOpenModal, clientId }) {
                 sx={{ gridColumn: 'span 4' }}
               />
               <TextField
-                label="Deal CD"
-                value={editSale.dealCD}
+                label="Deal Entered Date"
+                value={sale.dealED}
                 onChange={handleChange}
+                type="date"
                 variant="filled"
-                name="dealCD"
+                name="dealED"
                 fullWidth
                 sx={{ gridColumn: 'span 4' }}
               />
               <TextField
-                label="Deal ED"
-                value={editSale.dealED}
+                label="Deal Close Date"
+                value={sale.dealCD}
                 onChange={handleChange}
+                type="date"
                 variant="filled"
-                name="dealED"
+                name="dealCD"
                 fullWidth
                 sx={{ gridColumn: 'span 4' }}
               />

@@ -102,7 +102,7 @@ const AddExpenses = () => {
           setLoading(false);
           console.log('submitted', submitted.data);
           setDetails(initialState);
-          setOpen(false);
+          setForm(false);
         } else {
           cogoToast.error('Could not submit expenses');
           setLoading(false);
@@ -192,7 +192,6 @@ const AddExpenses = () => {
               className="left submit"
               onClick={() => {
                 setOpen(true);
-                setLoading(true);
               }}
             >
               Go Back
@@ -217,6 +216,16 @@ const AddExpenses = () => {
               >
                 Title:{' '}
                 {selectedTitle ? selectedTitle.value : 'Please select a title'}
+                <button
+                  type="button"
+                  className="next2"
+                  style={{ margin: '0px 15px' }}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  Change Title
+                </button>
               </div>
               <button
                 onClick={() => {

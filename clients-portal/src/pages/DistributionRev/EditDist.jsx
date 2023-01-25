@@ -6,8 +6,8 @@ import { server } from '../../constance';
 import { tokens } from '../../theme';
 import Model from './Model';
 
-export default function EditSales({ selectedTitle, sales, setSales }) {
-  const [editSale, setEditSale] = useState({});
+export default function EditDist({ selectedTitle, dist, setDist }) {
+  const [editDist, setEditDist] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const clientId = selectedTitle.id;
@@ -15,32 +15,32 @@ export default function EditSales({ selectedTitle, sales, setSales }) {
   const colors = tokens(theme.palette.mode);
 
   useEffect(() => {
-    const retrieveSales = async (error) => {
+    const retrieveDist = async (error) => {
       setLoading(true);
       const response = await axios.get(
-        `${server}/v1/clients/${clientId}/sales`
+        `${server}/v1/clients/${clientId}/dist-rev`
       );
 
       if (response.status === 200) {
         setLoading(false);
-        let allSales = response.data.sales.map((sale) => ({
-          id: sale._id,
-          cName: sale.cName,
-          territory: sale.territory,
-          salesAmount: sale.salesAmount,
-          receivedAmount: sale.receivedAmount,
-          dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
-          dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
+        let allDist = response.data.distributionRev.map((dist) => ({
+          id: dist._id,
+          cName: dist.cName,
+          cType: dist.cType,
+          rType: dist.rType,
+          territory: dist.territory,
+          revenueAmount: dist.revenueAmount,
+          receivedAmount: dist.receivedAmount,
         }));
 
-        setSales(allSales);
+        setDist(allDist);
       } else {
         console.log('unable to fetch', error);
       }
     };
 
-    retrieveSales();
-  }, [clientId, setSales]);
+    retrieveDist();
+  }, [clientId, setDist]);
 
   const columns = [
     {
@@ -49,8 +49,8 @@ export default function EditSales({ selectedTitle, sales, setSales }) {
       width: 400,
     },
     {
-      field: 'territory',
-      headerName: 'Territory',
+      field: 'cType',
+      headerName: 'Company Type',
       width: 200,
     },
     {
@@ -63,7 +63,7 @@ export default function EditSales({ selectedTitle, sales, setSales }) {
             variant="contained"
             color="primary"
             onClick={() => {
-              setEditSale(params.row);
+              setEditDist(params.row);
               setOpenModal(true);
             }}
           >
@@ -109,7 +109,7 @@ export default function EditSales({ selectedTitle, sales, setSales }) {
         }}
       >
         <DataGrid
-          rows={sales}
+          rows={dist}
           columns={columns}
           loading={loading}
           // components={{
@@ -119,7 +119,7 @@ export default function EditSales({ selectedTitle, sales, setSales }) {
         <Model
           openModal={openModal}
           setOpenModal={setOpenModal}
-          editSale={editSale}
+          editDist={editDist}
           clientId={clientId}
         />
       </Box>

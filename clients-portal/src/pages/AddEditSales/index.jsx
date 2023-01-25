@@ -27,7 +27,6 @@ import { Modal } from 'antd';
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 import EditSales from './EditSales';
-import { NumberFormatBase } from 'react-number-format';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -270,6 +269,16 @@ export default function AddEditSales() {
               >
                 Title:{' '}
                 {selectedTitle ? selectedTitle.value : 'Please select a title'}
+                <button
+                  type="button"
+                  className="next2"
+                  style={{ margin: '0px 15px' }}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  Change Title
+                </button>
               </div>
               <AppBar
                 position="static"

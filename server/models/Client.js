@@ -167,6 +167,35 @@ const ClientSchema = new Schema({
       },
     },
   ],
+  distributionRev: [
+    {
+      cName: {
+        type: String,
+        maxlength: 20,
+        required: true,
+      },
+      cType: {
+        type: String,
+        maxlength: 20,
+      },
+      rType: {
+        type: String,
+        maxlength: 20,
+      },
+      territory: {
+        type: String,
+        maxlength: 50,
+      },
+      revenueAmount: {
+        type: Number,
+        maxlength: 20,
+      },
+      receivedAmount: {
+        type: Number,
+        maxlength: 20,
+      },
+    }
+  ],
   postDate: {
     type: Date,
     default: Date.now,
