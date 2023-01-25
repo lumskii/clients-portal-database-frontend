@@ -329,7 +329,6 @@ exports.listAllExpenses = async (req, res) => {
     });
   }
 };
-<<<<<<< HEAD
 
 // ==== get sales ====
 
@@ -501,5 +500,3 @@ exports.getDistRev = (req, res) => {
       })
       .catch(err => res.status(500).json({ message: "Error retrieving distribution revenue", error: err }));
 };
-=======
->>>>>>> 74b70012eabeb1999cb6356148153dbe51c6a92b
