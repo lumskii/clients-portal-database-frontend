@@ -9,22 +9,25 @@ const marks = [
   { value: 30, label: '30 years' },
 ];
 
-const AgeSelector = ({ value, setValue }) => {
+const AgeSelector = ({ value = 1, setValue }) => {
   const [open, setOpen] = useState(false);
-  const [age, setAge] = useState(value || 1);
+  const [age, setAge] = useState(1);
 
   return (
     <>
       <TextField
         variant="filled"
         fullWidth
-        value={age}
-        onClick={() => setOpen(true)}
+        value={value}
+        onClick={() => {
+          setOpen(true);
+          setAge(value);
+        }}
       />
 
       <StyledModal open={open} onClose={() => setOpen(false)}>
         <Slider
-          defaultValue={1}
+          value={age}
           step={1}
           marks={marks}
           min={1}
