@@ -1,16 +1,16 @@
-const Client = require("../models/Client");
-const multer = require("multer");
+const Client = require('../models/Client');
+const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "../images");
+    cb(null, '../images');
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}_${file.originalname}`);
   },
 });
 
-const upload = multer({ storage: storage }).single("avatar");
+const upload = multer({ storage: storage }).single('avatar');
 
 exports.insertClient = (req, res, next) => {
   // upload(req, res, (err) => {
@@ -84,7 +84,7 @@ exports.insertClient = (req, res, next) => {
   if (!filmName || !filmsCode) {
     return res.json({
       status: 500,
-      message: "Some fields are empty.",
+      message: 'Some fields are empty.',
     });
   }
 
@@ -95,13 +95,13 @@ exports.insertClient = (req, res, next) => {
     //   return res.status(500).json({ status: false, message: err.message });
     // } else
     if (err) {
-      return res.json({ status: 500, message: "Unable to save amenity", err });
+      return res.json({ status: 500, message: 'Unable to save amenity', err });
     }
     return res.json({
       success: true,
       status: 200,
       data: {
-        message: "Client Added Successfully.",
+        message: 'Client Added Successfully.',
         newClient: dbClient,
       },
     });
@@ -113,7 +113,7 @@ exports.getAllClients = (req, res, next) => {
     if (err)
       return res.json({
         status: 500,
-        message: "Error occured in retrieving clients",
+        message: 'Error occured in retrieving clients',
       });
 
     if (!clients) {
@@ -121,7 +121,7 @@ exports.getAllClients = (req, res, next) => {
         success: true,
         status: 200,
         data: {
-          message: "No title found",
+          message: 'No title found',
         },
       });
     } else {
@@ -129,7 +129,7 @@ exports.getAllClients = (req, res, next) => {
         success: true,
         status: 200,
         data: {
-          message: "clients found",
+          message: 'clients found',
           clients,
         },
       });
@@ -143,7 +143,7 @@ exports.getClientDetails = (req, res) => {
   Client.findById(id, function (err, client) {
     if (err) return res.json({ success: false, error: err });
 
-    console.log("get client details", client);
+    console.log('get client details', client);
 
     return res.json({ success: true, client });
   });
@@ -171,7 +171,7 @@ exports.deleteClient = (req, res) => {
     return res.json({
       success: true,
       deletedItem,
-      message: "Client successfully deleted",
+      message: 'Client successfully deleted',
     });
   });
 };
@@ -197,14 +197,14 @@ exports.addSale = (req, res) => {
   if (!cName || !territory || !salesAmount || !receivedAmount) {
     return res.json({
       status: 500,
-      message: "Some fields are empty.",
+      message: 'Some fields are empty.',
     });
   }
 
   Client.findById(clientId, function (err, client) {
     if (err) return res.json({ success: false, error: err });
 
-    console.log("get client details", client);
+    console.log('get client details', client);
 
     client.sales.push(newSale);
     client.save(function (err, dbSales) {
@@ -221,7 +221,7 @@ exports.listSales = async (req, res) => {
     const client = await Client.findById(clientId);
     if (!client) {
       return res.status(404).json({
-        message: "Client not found",
+        message: 'Client not found',
       });
     }
     return res.status(200).json({
@@ -230,7 +230,7 @@ exports.listSales = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error retrieving sales",
+      message: 'Error retrieving sales',
       error: err,
     });
   }
@@ -242,9 +242,9 @@ exports.updateSale = (req, res) => {
 
   Client.findById(clientId, function (err, client) {
     if (err || !client)
-      return res.json({ success: false, error: "Invalid Client ID" });
+      return res.json({ success: false, error: 'Invalid Client ID' });
     if (!client.sales.id(saleId))
-      return res.json({ success: false, error: "Invalid Sale ID" });
+      return res.json({ success: false, error: 'Invalid Sale ID' });
     const sale = client.sales.id(saleId);
     sale.set(req.body);
     client.save(function (err, dbSale) {
@@ -257,22 +257,24 @@ exports.updateSale = (req, res) => {
 exports.getSale = (req, res) => {
   const clientId = req.params.clientId;
   const saleId = req.params.saleId;
-  
+
   Client.findById(clientId)
-      .then(client => {
-          if (!client) {
-              return res.status(404).json({ message: "Client not found" });
-          }
-          const sale = client.sales.id(saleId);
-          if (!sale) {
-              return res.status(404).json({ message: "Sale not found" });
-          }
-          res.json(sale);
-      })
-      .catch(err => res.status(500).json({ message: "Error retrieving sale", error: err }));
+    .then((client) => {
+      if (!client) {
+        return res.status(404).json({ message: 'Client not found' });
+      }
+      const sale = client.sales.id(saleId);
+      if (!sale) {
+        return res.status(404).json({ message: 'Sale not found' });
+      }
+      res.json(sale);
+    })
+    .catch((err) =>
+      res.status(500).json({ message: 'Error retrieving sale', error: err })
+    );
 };
 
-exports.addExpense = (req,res) => {
+exports.addExpense = (req, res) => {
   const clientId = req.params.clientId;
   const dateExp = req.body.dateExp;
   const cType = req.body.cType;
@@ -289,14 +291,14 @@ exports.addExpense = (req,res) => {
   if (!dateExp || !cType || !describe || !amount) {
     return res.json({
       status: 500,
-      message: "Some fields are empty.",
+      message: 'Some fields are empty.',
     });
   }
 
   Client.findById(clientId, function (err, client) {
     if (err) return res.json({ success: false, error: err });
 
-    console.log("get client details", client);
+    console.log('get client details', client);
 
     client.expenses.push(newExpenses);
     client.save(function (err, dbExpenses) {
@@ -313,7 +315,7 @@ exports.listAllExpenses = async (req, res) => {
     const client = await Client.findById(clientId);
     if (!client) {
       return res.status(404).json({
-        message: "Client not found",
+        message: 'Client not found',
       });
     }
     return res.status(200).json({
@@ -322,7 +324,7 @@ exports.listAllExpenses = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error retrieving expenses",
+      message: 'Error retrieving expenses',
       error: err,
     });
   }

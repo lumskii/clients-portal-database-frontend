@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const mongodbErrorHandler = require("mongoose-mongodb-errors");
+const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
@@ -9,7 +9,7 @@ const SalesSchema = new Schema({
   },
   client: {
     type: Schema.Types.ObjectId,
-    ref: "Client",
+    ref: 'Client',
   },
   cName: {
     type: String,
@@ -41,4 +41,4 @@ const SalesSchema = new Schema({
 
 SalesSchema.plugin(mongodbErrorHandler);
 
-module.exports = mongoose.model("Sales", SalesSchema, "Sales");
+module.exports = mongoose.model('Sales', SalesSchema, 'Sales');
