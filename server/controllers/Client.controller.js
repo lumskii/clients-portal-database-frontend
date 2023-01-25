@@ -1,9 +1,5 @@
-const multer = require('multer');
-const flatten = require('lodash/flatten');
-const subYears = require('date-fns/subYears');
-const startOfYear = require('date-fns/startOfYear');
-const endOfYear = require('date-fns/endOfYear');
 const Client = require('../models/Client');
+const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -329,77 +325,6 @@ exports.listAllExpenses = async (req, res) => {
     console.log(err);
     return res.status(500).json({
       message: 'Error retrieving expenses',
-      error: err,
-    });
-  }
-};
-
-// ==== get sales ====
-
-const getSalesByClient = async (clientId) => {
-  const client = await Client.findById(clientId).select('sales');
-  return client?.sales || [];
-};
-
-const getSalesByTerritory = async (territory) => {
-  const clients = await Client.find({
-    sales: {
-      $elemMatch: {
-        territory,
-      },
-    },
-  }).select('sales');
-  return flatten(
-    clients.map((c) => c.sales).filter((s) => s.territory === territory)
-  );
-};
-
-const getSalesByAge = async (age) => {
-  const date = subYears(new Date(), age);
-  const startDate = startOfYear(date);
-  const endDate = endOfYear(date);
-  const clients = await Client.find({
-    effectiveDate: {
-      $gte: startDate,
-      $lte: endDate,
-    },
-  }).select('sales');
-  return flatten(clients.map((c) => c.sales));
-};
-
-const getSalesByExpiration = async (expiration) => {
-  const clients = await Client.find({
-    renewalExpiration: {
-      $gte: new Date(expiration[0]),
-      $lte: new Date(expiration[1]),
-    },
-  }).select('sales');
-  return flatten(clients.map((c) => c.sales));
-};
-
-const getSalesByGenre = async (genre) => {
-  const clients = await Client.find({ genre }).select('sales');
-  return flatten(clients.map((c) => c.sales));
-};
-
-exports.getSales = async (req, res) => {
-  try {
-    let sales = [];
-    if (req.query.client) {
-      sales = await getSalesByClient(req.query.client);
-    } else if (req.query.territory) {
-      sales = await getSalesByTerritory(req.query.territory);
-    } else if (req.query.age) {
-      sales = await getSalesByAge(req.query.age);
-    } else if (req.query.expiration) {
-      sales = await getSalesByExpiration(req.query.expiration);
-    } else if (req.query.genre) {
-      sales = await getSalesByGenre(req.query.genre);
-    }
-    return res.status(200).json({ sales });
-  } catch (err) {
-    return res.status(500).json({
-      message: 'Error retrieving sales',
       error: err,
     });
   }

@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const clientController = require('../controllers/Client.controller');
 
-router.get('/sales', clientController.getSales);
-
 router.post('/', clientController.insertClient);
 
 router.post('/:clientId/sales', clientController.addSale);
