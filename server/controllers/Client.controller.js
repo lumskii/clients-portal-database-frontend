@@ -1,5 +1,9 @@
-const Client = require('../models/Client');
 const multer = require('multer');
+const flatten = require('lodash/flatten');
+const subYears = require('date-fns/subYears');
+const startOfYear = require('date-fns/startOfYear');
+const endOfYear = require('date-fns/endOfYear');
+const Client = require('../models/Client');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -325,6 +329,40 @@ exports.listAllExpenses = async (req, res) => {
     console.log(err);
     return res.status(500).json({
       message: 'Error retrieving expenses',
+      error: err,
+    });
+  }
+};
+
+exports.getSales = async (req, res) => {
+  try {
+    let sales = [];
+    if (req.query.client) {
+      const client = await Client.findById(req.query.client).select('sales');
+      if (!client) {
+        return res.status(404).json({
+          message: 'Client not found',
+        });
+      }
+      sales = client.sales;
+    } else if (req.query.age) {
+      const date = subYears(new Date(), req.query.age);
+      const startDate = startOfYear(date);
+      const endDate = endOfYear(date);
+      const clients = await Client.find({
+        effectiveDate: { $gte: startDate, $lte: endDate },
+      });
+      sales = flatten(clients.map((c) => c.sales));
+    } else if (req.query.genre) {
+      const clients = await Client.find({ genre: req.query.genre }).select(
+        'sales'
+      );
+      sales = flatten(clients.map((c) => c.sales));
+    }
+    return res.status(200).json({ sales });
+  } catch (err) {
+    return res.status(500).json({
+      message: 'Error retrieving sales',
       error: err,
     });
   }

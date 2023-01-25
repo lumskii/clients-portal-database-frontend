@@ -26,14 +26,18 @@ const types = [
   {
     label: 'Film Report',
     options: [
-      { label: 'Film by Buyer', selector: BuyerSelector },
-      { label: 'Film by Territory', selector: TerritorySelector },
-      { label: 'Film by Age', selector: AgeSelector },
+      { label: 'Film by Buyer', selector: BuyerSelector, key: 'client' },
+      {
+        label: 'Film by Territory',
+        selector: TerritorySelector,
+        key: 'territory',
+      },
+      { label: 'Film by Age', selector: AgeSelector, key: 'age' },
       {
         label: 'Film by Contract Expiration',
         selector: ContractExpirationSelector,
       },
-      { label: 'Film by Genre', selector: GenreSelector },
+      { label: 'Film by Genre', selector: GenreSelector, key: 'genre' },
     ],
   },
   {

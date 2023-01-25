@@ -52,20 +52,19 @@ const columns = [
 const ReportView = ({ type, option, value, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
-  const clientId = value.key;
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${server}/v1/clients/${clientId}/sales`)
+      .get(`${server}/v1/clients/sales?${option.key}=${value}`)
       .then((response) => {
-        const allSales = response.data.sales.map((sale) => ({
+        const sales = response.data.sales.map((sale) => ({
           id: sale._id,
           cName: sale.cName,
           dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
           dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
         }));
-        setCompanies(allSales);
+        setCompanies(sales);
       })
       .catch((error) => {
         console.log('unable to fetch', error);
@@ -73,7 +72,7 @@ const ReportView = ({ type, option, value, onClose }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [clientId]);
+  }, [type, option, value]);
 
   return (
     <Wrapper>
