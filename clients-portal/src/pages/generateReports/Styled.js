@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Modal, Box, Select, MenuItem } from '@mui/material';
 
 export const StyledModal = ({ children, ...props }) => (
@@ -47,3 +48,12 @@ export const CustomizedSelect = ({
     })}
   </Select>
 );
+=======
+import styled from 'styled-components';
+import RSelect from 'react-select';
+
+export const CustomSelect = styled(RSelect)`
+  width: 100%;
+  color: #000;
+`;
+>>>>>>> 74b70012eabeb1999cb6356148153dbe51c6a92b

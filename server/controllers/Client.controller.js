@@ -1,9 +1,5 @@
-const multer = require('multer');
-const flatten = require('lodash/flatten');
-const subYears = require('date-fns/subYears');
-const startOfYear = require('date-fns/startOfYear');
-const endOfYear = require('date-fns/endOfYear');
 const Client = require('../models/Client');
+const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -333,6 +329,7 @@ exports.listAllExpenses = async (req, res) => {
     });
   }
 };
+<<<<<<< HEAD
 
 // ==== get sales ====
 
@@ -504,3 +501,5 @@ exports.getDistRev = (req, res) => {
       })
       .catch(err => res.status(500).json({ message: "Error retrieving distribution revenue", error: err }));
 };
+=======
+>>>>>>> 74b70012eabeb1999cb6356148153dbe51c6a92b
