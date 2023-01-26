@@ -1,5 +1,9 @@
 const Client = require('../models/Client');
 const multer = require('multer');
+const flatten = require('lodash/flatten');
+const subYears = require('date-fns/subYears');
+const startOfYear = require('date-fns/startOfYear');
+const endOfYear = require('date-fns/endOfYear');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -254,25 +258,25 @@ exports.updateSale = (req, res) => {
   });
 };
 
-exports.getSale = (req, res) => {
-  const clientId = req.params.clientId;
-  const saleId = req.params.saleId;
+// exports.getSale = (req, res) => {
+//   const clientId = req.params.clientId;
+//   const saleId = req.params.saleId;
 
-  Client.findById(clientId)
-    .then((client) => {
-      if (!client) {
-        return res.status(404).json({ message: 'Client not found' });
-      }
-      const sale = client.sales.id(saleId);
-      if (!sale) {
-        return res.status(404).json({ message: 'Sale not found' });
-      }
-      res.json(sale);
-    })
-    .catch((err) =>
-      res.status(500).json({ message: 'Error retrieving sale', error: err })
-    );
-};
+//   Client.findById(clientId)
+//     .then((client) => {
+//       if (!client) {
+//         return res.status(404).json({ message: 'Client not found' });
+//       }
+//       const sale = client.sales.id(saleId);
+//       if (!sale) {
+//         return res.status(404).json({ message: 'Sale not found' });
+//       }
+//       res.json(sale);
+//     })
+//     .catch((err) =>
+//       res.status(500).json({ message: 'Error retrieving sale', error: err })
+//     );
+// };
 
 exports.addExpense = (req, res) => {
   const clientId = req.params.clientId;
