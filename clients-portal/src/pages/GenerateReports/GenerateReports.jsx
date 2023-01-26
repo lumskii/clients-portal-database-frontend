@@ -36,10 +36,10 @@ export default function Reports() {
 
   return (
     <DashBoard>
-      <Box p="80px 20px 20px 20px">
+      <Box p="60px 20px 20px 20px">
         <Header
           title="Generate Reports"
-          subtitle="Generate a report base on specified criterias"
+          subtitle="Generate reports based on specified criterias"
         />
 
         {status === STATUS.REPORT_VIEW ? (

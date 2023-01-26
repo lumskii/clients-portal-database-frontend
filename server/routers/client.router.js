@@ -16,6 +16,8 @@ router.get('/', clientController.getAllClients);
 
 router.get('/:id', clientController.getClientDetails);
 
+router.get('/sales', clientController.getSales);
+
 router.get('/:clientId/expenses', clientController.listAllExpenses);
 
 router.get('/:clientId/dist-rev', clientController.listAllDistributionRev);
