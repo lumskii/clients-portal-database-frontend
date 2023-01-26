@@ -1,5 +1,9 @@
-const Client = require('../models/Client');
 const multer = require('multer');
+const flatten = require('lodash/flatten');
+const subYears = require('date-fns/subYears');
+const startOfYear = require('date-fns/startOfYear');
+const endOfYear = require('date-fns/endOfYear');
+const Client = require('../models/Client');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -419,17 +423,24 @@ exports.addDistributionRev = (req, res) => {
     receivedAmount,
   };
 
-  if (!cName || !cType || !rType || !territory || !revenueAmount || !receivedAmount) {
+  if (
+    !cName ||
+    !cType ||
+    !rType ||
+    !territory ||
+    !revenueAmount ||
+    !receivedAmount
+  ) {
     return res.json({
       status: 500,
-      message: "Some fields are empty.",
+      message: 'Some fields are empty.',
     });
   }
 
   Client.findById(clientId, function (err, client) {
     if (err) return res.json({ success: false, error: err });
 
-    console.log("get client details", client);
+    console.log('get client details', client);
 
     client.distributionRev.push(newDistributionRev);
     client.save(function (err, dbDistributionRev) {
@@ -442,7 +453,7 @@ exports.addDistributionRev = (req, res) => {
       });
     });
   });
-  };
+};
 
 exports.listAllDistributionRev = async (req, res) => {
   const clientId = req.params.clientId;
@@ -450,7 +461,7 @@ exports.listAllDistributionRev = async (req, res) => {
     const client = await Client.findById(clientId);
     if (!client) {
       return res.status(404).json({
-        message: "Client not found",
+        message: 'Client not found',
       });
     }
     return res.status(200).json({
@@ -459,7 +470,7 @@ exports.listAllDistributionRev = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({
-      message: "Error retrieving distribution revenue",
+      message: 'Error retrieving distribution revenue',
       error: err,
     });
   }
@@ -471,9 +482,12 @@ exports.updateDistRev = (req, res) => {
 
   Client.findById(clientId, function (err, client) {
     if (err || !client)
-      return res.json({ success: false, error: "Invalid Client ID" });
+      return res.json({ success: false, error: 'Invalid Client ID' });
     if (!client.distributionRev.id(distRevId))
-      return res.json({ success: false, error: "Invalid Distribution Revenue ID" });
+      return res.json({
+        success: false,
+        error: 'Invalid Distribution Revenue ID',
+      });
     const distRev = client.distributionRev.id(distRevId);
     distRev.set(req.body);
     client.save(function (err, dbDistRev) {
@@ -486,17 +500,23 @@ exports.updateDistRev = (req, res) => {
 exports.getDistRev = (req, res) => {
   const clientId = req.params.clientId;
   const distRevId = req.params.distRevId;
-  
+
   Client.findById(clientId)
-      .then(client => {
-          if (!client) {
-              return res.status(404).json({ message: "Client not found" });
-          }
-          const distRev = client.distributionRev.id(distRevId);
-          if (!distRev) {
-              return res.status(404).json({ message: "Distribution Revenue not found" });
-          }
-          res.json(distRev);
-      })
-      .catch(err => res.status(500).json({ message: "Error retrieving distribution revenue", error: err }));
+    .then((client) => {
+      if (!client) {
+        return res.status(404).json({ message: 'Client not found' });
+      }
+      const distRev = client.distributionRev.id(distRevId);
+      if (!distRev) {
+        return res
+          .status(404)
+          .json({ message: 'Distribution Revenue not found' });
+      }
+      res.json(distRev);
+    })
+    .catch((err) =>
+      res
+        .status(500)
+        .json({ message: 'Error retrieving distribution revenue', error: err })
+    );
 };
