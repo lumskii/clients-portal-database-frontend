@@ -28,6 +28,7 @@
 .counterContainer {
   width: 100%;
   text-align: center;
+  padding: 0 10px;
 }
 
 .counter {
@@ -36,6 +37,7 @@
   width: 100%;
   font-weight: bold;
   margin-top: -10px;
+  text-align: center;
 }
 
 .divider {
