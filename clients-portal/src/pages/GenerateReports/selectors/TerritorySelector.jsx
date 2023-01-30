@@ -2,6 +2,7 @@ import { InputLabel } from '@mui/material';
 import { CustomizedSelect } from '../Styled';
 
 const options = [
+  { id: 'united_states/canada', label: 'United States/Canada' },
   { id: 'australia', label: 'Australia/NZ' },
   { id: 'benelux', label: 'Benelux' },
   { id: 'france', label: 'France' },
@@ -16,6 +17,9 @@ const options = [
   { id: 'united_kingdom', label: 'United Kingdom' },
   { id: 'russia', label: 'Russia' },
   { id: 'eastern_europe', label: 'Eastern Europe(Excluding CIS)' },
+  { id: 'cis/baltics', label: 'CIS/Baltics' },
+  { id: 'africa', label: 'Africa' },
+  { id: 'saarc', label: 'SAARC' },
   { id: 'asia_pay_tv', label: 'Asia Pay TV' },
   { id: 'india', label: 'India' },
   { id: 'china', label: 'China' },

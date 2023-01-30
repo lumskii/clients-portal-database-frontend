@@ -9,8 +9,6 @@ const logger = require('morgan');
 const path = require('path');
 const { getAllTitles } = require('./controllers/titles.controller');
 const clientRouter = require('./routers/client.router');
-const expenseRouter = require('./routers/expense.router');
-const salesRouter = require('./routers/sales.router');
 const fs = require('fs');
 const ImageModel = require('./models/Uploads');
 
@@ -44,8 +42,6 @@ const userRouter = require('./routers/user.router');
 //Use Routers
 app.use('/v1/user', userRouter);
 app.use('/v1/clients', clientRouter);
-app.use('/v1/expenses', expenseRouter);
-app.use('/v1/sales', salesRouter);
 
 //fetching title link
 app.get('/titles', getAllTitles);

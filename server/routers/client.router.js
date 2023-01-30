@@ -14,6 +14,8 @@ router.post('/:clientId/dist-rev', clientController.addDistributionRev);
 
 router.get('/', clientController.getAllClients);
 
+router.get('/titlesbyterritory', clientController.filmByTerritory);
+
 router.get('/:id', clientController.getClientDetails);
 
 router.get('/sales', clientController.getSales);

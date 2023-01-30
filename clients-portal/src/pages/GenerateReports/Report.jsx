@@ -38,16 +38,6 @@ const Wrapper = styled(Box)(({ theme }) => {
   };
 });
 
-const columns = [
-  {
-    field: 'cName',
-    headerName: 'Company Name',
-    width: 300,
-  },
-  { field: 'dealED', headerName: 'Deal Entered Date', width: 200 },
-  { field: 'dealCD', headerName: 'Deal Closed Date', width: 200 },
-];
-
 const ReportView = ({ option, value, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [companies, setCompanies] = useState([]);
@@ -60,11 +50,15 @@ const ReportView = ({ option, value, onClose }) => {
     axios
       .get(url)
       .then((response) => {
-        const sales = response.data.sales.map((sale) => ({
+        const sales = response.data.sales.map((sale, client) => ({
           id: sale._id,
           cName: sale.cName,
+          territory: sale.territory,
+          salesAmount: sale.salesAmount,
+          receivedAmount: sale.receivedAmount,
           dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
           dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
+          filmName: client.filmName,
         }));
         setCompanies(sales);
       })
@@ -75,6 +69,34 @@ const ReportView = ({ option, value, onClose }) => {
         setLoading(false);
       });
   }, [option, value]);
+
+  //...setting the columns..................................................
+  let columns = [];
+  if (option.label === 'Film by Buyer') {
+    columns = [
+      {
+        field: 'cName',
+        headerName: 'Company Name',
+        width: 300,
+      },
+    ];
+  } else if (option.label === 'Film by Territory') {
+    columns = [
+      { field: 'filmName', headerName: 'Film by Territory', width: 300 },
+    ];
+  } else if (option.label === 'Film by Age') {
+    columns = [{ field: 'filmName', headerName: 'Film by Age', width: 300 }];
+  } else if (option.label === 'Film by Contract Expiration') {
+    columns = [
+      {
+        field: 'filmName',
+        headerName: 'Film by Contract Expiration',
+        width: 300,
+      },
+    ];
+  } else if (option.label === 'Film by Genre') {
+    columns = [{ field: 'filmName', headerName: 'Film by Genre', width: 300 }];
+  }
 
   return (
     <Wrapper>

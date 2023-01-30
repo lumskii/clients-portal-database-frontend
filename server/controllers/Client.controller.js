@@ -334,6 +334,16 @@ exports.listAllExpenses = async (req, res) => {
   }
 };
 
+// ====== get film name by territory ======
+exports.filmByTerritory = async (req, res) => {
+  const territory = req.params.territory;
+
+  Client.find({ 'sales.territory': territory }, 'filmName', (err, filmName) => {
+    if (err) return res.json({ success: false, error: err });
+    return res.json({ success: true, filmName });
+  });
+};
+
 // ==== get sales ====
 
 const getSalesByClient = async (clientId) => {
@@ -353,6 +363,20 @@ const getSalesByTerritory = async (territory) => {
     clients.map((c) => c.sales).filter((s) => s.territory === territory)
   );
 };
+
+// const filterFilmNameByTerritory = async (req, res) => {
+//   const { territory } = req.query;
+//   const clients = await Client.find({
+//     sales: {
+//       $elemMatch: {
+//         territory,
+//       },
+//     },
+//   }).select('sales');
+//   const sales = flatten(clients.map((c) => c.sales));
+//   const filmNames = sales.map((s) => s.filmName);
+//   return res.json(filmNames);
+// }
 
 const getSalesByAge = async (age) => {
   const date = subYears(new Date(), age);
