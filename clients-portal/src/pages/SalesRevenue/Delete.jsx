@@ -21,7 +21,7 @@ const SalesRevenueDelete = ({ clientId, sale, onClose }) => {
     <Dialog open={!!sale} onClose={onClose}>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to delte <strong>{data?.cName}</strong>?
+          Are you sure you want to delete <strong>{data?.cName}</strong>?
         </DialogContentText>
       </DialogContent>
       <DialogActions sx={{ padding: '0px 24px 16px 24px' }}>
