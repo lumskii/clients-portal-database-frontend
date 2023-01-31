@@ -50,17 +50,24 @@ const ReportView = ({ option, value, onClose }) => {
     axios
       .get(url)
       .then((response) => {
-        const sales = response.data.sales.map((sale, client) => ({
-          id: sale._id,
-          cName: sale.cName,
-          territory: sale.territory,
-          salesAmount: sale.salesAmount,
-          receivedAmount: sale.receivedAmount,
-          dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
-          dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
-          filmName: client.filmName,
-        }));
-        setCompanies(sales);
+        if (option.label === 'Film by Buyer') {
+          const sales = response.data.sales.map((sale) => ({
+            id: sale._id,
+            cName: sale.cName,
+            territory: sale.territory,
+            salesAmount: sale.salesAmount,
+            receivedAmount: sale.receivedAmount,
+            dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
+            dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
+          }));
+          setCompanies(sales);
+        } else if (option.label === 'Film by Territory') {
+          const clients = response.clients.map((client) => ({
+            id: client._id,
+            filmName: client.filmName,
+          }));
+          setCompanies(clients);
+        }
       })
       .catch((error) => {
         console.log('unable to fetch', error);
@@ -70,34 +77,6 @@ const ReportView = ({ option, value, onClose }) => {
       });
   }, [option, value]);
 
-  //...setting the columns..................................................
-  let columns = [];
-  if (option.label === 'Film by Buyer') {
-    columns = [
-      {
-        field: 'cName',
-        headerName: 'Company Name',
-        width: 300,
-      },
-    ];
-  } else if (option.label === 'Film by Territory') {
-    columns = [
-      { field: 'filmName', headerName: 'Film by Territory', width: 300 },
-    ];
-  } else if (option.label === 'Film by Age') {
-    columns = [{ field: 'filmName', headerName: 'Film by Age', width: 300 }];
-  } else if (option.label === 'Film by Contract Expiration') {
-    columns = [
-      {
-        field: 'filmName',
-        headerName: 'Film by Contract Expiration',
-        width: 300,
-      },
-    ];
-  } else if (option.label === 'Film by Genre') {
-    columns = [{ field: 'filmName', headerName: 'Film by Genre', width: 300 }];
-  }
-
   return (
     <Wrapper>
       <button className="position clientAddButton" onClick={() => onClose()}>
@@ -106,7 +85,7 @@ const ReportView = ({ option, value, onClose }) => {
       <DataGrid
         loading={loading}
         rows={companies}
-        columns={columns}
+        columns={option.columns || []}
         components={{
           Toolbar: GridToolbar,
         }}

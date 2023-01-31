@@ -113,28 +113,41 @@ const ClientSetup = () => {
     }
   };
 
-  const onChangeFile = (e) => {
-    setFiles(e.target.file[0]);
+  const uploadImage = (files) => {
+    console.log(files[0]);
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    formData.append('upload_preset', 'gr2eqoz3');
+
+    axios
+      .post('https://api.cloudinary.com/v1_1/ds8vori3h/image/upload', formData)
+      .then((response) => console.log(response));
   };
 
   const Upload = () => {
     return (
-      <TextField
-        fullWidth
-        variant="filled"
+      <input
         type="file"
         onChange={(e) => {
-          formik.setFieldValue('avatar', e.currentTarget.files[0]);
-          setFiles(e.currentTarget.files[0]);
-        }}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        name="avatar"
-        InputProps={{
-          accept: 'image/*',
+          uploadImage(e.target.files);
         }}
       />
+      // <TextField
+      //   fullWidth
+      //   variant="filled"
+      //   type="file"
+      //   onChange={(e) => {
+      //     formik.setFieldValue('avatar', e.currentTarget.files[0]);
+      //     setFiles(e.currentTarget.files[0]);
+      //   }}
+      //   InputLabelProps={{
+      //     shrink: true,
+      //   }}
+      //   name="avatar"
+      //   InputProps={{
+      //     accept: 'image/*',
+      //   }}
+      // />
     );
   };
 
