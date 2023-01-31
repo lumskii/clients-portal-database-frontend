@@ -211,10 +211,9 @@ exports.addSale = (req, res) => {
     console.log('get client details', client);
 
     client.sales.push(newSale);
-    client.save(function (err, dbSales) {
+    client.save(function (err, data) {
       if (err) return res.json({ success: false, error: err });
-
-      return res.json({ success: true, status: 200, sales: dbSales });
+      return res.json({ success: true, status: 200, client: data });
     });
   });
 };
@@ -251,9 +250,9 @@ exports.updateSale = (req, res) => {
       return res.json({ success: false, error: 'Invalid Sale ID' });
     const sale = client.sales.id(saleId);
     sale.set(req.body);
-    client.save(function (err, dbSale) {
+    client.save(function (err, data) {
       if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true, sale: dbSale });
+      return res.json({ success: true, client: data });
     });
   });
 };

@@ -29,6 +29,11 @@ export const menus = [
         to: '/add-edit-sales',
       },
       {
+        label: 'Sales Revenue (new)',
+        icon: MdOutlinePointOfSale,
+        to: '/add-edit-sales1',
+      },
+      {
         label: 'Distribution Revenue',
         icon: BsDistributeHorizontal,
         to: '/distribution-revenue',
