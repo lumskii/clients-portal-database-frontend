@@ -350,26 +350,26 @@ const getSalesByClient = async (clientId) => {
   return client?.sales || [];
 };
 
-// const getSalesByTerritory = async (territory) => {
-//   const clients = await Client.find({
-//     sales: {
-//       $elemMatch: {
-//         territory,
-//       },
-//     },
-//   }).select('sales');
-//   return flatten(
-//     clients.map((c) => c.sales).filter((s) => s.territory === territory)
-//   );
-// };
-
-const getFilmsByTerritory = async (territory) => {
+const getSalesByTerritory = async (territory) => {
   const clients = await Client.find({
-    "sales.territory": territory,
-  }).select('filmName');
-
-  return clients.map((c) => c.filmName);
+    sales: {
+      $elemMatch: {
+        territory,
+      },
+    },
+  }).select('sales');
+  return flatten(
+    clients.map((c) => c.sales).filter((s) => s.territory === territory)
+  );
 };
+
+// const getFilmsByTerritory = async (territory) => {
+//   const clients = await Client.find({
+//     "sales.territory": territory,
+//   }).select('filmName');
+
+//   return clients.map((c) => c.filmName);
+// };
 
 const getSalesByAge = async (age) => {
   const date = subYears(new Date(), age);
@@ -405,7 +405,7 @@ exports.getSales = async (req, res) => {
     if (req.query.client) {
       sales = await getSalesByClient(req.query.client);
     } else if (req.query.territory) {
-      sales = await getFilmsByTerritory(req.query.territory);
+      sales = await getSalesByTerritory(req.query.territory);
     } else if (req.query.age) {
       sales = await getSalesByAge(req.query.age);
     } else if (req.query.expiration) {

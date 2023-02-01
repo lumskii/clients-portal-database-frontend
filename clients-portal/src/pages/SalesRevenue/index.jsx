@@ -59,7 +59,7 @@ const SalesRevenue = () => {
 
   return (
     <Box p="40px 20px 20px 20px">
-      <Header title="Sales Revenue" />
+      <Header title="Sales Revenue" subtitle="Add/Edit Sales Revenue" />
 
       <ToolBar>
         <RSelect

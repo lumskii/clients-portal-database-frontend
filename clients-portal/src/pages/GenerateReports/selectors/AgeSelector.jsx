@@ -30,6 +30,7 @@ const AgeSelector = ({ value, setValue }) => {
           value={age}
           step={1}
           marks={marks}
+          valueLabelDisplay="auto"
           min={1}
           max={30}
           onChange={(e, value) => setAge(value)}
