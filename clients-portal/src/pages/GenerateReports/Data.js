@@ -39,7 +39,7 @@ export const types = [
         label: 'Film by Age',
         selector: AgeSelector,
         getUrl: (value) => `${server}/v1/clients/sales?age=${value}`,
-        columns: [{ field: 'cName', headerName: 'Film by Age', width: 300 }],
+        columns: [{ field: 'filmName', headerName: 'Film by Age', width: 300 }],
       },
       {
         label: 'Film by Contract Expiration',
@@ -48,7 +48,7 @@ export const types = [
           `${server}/v1/clients/sales?expiration=${value[0]}&expiration=${value[1]}`,
         columns: [
           {
-            field: 'cName',
+            field: 'filmName',
             headerName: 'Film by Contract Expiration',
             width: 300,
           },
@@ -58,7 +58,9 @@ export const types = [
         label: 'Film by Genre',
         selector: GenreSelector,
         getUrl: (value) => `${server}/v1/clients/sales?genre=${value}`,
-        columns: [{ field: 'cName', headerName: 'Film by Genre', width: 300 }],
+        columns: [
+          { field: 'filmName', headerName: 'Film by Genre', width: 300 },
+        ],
       },
     ],
   },

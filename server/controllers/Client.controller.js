@@ -334,14 +334,14 @@ exports.listAllExpenses = async (req, res) => {
 };
 
 // ====== get film name by territory ======
-exports.filmByTerritory = async (req, res) => {
-  const territory = req.params.territory;
+// exports.filmByTerritory = async (req, res) => {
+//   const territory = req.params.territory;
 
-  Client.find({ 'sales.territory': territory }, 'filmName', (err, filmName) => {
-    if (err) return res.json({ success: false, error: err });
-    return res.json({ success: true, filmName });
-  });
-};
+//   Client.find({ 'sales.territory': territory }, 'filmName', (err, filmName) => {
+//     if (err) return res.json({ success: false, error: err });
+//     return res.json({ success: true, filmName });
+//   });
+// };
 
 // ==== get sales ====
 
@@ -350,25 +350,47 @@ const getSalesByClient = async (clientId) => {
   return client?.sales || [];
 };
 
-const getSalesByTerritory = async (territory) => {
+// const getSalesByTerritory = async (territory) => {
+//   const clients = await Client.find({
+//     sales: {
+//       $elemMatch: {
+//         territory,
+//       },
+//     },
+//   }).select('sales');
+//   return flatten(
+//     clients.map((c) => c.sales).filter((s) => s.territory === territory)
+//   );
+// };
+
+const getFilmsByTerritory = async (territory) => {
   const clients = await Client.find({
-    sales: {
-      $elemMatch: {
-        territory,
-      },
-    },
-  }).select('sales');
-  return flatten(
-    clients.map((c) => c.sales).filter((s) => s.territory === territory)
-  );
+    'sales.territory': territory,
+  }).select('filmName sales.territory');
+
+  return {
+    films: clients.map((c) => c.filmName),
+    clients,
+    territories: clients.map(
+      (c) =>
+        c.sales
+          .filter((s) => s.territory === territory)
+          .map((s) => s.territory)[0]
+    ),
+  };
 };
 
-// const getFilmsByTerritory = async (territory) => {
+// const getSalesByAge = async (age) => {
+//   const date = subYears(new Date(), age);
+//   const startDate = startOfYear(date);
+//   const endDate = endOfYear(date);
 //   const clients = await Client.find({
-//     "sales.territory": territory,
-//   }).select('filmName');
-
-//   return clients.map((c) => c.filmName);
+//     effectiveDate: {
+//       $gte: startDate,
+//       $lte: endDate,
+//     },
+//   }).select('sales');
+//   return flatten(clients.map((c) => c.sales));
 // };
 
 const getSalesByAge = async (age) => {
@@ -380,9 +402,24 @@ const getSalesByAge = async (age) => {
       $gte: startDate,
       $lte: endDate,
     },
-  }).select('sales');
-  return flatten(clients.map((c) => c.sales));
-};
+  }).select('filmName sales');
+
+  return {
+    films: clients.map((c) => c.filmName),
+    clients,
+    sales: flatten(clients.map((c) => c.sales)),
+  };
+}
+
+// const getSalesByExpiration = async (expiration) => {
+//   const clients = await Client.find({
+//     renewalExpiration: {
+//       $gte: new Date(expiration[0]),
+//       $lte: new Date(expiration[1]),
+//     },
+//   }).select('sales');
+//   return flatten(clients.map((c) => c.sales));
+// };
 
 const getSalesByExpiration = async (expiration) => {
   const clients = await Client.find({
@@ -390,13 +427,23 @@ const getSalesByExpiration = async (expiration) => {
       $gte: new Date(expiration[0]),
       $lte: new Date(expiration[1]),
     },
-  }).select('sales');
-  return flatten(clients.map((c) => c.sales));
+  }).select('filmName sales');
+
+  return {
+    films: clients.map((c) => c.filmName),
+    clients,
+    sales: flatten(clients.map((c) => c.sales)),
+  };
 };
 
+
 const getSalesByGenre = async (genre) => {
-  const clients = await Client.find({ genre }).select('sales');
-  return flatten(clients.map((c) => c.sales));
+  const clients = await Client.find({ genre }).select('filmName sales');
+  return {
+    films: clients.map((c) => c.filmName),
+    clients,
+    sales: flatten(clients.map((c) => c.sales)),
+  };
 };
 
 exports.getSales = async (req, res) => {
@@ -405,13 +452,17 @@ exports.getSales = async (req, res) => {
     if (req.query.client) {
       sales = await getSalesByClient(req.query.client);
     } else if (req.query.territory) {
-      sales = await getSalesByTerritory(req.query.territory);
+      const result = await getFilmsByTerritory(req.query.territory);
+      return res.status(200).json(result);
     } else if (req.query.age) {
-      sales = await getSalesByAge(req.query.age);
+      const result = await getSalesByAge(req.query.age);
+      return res.status(200).json(result);
     } else if (req.query.expiration) {
-      sales = await getSalesByExpiration(req.query.expiration);
+      const result = await getSalesByExpiration(req.query.expiration);
+      return res.status(200).json(result);
     } else if (req.query.genre) {
-      sales = await getSalesByGenre(req.query.genre);
+      const result = await getSalesByGenre(req.query.genre);
+      return res.status(200).json(result);
     }
     return res.status(200).json({ sales });
   } catch (err) {

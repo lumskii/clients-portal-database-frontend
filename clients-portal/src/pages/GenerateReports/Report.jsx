@@ -50,34 +50,40 @@ const ReportView = ({ option, value, onClose }) => {
     axios
       .get(url)
       .then((response) => {
-        // if (option.label === 'Film by Buyer') {
-        //   const sales = response.data.sales.map((sale) => ({
-        //     id: sale._id,
-        //     cName: sale.cName,
-        //     territory: sale.territory,
-        //     salesAmount: sale.salesAmount,
-        //     receivedAmount: sale.receivedAmount,
-        //     dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
-        //     dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
-        //   }));
-        //   setCompanies(sales);
-        // } else if (option.label === 'Film by Territory') {
-        //   const clients = response.data.clients.map((client) => ({
-        //     id: client._id,
-        //     filmName: client.filmName,
-        //   }));
-        //   setCompanies(clients);
-        // }
-        const sales = response.data.sales.map((sale) => ({
-          id: sale._id,
-          cName: sale.cName,
-          territory: sale.territory,
-          salesAmount: sale.salesAmount,
-          receivedAmount: sale.receivedAmount,
-          dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
-          dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
-        }));
-        setCompanies(sales);
+        if (option.label === 'Film by Buyer') {
+          const sales = response.data.sales.map((sale) => ({
+            id: sale._id,
+            cName: sale.cName,
+            territory: sale.territory,
+            salesAmount: sale.salesAmount,
+            receivedAmount: sale.receivedAmount,
+            dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
+            dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
+          }));
+          setCompanies(sales);
+        } else if (
+          option.label === 'Film by Territory' ||
+          option.label === 'Film by Age' ||
+          option.label === 'Film by Contract Expiration' ||
+          option.label === 'Film by Genre'
+        ) {
+          const clients = response.data.clients.map((client) => ({
+            id: client._id,
+            filmName: client.filmName,
+          }));
+          setCompanies(clients);
+          console.log('clients', clients);
+        }
+        // const sales = response.data.sales.map((sale) => ({
+        //   id: sale._id,
+        //   cName: sale.cName,
+        //   territory: sale.territory,
+        //   salesAmount: sale.salesAmount,
+        //   receivedAmount: sale.receivedAmount,
+        //   dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
+        //   dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
+        // }));
+        // setCompanies(sales);
       })
       .catch((error) => {
         console.log('unable to fetch', error);
