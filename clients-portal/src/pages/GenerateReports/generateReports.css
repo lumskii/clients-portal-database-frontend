@@ -61,3 +61,7 @@
 .react-datepicker-popper {
   z-index: 9999 !important;
 }
+
+.ant-table-wrapper .ant-table-thead >tr>th {
+  background: #ff9900;
+}

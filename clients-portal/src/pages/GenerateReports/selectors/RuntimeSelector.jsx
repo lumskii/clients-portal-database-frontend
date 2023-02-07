@@ -7,7 +7,7 @@ const options = [
   { id: '30-60', label: '30-60' },
   { id: '60-90', label: '60-90' },
   { id: '90-120', label: '90-120' },
-  { id: '90-120', label: '120+' },
+  { id: '120+', label: '120+' },
 ];
 
 const RuntimeSelector = ({ value, setValue }) => {

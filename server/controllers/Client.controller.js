@@ -277,6 +277,26 @@ exports.getSale = (req, res) => {
     );
 };
 
+exports.deleteSale = async (req, res) => {
+  try {
+    const clientId = req.params.clientId;
+    const saleId = req.params.saleId;
+  
+    const client = await Client.findById(clientId);
+    if (!client) return res.status(404).json({ error: 'Client not found' });
+  
+    const saleIndex = client.sales.findIndex((sale) => sale._id == saleId);
+    if (saleIndex === -1) return res.status(404).json({ error: 'Sale not found' });
+  
+    client.sales.splice(saleIndex, 1);
+    await client.save();
+  
+    res.json({ message: 'Sale deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 exports.addExpense = (req, res) => {
   const clientId = req.params.clientId;
   const dateExp = req.body.dateExp;
@@ -333,16 +353,6 @@ exports.listAllExpenses = async (req, res) => {
   }
 };
 
-// ====== get film name by territory ======
-// exports.filmByTerritory = async (req, res) => {
-//   const territory = req.params.territory;
-
-//   Client.find({ 'sales.territory': territory }, 'filmName', (err, filmName) => {
-//     if (err) return res.json({ success: false, error: err });
-//     return res.json({ success: true, filmName });
-//   });
-// };
-
 // ==== get sales ====
 
 const getSalesByClient = async (clientId) => {
@@ -371,27 +381,9 @@ const getFilmsByTerritory = async (territory) => {
   return {
     films: clients.map((c) => c.filmName),
     clients,
-    territories: clients.map(
-      (c) =>
-        c.sales
-          .filter((s) => s.territory === territory)
-          .map((s) => s.territory)[0]
-    ),
+    territory: territory,
   };
 };
-
-// const getSalesByAge = async (age) => {
-//   const date = subYears(new Date(), age);
-//   const startDate = startOfYear(date);
-//   const endDate = endOfYear(date);
-//   const clients = await Client.find({
-//     effectiveDate: {
-//       $gte: startDate,
-//       $lte: endDate,
-//     },
-//   }).select('sales');
-//   return flatten(clients.map((c) => c.sales));
-// };
 
 const getSalesByAge = async (age) => {
   const date = subYears(new Date(), age);
@@ -409,17 +401,7 @@ const getSalesByAge = async (age) => {
     clients,
     sales: flatten(clients.map((c) => c.sales)),
   };
-}
-
-// const getSalesByExpiration = async (expiration) => {
-//   const clients = await Client.find({
-//     renewalExpiration: {
-//       $gte: new Date(expiration[0]),
-//       $lte: new Date(expiration[1]),
-//     },
-//   }).select('sales');
-//   return flatten(clients.map((c) => c.sales));
-// };
+};
 
 const getSalesByExpiration = async (expiration) => {
   const clients = await Client.find({
@@ -435,7 +417,6 @@ const getSalesByExpiration = async (expiration) => {
     sales: flatten(clients.map((c) => c.sales)),
   };
 };
-
 
 const getSalesByGenre = async (genre) => {
   const clients = await Client.find({ genre }).select('filmName sales');
@@ -588,3 +569,26 @@ exports.getDistRev = (req, res) => {
         .json({ message: 'Error retrieving distribution revenue', error: err })
     );
 };
+
+//====== get revenue by categories ======//
+
+exports.listClientsByTerritory = async (req, res) => {
+  const territory = req.query.territory;
+
+  try {
+    const clients = await Client.find({
+      'distributionRev.territory': territory
+    }, {
+      "filmName": 1,
+      "distributionRev.territory": 1,
+      "distributionRev.revenueAmount": 1,
+    });
+    res.json({ clients });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Error retrieving clients',
+      error: err,
+    });
+  }
+};
+

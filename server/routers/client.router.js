@@ -4,6 +4,8 @@ const clientController = require('../controllers/Client.controller');
 
 router.get('/sales', clientController.getSales);
 
+router.get('/revenue', clientController.listClientsByTerritory);
+
 router.post('/', clientController.insertClient);
 
 router.post('/:clientId/sales', clientController.addSale);
@@ -13,8 +15,6 @@ router.post('/:clientId/expenses', clientController.addExpense);
 router.post('/:clientId/dist-rev', clientController.addDistributionRev);
 
 router.get('/', clientController.getAllClients);
-
-// router.get('/titlesbyterritory', clientController.filmByTerritory);
 
 router.get('/:id', clientController.getClientDetails);
 
@@ -35,5 +35,7 @@ router.put('/:clientId/sales/:saleId', clientController.updateSale);
 router.put('/:clientId/dist-rev/:distRevId', clientController.updateDistRev);
 
 router.delete('/:id', clientController.deleteClient);
+
+router.delete('/:clientId/sales/:saleId', clientController.deleteSale);
 
 module.exports = router;

@@ -7,6 +7,9 @@ import {
   DialogContent,
   DialogContentText,
 } from '@mui/material';
+import axios from 'axios';
+import { server } from '../../constance';
+import cogoToast from 'cogo-toast';
 
 const SalesRevenueDelete = ({ clientId, sale, onClose }) => {
   const [data, setData] = useState();
@@ -16,6 +19,19 @@ const SalesRevenueDelete = ({ clientId, sale, onClose }) => {
       setData(sale);
     }
   }, [sale]);
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`${server}/v1/clients/${clientId}/sales/${sale._id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          cogoToast.success(data?.cName + ' has been deleted successfully', {
+            position: 'top-center',
+          });
+          setData(data.filter((item) => item._id !== id));
+        }
+      });
+  };
 
   return (
     <Dialog open={!!sale} onClose={onClose}>
@@ -37,7 +53,10 @@ const SalesRevenueDelete = ({ clientId, sale, onClose }) => {
           color="error"
           sx={{ lineHeight: 1, padding: '8px 0', width: 100 }}
           loading={false}
-          onClick={onClose}
+          onClick={() => {
+            handleDelete(data._id);
+            onClose();
+          }}
         >
           Delete
         </LoadingButton>

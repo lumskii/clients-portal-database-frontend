@@ -28,8 +28,8 @@ const ClientSchema = new Schema({
     maxlength: 50,
   },
   runtime: {
-    type: Number,
-    maxlength: 6,
+    type: String,
+    maxlength: 12,
   },
   genre: {
     type: String,

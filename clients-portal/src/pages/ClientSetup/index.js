@@ -34,7 +34,7 @@ const initialState = {
   producersEmail: '',
   filmsCode: '',
   distributionType: '',
-  runtime: 0, //make adjustment on the backend
+  runtime: '', //make adjustment on the backend
   genre: '', //make adjustment on the backend
   rightSale: '',
   rightSaleOpt: '', //make adjustment on the backend

@@ -67,7 +67,11 @@ export const types = [
   {
     label: 'Revenue Report',
     options: [
-      { label: 'Revenue by Territory', selector: TerritorySelector },
+      {
+        label: 'Revenue by Territory',
+        selector: TerritorySelector,
+        getUrl: (value) => `${server}/v1/clients/revenue?territory=${value}`,
+      },
       { label: 'Revenue by Platform', selector: PlatformSelector },
       { label: 'Revenue by Year', selector: YearSelector },
       { label: 'Revenue by Month', selector: MonthSelector },

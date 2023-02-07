@@ -76,19 +76,23 @@ export default function MovieInfo({ formik }) {
           <MenuItem value="International">International - Limited</MenuItem>
         </Select>
       </FormControl>
-      <TextField
-        fullWidth
-        id="filled-end-adornment"
-        onChange={formik.handleChange}
-        InputProps={{
-          endAdornment: <InputAdornment position="end">mins</InputAdornment>,
-        }}
-        name="runtime"
-        type="number"
-        variant="filled"
-        label="Movie Runtime"
-        sx={{ gridColumn: 'span 2' }}
-      />
+      <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
+        <InputLabel id="dropdown">Movie Runtime</InputLabel>
+        <Select
+          name="runtime"
+          value={formik.values.runtime}
+          onChange={formik.handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value="0-30">0-30 mins</MenuItem>
+          <MenuItem value="30-60">30-60 mins</MenuItem>
+          <MenuItem value="60-90">60-90 mins</MenuItem>
+          <MenuItem value="90-120">90-120 mins</MenuItem>
+          <MenuItem value="120+">120+ mins</MenuItem>
+        </Select>
+      </FormControl>
       <FormControl fullWidth variant="filled" sx={{ gridColumn: 'span 2' }}>
         <InputLabel id="dropdown">Movie Genre</InputLabel>
         <Select

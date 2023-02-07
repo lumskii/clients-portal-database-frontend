@@ -4,6 +4,10 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import axios from 'axios';
 import { tokens } from '../../theme';
 import { styled } from '@mui/system';
+import { Table, Collapse } from 'antd';
+import './generateReports.css';
+
+const { Panel } = Collapse;
 
 const Wrapper = styled(Box)(({ theme }) => {
   const colors = tokens(theme.palette.mode);
@@ -61,8 +65,15 @@ const ReportView = ({ option, value, onClose }) => {
             dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
           }));
           setCompanies(sales);
+        } else if (option.label === 'Film by Territory') {
+          const clients = response.data.clients.map((client) => ({
+            id: client._id,
+            filmName: client.filmName,
+            territory: response.data.territory,
+          }));
+          setCompanies(clients);
+          console.log('clients', clients);
         } else if (
-          option.label === 'Film by Territory' ||
           option.label === 'Film by Age' ||
           option.label === 'Film by Contract Expiration' ||
           option.label === 'Film by Genre'
@@ -73,17 +84,15 @@ const ReportView = ({ option, value, onClose }) => {
           }));
           setCompanies(clients);
           console.log('clients', clients);
+        } else if (option.label === 'Revenue by Territory') {
+          const revenue = response.data.clients.map((client) => ({
+            id: client._id,
+            filmName: client.filmName,
+            revenueAmount: client.distributionRev[0].revenueAmount,
+          }));
+          setCompanies(revenue);
+          console.log('revenue', revenue);
         }
-        // const sales = response.data.sales.map((sale) => ({
-        //   id: sale._id,
-        //   cName: sale.cName,
-        //   territory: sale.territory,
-        //   salesAmount: sale.salesAmount,
-        //   receivedAmount: sale.receivedAmount,
-        //   dealCD: new Date(sale.dealCD).toLocaleDateString('en-US'),
-        //   dealED: new Date(sale.dealED).toLocaleDateString('en-US'),
-        // }));
-        // setCompanies(sales);
       })
       .catch((error) => {
         console.log('unable to fetch', error);
@@ -93,19 +102,71 @@ const ReportView = ({ option, value, onClose }) => {
       });
   }, [option, value]);
 
+  const totalRevenue = companies.reduce(
+    (sum, company) => sum + company.revenueAmount,
+    0
+  );
+
+  const columns = [
+    { title: 'Territory', dataIndex: 'territory', key: 'territory' },
+    {
+      title: 'Total Revenue',
+      dataIndex: 'totalRevenue',
+      key: 'totalRevenue',
+      render: (text) => `$${text}`,
+    },
+  ];
+
   return (
     <Wrapper>
       <button className="position clientAddButton" onClick={() => onClose()}>
         Go Back
       </button>
-      <DataGrid
-        loading={loading}
-        rows={companies}
-        columns={option.columns || []}
-        components={{
-          Toolbar: GridToolbar,
-        }}
-      />
+      {option.label === 'Revenue by Territory' ? (
+        <>
+          <Box p={4}>
+            <Table
+              columns={columns}
+              dataSource={[{ territory: value, totalRevenue: totalRevenue }]}
+              loading={loading}
+              pagination={false}
+              rowKey="territory"
+            />
+            <Collapse>
+              <Panel header="Details" key="1">
+                <Table
+                  columns={[
+                    {
+                      title: 'Film Name',
+                      dataIndex: 'filmName',
+                      key: 'filmName',
+                    },
+                    {
+                      title: 'Revenue Amount',
+                      dataIndex: 'revenueAmount',
+                      key: 'revenueAmount',
+                      render: (text) => `$${text}`,
+                    },
+                  ]}
+                  dataSource={companies}
+                  loading={loading}
+                  pagination={false}
+                  rowKey="filmName"
+                />
+              </Panel>
+            </Collapse>
+          </Box>
+        </>
+      ) : (
+        <DataGrid
+          loading={loading}
+          rows={companies}
+          columns={option.columns || []}
+          components={{
+            Toolbar: GridToolbar,
+          }}
+        />
+      )}
     </Wrapper>
   );
 };
