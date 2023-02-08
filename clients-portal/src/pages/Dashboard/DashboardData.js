@@ -36,7 +36,7 @@ export const dashLinks = [
   },
   {
     id: 4,
-    to: '/add-edit-sales',
+    to: '/sales-revenue',
     icon: <PointOfSale />,
     label: 'Sales Revenue',
   },

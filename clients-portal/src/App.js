@@ -16,7 +16,6 @@ import {
   selectUser,
 } from './features/userSlice';
 import MainLayout from './components/MainLayout';
-// import AddEditSales from './pages/AddEditSales';
 import SalesRevenue from './pages/SalesRevenue';
 import Distribution from './pages/DistributionRev';
 import AddExpenses from './pages/AddExpenses';
@@ -79,8 +78,7 @@ function App() {
             <Route path="/clients/:clientsId" element={<ClientEdit />} />
             <Route path="/client-setup" element={<ClientSetup />} />
             <Route path="/reports" element={<GenerateReports />} />
-            {/* <Route path="/add-edit-sales" element={<AddEditSales />} /> */}
-            <Route path="/add-edit-sales1" element={<SalesRevenue />} />
+            <Route path="/sales-revenue" element={<SalesRevenue />} />
             <Route path="/distribution-revenue" element={<Distribution />} />
             <Route path="/add-expenses" element={<AddExpenses />} />
             <Route path="*" element={<NotFound />} />
