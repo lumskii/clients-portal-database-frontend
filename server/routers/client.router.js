@@ -4,7 +4,9 @@ const clientController = require('../controllers/Client.controller');
 
 router.get('/sales', clientController.getSales);
 
-router.get('/revenue', clientController.listClientsByTerritory);
+router.get('/revenue', clientController.listRevenueByTerritory);
+
+router.get('/revenuebyplatform', clientController.listRevenueByPlatform);
 
 router.post('/', clientController.insertClient);
 

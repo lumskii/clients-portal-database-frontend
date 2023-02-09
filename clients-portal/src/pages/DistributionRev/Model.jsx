@@ -121,6 +121,17 @@ export default function Model({ editDist, openModal, setOpenModal, clientId }) {
               fullWidth
               sx={{ gridColumn: 'span 4' }}
             />
+            {dist.cType === 'platform' && (
+              <TextField
+                label="Platform"
+                value={dist.platformOption}
+                onChange={handleChange}
+                name="platformoption"
+                variant="filled"
+                fullWidth
+                sx={{ gridColumn: 'span 4' }}
+              />
+            )}
             <TextField
               label="Rights Type"
               value={dist.rType}

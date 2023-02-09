@@ -63,6 +63,7 @@ function a11yProps(index) {
 const initialState = {
   cName: '',
   cType: '',
+  platformOption: '',
   rType: '',
   territory: '',
   revenueAmount: '',
@@ -80,6 +81,7 @@ const Distribution = () => {
   const [showField, setShowField] = useState(false);
   const [open, setOpen] = useState(true);
   const [details, setDetails] = useState(initialState);
+  const [showPlatformOptions, setShowPlatformOptions] = useState(false);
 
   const handleTabChange = (event, newValue) => {
     setToggleState(newValue);
@@ -94,6 +96,11 @@ const Distribution = () => {
     setDetails((prev) => {
       return { ...prev, [name]: value };
     });
+    if (e.target.name === 'cType' && e.target.value === 'platform') {
+      setShowPlatformOptions(true);
+    } else {
+      setShowPlatformOptions(false);
+    }
   };
 
   useEffect(() => {
@@ -325,6 +332,35 @@ const Distribution = () => {
                           </MenuItem>
                         </MSelect>
                       </FormControl>
+                      {showPlatformOptions && (
+                        <FormControl
+                          sx={{ gridColumn: 'span 2' }}
+                          variant="filled"
+                        >
+                          <InputLabel id="platformOption">
+                            Platform Option
+                          </InputLabel>
+                          <MSelect
+                            name="platformOption"
+                            value={details.platformOption}
+                            onChange={handleChange}
+                          >
+                            <MenuItem value="">
+                              <em> None </em>
+                            </MenuItem>
+                            <MenuItem value="netflix">Netflix</MenuItem>
+                            <MenuItem value="amazon">Amazon</MenuItem>
+                            <MenuItem value="hulu">Hulu</MenuItem>
+                            <MenuItem value="disney">Disney</MenuItem>
+                            <MenuItem value="tubi">Tubi</MenuItem>
+                            <MenuItem value="disney">Apple</MenuItem>
+                            <MenuItem value="hbo">HBO</MenuItem>
+                            <MenuItem value="apple">Apple</MenuItem>
+                            <MenuItem value="youtube">YouTube</MenuItem>
+                            <MenuItem value="other">Other</MenuItem>
+                          </MSelect>
+                        </FormControl>
+                      )}
                       <FormControl
                         sx={{ gridColumn: 'span 2' }}
                         variant="filled"

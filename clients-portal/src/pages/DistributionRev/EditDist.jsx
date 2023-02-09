@@ -27,6 +27,7 @@ export default function EditDist({ selectedTitle, dist, setDist }) {
           id: dist._id,
           cName: dist.cName,
           cType: dist.cType,
+          platformOption: dist.platformOption,
           rType: dist.rType,
           territory: dist.territory,
           revenueAmount: dist.revenueAmount,
@@ -108,14 +109,7 @@ export default function EditDist({ selectedTitle, dist, setDist }) {
           },
         }}
       >
-        <DataGrid
-          rows={dist}
-          columns={columns}
-          loading={loading}
-          // components={{
-          //   Toolbar: GridToolbar,
-          // }}
-        />
+        <DataGrid rows={dist} columns={columns} loading={loading} />
         <Model
           openModal={openModal}
           setOpenModal={setOpenModal}

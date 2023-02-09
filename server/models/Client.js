@@ -178,6 +178,10 @@ const ClientSchema = new Schema({
         type: String,
         maxlength: 20,
       },
+      platformOption: {
+        type: String,
+        maxlength: 20,
+      },
       rType: {
         type: String,
         maxlength: 20,

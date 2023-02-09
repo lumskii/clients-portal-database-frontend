@@ -72,7 +72,12 @@ export const types = [
         selector: TerritorySelector,
         getUrl: (value) => `${server}/v1/clients/revenue?territory=${value}`,
       },
-      { label: 'Revenue by Platform', selector: PlatformSelector },
+      {
+        label: 'Revenue by Platform',
+        selector: PlatformSelector,
+        getUrl: (value) =>
+          `${server}/v1/clients/revenuebyplatform?platform=${value}`,
+      },
       { label: 'Revenue by Year', selector: YearSelector },
       { label: 'Revenue by Month', selector: MonthSelector },
     ],
