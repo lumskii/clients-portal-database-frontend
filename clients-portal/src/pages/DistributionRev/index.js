@@ -274,202 +274,187 @@ const Distribution = () => {
               </Tabs>
             </AppBar>
 
-              <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={toggleState}
-                onChangeIndex={handleChangeIndex}
-                style={{ gridColumn: 'span 4' }}
+            <SwipeableViews
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              index={toggleState}
+              onChangeIndex={handleChangeIndex}
+              style={{ gridColumn: 'span 4' }}
+            >
+              <TabPanel
+                value={toggleState}
+                index={0}
+                dir={theme.direction}
+                variant="fullWidth"
+                style={{ width: '100%' }}
               >
-                <TabPanel
-                  value={toggleState}
-                  index={0}
-                  dir={theme.direction}
-                  variant="fullWidth"
-                  style={{ width: '100%' }}
-                >
-                  <form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                    <Box
-                      display="grid"
-                      gap="30px"
-                      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                      sx={{
-                        '& > div': {
-                          gridColumn: isNonMobile ? undefined : 'span 4',
-                        },
-                      }}
-                    >
-                      <FormControl sx={{ gridColumn: 'span 2' }}>
-                        <TextField
-                          fullWidth
-                          variant="filled"
-                          label="Company Name"
-                          name="cName"
-                          type="text"
-                          onChange={handleChange}
-                          value={details.cName}
-                        />
-                      </FormControl>
+                <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                  <Box
+                    display="grid"
+                    gap="30px"
+                    gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                    sx={{
+                      '& > div': {
+                        gridColumn: isNonMobile ? undefined : 'span 4',
+                      },
+                    }}
+                  >
+                    <FormControl sx={{ gridColumn: 'span 2' }}>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        label="Company Name"
+                        name="cName"
+                        type="text"
+                        onChange={handleChange}
+                        value={details.cName}
+                      />
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: 'span 2' }} variant="filled">
+                      <InputLabel id="cType">Company Type</InputLabel>
+                      <MSelect
+                        name="cType"
+                        value={details.cType}
+                        onChange={handleChange}
+                      >
+                        <MenuItem value="">
+                          <em> None </em>
+                        </MenuItem>
+                        <MenuItem value="platform">Platform</MenuItem>
+                        <MenuItem value="retail">Retail</MenuItem>
+                        <MenuItem value="miscellaneous">Miscellaneous</MenuItem>
+                      </MSelect>
+                    </FormControl>
+                    {showPlatformOptions && (
                       <FormControl
                         sx={{ gridColumn: 'span 2' }}
                         variant="filled"
                       >
-                        <InputLabel id="cType">Company Type</InputLabel>
+                        <InputLabel id="platformOption">
+                          Platform Option
+                        </InputLabel>
                         <MSelect
-                          name="cType"
-                          value={details.cType}
+                          name="platformOption"
+                          value={details.platformOption}
                           onChange={handleChange}
                         >
                           <MenuItem value="">
                             <em> None </em>
                           </MenuItem>
-                          <MenuItem value="platform">Platform</MenuItem>
-                          <MenuItem value="retail">Retail</MenuItem>
-                          <MenuItem value="miscellaneous">
-                            Miscellaneous
-                          </MenuItem>
+                          <MenuItem value="netflix">Netflix</MenuItem>
+                          <MenuItem value="amazon">Amazon</MenuItem>
+                          <MenuItem value="hulu">Hulu</MenuItem>
+                          <MenuItem value="disney">Disney</MenuItem>
+                          <MenuItem value="tubi">Tubi</MenuItem>
+                          <MenuItem value="disney">Apple</MenuItem>
+                          <MenuItem value="hbo">HBO</MenuItem>
+                          <MenuItem value="apple">Apple</MenuItem>
+                          <MenuItem value="youtube">YouTube</MenuItem>
+                          <MenuItem value="other">Other</MenuItem>
                         </MSelect>
                       </FormControl>
-                      {showPlatformOptions && (
-                        <FormControl
-                          sx={{ gridColumn: 'span 2' }}
-                          variant="filled"
-                        >
-                          <InputLabel id="platformOption">
-                            Platform Option
-                          </InputLabel>
-                          <MSelect
-                            name="platformOption"
-                            value={details.platformOption}
-                            onChange={handleChange}
-                          >
-                            <MenuItem value="">
-                              <em> None </em>
-                            </MenuItem>
-                            <MenuItem value="netflix">Netflix</MenuItem>
-                            <MenuItem value="amazon">Amazon</MenuItem>
-                            <MenuItem value="hulu">Hulu</MenuItem>
-                            <MenuItem value="disney">Disney</MenuItem>
-                            <MenuItem value="tubi">Tubi</MenuItem>
-                            <MenuItem value="disney">Apple</MenuItem>
-                            <MenuItem value="hbo">HBO</MenuItem>
-                            <MenuItem value="apple">Apple</MenuItem>
-                            <MenuItem value="youtube">YouTube</MenuItem>
-                            <MenuItem value="other">Other</MenuItem>
-                          </MSelect>
-                        </FormControl>
-                      )}
-                      <FormControl
-                        sx={{ gridColumn: 'span 2' }}
-                        variant="filled"
+                    )}
+                    <FormControl sx={{ gridColumn: 'span 2' }} variant="filled">
+                      <InputLabel id="rType">Rights Type</InputLabel>
+                      <MSelect
+                        name="rType"
+                        value={details.rType}
+                        onChange={handleChange}
                       >
-                        <InputLabel id="rType">Rights Type</InputLabel>
-                        <MSelect
-                          name="rType"
-                          value={details.rType}
-                          onChange={handleChange}
-                        >
-                          <MenuItem value="">
-                            <em> None </em>
-                          </MenuItem>
-                          <MenuItem value="tvod">TVOD</MenuItem>
-                          <MenuItem value="svod">SVOD</MenuItem>
-                          <MenuItem value="tv">TV</MenuItem>
-                          <MenuItem value="avod">AVOD</MenuItem>
-                          <MenuItem value="sellThru">sell Through</MenuItem>
-                          <MenuItem value="miscellaneous">
-                            Miscellaneous
-                          </MenuItem>
-                        </MSelect>
-                      </FormControl>
-                      <FormControl
-                        sx={{ gridColumn: 'span 2' }}
-                        variant="filled"
+                        <MenuItem value="">
+                          <em> None </em>
+                        </MenuItem>
+                        <MenuItem value="tvod">TVOD</MenuItem>
+                        <MenuItem value="svod">SVOD</MenuItem>
+                        <MenuItem value="tv">TV</MenuItem>
+                        <MenuItem value="avod">AVOD</MenuItem>
+                        <MenuItem value="sellThru">sell Through</MenuItem>
+                        <MenuItem value="miscellaneous">Miscellaneous</MenuItem>
+                      </MSelect>
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: 'span 2' }} variant="filled">
+                      <InputLabel id="territory">Territory</InputLabel>
+                      <MSelect
+                        name="territory"
+                        value={details.territory}
+                        onChange={handleChange}
                       >
-                        <InputLabel id="territory">Territory</InputLabel>
-                        <MSelect
-                          name="territory"
-                          value={details.territory}
-                          onChange={handleChange}
-                        >
-                          <MenuItem value="">
-                            <em> None </em>
-                          </MenuItem>
-                          <MenuItem value="united_states/canada">
-                            United States/Canada
-                          </MenuItem>
-                          <MenuItem value="australia">Australia/NZ</MenuItem>
-                          <MenuItem value="benelux">Benelux</MenuItem>
-                          <MenuItem value="france">France</MenuItem>
-                          <MenuItem value="germany">Germany</MenuItem>
-                          <MenuItem value="iceland">Iceland</MenuItem>
-                          <MenuItem value="israel">Israel</MenuItem>
-                          <MenuItem value="italy">Italy</MenuItem>
-                          <MenuItem value="scandinavia">Scandinavia</MenuItem>
-                          <MenuItem value="spain/portugal">
-                            Spain/Portugal
-                          </MenuItem>
-                          <MenuItem value="turkey">Turkey</MenuItem>
-                          <MenuItem value="poland">Poland</MenuItem>
-                          <MenuItem value="united_kingdom">
-                            United Kingdom
-                          </MenuItem>
-                          <MenuItem value="russia">Russia</MenuItem>
-                          <MenuItem value="eastern_europe">
-                            Eastern Europe(Excluding CIS)
-                          </MenuItem>
-                          <MenuItem value="cis/baltics">CIS/Baltics</MenuItem>
-                          <MenuItem value="africa">Africa</MenuItem>
-                          <MenuItem value="saarc">SAARC</MenuItem>
-                          <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
-                          <MenuItem value="india">India</MenuItem>
-                          <MenuItem value="china">China</MenuItem>
-                          <MenuItem value="malaysia">Malaysia</MenuItem>
-                          <MenuItem value="philippines">Philippines</MenuItem>
-                          <MenuItem value="thailand">Thailand</MenuItem>
-                          <MenuItem value="singapore">Singapore</MenuItem>
-                          <MenuItem value="japan">Japan</MenuItem>
-                          <MenuItem value="taiwan">Taiwan</MenuItem>
-                          <MenuItem value="Vietnam">South Korea</MenuItem>
-                          <MenuItem value="middle_east">Middle East</MenuItem>
-                          <MenuItem value="latin_america">
-                            Latin America
-                          </MenuItem>
-                          <MenuItem value="south_africa">South Africa</MenuItem>
-                          <MenuItem value="ancillary">Ancillary</MenuItem>
-                        </MSelect>
-                      </FormControl>
-                      <FormControl sx={{ gridColumn: 'span 2' }}>
-                        <TextField
-                          fullWidth
-                          variant="filled"
-                          label="Revenue Amount"
-                          name="revenueAmount"
-                          type="number"
-                          onChange={handleChange}
-                          value={details.revenueAmount}
-                        />
-                      </FormControl>
-                      <FormControl sx={{ gridColumn: 'span 2' }}>
-                        <TextField
-                          fullWidth
-                          variant="filled"
-                          label="Received Amount"
-                          name="receivedAmount"
-                          type="number"
-                          onChange={handleChange}
-                          value={details.receivedAmount}
-                        />
-                      </FormControl>
-                      {showField && (
-                        <TextField
-                          fullWidth
-                          variant="filled"
-                          label="Movie title"
-                          type="text"
-                          name="filmName"
-                          value={selectedTitle}
-                        />
-                      )}
+                        <MenuItem value="">
+                          <em> None </em>
+                        </MenuItem>
+                        <MenuItem value="united_states/canada">
+                          United States/Canada
+                        </MenuItem>
+                        <MenuItem value="australia">Australia/NZ</MenuItem>
+                        <MenuItem value="benelux">Benelux</MenuItem>
+                        <MenuItem value="france">France</MenuItem>
+                        <MenuItem value="germany">Germany</MenuItem>
+                        <MenuItem value="iceland">Iceland</MenuItem>
+                        <MenuItem value="israel">Israel</MenuItem>
+                        <MenuItem value="italy">Italy</MenuItem>
+                        <MenuItem value="scandinavia">Scandinavia</MenuItem>
+                        <MenuItem value="spain/portugal">
+                          Spain/Portugal
+                        </MenuItem>
+                        <MenuItem value="turkey">Turkey</MenuItem>
+                        <MenuItem value="poland">Poland</MenuItem>
+                        <MenuItem value="united_kingdom">
+                          United Kingdom
+                        </MenuItem>
+                        <MenuItem value="russia">Russia</MenuItem>
+                        <MenuItem value="eastern_europe">
+                          Eastern Europe(Excluding CIS)
+                        </MenuItem>
+                        <MenuItem value="cis/baltics">CIS/Baltics</MenuItem>
+                        <MenuItem value="africa">Africa</MenuItem>
+                        <MenuItem value="saarc">SAARC</MenuItem>
+                        <MenuItem value="asia_pay_tv">Asia Pay TV</MenuItem>
+                        <MenuItem value="india">India</MenuItem>
+                        <MenuItem value="china">China</MenuItem>
+                        <MenuItem value="malaysia">Malaysia</MenuItem>
+                        <MenuItem value="philippines">Philippines</MenuItem>
+                        <MenuItem value="thailand">Thailand</MenuItem>
+                        <MenuItem value="singapore">Singapore</MenuItem>
+                        <MenuItem value="japan">Japan</MenuItem>
+                        <MenuItem value="taiwan">Taiwan</MenuItem>
+                        <MenuItem value="Vietnam">South Korea</MenuItem>
+                        <MenuItem value="middle_east">Middle East</MenuItem>
+                        <MenuItem value="latin_america">Latin America</MenuItem>
+                        <MenuItem value="south_africa">South Africa</MenuItem>
+                        <MenuItem value="ancillary">Ancillary</MenuItem>
+                      </MSelect>
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: 'span 2' }}>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        label="Revenue Amount"
+                        name="revenueAmount"
+                        type="number"
+                        onChange={handleChange}
+                        value={details.revenueAmount}
+                      />
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: 'span 2' }}>
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        label="Received Amount"
+                        name="receivedAmount"
+                        type="number"
+                        onChange={handleChange}
+                        value={details.receivedAmount}
+                      />
+                    </FormControl>
+                    {showField && (
+                      <TextField
+                        fullWidth
+                        variant="filled"
+                        label="Movie title"
+                        type="text"
+                        name="filmName"
+                        value={selectedTitle}
+                      />
+                    )}
 
                     <div style={{ width: '100%' }}>
                       <button type="button" className="left submit">
