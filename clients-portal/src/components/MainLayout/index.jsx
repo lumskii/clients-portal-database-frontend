@@ -3,11 +3,15 @@ import styled from 'styled-components';
 import SideBar from './SideBar';
 import Header from './Header';
 
-const Main = styled.main`
+const Content = styled.div`
   min-height: 100vh;
   margin-left: ${({ isOpen }) => (isOpen ? 280 : 90)}px;
   background-color: #f5f5f5;
   transition: margin-left 0.4s;
+
+  > main {
+    padding: 32px;
+  }
 `;
 
 const MainLayout = ({ children }) => {
@@ -16,10 +20,10 @@ const MainLayout = ({ children }) => {
   return (
     <>
       <SideBar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      <Main isOpen={sidebarOpen}>
+      <Content isOpen={sidebarOpen}>
         <Header />
-        {children}
-      </Main>
+        <main>{children}</main>
+      </Content>
     </>
   );
 };

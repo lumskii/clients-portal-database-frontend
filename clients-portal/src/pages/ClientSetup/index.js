@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { DashBoard } from '../Dashboard/DashboardElements';
 import Header from '../../components/Heading';
 import {
   Divider,
@@ -386,59 +385,55 @@ const ClientSetup = () => {
   };
 
   return (
-    <DashBoard>
-      <Box m="80px 20px 20px 20px">
-        <Header title="CLIENT FORM" subtitle="Add a new title" />
-        <>
-          <div className="progressbar">
-            <div
-              style={{ width: `${(100 / FormTitles.length) * (page + 1)}%` }}
-            ></div>
+    <>
+      <Header title="CLIENT FORM" subtitle="Add a new title" />
+      <div className="progressbar">
+        <div
+          style={{ width: `${(100 / FormTitles.length) * (page + 1)}%` }}
+        ></div>
+      </div>
+      <h3 className="form_section_title">{FormTitles[page]}</h3>
+      <form onSubmit={handleFormSubmit}>
+        <Box
+          display="grid"
+          gap="30px"
+          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+          sx={{
+            '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
+          }}
+        >
+          {/* Page contents called from pageDisplay function above......  */}
+          {PageDisplay()}
+        </Box>
+        {/* Footer elements starts here... */}
+        <div className="nav_btns">
+          <div
+            className={page === 0 ? 'invisible' : 'prev'}
+            onClick={() => {
+              setPage((currPage) => currPage - 1);
+            }}
+          >
+            Prev
           </div>
-          <h3 className="form_section_title">{FormTitles[page]}</h3>
-          <form onSubmit={handleFormSubmit}>
-            <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-              sx={{
-                '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
+
+          {page === FormTitles.length - 1 ? (
+            <button className="submit" type="submit" id="submit">
+              Submit
+            </button>
+          ) : (
+            <div
+              // disabled={page === FormTitles.length - 1}
+              className={page === 0 ? 'next position' : 'next'}
+              onClick={() => {
+                setPage((currPage) => currPage + 1);
               }}
             >
-              {/* Page contents called from pageDisplay function above......  */}
-              {PageDisplay()}
-            </Box>
-            {/* Footer elements starts here... */}
-            <div className="nav_btns">
-              <div
-                className={page === 0 ? 'invisible' : 'prev'}
-                onClick={() => {
-                  setPage((currPage) => currPage - 1);
-                }}
-              >
-                Prev
-              </div>
-
-              {page === FormTitles.length - 1 ? (
-                <button className="submit" type="submit" id="submit">
-                  Submit
-                </button>
-              ) : (
-                <div
-                  // disabled={page === FormTitles.length - 1}
-                  className={page === 0 ? 'next position' : 'next'}
-                  onClick={() => {
-                    setPage((currPage) => currPage + 1);
-                  }}
-                >
-                  Next
-                </div>
-              )}
+              Next
             </div>
-          </form>
-        </>
-      </Box>
-    </DashBoard>
+          )}
+        </div>
+      </form>
+    </>
   );
 };
 

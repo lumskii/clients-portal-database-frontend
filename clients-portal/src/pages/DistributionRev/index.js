@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Heading';
-import { DashBoard } from '../Dashboard/DashboardElements';
 import Select, { components } from 'react-select';
 import SwipeableViews from 'react-swipeable-views';
 import PropTypes from 'prop-types';
@@ -18,7 +17,6 @@ import {
   Select as MSelect,
   InputLabel,
   MenuItem,
-  FormLabel,
   Alert,
   AlertTitle,
 } from '@mui/material';
@@ -174,108 +172,107 @@ const Distribution = () => {
   };
 
   return (
-    <DashBoard>
-      <Box m="80px 20px 20px 20px">
-        <Header
-          title="Distribution Revenue"
-          subtitle="Add/Edit Distribution Revenue"
-        />
-        <Box
-          display="grid"
-          gap="30px"
-          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-          sx={{
-            '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
+    <>
+      <Header
+        title="Distribution Revenue"
+        subtitle="Add/Edit Distribution Revenue"
+      />
+      <Box
+        display="grid"
+        gap="30px"
+        gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+        sx={{
+          '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
+        }}
+      >
+        <Modal
+          title="Select Film Name"
+          centered
+          open={open}
+          onOk={() => setOpen(false)}
+          onCancel={() => {
+            setSelectedTitle(null);
+            if (selectedTitle === null) {
+              setOpen(false);
+            }
           }}
+          width={500}
         >
-          <Modal
-            title="Select Film Name"
-            centered
-            open={open}
-            onOk={() => setOpen(false)}
-            onCancel={() => {
-              setSelectedTitle(null);
-              if (selectedTitle === null) {
-                setOpen(false);
-              }
+          <Select
+            options={titles}
+            components={{ TextField: CustomInput }}
+            maxLength="4"
+            className="text_area3"
+            placeholder="Film Name"
+            onChange={(e) => {
+              setSelectedTitle(e);
             }}
-            width={500}
+            value={selectedTitle}
+          />
+        </Modal>
+        {selectedTitle === null && open === false && (
+          <Alert
+            severity="info"
+            sx={{ gridRow: '3', gridColumn: 'span 3' }}
+            style={{ gridTemplateColumns: '0fr 1fr' }}
           >
-            <Select
-              options={titles}
-              components={{ TextField: CustomInput }}
-              maxLength="4"
-              className="text_area3"
-              placeholder="Film Name"
-              onChange={(e) => {
-                setSelectedTitle(e);
-              }}
-              value={selectedTitle}
-            />
-          </Modal>
-          {selectedTitle === null && open === false && (
-            <Alert
-              severity="info"
-              sx={{ gridRow: '3', gridColumn: 'span 3' }}
-              style={{ gridTemplateColumns: '0fr 1fr' }}
+            <AlertTitle style={{ fontWeight: 'bold', fontSize: '18px' }}>
+              Info
+            </AlertTitle>
+            <div style={{ fontSize: '16px' }}>
+              {selectedTitle
+                ? selectedTitle.value
+                : 'Title is required to add distribution revenue'}
+            </div>
+            <button
+              style={{ display: 'grid', margin: '10px 0 5px 0' }}
+              type="button"
+              className="left submit"
+              onClick={() => setOpen(true)}
             >
-              <AlertTitle style={{ fontWeight: 'bold', fontSize: '18px' }}>
-                Info
-              </AlertTitle>
-              <div style={{ fontSize: '16px' }}>
-                {selectedTitle
-                  ? selectedTitle.value
-                  : 'Title is required to add distribution revenue'}
-              </div>
+              Go Back
+            </button>
+          </Alert>
+        )}
+        {selectedTitle !== null && (
+          <>
+            <div
+              style={{
+                fontWeight: 'Bolder',
+                fontSize: '22px',
+                width: '500px',
+              }}
+            >
+              Title:{' '}
+              {selectedTitle ? selectedTitle.value : 'Please select a title'}
               <button
-                style={{ display: 'grid', margin: '10px 0 5px 0' }}
                 type="button"
-                className="left submit"
-                onClick={() => setOpen(true)}
-              >
-                Go Back
-              </button>
-            </Alert>
-          )}
-          {selectedTitle !== null && (
-            <>
-              <div
-                style={{
-                  fontWeight: 'Bolder',
-                  fontSize: '22px',
-                  width: '500px',
+                className="next2"
+                style={{ margin: '0px 15px' }}
+                onClick={() => {
+                  setOpen(true);
                 }}
               >
-                Title:{' '}
-                {selectedTitle ? selectedTitle.value : 'Please select a title'}
-                <button
-                  type="button"
-                  className="next2"
-                  style={{ margin: '0px 15px' }}
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                >
-                  Change Title
-                </button>
-              </div>
-              <AppBar
-                position="static"
-                color="default"
-                sx={{ gridColumn: 'span 4' }}
+                Change Title
+              </button>
+            </div>
+            <AppBar
+              position="static"
+              color="default"
+              sx={{ gridColumn: 'span 4' }}
+            >
+              <Tabs
+                value={toggleState}
+                onChange={handleTabChange}
+                indicatorColor="primary"
+                textColor="inherit"
+                variant="fullWidth"
+                aria-label="full width tabs example"
               >
-                <Tabs
-                  value={toggleState}
-                  onChange={handleTabChange}
-                  indicatorColor="primary"
-                  textColor="inherit"
-                  variant="fullWidth"
-                  aria-label="full width tabs example"
-                >
-                  <Tab label="Add Sales Revenue" {...a11yProps(0)} />
-                  <Tab label="Edit Sales Revenue" {...a11yProps(1)} />
-                </Tabs>
-              </AppBar>
+                <Tab label="Add Sales Revenue" {...a11yProps(0)} />
+                <Tab label="Edit Sales Revenue" {...a11yProps(1)} />
+              </Tabs>
+            </AppBar>
 
               <SwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -474,26 +471,25 @@ const Distribution = () => {
                         />
                       )}
 
-                      <div style={{ width: '100%' }}>
-                        <button type="button" className="left submit">
-                          Save
-                        </button>
-                        <button type="submit" className="position next">
-                          Publish
-                        </button>
-                      </div>
-                    </Box>
-                  </form>
-                </TabPanel>
-                <TabPanel value={toggleState} index={1} dir={theme.direction}>
-                  {getDistRevenue()}
-                </TabPanel>
-              </SwipeableViews>
-            </>
-          )}
-        </Box>
+                    <div style={{ width: '100%' }}>
+                      <button type="button" className="left submit">
+                        Save
+                      </button>
+                      <button type="submit" className="position next">
+                        Publish
+                      </button>
+                    </div>
+                  </Box>
+                </form>
+              </TabPanel>
+              <TabPanel value={toggleState} index={1} dir={theme.direction}>
+                {getDistRevenue()}
+              </TabPanel>
+            </SwipeableViews>
+          </>
+        )}
       </Box>
-    </DashBoard>
+    </>
   );
 };
 

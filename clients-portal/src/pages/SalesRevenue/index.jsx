@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import RSelect from 'react-select';
-import { Box, Button, styled } from '@mui/material';
+import { Button, styled } from '@mui/material';
 import axios from 'axios';
 
 import { server } from '../../constance';
@@ -58,7 +58,7 @@ const SalesRevenue = () => {
   }, [selectedClient]);
 
   return (
-    <Box p="40px 20px 20px 20px">
+    <>
       <Header title="Sales Revenue" subtitle="Add/Edit Sales Revenue" />
 
       <ToolBar>
@@ -101,7 +101,7 @@ const SalesRevenue = () => {
         onUpdate={setSales}
         onClose={() => setDeleteSale()}
       />
-    </Box>
+    </>
   );
 };
 

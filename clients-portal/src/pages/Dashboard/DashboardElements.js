@@ -5,20 +5,6 @@ import { GiPayMoney } from 'react-icons/gi';
 import { BsDistributeHorizontal, BsFileSpreadsheet } from 'react-icons/bs';
 import { CgMore } from 'react-icons/cg';
 
-export const DashBoard = styled.div`
-  background: #f5f5f5;
-  width: 100%;
-  overflow: hidden;
-`;
-
-export const DashBoard2 = styled.div`
-  background: #f5f5f5;
-  width: 100%;
-  overflow: hidden;
-  justify-content: space-around;
-  display: grid;
-`;
-
 export const PageContainer = styled.div`
   flex: 4;
   display: flex;
@@ -209,5 +195,3 @@ export const StatArea = styled.div`
   padding: 20px;
   margin: auto 20px;
 `;
-
-export const StatTemplate = styled.div``;
