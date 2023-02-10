@@ -50,7 +50,6 @@ const ReportView = ({ option, value, onClose }) => {
     startDate: null,
     endDate: null,
   });
-  const [addup, setaddup] = useState({});
 
   useEffect(() => {
     const url = option.getUrl?.(value, dateRange);
@@ -90,10 +89,7 @@ const ReportView = ({ option, value, onClose }) => {
           }));
           setCompanies(clients);
           console.log('clients', clients);
-        } else if (
-          option.label === 'Revenue by Territory' ||
-          option.label === 'Revenue by Platform'
-        ) {
+        } else if (option.label === 'Revenue by Territory') {
           const revenue = response.data.clients;
           const revenueData = revenue.map((client) => ({
             id: client._id,
@@ -104,6 +100,22 @@ const ReportView = ({ option, value, onClose }) => {
           }));
           setCompanies(revenueData);
           console.log('revenueData', revenueData);
+        } else if (option.label === 'Revenue by Platform') {
+          const revenue = response.data.clients.map((client) => ({
+            id: client._id,
+            filmName: client.filmName,
+            revenueAmount: client.distributionRev[0 || 0 + 1].revenueAmount,
+          }));
+          setCompanies(revenue);
+          console.log('revenue', revenue);
+        } else if (option.label === 'Revenue by Year') {
+          const revenue = response.data.map((client) => ({
+            id: client._id,
+            filmName: client.filmName,
+            revenueAmount: client.distributionRev[0].revenueAmount,
+          }));
+          setCompanies(revenue);
+          console.log('revenue', revenue);
         }
       })
       .catch((error) => {
@@ -165,6 +177,11 @@ const ReportView = ({ option, value, onClose }) => {
                       title: 'Film Name',
                       dataIndex: 'filmName',
                       key: 'filmName',
+                      render: (text) => (
+                        <span style={{ textTransform: 'capitalize' }}>
+                          {text}
+                        </span>
+                      ),
                     },
                     {
                       title: 'Revenue Amount',

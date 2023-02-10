@@ -597,13 +597,45 @@ exports.listRevenueByPlatform = async (req, res) => {
         'distributionRev.platformOption': platform,
       },
       {
-        filmName: 1,
+        'filmName': 1,
         'distributionRev.platformOption': 1,
         'distributionRev.revenueAmount': 1,
       }
     );
 
     res.json({ clients });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Error retrieving clients',
+      error: err,
+    });
+  }
+};
+
+exports.listRevenueByYear = async (req, res) => {
+  const year = req.query.year;
+
+  try {
+    const clients = await Client.aggregate([
+      {
+        $unwind: '$distributionRev',
+      },
+      {
+        $match: {
+          "distributionRev.postDate": {
+            $gte: new Date(`${year}-01-01`),
+            $lte: new Date(`${year}-12-31`),
+          },
+        }
+      },
+      {
+        $project: {
+          filmName: 1,
+          'distributionRev.revenueAmount': 1,
+        }
+      }
+    ]);
+    res.send(clients);
   } catch (err) {
     res.status(500).json({
       message: 'Error retrieving clients',

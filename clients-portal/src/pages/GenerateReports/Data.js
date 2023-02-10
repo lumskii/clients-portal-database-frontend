@@ -78,7 +78,15 @@ export const types = [
         getUrl: (value) =>
           `${server}/v1/clients/revenuebyplatform?platform=${value}`,
       },
-      { label: 'Revenue by Year', selector: YearSelector },
+      {
+        label: 'Revenue by Year',
+        selector: YearSelector,
+        getUrl: (value) => `${server}/v1/clients/revenuebyyear?year=${value}`,
+        columns: [
+          { field: 'filmName', headerName: 'Revenue by Year', width: 300 },
+          { field: 'revenueAmount', headerName: 'Revenue Amount', width: 300 },
+        ],
+      },
       { label: 'Revenue by Month', selector: MonthSelector },
     ],
   },

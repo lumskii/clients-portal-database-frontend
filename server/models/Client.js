@@ -198,6 +198,10 @@ const ClientSchema = new Schema({
         type: Number,
         maxlength: 20,
       },
+      postDate: {
+        type: Date,
+        default: Date.now,
+      }
     },
   ],
   postDate: {

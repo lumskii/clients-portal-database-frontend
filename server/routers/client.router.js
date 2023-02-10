@@ -8,6 +8,8 @@ router.get('/revenue', clientController.listRevenueByTerritory);
 
 router.get('/revenuebyplatform', clientController.listRevenueByPlatform);
 
+router.get('/revenuebyyear', clientController.listRevenueByYear);
+
 router.post('/', clientController.insertClient);
 
 router.post('/:clientId/sales', clientController.addSale);
