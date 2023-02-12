@@ -44,6 +44,11 @@ export const menus = [
         to: '/reports',
       },
       {
+        label: 'Generate Reports (new)',
+        icon: BsFileSpreadsheet,
+        to: '/reports1',
+      },
+      {
         label: 'Bulk Updates',
         icon: FaUsersCog,
         to: '/bulk-updates',

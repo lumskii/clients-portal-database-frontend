@@ -18,7 +18,7 @@ export const dashLinks = [
   },
   {
     id: 1,
-    to: '/edit-a-client',
+    to: '/reports1',
     icon: <Report />,
     label: 'Generate Reports',
   },
