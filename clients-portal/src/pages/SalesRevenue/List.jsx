@@ -1,111 +1,89 @@
-import { useState } from 'react';
-import { Button, styled } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
-import { format } from 'date-fns';
+import { Popconfirm, Space, Table as AntTable } from 'antd';
+import styled from 'styled-components';
+import { sortString, sortNumber, formatNumber, formatDate } from '../../utils';
 
-import { tokens } from '../../theme';
+const StyledTable = styled(AntTable)`
+  th.ant-table-cell {
+    background: #ff9900 !important;
+  }
+`;
 
-const Table = styled(DataGrid)(({ theme }) => {
-  const colors = tokens(theme.palette.mode);
-  return {
-    border: 'none',
-    '.MuiDataGrid-columnHeaders': {
-      backgroundColor: colors.blueAccent[700],
-      borderBottom: 'none',
-    },
-    '.MuiDataGrid-virtualScroller': {
-      backgroundColor: colors.primary[400],
-    },
-    '.MuiDataGrid-footerContainer': {
-      backgroundColor: colors.blueAccent[700],
-      borderTop: 'none',
-    },
-    '.actions': {
-      paddingRight: 20,
-    },
-  };
-});
-
-const Action = styled(Button)({
-  minWidth: 'initial',
-  textTransform: 'initial',
-});
+const Button = styled.a``;
 
 const SalesRevenueList = ({ loading, sales, onEdit, onDelete }) => {
-  const [pageSize, setPageSize] = useState(10);
-
   const columns = [
     {
-      field: 'cName',
-      headerName: 'Company Name',
-      width: 300,
+      title: 'Company Name',
+      dataIndex: 'cName',
+      key: 'cName',
+      sorter: sortString('cName'),
     },
     {
-      field: 'territory',
-      headerName: 'Territory',
+      title: 'Territory',
+      dataIndex: 'territory',
+      key: 'territory',
       width: 180,
+      sorter: sortString('territory'),
     },
     {
-      field: 'salesAmount',
-      headerName: 'Sales Amount',
-      type: 'number',
-      width: 180,
-    },
-    {
-      field: 'receivedAmount',
-      headerName: 'Received Amount',
-      type: 'number',
-      width: 180,
-    },
-    {
-      field: 'dealED',
-      headerName: 'Deal Entered Date',
-      headerAlign: 'right',
+      title: 'Sales Amount',
+      dataIndex: 'salesAmount',
+      key: 'salesAmount',
       align: 'right',
-      width: 180,
-      renderCell: (params) => format(new Date(params.value), 'yyyy-MM-dd'),
+      sorter: sortNumber('salesAmount'),
+      render: formatNumber,
     },
     {
-      field: 'dealCD',
-      headerName: 'Deal Closed Date',
-      headerAlign: 'right',
+      title: 'Received Amount',
+      dataIndex: 'receivedAmount',
+      key: 'receivedAmount',
       align: 'right',
-      width: 180,
-      renderCell: (params) => format(new Date(params.value), 'yyyy-MM-dd'),
+      sorter: sortNumber('receivedAmount'),
+      render: formatNumber,
     },
     {
-      field: 'actions',
-      headerName: 'Actions',
-      flex: 1,
-      sortable: false,
-      disableColumnMenu: true,
-      headerClassName: 'actions',
-      headerAlign: 'right',
+      title: 'Deal Entered Date',
+      dataIndex: 'dealED',
+      key: 'dealED',
       align: 'right',
-      width: 130,
-      renderCell: (params) => {
-        return (
-          <>
-            <Action onClick={() => onEdit(params.row)}>Edit</Action>
-            <Action onClick={() => onDelete(params.row)}>Delete</Action>
-          </>
-        );
-      },
+      render: formatDate('yyyy-MM-dd'),
+    },
+    {
+      title: 'Deal Closed Date',
+      dataIndex: 'dealCD',
+      key: 'dealCD',
+      align: 'right',
+      render: formatDate('yyyy-MM-dd'),
+    },
+    {
+      title: 'Actions',
+      key: 'actions',
+      align: 'right',
+      render: (_, record) => (
+        <Space size={16}>
+          <Button type="link" onClick={() => onEdit(record)}>
+            Edit
+          </Button>
+          <Popconfirm
+            placement="topRight"
+            title="Are you sure to delete this?"
+            okText="Delete"
+            okButtonProps={{ danger: true }}
+            onConfirm={() => onDelete(record)}
+          >
+            <Button type="link">Delete</Button>
+          </Popconfirm>
+        </Space>
+      ),
     },
   ];
 
   return (
-    <Table
+    <StyledTable
       loading={loading}
-      rows={sales}
+      dataSource={sales}
       columns={columns}
-      getRowId={(row) => row._id}
-      pagination
-      rowsPerPageOptions={[10, 20, 50]}
-      pageSize={pageSize}
-      onPageSizeChange={setPageSize}
-      autoHeight
-      disableSelectionOnClick
+      rowKey="_id"
     />
   );
 };

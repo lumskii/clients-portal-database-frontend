@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getData, sortString } from './utils';
+import { sortNumber, sortString } from '../../../utils';
+import { getData } from './utils';
 import Table from './table';
 
 const columns = [
   {
     title: 'Film Name',
     dataIndex: 'filmName',
+    key: 'filmName',
     sorter: sortString('filmName'),
   },
   {
     title: 'Revenue Amount',
     dataIndex: 'revenueAmount',
-    sorter: (a, b) => a - b,
+    key: 'revenueAmount',
+    sorter: sortNumber('revenueAmount'),
   },
 ];
 

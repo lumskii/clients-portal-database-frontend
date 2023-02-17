@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { message } from 'antd';
 import {
   Button,
   Dialog,
@@ -15,7 +16,6 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { format } from 'date-fns';
 import axios from 'axios';
-import cogoToast from 'cogo-toast';
 
 import { server } from '../../constance';
 import Select from '../../components/Select';
@@ -47,19 +47,19 @@ const SalesRevenueEdit = ({ clientId, sale, onUpdate, onClose }) => {
           `${server}/v1/clients/${clientId}/sales/${data._id}`,
           values
         );
-        cogoToast.success('Sales revenue updated successfully');
+        message.success('Sales revenue updated successfully');
       } else {
         response = await axios.post(
           `${server}/v1/clients/${clientId}/sales`,
           values
         );
-        cogoToast.success('Sales revenue added successfully');
+        message.success('Sales revenue added successfully');
       }
       onClose();
       onUpdate(response.data.client.sales);
     } catch (error) {
       console.log(error);
-      cogoToast.error('Something went wrong');
+      message.error('Something went wrong');
     }
   };
 

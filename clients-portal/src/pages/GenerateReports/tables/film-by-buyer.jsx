@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getData, sortString } from './utils';
+import { sortString } from '../../../utils';
+import { getData } from './utils';
 import Table from './table';
 
 const columns = [
   {
     title: 'Company Name',
     dataIndex: 'cName',
+    key: 'cName',
     sorter: sortString('cName'),
   },
 ];

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { sortString } from './utils';
+import { sortString } from '../../../utils';
 import Table from './table';
 
 const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
+    key: 'name',
     sorter: sortString('name'),
   },
 ];

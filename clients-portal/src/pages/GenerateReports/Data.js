@@ -16,15 +16,6 @@ import FilmByGenre from './tables/film-by-genre';
 import RevenueByTerritory from './tables/revenue-by-territory';
 import RevenueByPlatform from './tables/revenue-by-platform';
 import RevenueByYear from './tables/revenue-by-year';
-import RevenueByMonth from './tables/revenue-by-month';
-import SalesByBuyer from './tables/sales-by-buyer';
-import SalesByTerritory from './tables/sales-by-territory';
-import SalesByYear from './tables/sales-by-year';
-import SalesByiRuntime from './tables/sales-by-runtime';
-import SalesByGenre from './tables/sales-by-genre';
-import ClientByBirthday from './tables/client-by-birthday';
-import ClientByTerritory from './tables/client-by-territory';
-import ClientByAge from './tables/client-by-age';
 
 const groupNames = {
   film: 'Film Report',
