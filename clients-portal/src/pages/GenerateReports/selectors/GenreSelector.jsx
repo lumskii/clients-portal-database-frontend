@@ -1,13 +1,20 @@
-import { InputLabel } from '@mui/material';
-import { CustomizedSelect } from '../Styled';
+import { Select } from 'antd';
 import options from '../../../data/genre.json';
 
 const GenreSelector = ({ value, setValue }) => {
   return (
-    <>
-      <InputLabel>Select genre</InputLabel>
-      <CustomizedSelect options={options} value={value} setValue={setValue} />
-    </>
+    <Select
+      fieldNames={{ value: 'id' }}
+      options={options}
+      value={value}
+      onChange={setValue}
+      style={{ width: 240 }}
+      placeholder="Select genre"
+      showSearch
+      filterOption={(input, option) =>
+        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+      }
+    />
   );
 };
 

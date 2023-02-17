@@ -18,7 +18,7 @@ export const dashLinks = [
   },
   {
     id: 1,
-    to: '/reports1',
+    to: '/reports',
     icon: <Report />,
     label: 'Generate Reports',
   },

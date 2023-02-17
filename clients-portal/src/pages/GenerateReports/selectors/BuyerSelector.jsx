@@ -1,51 +1,34 @@
 import { useEffect, useState } from 'react';
-import { TextField } from '@mui/material';
-import RSelect from 'react-select';
+import { Select } from 'antd';
 import { server } from '../../../constance';
-import { StyledModal } from '../Styled';
 
 const BuyerSelector = ({ value, setValue }) => {
-  const [options, setOptions] = useState([]);
-  const [open, setOpen] = useState(false);
+  const [options, setOptions] = useState();
 
   useEffect(() => {
     fetch(`${server}/v1/clients`)
       .then((res) => res.json())
       .then((res) => {
         if (res.status === 200) {
-          setOptions(
-            res.data.clients.map((client) => ({
-              label: client.filmName,
-              value: client.filmName,
-              key: client._id,
-            }))
-          );
+          setOptions(res.data.clients);
         }
       });
   }, []);
 
-  const selectedOption = options.find((o) => o.key === value);
-
   return (
-    <>
-      <TextField
-        variant="filled"
-        fullWidth
-        value={selectedOption?.value || ''}
-        onClick={() => setOpen(true)}
-      />
-
-      <StyledModal open={open} onClose={() => setOpen(false)}>
-        <RSelect
-          options={options}
-          onChange={(option) => {
-            setValue(option.key);
-            setOpen(false);
-          }}
-          value={selectedOption}
-        />
-      </StyledModal>
-    </>
+    <Select
+      fieldNames={{ value: '_id', label: 'filmName' }}
+      options={options}
+      loading={!options}
+      value={value}
+      onChange={setValue}
+      style={{ width: 240 }}
+      placeholder="Select buyer"
+      showSearch
+      filterOption={(input, option) =>
+        (option?.filmName ?? '').toLowerCase().includes(input.toLowerCase())
+      }
+    />
   );
 };
 

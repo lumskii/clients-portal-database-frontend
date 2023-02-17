@@ -1,21 +1,23 @@
-import { InputLabel } from '@mui/material';
-import { CustomizedSelect } from '../Styled';
+import { Select } from 'antd';
 
 const options = [
-  { id: 'all', label: 'All' },
-  { id: '0-30', label: '0-30' },
-  { id: '30-60', label: '30-60' },
-  { id: '60-90', label: '60-90' },
-  { id: '90-120', label: '90-120' },
-  { id: '120+', label: '120+' },
+  { value: 'all', label: 'All' },
+  { value: '0-30', label: '0 - 30' },
+  { value: '30-60', label: '30 - 60' },
+  { value: '60-90', label: '60 - 90' },
+  { value: '90-120', label: '90 - 120' },
+  { value: '120+', label: '120+' },
 ];
 
 const RuntimeSelector = ({ value, setValue }) => {
   return (
-    <>
-      <InputLabel>Select runtime</InputLabel>
-      <CustomizedSelect options={options} value={value} setValue={setValue} />
-    </>
+    <Select
+      options={options}
+      value={value}
+      onChange={setValue}
+      style={{ width: 130 }}
+      placeholder="Select runtime"
+    />
   );
 };
 
