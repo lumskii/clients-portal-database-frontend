@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Header from '../../components/Heading';
 import { reportsInfo, reportsMenuOptions } from './data';
 
-const Toolbar = styled.div`
+const ToolBar = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
@@ -41,7 +41,7 @@ const GenerateReports = () => {
         subtitle="Generate reports based on specified criterias"
       />
 
-      <Toolbar>
+      <ToolBar>
         <Select
           options={reportsMenuOptions}
           value={type}
@@ -55,7 +55,7 @@ const GenerateReports = () => {
         <Button type="primary" disabled={!value} onClick={getReport}>
           Get Reports
         </Button>
-      </Toolbar>
+      </ToolBar>
 
       {Table && <Table value={tableInfo.value} />}
     </>

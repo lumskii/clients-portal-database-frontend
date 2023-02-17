@@ -30,7 +30,7 @@ const schema = yup.object({
   dealCD: yup.date().required(),
 });
 
-const SalesRevenueEdit = ({ clientId, sale, onUpdate, onClose }) => {
+const Editor = ({ clientId, sale, onUpdate, onClose }) => {
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -186,4 +186,4 @@ const SalesRevenueEdit = ({ clientId, sale, onUpdate, onClose }) => {
   );
 };
 
-export default SalesRevenueEdit;
+export default Editor;

@@ -1,0 +1,5 @@
+[
+  { "id": "platform", "label": "Platform" },
+  { "id": "retail", "label": "Retail" },
+  { "id": "miscellaneous", "label": "Miscellaneous" }
+]

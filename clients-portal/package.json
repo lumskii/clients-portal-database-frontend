@@ -17,6 +17,7 @@
     "axios": "^1.1.2",
     "cogo-toast": "^4.2.3",
     "date-fns": "^2.29.3",
+    "dayjs": "^1.11.7",
     "filepond": "^4.30.4",
     "filepond-plugin-file-encode": "^2.1.10",
     "filepond-plugin-file-poster": "^2.5.1",

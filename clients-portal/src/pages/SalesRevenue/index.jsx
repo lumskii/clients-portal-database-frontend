@@ -6,8 +6,8 @@ import axios from 'axios';
 import { server } from '../../constance';
 import useClients from '../../hooks/use-clients';
 import Header from '../../components/Heading';
-import SalesRevenueList from './List';
-import SalesRevenueEdit from './Edit';
+import Table from './Table';
+import Editor from './Editor';
 
 const ToolBar = styled.div`
   position: relative;
@@ -26,9 +26,9 @@ const SalesRevenue = () => {
   const clients = useClients();
   const [selectedClientId, setSelectedClientId] = useState();
 
-  const [sales, setSales] = useState([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [editSale, setEditSale] = useState();
+  const [editSale, setEdit] = useState();
 
   useEffect(() => {
     if (!selectedClientId) return;
@@ -36,7 +36,7 @@ const SalesRevenue = () => {
     axios
       .get(`${server}/v1/clients/${selectedClientId}/sales`)
       .then((response) => {
-        setSales(response.data.sales);
+        setData(response.data.sales);
       })
       .catch((error) => {
         console.log('error', error);
@@ -51,7 +51,7 @@ const SalesRevenue = () => {
       axios
         .delete(`${server}/v1/clients/${selectedClientId}/sales/${sale._id}`)
         .then(() => {
-          setSales((sales) => sales.filter((item) => item._id !== sale._id));
+          setData((sales) => sales.filter((item) => item._id !== sale._id));
           resolve(null);
           message.success(`${sale?.cName} has been deleted successfully`);
         });
@@ -68,7 +68,7 @@ const SalesRevenue = () => {
           loading={!clients}
           value={selectedClientId}
           onChange={setSelectedClientId}
-          placeholder="Select Film Name..."
+          placeholder="Select film"
           showSearch
           filterOption={(input, option) =>
             (option?.filmName ?? '').toLowerCase().includes(input.toLowerCase())
@@ -78,24 +78,24 @@ const SalesRevenue = () => {
         <Button
           type="primary"
           disabled={!selectedClientId}
-          onClick={() => setEditSale({})}
+          onClick={() => setEdit({})}
         >
           Add
         </Button>
       </ToolBar>
 
-      <SalesRevenueList
+      <Table
         loading={loading}
-        sales={sales}
-        onEdit={setEditSale}
+        data={data}
+        onEdit={setEdit}
         onDelete={handleDelete}
       />
 
-      <SalesRevenueEdit
+      <Editor
         clientId={selectedClientId}
         sale={editSale}
-        onUpdate={setSales}
-        onClose={() => setEditSale()}
+        onUpdate={setData}
+        onClose={() => setEdit()}
       />
     </>
   );

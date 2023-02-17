@@ -14,6 +14,10 @@ export const sortNumber = (key) => {
   return (a, b) => a[key] - b[key];
 };
 
+export const sortDate = (key) => {
+  return (a, b) => new Date(a[key]).getTime() - new Date(b[key]).getTime();
+};
+
 export const formatNumber = (value) => Intl.NumberFormat().format(value);
 
 export const formatDate = (foramt) => (value) =>

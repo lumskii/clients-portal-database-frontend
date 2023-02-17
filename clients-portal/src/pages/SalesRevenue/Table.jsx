@@ -1,6 +1,13 @@
 import { Popconfirm, Space, Table as AntTable } from 'antd';
 import styled from 'styled-components';
-import { sortString, sortNumber, formatNumber, formatDate } from '../../utils';
+
+import {
+  sortString,
+  sortNumber,
+  sortDate,
+  formatNumber,
+  formatDate,
+} from '../../utils';
 
 const StyledTable = styled(AntTable)`
   th.ant-table-cell {
@@ -10,7 +17,7 @@ const StyledTable = styled(AntTable)`
 
 const Button = styled.a``;
 
-const SalesRevenueList = ({ loading, sales, onEdit, onDelete }) => {
+const Table = ({ loading, data, onEdit, onDelete }) => {
   const columns = [
     {
       title: 'Company Name',
@@ -46,6 +53,7 @@ const SalesRevenueList = ({ loading, sales, onEdit, onDelete }) => {
       dataIndex: 'dealED',
       key: 'dealED',
       align: 'right',
+      sorter: sortDate('dealED'),
       render: formatDate('yyyy-MM-dd'),
     },
     {
@@ -53,6 +61,7 @@ const SalesRevenueList = ({ loading, sales, onEdit, onDelete }) => {
       dataIndex: 'dealCD',
       key: 'dealCD',
       align: 'right',
+      sorter: sortDate('dealCD'),
       render: formatDate('yyyy-MM-dd'),
     },
     {
@@ -81,11 +90,11 @@ const SalesRevenueList = ({ loading, sales, onEdit, onDelete }) => {
   return (
     <StyledTable
       loading={loading}
-      dataSource={sales}
+      dataSource={data}
       columns={columns}
       rowKey="_id"
     />
   );
 };
 
-export default SalesRevenueList;
+export default Table;
