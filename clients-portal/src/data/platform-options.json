@@ -1,0 +1,12 @@
+[
+  { "id": "netflix", "label": "Netflix" },
+  { "id": "amazon", "label": "Amazon" },
+  { "id": "hulu", "label": "Hulu" },
+  { "id": "disney", "label": "Disney" },
+  { "id": "tubi", "label": "Tubi" },
+  { "id": "disney", "label": "Apple" },
+  { "id": "hbo", "label": "HBO" },
+  { "id": "apple", "label": "Apple" },
+  { "id": "youtube", "label": "YouTube" },
+  { "id": "other", "label": "Other" }
+]

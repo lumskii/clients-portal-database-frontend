@@ -10,7 +10,7 @@ import {
   Space,
 } from 'antd';
 import dayjs from 'dayjs';
-import companyTypes from '../../data/company-type.json';
+import companyTypes from '../../data/company-types.json';
 
 const { TextArea } = Input;
 
@@ -29,10 +29,14 @@ const Editor = ({ item, onSave, onClose }) => {
 
   const onFinish = async (values) => {
     setLoading(true);
-    onSave({
+    const success = await onSave({
       ...values,
       dateExp: values.dateExp.format(),
     });
+    setLoading(false);
+    if (success) {
+      onClose();
+    }
   };
 
   return (

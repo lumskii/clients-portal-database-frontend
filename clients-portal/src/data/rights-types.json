@@ -1,0 +1,8 @@
+[
+  { "id": "tvod", "label": "TVOD" },
+  { "id": "svod", "label": "SVOD" },
+  { "id": "tv", "label": "TV" },
+  { "id": "avod", "label": "AVOD" },
+  { "id": "sellThru", "label": "Through" },
+  { "id": "miscellaneous", "label": "Miscellaneous" }
+]

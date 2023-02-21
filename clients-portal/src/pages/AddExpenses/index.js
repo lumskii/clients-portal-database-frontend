@@ -57,10 +57,11 @@ const AddExpenses = () => {
         setData(res.data.expenses.expenses);
         message.success('Expenses added successfully');
       }
-      setEditItem();
+      return true;
     } catch (error) {
       console.log(error);
       message.error('Something went wrong');
+      return false;
     }
   };
 
