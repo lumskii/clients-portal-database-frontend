@@ -6,12 +6,8 @@ import Header from './Header';
 const Content = styled.div`
   min-height: 100vh;
   margin-left: ${({ isOpen }) => (isOpen ? 280 : 90)}px;
-  background-color: #f5f5f5;
+  background-color: #f0f2f5;
   transition: margin-left 0.4s;
-
-  > main {
-    padding: 32px;
-  }
 `;
 
 const MainLayout = ({ children }) => {
@@ -22,7 +18,7 @@ const MainLayout = ({ children }) => {
       <SideBar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       <Content isOpen={sidebarOpen}>
         <Header />
-        <main>{children}</main>
+        {children}
       </Content>
     </>
   );

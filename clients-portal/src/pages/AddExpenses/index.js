@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button, message, Select } from 'antd';
+import { Button, Card, message, Select } from 'antd';
 import styled from 'styled-components';
 import axios from 'axios';
 
 import { server } from '../../constance';
 import useClients from '../../hooks/use-clients';
-import Header from '../../components/Heading';
+import Page from '../../components/MainLayout/page';
 import Table from './Table';
 import Editor from './Editor';
 
@@ -71,45 +71,47 @@ const AddExpenses = () => {
     });
 
   return (
-    <>
-      <Header title="Expenses" subtitle="View/Add Expenses" />
+    <Page title="Expenses" subtitle="View/Add Expenses">
+      <Card>
+        <ToolBar>
+          <Select
+            fieldNames={{ value: '_id', label: 'filmName' }}
+            options={clients}
+            loading={!clients}
+            value={selectedClientId}
+            onChange={setSelectedClientId}
+            placeholder="Select film"
+            showSearch
+            filterOption={(input, option) =>
+              (option?.filmName ?? '')
+                .toLowerCase()
+                .includes(input.toLowerCase())
+            }
+          />
 
-      <ToolBar>
-        <Select
-          fieldNames={{ value: '_id', label: 'filmName' }}
-          options={clients}
-          loading={!clients}
-          value={selectedClientId}
-          onChange={setSelectedClientId}
-          placeholder="Select film"
-          showSearch
-          filterOption={(input, option) =>
-            (option?.filmName ?? '').toLowerCase().includes(input.toLowerCase())
-          }
+          <Button
+            type="primary"
+            disabled={!selectedClientId}
+            onClick={() => setEditItem({})}
+          >
+            Add
+          </Button>
+        </ToolBar>
+
+        <Table
+          loading={loading}
+          data={data}
+          onEdit={setEditItem}
+          onDelete={handleDelete}
         />
-
-        <Button
-          type="primary"
-          disabled={!selectedClientId}
-          onClick={() => setEditItem({})}
-        >
-          Add
-        </Button>
-      </ToolBar>
-
-      <Table
-        loading={loading}
-        data={data}
-        onEdit={setEditItem}
-        onDelete={handleDelete}
-      />
+      </Card>
 
       <Editor
         item={editItem}
         onSave={handleSave}
         onClose={() => setEditItem()}
       />
-    </>
+    </Page>
   );
 };
 

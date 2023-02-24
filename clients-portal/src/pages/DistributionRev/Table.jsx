@@ -3,12 +3,6 @@ import styled from 'styled-components';
 
 import { sortString, sortNumber, formatNumber } from '../../utils';
 
-const StyledTable = styled(AntTable)`
-  th.ant-table-cell {
-    background: #ff9900 !important;
-  }
-`;
-
 const Button = styled.a``;
 
 const Table = ({ loading, data, onEdit, onDelete }) => {
@@ -75,7 +69,7 @@ const Table = ({ loading, data, onEdit, onDelete }) => {
   ];
 
   return (
-    <StyledTable
+    <AntTable
       loading={loading}
       dataSource={data}
       columns={columns}

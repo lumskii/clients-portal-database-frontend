@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Select } from 'antd';
+import { Button, Card, Select } from 'antd';
 import styled from 'styled-components';
-import Header from '../../components/Heading';
+
+import Page from '../../components/MainLayout/page';
 import { reportsInfo, reportsMenuOptions } from './data';
 
 const ToolBar = styled.div`
@@ -35,30 +36,30 @@ const GenerateReports = () => {
   const Table = tableInfo?.component;
 
   return (
-    <>
-      <Header
-        title="Generate Reports"
-        subtitle="Generate reports based on specified criterias"
-      />
+    <Page
+      title="Generate Reports"
+      subtitle="Generate reports based on specified criterias"
+    >
+      <Card>
+        <ToolBar>
+          <Select
+            options={reportsMenuOptions}
+            value={type}
+            onChange={changeType}
+            virtual={false}
+            style={{ width: 240 }}
+            placeholder="Select report"
+          />
+          {Selector && <Selector value={value} setValue={setValue} />}
 
-      <ToolBar>
-        <Select
-          options={reportsMenuOptions}
-          value={type}
-          onChange={changeType}
-          virtual={false}
-          style={{ width: 240 }}
-          placeholder="Select report"
-        />
-        {Selector && <Selector value={value} setValue={setValue} />}
+          <Button type="primary" disabled={!value} onClick={getReport}>
+            Get Reports
+          </Button>
+        </ToolBar>
 
-        <Button type="primary" disabled={!value} onClick={getReport}>
-          Get Reports
-        </Button>
-      </ToolBar>
-
-      {Table && <Table value={tableInfo.value} />}
-    </>
+        {Table && <Table value={tableInfo.value} />}
+      </Card>
+    </Page>
   );
 };
 

@@ -1,23 +1,27 @@
-import { Typography, Box, useTheme } from '@mui/material';
-import { tokens } from '../theme';
+import { Typography } from 'antd';
+import styled from 'styled-components';
+
+const { Text, Title } = Typography;
+
+const Wrapper = styled.div`
+  padding: 12px 24px;
+  background: #fff;
+
+  h3 {
+    margin-bottom: 4px;
+  }
+
+  span {
+    color: #ff9900;
+  }
+`;
 
 const Heading = ({ title, subtitle }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   return (
-    <Box mb="30px">
-      <Typography
-        variant="h4"
-        color={colors.grey[100]}
-        fontWeight="800"
-        sx={{ m: '0 0 -2px 0' }}
-      >
-        {title}
-      </Typography>
-      <Typography variant="h6" color={colors.greenAccent[400]}>
-        {subtitle}
-      </Typography>
-    </Box>
+    <Wrapper>
+      <Title level={3}>{title}</Title>
+      <Text>{subtitle}</Text>
+    </Wrapper>
   );
 };
 
