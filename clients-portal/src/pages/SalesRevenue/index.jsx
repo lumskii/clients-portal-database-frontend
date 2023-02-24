@@ -28,7 +28,7 @@ const SalesRevenue = () => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [editSale, setEdit] = useState();
+  const [editItem, setEditItem] = useState();
 
   useEffect(() => {
     if (!selectedClientId) return;
@@ -57,6 +57,31 @@ const SalesRevenue = () => {
         });
     });
 
+  const handleSave = async (values) => {
+    try {
+      if (editItem._id) {
+        const res = await axios.put(
+          `${server}/v1/clients/${selectedClientId}/sales/${editItem._id}`,
+          values
+        );
+        setData(res.data.client.sales);
+        message.success('Sales revenue updated successfully');
+      } else {
+        const res = await axios.post(
+          `${server}/v1/clients/${selectedClientId}/sales`,
+          values
+        );
+        setData(res.data.client.sales);
+        message.success('Sales revenue added successfully');
+      }
+      return true;
+    } catch (error) {
+      console.log(error);
+      message.error('Something went wrong');
+      return false;
+    }
+  };
+
   return (
     <>
       <Header title="Sales Revenue" subtitle="Add/Edit Sales Revenue" />
@@ -78,7 +103,7 @@ const SalesRevenue = () => {
         <Button
           type="primary"
           disabled={!selectedClientId}
-          onClick={() => setEdit({})}
+          onClick={() => setEditItem({})}
         >
           Add
         </Button>
@@ -87,15 +112,14 @@ const SalesRevenue = () => {
       <Table
         loading={loading}
         data={data}
-        onEdit={setEdit}
+        onEdit={setEditItem}
         onDelete={handleDelete}
       />
 
       <Editor
-        clientId={selectedClientId}
-        sale={editSale}
-        onUpdate={setData}
-        onClose={() => setEdit()}
+        item={editItem}
+        onSave={handleSave}
+        onClose={() => setEditItem()}
       />
     </>
   );

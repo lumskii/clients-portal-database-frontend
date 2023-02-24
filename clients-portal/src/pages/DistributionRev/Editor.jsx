@@ -39,7 +39,7 @@ const Editor = ({ item, onSave, onClose }) => {
 
   return (
     <Drawer
-      title={isNew ? 'Add Exppenses' : 'Edit Exppenses'}
+      title={isNew ? 'Add Distribution' : 'Edit Distribution'}
       width={500}
       onClose={onClose}
       open={!!item}

@@ -1,13 +1,7 @@
 import { Popconfirm, Space, Table as AntTable } from 'antd';
 import styled from 'styled-components';
 
-import {
-  sortString,
-  sortNumber,
-  sortDate,
-  formatNumber,
-  formatDate,
-} from '../../utils';
+import { sortString, sortNumber, formatNumber } from '../../utils';
 
 const StyledTable = styled(AntTable)`
   th.ant-table-cell {
